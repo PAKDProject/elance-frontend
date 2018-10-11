@@ -1,0 +1,11 @@
+.navContainer {
+    display: grid;
+    grid-template-columns: auto 1fr;
+
+    .navToolbar {
+        height: 100vh;
+        ul {
+            list-style: none;
+        }
+    }
+}

@@ -1,0 +1,31 @@
+<div class="navContainer" [class.example-is-mobile]='mobileQuery.matches'>
+  <mat-sidenav-container class="navContainer" >
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'">
+
+      <mat-nav-list>
+        <a mat-list-item routerLink="user-dashboard">Home</a>
+        <a mat-list-item routerLink="browse-jobs">Browse Jobs</a>
+        <a mat-list-item routerLink="mesasages">Messages</a>
+        <a mat-list-item routerLink="organization-dashboard">Organizations</a>
+        <a mat-list-item routerLink="user-profile">User Profile</a>
+      </mat-nav-list>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+
+      <mat-toolbar color="primary" class="navToolbar">
+        <ul>
+          <li><mat-icon (click)="snav.toggle()">menu</mat-icon></li>
+          <li><mat-icon routerLink='user-dashboard'>home</mat-icon></li>
+          <li><mat-icon routerLink='browse-jobs'>find_in_page</mat-icon></li>
+          <li><mat-icon routerLink='messages'>message</mat-icon></li>
+          <li><mat-icon routerLink='user-profile'>group</mat-icon></li>
+        </ul>
+      </mat-toolbar>
+
+      <router-outlet></router-outlet>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
