@@ -2,18 +2,18 @@
   <mat-sidenav-container class="navContainer">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'">
 
-      <mat-nav-list class="navSidebar">
+      <div class="navSidebar">
         <ul>
           <li class="imageContainer">
             <!--<img src="assets/images/fullLogo.png" alt="elance-logo-full"/>-->
           </li>
           <li><a mat-list-item routerLink="user-dashboard">Home</a></li>
           <li><a mat-list-item routerLink="browse-jobs">Browse Jobs</a></li>
-          <li><a mat-list-item routerLink="mesasages">Messages</a></li>
+          <li><a mat-list-item routerLink="messages">Messages</a></li>
           <li><a mat-list-item routerLink="organization-dashboard">Organizations</a></li>
           <li><a mat-list-item routerLink="user-profile">User Profile</a></li>
         </ul>
-      </mat-nav-list>
+      </div>
     </mat-sidenav>
 
     <mat-sidenav-content class="sidenavContent">
@@ -24,7 +24,7 @@
           <li><mat-icon routerLink='browse-jobs'>find_in_page</mat-icon></li>
           <li><mat-icon routerLink='messages'>message</mat-icon></li>
           <li><mat-icon routerLink='organization-dashboard'>group</mat-icon></li>
-          <li><mat-icon routerLink='profile-menu'>face</mat-icon></li>
+          <li><mat-icon routerLink='user-profile'>face</mat-icon></li>
         </ul>
       </mat-toolbar>
 

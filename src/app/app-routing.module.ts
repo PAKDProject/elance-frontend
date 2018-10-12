@@ -7,6 +7,7 @@ import { OrganizationDashboardComponent } from './organization-dashboard/organiz
 import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'user-dashboard', pathMatch: 'full' },
   { path: "user-dashboard", component: UserDashboardComponent },
   { path: "browse-jobs", component: BrowseJobsComponent },
   { path: 'messages', component: MessagesComponent },
