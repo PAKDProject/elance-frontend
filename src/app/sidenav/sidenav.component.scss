@@ -22,9 +22,8 @@
                 
             .imageContainer{
                 img {
-                    margin: 0; padding: 0;
-                    max-width: 150px;
-                    max-height: 100px;
+                    min-width: 100%;
+                    max-width: 250px;
                 }
             }
 
@@ -36,7 +35,6 @@
                     text-decoration: none;
                     font-size: 30px;
                     text-align: right;
-
                 }
             }
         }
