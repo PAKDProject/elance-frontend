@@ -19,13 +19,6 @@
             grid-template-rows: repeat(6,1fr);
             list-style: none;
             background: #CBCBCB;
-                
-            .imageContainer{
-                img {
-                    min-width: 100%;
-                    max-width: 250px;
-                }
-            }
 
             li {   
                 margin: 0; padding: 0;
@@ -35,6 +28,13 @@
                     text-decoration: none;
                     font-size: 30px;
                     text-align: right;
+                }
+
+                .imageContainer{
+                    img {
+                        min-width: 100%;
+                        max-width: 200px;
+                    }
                 }
             }
         }
