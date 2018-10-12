@@ -16,6 +16,7 @@ import { PostJobComponent } from './post-job/post-job.component';
 import { MessagesComponent } from './messages/messages.component';
 import { OrganizationDashboardComponent } from './organization-dashboard/organization-dashboard.component';
 import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
     PostJobComponent,
     MessagesComponent,
     OrganizationDashboardComponent,
-    ProfileMenuComponent
+    ProfileMenuComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
