@@ -8,8 +8,8 @@ import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'user-dashboard', pathMatch: 'full' },
-  { path: "user-dashboard", component: UserDashboardComponent },
-  { path: "browse-jobs", component: BrowseJobsComponent },
+  { path: 'user-dashboard', component: UserDashboardComponent },
+  { path: 'browse-jobs', component: BrowseJobsComponent },
   { path: 'messages', component: MessagesComponent },
   { path: 'organization-dashboard', component: OrganizationDashboardComponent },
   { path: 'user-profile', component: ProfileMenuComponent }
