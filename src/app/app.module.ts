@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-//Angular material imports
+// Angular material imports
 import { AngularMaterialModule } from './angular-material.module';
 
-//MaterialDesignIcons imports
+// MaterialDesignIcons imports
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
