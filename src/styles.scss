@@ -1,6 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+@font-face {
+    font-family: raleway;
+    src: url(assets/fonts/Raleway/Raleway-Thin.ttf) format('opentype');
+}
+@font-face {
+    font-family: montserrat;
+    src: url(assets/fonts/Montserrat/Montserrat-Regular.ttf) format('opentype');
+}
+
 body{
     margin: 0;
     padding: 0;
