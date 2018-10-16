@@ -3,15 +3,16 @@
   height: 100%;
 
   display: grid;
-  grid-template-rows: auto;
+  grid-template-rows: 300px auto;
 
   .profileHeader {
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: 1fr;
-    height: 300px;
     width: 100%;
+
     .bg-ImgContainer {
+      border: 2px blue solid;
       grid-row: 1;
       grid-column: 1;
 
@@ -34,7 +35,7 @@
       align-self: center;
       overflow: hidden;
 
-      .aspectRationContianer{
+      .aspectRatioContianer{
         height: 0;
         overflow: hidden;
         padding-top: 100%;
@@ -52,6 +53,6 @@
   }
 
   .profileBody {
-
+    border: 2px red solid;
   }
 }
