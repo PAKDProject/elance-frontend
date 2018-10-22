@@ -15,6 +15,6 @@ export class CognitoWebTokenAuthService {
   }
 
   getUserDetails(email: string) {
-    return this._http.get(this.url + email);
+    return this._http.get(this.url + 'users/' + email);
   }
 }

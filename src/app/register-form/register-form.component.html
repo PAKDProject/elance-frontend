@@ -1,0 +1,10 @@
+<form #f='ngForm' (ngSubmit)="saveUser(f)">
+  <label for="fName"></label>
+  <input ngModel name="fName" placeholder="First Name" id="fName" required>
+
+  <label for="lName"></label>
+  <input ngModel name="lName" placeholder="Last Name" id="lName" required>
+
+
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>

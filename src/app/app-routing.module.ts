@@ -9,17 +9,21 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { FeatureTogglingService } from './feature-toggling.service';
 import { LoginCallbackComponent } from './login-callback/login-callback.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { RegisterFormComponent } from './register-form/register-form.component';
+import { RegisteredGuard } from './registered.guard';
 
 const routes: Routes = [
   { path: 'callback/auth/:jwt', component: LoginCallbackComponent},
-  { path: '', component: SidenavComponent, children: [
+  { path: 'user/create', component: RegisterFormComponent },
+  { path: '', component: SidenavComponent, canActivate: [RegisteredGuard], children: [
     { path: 'user-dashboard', canActivate: [FeatureTogglingService], component: UserDashboardComponent },
     { path: 'browse-jobs',canActivate: [FeatureTogglingService], component: BrowseJobsComponent },
     { path: 'messages', canActivate: [FeatureTogglingService], component: MessagesComponent },
     { path: 'organization-dashboard', canActivate: [FeatureTogglingService], component: OrganizationDashboardComponent },
     { path: 'user-profile', canActivate: [FeatureTogglingService], component: ProfileMenuComponent },
     { path: '**', component: PageNotFoundComponent }
-  ]}
+  ]},
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

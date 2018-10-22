@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CognitoWebTokenAuthService } from '../cognito-web-token-auth.service';
 import { NgxSpinnerService } from 'ngx-spinner'
+import { TempUserStorageService } from '../temp-user-storage.service';
 
 @Component({
   selector: 'app-login-callback',
@@ -13,7 +14,7 @@ export class LoginCallbackComponent implements OnInit {
   messages: string[]
   randomMessage: string;
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute, private cognitoService: CognitoWebTokenAuthService, private spinner: NgxSpinnerService) { 
+  constructor(private router: Router, private activeRoute: ActivatedRoute, private cognitoService: CognitoWebTokenAuthService, private spinner: NgxSpinnerService, private userService: TempUserStorageService) {
     this.messages = [
       '418: Tea not found',
       'Q: If you have one 404 error then you add another 404 error, what do you have? A: A bad backend team!',
@@ -27,12 +28,22 @@ export class LoginCallbackComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.spinner.show();
-    this.showMessage();
+    this.spinner.show()
+    this.showMessage()
     this.getWebTokenFromUrl()
-    this.getUserDataFromToken(this.jwt).then(email => {
-      this.getUserData(email).then(() => {
-        setTimeout(() => this.router.navigate(['user-dashboard']), 7000)
+    this.getUserDataFromToken(this.jwt).then(data => {
+      this.setLocalStorage("id_token", this.jwt)
+      let email = data as string
+      this.setLocalStorage("email", email)
+      this.getUserData(email).then(data => {
+        if (data !== undefined) {
+          this.removeFromStorage("email")
+          this.userService.setUser(data)
+          this.router.navigate(['user-dashboard'])
+        }
+        else {
+          this.router.navigate(['user/create'])
+        }
       })
     })
   }
@@ -41,20 +52,34 @@ export class LoginCallbackComponent implements OnInit {
     this.activeRoute.params.subscribe(params => {
       this.jwt = params['jwt'].toString()
     })
-    console.log(this.jwt)
   }
 
-  async getUserDataFromToken(jwt: string) { 
-    let email
-    await this.cognitoService.getCognitoDetails(jwt).subscribe(res => {
-      let response = res as IEmail
-      email = response.email
+  getUserDataFromToken(jwt: string) {
+    return new Promise((resolve, reject) => {
+      this.cognitoService.getCognitoDetails(jwt).subscribe(res => {
+        let response = res as IIdToken
+        console.log(response)
+        resolve(response.email)
+      })
     })
-    return email
   }
 
-  async getUserData(email: string) {
-    await this.cognitoService.getUserDetails(email).subscribe()
+  getUserData(email: string) {
+    return new Promise(resolve => {
+      this.cognitoService.getUserDetails(email).subscribe(data => {
+        resolve(data)
+      }, err => {
+        resolve(undefined)
+      })
+    })
+  }
+
+  setLocalStorage(tokenName: string, token: string) {
+    localStorage.setItem(tokenName, token)
+  }
+
+  removeFromStorage(key: string) {
+    localStorage.removeItem(key)
   }
 
   showMessage() {
@@ -63,8 +88,7 @@ export class LoginCallbackComponent implements OnInit {
     setInterval(element => {
       let number = i
 
-      while(number === i)
-      {
+      while (number === i) {
         number = this.randomInt(0, this.messages.length)
       }
 
@@ -78,6 +102,6 @@ export class LoginCallbackComponent implements OnInit {
   }
 }
 
-export interface IEmail {
+export interface IIdToken {
   email: string
 }

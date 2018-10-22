@@ -21,6 +21,10 @@ import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginCallbackComponent } from './login-callback/login-callback.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RegisterFormComponent } from './register-form/register-form.component';
+import { TempUserStorageService } from './temp-user-storage.service';
+import { RegisteredGuard } from './registered.guard';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,16 +38,18 @@ import { HttpClientModule } from '@angular/common/http';
     OrganizationDashboardComponent,
     ProfileMenuComponent,
     PageNotFoundComponent,
-    LoginCallbackComponent
+    LoginCallbackComponent,
+    RegisterFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularMaterialModule,
     NgxSpinnerModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [TempUserStorageService, RegisteredGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
