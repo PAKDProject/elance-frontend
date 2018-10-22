@@ -17,6 +17,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { OrganizationDashboardComponent } from './organization-dashboard/organization-dashboard.component';
 import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoginCallbackComponent } from './login-callback/login-callback.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     MessagesComponent,
     OrganizationDashboardComponent,
     ProfileMenuComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LoginCallbackComponent
   ],
   imports: [
     BrowserModule,
