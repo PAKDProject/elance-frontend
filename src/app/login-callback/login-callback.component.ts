@@ -31,8 +31,9 @@ export class LoginCallbackComponent implements OnInit {
     this.showMessage();
     this.getWebTokenFromUrl()
     this.getUserDataFromToken(this.jwt).then(email => {
-      this.getUserData(email)
-      setTimeout(() => this.router.navigate(['user-dashboard']), 7000)
+      this.getUserData(email).then(() => {
+        setTimeout(() => this.router.navigate(['user-dashboard']), 7000)
+      })
     })
   }
 
@@ -52,8 +53,8 @@ export class LoginCallbackComponent implements OnInit {
     return email
   }
 
-  getUserData(email: string) {
-    this.cognitoService.getUserDetails(email)
+  async getUserData(email: string) {
+    await this.cognitoService.getUserDetails(email).subscribe()
   }
 
   showMessage() {
