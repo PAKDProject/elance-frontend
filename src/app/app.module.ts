@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 // Angular material imports
 import { AngularMaterialModule } from './angular-material.module';
 
@@ -36,7 +38,8 @@ import { LoginCallbackComponent } from './login-callback/login-callback.componen
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
