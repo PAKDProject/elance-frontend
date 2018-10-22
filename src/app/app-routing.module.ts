@@ -11,7 +11,7 @@ import { LoginCallbackComponent } from './login-callback/login-callback.componen
 import { SidenavComponent } from './sidenav/sidenav.component';
 
 const routes: Routes = [
-  { path: 'hax/:jwt', component: LoginCallbackComponent},
+  { path: 'callback/auth/:jwt', component: LoginCallbackComponent},
   { path: '', component: SidenavComponent, children: [
     { path: 'user-dashboard', canActivate: [FeatureTogglingService], component: UserDashboardComponent },
     { path: 'browse-jobs',canActivate: [FeatureTogglingService], component: BrowseJobsComponent },
@@ -19,7 +19,7 @@ const routes: Routes = [
     { path: 'organization-dashboard', canActivate: [FeatureTogglingService], component: OrganizationDashboardComponent },
     { path: 'user-profile', canActivate: [FeatureTogglingService], component: ProfileMenuComponent },
     { path: '**', component: PageNotFoundComponent }
-  ] }
+  ]}
 ];
 
 @NgModule({

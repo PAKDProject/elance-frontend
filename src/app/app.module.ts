@@ -20,6 +20,7 @@ import { OrganizationDashboardComponent } from './organization-dashboard/organiz
 import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginCallbackComponent } from './login-callback/login-callback.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { LoginCallbackComponent } from './login-callback/login-callback.componen
     BrowserModule,
     AppRoutingModule,
     AngularMaterialModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
