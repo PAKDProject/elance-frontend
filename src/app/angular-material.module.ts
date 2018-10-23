@@ -10,8 +10,12 @@ import {
   MatStepperModule,
   MatFormFieldModule,
   MatInputModule,
-  MatCardModule
+  MatCardModule,
+  MatButtonModule,
+  MatRippleModule,
+  MatTooltipModule
 } from '@angular/material';
+
 
 @NgModule({
   imports: [
@@ -23,7 +27,11 @@ import {
     MatStepperModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatButtonModule,
+    MatInputModule,
+    MatRippleModule,
+    MatTooltipModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -34,7 +42,11 @@ import {
     MatStepperModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatButtonModule,
+    MatInputModule,
+    MatRippleModule,
+    MatTooltipModule
   ]
 })
 export class AngularMaterialModule { }

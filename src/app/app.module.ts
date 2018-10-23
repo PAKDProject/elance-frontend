@@ -1,14 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+// Angular material imports Module
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 // Angular material imports
 import { AngularMaterialModule } from './angular-material.module';
 
-// MaterialDesignIcons imports
-
+// Routing Module
 import { AppRoutingModule } from './app-routing.module';
+
+// Page Components
 import { AppComponent } from './app.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
@@ -26,6 +28,13 @@ import { TempUserStorageService } from './temp-user-storage.service';
 import { RegisteredGuard } from './registered.guard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+//Template Shit
+import { FooterComponent } from './components/footer/footer.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ViewComponent } from './view/view.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,10 +47,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     OrganizationDashboardComponent,
     ProfileMenuComponent,
     PageNotFoundComponent,
+    FooterComponent,
+    NavbarComponent,
+    SidebarComponent,
     LoginCallbackComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
+    ViewComponent
   ],
   imports: [
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     AngularMaterialModule,
