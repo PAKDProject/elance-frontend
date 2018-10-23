@@ -24,7 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { TempUserStorageService } from './temp-user-storage.service';
 import { RegisteredGuard } from './registered.guard';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -47,7 +47,8 @@ import { FormsModule } from '@angular/forms';
     AngularMaterialModule,
     NgxSpinnerModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [TempUserStorageService, RegisteredGuard],
   bootstrap: [AppComponent]

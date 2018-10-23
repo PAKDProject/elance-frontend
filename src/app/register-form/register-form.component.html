@@ -1,10 +1,32 @@
-<form #f='ngForm' (ngSubmit)="saveUser(f)">
-  <label for="fName"></label>
-  <input ngModel name="fName" placeholder="First Name" id="fName" required>
+<mat-card class="container">
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template id="label" matStepLabel>Fill out your name</ng-template>
+        <button class="btn float-right" id="next">Next</button>
 
-  <label for="lName"></label>
-  <input ngModel name="lName" placeholder="Last Name" id="lName" required>
-
-
-  <button type="submit" class="btn btn-primary">Save</button>
-</form>
+        <button class="btn btn-secondary float-right">Previous</button>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Fill out your address</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Address" formControlName="secondCtrl" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      You are now done.
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</mat-card>

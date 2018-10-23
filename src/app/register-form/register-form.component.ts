@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { IUser } from '../models/user-model';
 import { TempUserStorageService } from '../temp-user-storage.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-register-form',
@@ -9,20 +12,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./register-form.component.scss']
 })
 export class RegisterFormComponent implements OnInit {
-  constructor(private _userService: TempUserStorageService, private _router: Router) {
-   }
+  isLinear = true;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+
+  constructor(private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
-  }
+    this.firstFormGroup = this._formBuilder.group({
 
-  saveUser({value}) {
-    let user = {
-      fName: value.fName,
-      lName: value.lName,
-      email: localStorage.getItem("email")
-    }
-    this._userService.setUser(user);
-    localStorage.removeItem("email")
-    this._router.navigate(['user-dashboard'])
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
   }
 }
