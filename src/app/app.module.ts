@@ -34,6 +34,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ViewComponent } from './view/view.component';
+import { EducationCardComponent } from './cards/education-card/education-card.component';
+import { SkillCardComponent } from './cards/skill-card/skill-card.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { ViewComponent } from './view/view.component';
     SidebarComponent,
     LoginCallbackComponent,
     RegisterFormComponent,
-    ViewComponent
+    ViewComponent,
+    EducationCardComponent,
+    SkillCardComponent
   ],
   imports: [
     BrowserAnimationsModule,
