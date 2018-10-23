@@ -2,6 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 // Angular material imports Module
+import { NgxSpinnerModule } from 'ngx-spinner';
+
+// Angular material imports
 import { AngularMaterialModule } from './angular-material.module';
 
 // Routing Module
@@ -18,6 +21,12 @@ import { MessagesComponent } from './messages/messages.component';
 import { OrganizationDashboardComponent } from './organization-dashboard/organization-dashboard.component';
 import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoginCallbackComponent } from './login-callback/login-callback.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RegisterFormComponent } from './register-form/register-form.component';
+import { TempUserStorageService } from './temp-user-storage.service';
+import { RegisteredGuard } from './registered.guard';
+import { FormsModule } from '@angular/forms';
 
 //Template Shit
 import { FooterComponent } from './components/footer/footer.component';
@@ -42,6 +51,8 @@ import { HttpClientModule } from '@angular/common/http';
     FooterComponent,
     NavbarComponent,
     SidebarComponent
+    LoginCallbackComponent,
+    RegisterFormComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -49,9 +60,12 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    NgxSpinnerModule,
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [TempUserStorageService, RegisteredGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
