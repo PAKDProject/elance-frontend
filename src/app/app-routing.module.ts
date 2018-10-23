@@ -11,14 +11,15 @@ import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { FeatureTogglingService } from './feature-toggling.service';
 import { LoginCallbackComponent } from './login-callback/login-callback.component';
-import { SidenavComponent } from './sidenav/sidenav.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { RegisteredGuard } from './registered.guard';
+
+import { ViewComponent } from './view/view.component';
 
 const routes: Routes = [
   { path: 'callback/auth/:jwt', component: LoginCallbackComponent},
   { path: 'user/create', component: RegisterFormComponent },
-  { path: '', component: SidenavComponent, canActivate: [RegisteredGuard], children: [
+  { path: '', component: ViewComponent, canActivate: [RegisteredGuard], children: [
     { path: 'user-dashboard', canActivate: [FeatureTogglingService], component: UserDashboardComponent },
     { path: 'browse-jobs',canActivate: [FeatureTogglingService], component: BrowseJobsComponent },
     { path: 'messages', canActivate: [FeatureTogglingService], component: MessagesComponent },

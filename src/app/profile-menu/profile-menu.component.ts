@@ -13,6 +13,7 @@ export class ProfileMenuComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.userService.getUser()
+    
   }
 
 }

@@ -33,8 +33,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { ViewComponent } from './view/view.component';
 
 @NgModule({
   declarations: [
@@ -50,9 +49,10 @@ import { HttpClientModule } from '@angular/common/http';
     PageNotFoundComponent,
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
     LoginCallbackComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
+    ViewComponent
   ],
   imports: [
     BrowserAnimationsModule,
