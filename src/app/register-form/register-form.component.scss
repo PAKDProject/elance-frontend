@@ -1,0 +1,15 @@
+.container {
+  margin: auto;
+  width: 70%;
+  margin-top: 50px;
+}
+
+/deep/ .mat-horizontal-stepper-header .mat-step-icon {
+  background-color: #12896e !important;
+}
+
+#next {
+  margin-left: 10px;
+  background-color: #12896e;
+  color: white;
+}

@@ -26,7 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { TempUserStorageService } from './temp-user-storage.service';
 import { RegisteredGuard } from './registered.guard';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //Template Shit
 import { FooterComponent } from './components/footer/footer.component';
@@ -67,7 +67,8 @@ import { SkillCardComponent } from './cards/skill-card/skill-card.component';
     AngularMaterialModule,
     NgxSpinnerModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [TempUserStorageService, RegisteredGuard],
   bootstrap: [AppComponent]

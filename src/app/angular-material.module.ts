@@ -1,16 +1,21 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatSidenavModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatListModule,
-        MatButtonModule,
-        MatInputModule,
-        MatRippleModule,
-        MatTooltipModule
-         } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  MatSidenavModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatListModule,
+  MatStepperModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatCardModule,
+  MatButtonModule,
+  MatRippleModule,
+  MatTooltipModule
+} from '@angular/material';
+
 
 @NgModule({
   imports: [
@@ -19,6 +24,10 @@ import {MatSidenavModule,
     MatToolbarModule,
     MatIconModule,
     MatListModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
     MatButtonModule,
     MatInputModule,
     MatRippleModule,
@@ -30,6 +39,10 @@ import {MatSidenavModule,
     MatToolbarModule,
     MatIconModule,
     MatListModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
     MatButtonModule,
     MatInputModule,
     MatRippleModule,
