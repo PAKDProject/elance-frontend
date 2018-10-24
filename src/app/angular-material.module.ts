@@ -8,11 +8,8 @@ import {
   MatIconModule,
   MatListModule,
   MatStepperModule,
-  MatFormFieldModule,
-  MatInputModule,
   MatCardModule,
   MatButtonModule,
-  MatRippleModule,
   MatTooltipModule
 } from '@angular/material';
 
@@ -25,12 +22,8 @@ import {
     MatIconModule,
     MatListModule,
     MatStepperModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatCardModule,
     MatButtonModule,
-    MatInputModule,
-    MatRippleModule,
     MatTooltipModule
   ],
   exports: [
@@ -40,12 +33,8 @@ import {
     MatIconModule,
     MatListModule,
     MatStepperModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatCardModule,
     MatButtonModule,
-    MatInputModule,
-    MatRippleModule,
     MatTooltipModule
   ]
 })

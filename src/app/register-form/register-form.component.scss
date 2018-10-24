@@ -1,15 +1,79 @@
-.container {
-  margin: auto;
-  width: 70%;
-  margin-top: 50px;
-}
+#background {
+  background: url("../../assets/images/bg.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 
-/deep/ .mat-horizontal-stepper-header .mat-step-icon {
-  background-color: #12896e !important;
-}
+  .container {
+    margin: auto;
+    width: 70%;
+  }
 
-#next {
-  margin-left: 10px;
-  background-color: #12896e;
-  color: white;
+  /deep/ .mat-vertical-stepper-header .mat-step-icon {
+    background-color: #12896e !important;
+  }
+
+  button {
+    width: 100%;
+    border: none;
+  }
+
+  .back {
+    background-color: white;
+    color: #12896e;
+  }
+
+  .back:hover {
+    background-color: #eee;
+  }
+
+  .next {
+    background-color: #12896e;
+    color: white;
+  }
+
+  .next:hover {
+    color: #12896e;
+    background-color: #eee;
+  }
+
+  #fileBtn {
+    margin-bottom: 10px;
+    margin-left: 0;
+    margin-top: 0px;
+    border: none;
+  }
+
+
+  input[type='file'] {
+    height: 0;
+    overflow: hidden;
+    width: 0;
+  }
+
+  #skills {
+    margin: 10px !important;
+
+    span:hover {
+      cursor: pointer;
+    }
+  }
+
+  .skillItem {
+    border: 1px solid #12896e;
+    padding: 8px;
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 20px;
+    padding: 10px;
+  }
+
+  @media only screen and (max-width: 500px) {
+    .container {
+      width: 100%;
+      margin: 0;
+
+    }
+  }
 }

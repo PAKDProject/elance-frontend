@@ -3,6 +3,7 @@ import { IUser } from '../models/user-model';
 import { TempUserStorageService } from '../temp-user-storage.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import * as AWS from 'aws-sdk';
 
 
 
@@ -13,17 +14,27 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 })
 export class RegisterFormComponent implements OnInit {
   isLinear = true;
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+  skills: string[] = []
 
-  constructor(private _formBuilder: FormBuilder) { }
+  image: any;
+  fileToUpload: File;
+  constructor() { }
 
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
+  }
 
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
+
+  addItem(title: string) {
+    this.skills.push(title);
+  }
+  removeItem(skill: string) {
+    let index = this.skills.indexOf(skill);
+    if (index === -1) {
+      console.log("error");
+
+    }
+    else {
+      this.skills.splice(index, 1);
+    }
   }
 }

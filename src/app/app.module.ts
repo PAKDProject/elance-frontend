@@ -35,6 +35,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ViewComponent } from './view/view.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +65,8 @@ import { ViewComponent } from './view/view.component';
     NgxSpinnerModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
   ],
   providers: [TempUserStorageService, RegisteredGuard],
   bootstrap: [AppComponent]
