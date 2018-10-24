@@ -70,6 +70,18 @@
     }
   }
 
+  .emailContainer{
+    margin: 0; padding: 0;
+    justify-self: center;
+    h4{
+      font-family: 'Segoe UI';
+      font-weight: 200;
+      text-align: center;
+      font-size: 22px;
+      font-style: italic;
+    }
+  }
+
   .socialConnectionContainer {  
     margin: 0; padding:0;
     justify-self: center;
@@ -79,15 +91,38 @@
     display: grid;
     grid-template-columns: repeat(4,auto);
 
-    img {
-      width: 100%; height: 100%;
-      margin: 5px;
-      max-width: 50px;
+    a{
+      display: block;
+      img {
+        width: 100%; height: 100%;
+        margin: 5px;
+        max-width: 50px;
+        max-height: 50px;
+      }
     }
   }
   
 }
 
 .profileBody {
+  padding-top: 20px;
+  display: grid;
+  grid-template-rows: auto;
+
+  .bodyContentContainer{
+    border-bottom: 2px gray solid;
+    padding-bottom: 10px;
+
+    display: grid;
+    grid-template-columns: 200px auto;
+
+    h1 {
+      justify-self: center;
+      font-size: 40px;
+      padding-right: 20px;
+    }
+
+    #educationContainer {
+    }
+  }
 }
-// }

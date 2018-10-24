@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="profileHeader">
             <div class="bg-ImgContainer">
-                <img src="../../assets/images/profile-background-2.png"/>
+                <img src="../../assets/images/profile-background.png"/>
             </div>
 
             <div class="profilePictureContainer">
@@ -14,20 +14,47 @@
             </div>
 
             <div class="jobTitleContainer">
-                <h2>Software Developer</h2>
-                <h2>{{user.email}}</h2>
+                <h2>{{user.tagline}}</h2>
+            </div>
+
+            <div class="emailContainer">
+                <h4>{{user.email}}</h4>
+            </div>
+
+            <div class="socailConnectionContainer">
+                
             </div>
 
             <div class="socialConnectionContainer">
-                <img src='../../assets/icons/github.png'/>
-                <img src='../../assets/icons/facebook.png'/>
-                <img src='../../assets/icons/twitter.png'/>
-                <img src='../../assets/icons/linkedin.png'/>
+                <a *ngFor='let connection of user.socialLinks' href="https://{{connection.linkUrl}}" target="_blank">
+                    <img src="../../assets//icons/{{connection.socialPlatformName}}.png" alt="{{connection.SocialPlatformName}}"/>
+                </a>
             </div>
         </div>
 
         <div class="profileBody">
-                Profile Body
+
+            <div class="bodyContentContainer">
+                <h1>About Me</h1>
+                <p>
+                    {{user.summary}}
+                </p>
+            </div>
+            
+            <div class="bodyContentContainer">
+                <h1>Education</h1>
+                <div id="educationContainer">
+                    <education-card *ngFor='let education of user.educationItems' [EducationItem]="education"></education-card>
+                </div>
+            </div>
+            
+            <div class="bodyContentContainer">
+                <h1>Skills</h1>
+                <div>
+                    <skill-card></skill-card>
+                </div>
+            </div>
+            
         </div>
     </div>
 </div>

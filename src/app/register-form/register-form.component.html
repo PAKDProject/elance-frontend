@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div id="background">
   <mat-card class="container">
     <mat-vertical-stepper [linear]="isLinear" id="stepper" #stepper>
@@ -129,6 +130,22 @@
             </div>
           </div>
         </div>
+=======
+<mat-card class="container">
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template id="label" matStepLabel>Fill out your name</ng-template>
+        <div class="form-group">
+        <label for="fName">First Name</label>
+        <input class="form-control" placeholder="First Name" name="firstName" id="fName" #fName>
+        </div>
+        <div class="form-group">
+        <label for="lName">Last Name</label>
+        <input class="form-control" placeholder="Last Name" name="lName" id="lName" #lName>
+        </div>
+        <button class="btn float-right" id="next" (click)="addUser(fName.value, lName.value)">Please let me out</button>
+>>>>>>> f568524503ab6cfbf511aaf05d38db5365e57a59
 
         <div>
           <button class="btn next" matStepperNext>Next</button>

@@ -20,6 +20,7 @@ const routes: Routes = [
   { path: 'callback/auth/:jwt', component: LoginCallbackComponent},
   { path: 'user/create', component: RegisterFormComponent },
   { path: '', component: ViewComponent, canActivate: [RegisteredGuard], children: [
+    { path: '', redirectTo: 'user-dashboard', pathMatch: 'full' },
     { path: 'user-dashboard', canActivate: [FeatureTogglingService], component: UserDashboardComponent },
     { path: 'browse-jobs',canActivate: [FeatureTogglingService], component: BrowseJobsComponent },
     { path: 'messages', canActivate: [FeatureTogglingService], component: MessagesComponent },
