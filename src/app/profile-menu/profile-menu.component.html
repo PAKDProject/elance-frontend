@@ -14,20 +14,50 @@
             </div>
 
             <div class="jobTitleContainer">
-                <h2>Software Developer</h2>
-                <h2>{{user.email}}</h2>
+                <h2>{{user.tagline}}</h2>
+            </div>
+
+            <div class="emailContainer">
+                <h4>{{user.email}}</h4>
+            </div>
+
+            <div class="socailConnectionContainer">
+                
             </div>
 
             <div class="socialConnectionContainer">
-                <img src='../../assets/icons/github.png'/>
+                <img *ngFor='let connection of user.socialLinks' src="../../assets//icons/{{connection.socialPlatformName}}.png" alt="{{connection.SocialPlatformName}}" (click)='openSocial(connection.linkUrl)'/>
+                <!-- <img src='../../assets/icons/github.png'/>
                 <img src='../../assets/icons/facebook.png'/>
                 <img src='../../assets/icons/twitter.png'/>
-                <img src='../../assets/icons/linkedin.png'/>
+                <img src='../../assets/icons/linkedin.png'/> -->
             </div>
         </div>
 
         <div class="profileBody">
-                Profile Body
+
+            <div class="bodyContentContainer">
+                <h1>About Me</h1>
+                <p>
+                    {{user.summary}}
+                </p>
+            </div>
+            
+            <div class="bodyContentContainer">
+                <h1>Education</h1>
+                <div *ngFor='let education of user.educationItems'>
+                    <!-- <education-card></education-card> -->
+                    {{education.degreeTitle}}
+                </div>
+            </div>
+            
+            <div class="bodyContentContainer">
+                <h1>Skills</h1>
+                <div>
+                    <skill-card></skill-card>
+                </div>
+            </div>
+            
         </div>
     </div>
 </div>
