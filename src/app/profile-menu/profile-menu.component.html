@@ -26,11 +26,9 @@
             </div>
 
             <div class="socialConnectionContainer">
-                <img *ngFor='let connection of user.socialLinks' src="../../assets//icons/{{connection.socialPlatformName}}.png" alt="{{connection.SocialPlatformName}}" (click)='openSocial(connection.linkUrl)'/>
-                <!-- <img src='../../assets/icons/github.png'/>
-                <img src='../../assets/icons/facebook.png'/>
-                <img src='../../assets/icons/twitter.png'/>
-                <img src='../../assets/icons/linkedin.png'/> -->
+                <a *ngFor='let connection of user.socialLinks' href="https://{{connection.linkUrl}}" target="_blank">
+                    <img src="../../assets//icons/{{connection.socialPlatformName}}.png" alt="{{connection.SocialPlatformName}}"/>
+                </a>
             </div>
         </div>
 
@@ -45,9 +43,8 @@
             
             <div class="bodyContentContainer">
                 <h1>Education</h1>
-                <div *ngFor='let education of user.educationItems'>
-                    <!-- <education-card></education-card> -->
-                    {{education.degreeTitle}}
+                <div id="educationContainer">
+                    <education-card *ngFor='let education of user.educationItems' [EducationItem]="education"></education-card>
                 </div>
             </div>
             

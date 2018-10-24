@@ -1,3 +1,23 @@
-<p>
-  education-card works!
-</p>
+<div class="testCardContainer">
+  <div class="cardContainer">
+    <div class="topRow">
+      <div class="degreeTitleContainer">
+        {{education.degreeTitle}}
+      </div>
+      <div class="modalButton">
+        <mat-icon>open_in_new</mat-icon>
+      </div>
+    </div>
+    <div class="bottomRow">
+      <div class="durationContainer">
+        <mat-icon>access_time</mat-icon>
+        <div class="yearContainer">
+          {{education.startYear}} - {{education.endYear}}
+        </div>
+      </div>
+      <div class="collegeName">
+        {{education.collegeName}}
+      </div>
+    </div>
+  </div>
+</div>

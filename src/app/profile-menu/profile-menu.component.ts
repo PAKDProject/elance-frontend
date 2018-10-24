@@ -15,8 +15,4 @@ export class ProfileMenuComponent implements OnInit {
     this.user = this.userService.getUser()
   }
 
-  openSocial() {
-    
-  }
-
 }
