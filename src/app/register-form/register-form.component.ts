@@ -14,20 +14,17 @@ import * as AWS from 'aws-sdk';
 })
 export class RegisterFormComponent implements OnInit {
   isLinear = true;
-<<<<<<< HEAD
   skills: string[] = []
 
   image: any;
   fileToUpload: File;
-  constructor() { }
-=======
+  
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   firstName: string
   lastName: string 
 
   constructor(private _formBuilder: FormBuilder, private _userStore: TempUserStorageService, private _router: Router) { }
->>>>>>> f568524503ab6cfbf511aaf05d38db5365e57a59
 
   ngOnInit() {
   }

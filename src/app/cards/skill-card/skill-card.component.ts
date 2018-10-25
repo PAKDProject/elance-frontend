@@ -14,4 +14,7 @@ export class SkillCardComponent implements OnInit {
   ngOnInit() {
   }
 
+  openSkillModal() {
+    
+  }
 }

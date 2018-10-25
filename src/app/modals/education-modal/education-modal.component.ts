@@ -1,24 +1,20 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { IEducationItem, ISkill, IUser } from 'src/app/models/user-model';
-import { TempUserStorageService } from 'src/app/temp-user-storage.service';
+import {Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { IEducationItem } from 'src/app/models/user-model';
+
 
 @Component({
   selector: 'education-modal',
   templateUrl: './education-modal.component.html',
   styleUrls: ['./education-modal.component.scss']
 })
-export class EducationModalComponent implements OnInit {
-  @Input('EducationItem') edu : IEducationItem
+export class EducationModalComponent{
 
-  user: IUser
+  constructor(
+    public dialogRef: MatDialogRef<EducationModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data : IEducationItem) { }
 
-  
-  constructor(private userService: TempUserStorageService) { }
-
-  ngOnInit() {
-    this.user = this.userService.getUser()
-
-    this.edu = this.user.educationItems[0]
+  onNoClick(): void {
+    this.dialogRef.close();
   }
-
 }

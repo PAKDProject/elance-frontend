@@ -27,15 +27,21 @@ import { RegisterFormComponent } from './register-form/register-form.component';
 import { TempUserStorageService } from './temp-user-storage.service';
 import { RegisteredGuard } from './registered.guard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-//Template Shit
+//Navigation
 import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+//Page Container
 import { ViewComponent } from './view/view.component';
+
+//Cards
 import { EducationCardComponent } from './cards/education-card/education-card.component';
 import { SkillCardComponent } from './cards/skill-card/skill-card.component';
+
+//Modals
 import { EducationModalComponent } from './modals/education-modal/education-modal.component';
 import { SkillsModalComponent } from './modals/skills-modal/skills-modal.component';
 
@@ -77,6 +83,10 @@ import { SkillsModalComponent } from './modals/skills-modal/skills-modal.compone
 
   ],
   providers: [TempUserStorageService, RegisteredGuard],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    EducationModalComponent,
+    SkillsModalComponent
+  ]
 })
 export class AppModule { }
