@@ -1,0 +1,238 @@
+<div id="background">
+        <mat-card class="container">
+          <mat-vertical-stepper [linear]="isLinear" id="stepper" #stepper>
+            <!-- WELCOME -->
+            <mat-step [stepControl]="firstFormGroup">
+              <ng-template matStepLabel>Getting Started</ng-template>
+              <div class="row">
+                <div class="col-md-12">
+                  <h2 class="text-center">Welcome to <em>ELance</em></h2>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="text-center">We just need some information about you in order to find you some great freelance
+                    opportunities</p>
+                </div>
+              </div>
+              <button class="btn float-right next" matStepperNext>Get Started</button>
+            </mat-step>
+            <!-- PERSONAL INFO -->
+            <mat-step [stepControl]="secondFormGroup">
+              <form>
+                <!--Label-->
+                <ng-template matStepLabel>Personal Information</ng-template>
+                <!--Form-->
+                <div class="row">
+                  <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                      <label for="fName">First Name</label>
+                      <input type="text" id="fName" name="fName" class="form-control" placeholder="Joe" />
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                      <label for="lName">Last Name</label>
+                      <input type="text" id="lName" name="lName" class="form-control" placeholder="Sample" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="dob">Date of Birth</label>
+                      <input type="date" id="dob" name="dob" class="form-control" max="2018-01-01" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="phone">Phone Number</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroupPrepend">+353</span>
+                        </div>
+                        <input type="tel" id="phone" name="phone" class="form-control" placeholder="851234567" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--Buttons-->
+                <div>
+                  <button class="btn next" matStepperNext>Next</button>
+                  <button class="btn back" matStepperPrevious>Back</button>
+                </div>
+              </form>
+            </mat-step>
+            <!-- ABOUT YOU -->
+            <mat-step>
+              <ng-template matStepLabel>About You</ng-template>
+              <div class="row">
+                <div class="col">
+                  <label>Add a profile image</label>
+                  <input type="file" id="file" accept="image/*" />
+                  <label for="file" class="btn btn-block next" id="fileBtn">choose a file</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="tagline">Job Title</label>
+                    <input type="text" id="tagline" name="tagline" class="form-control" placeholder="eg. Software Developer">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="description">Personal Statement</label>
+                    <textarea class="form-control" id="description" name="description" rows="3" placeholder="Tell us something about you ..."></textarea>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button class="btn next" matStepperNext>Next</button>
+                <button class="btn back" matStepperPrevious>Back</button>
+              </div>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Skills</ng-template>
+              <form>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="skillTitle">Skill</label>
+                      <input type="text" id="skillTitle" name="skillTitle" class="form-control" placeholder="eg. JavaScript"
+                        #title>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="skillDescription">Description</label>
+                      <textarea class="form-control" id="skillDescription" name="skillDescription" rows="3" placeholder="Your experience with this skill ..."></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <button class="btn next" (click)="addItem(title.value)">Add Skill</button>
+                  </div>
+                </div>
+              </form>
+              <div class="row">
+                <div class="col" id="skills">
+                  <div class="skillItem" *ngFor="let skill of skills">
+                    <span>{{skill}} <span style="color: #12896e" (click)="removeItem(skill)">X</span></span>
+                  </div>
+                </div>
+              </div>
+      <mat-card class="container">
+        <mat-horizontal-stepper [linear]="isLinear" #stepper>
+          <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup">
+              <ng-template id="label" matStepLabel>Fill out your name</ng-template>
+              <div class="form-group">
+              <label for="fName">First Name</label>
+              <input class="form-control" placeholder="First Name" name="firstName" id="fName" #fName>
+              </div>
+              <div class="form-group">
+              <label for="lName">Last Name</label>
+              <input class="form-control" placeholder="Last Name" name="lName" id="lName" #lName>
+              </div>
+              <button class="btn float-right" id="next" (click)="addUser(fName.value, lName.value)">Please let me out</button>
+      
+              <div>
+                <button class="btn next" matStepperNext>Next</button>
+                <button class="btn back" matStepperPrevious>Back</button>
+              </div>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Education</ng-template>
+              You are now done.
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+              </div>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Work Experience</ng-template>
+              You are now done.
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+              </div>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Social Links</ng-template>
+              You are now done.
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+              </div>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Finished!</ng-template>
+              You are now done.
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button class="btn next" (click)="addItem(title.value)">Add Skill</button>
+            </div>
+          </div>
+        </form>
+        <div class="row">
+          <div class="col" id="skills">
+            <div class="skillItem" *ngFor="let skill of skills">
+              <span>{{skill}} <span style="color: #12896e" (click)="removeItem(skill)">X</span></span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <button class="btn next" matStepperNext>Next</button>
+          <button class="btn back" matStepperPrevious>Back</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Education</ng-template>
+        You are now done.
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Work Experience</ng-template>
+        You are now done.
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Social Links</ng-template>
+        You are now done.
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Finished!</ng-template>
+        You are now done.
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </mat-card>
+</div>
