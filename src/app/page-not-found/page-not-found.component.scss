@@ -1,0 +1,20 @@
+.container-fluid {
+    display: grid;
+    width: 100%;
+    min-height: 50vh;
+    
+    .centerBox {
+        display: grid;
+        justify-self: center;
+        align-self: center;
+
+        img {
+            justify-self: center;
+            width: 50%;
+        }
+
+        h2, h4 {
+            text-align: center; 
+        }
+    }
+}
