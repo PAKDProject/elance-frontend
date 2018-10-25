@@ -8,6 +8,11 @@
   .container {
     margin: auto;
     width: 70%;
+
+    .feedback-invalid {
+      font-size: 0.8em;
+      color: darkred;
+    }
   }
 
   /deep/ .mat-vertical-stepper-header .mat-step-icon {
