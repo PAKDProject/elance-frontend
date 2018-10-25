@@ -2,15 +2,17 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 @font-face {
-    font-family: raleway;
-    src: url(assets/fonts/Raleway/Raleway-Thin.ttf) format('opentype');
-}
-@font-face {
-    font-family: montserrat;
-    src: url(assets/fonts/Montserrat/Montserrat-Regular.ttf) format('opentype');
+  font-family: raleway;
+  src: url(assets/fonts/Raleway/Raleway-Thin.ttf) format('opentype');
 }
 
-body{
-    margin: 0;
-    padding: 0;
+@font-face {
+  font-family: montserrat;
+  src: url(assets/fonts/Montserrat/Montserrat-Regular.ttf) format('opentype');
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #eee;
 }

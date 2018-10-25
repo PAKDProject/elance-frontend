@@ -39,6 +39,7 @@ import { SkillCardComponent } from './cards/skill-card/skill-card.component';
 import { EducationModalComponent } from './modals/education-modal/education-modal.component';
 import { SkillsModalComponent } from './modals/skills-modal/skills-modal.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +73,8 @@ import { SkillsModalComponent } from './modals/skills-modal/skills-modal.compone
     NgxSpinnerModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
   ],
   providers: [TempUserStorageService, RegisteredGuard],
   bootstrap: [AppComponent]

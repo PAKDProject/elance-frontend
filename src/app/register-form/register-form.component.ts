@@ -3,6 +3,7 @@ import { IUser } from '../models/user-model';
 import { TempUserStorageService } from '../temp-user-storage.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import * as AWS from 'aws-sdk';
 
 
 
@@ -13,20 +14,37 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 })
 export class RegisterFormComponent implements OnInit {
   isLinear = true;
+<<<<<<< HEAD
+  skills: string[] = []
+
+  image: any;
+  fileToUpload: File;
+  constructor() { }
+=======
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   firstName: string
   lastName: string 
 
   constructor(private _formBuilder: FormBuilder, private _userStore: TempUserStorageService, private _router: Router) { }
+>>>>>>> f568524503ab6cfbf511aaf05d38db5365e57a59
 
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
+  }
 
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
+
+  addItem(title: string) {
+    this.skills.push(title);
+  }
+  removeItem(skill: string) {
+    let index = this.skills.indexOf(skill);
+    if (index === -1) {
+      console.log("error");
+
+    }
+    else {
+      this.skills.splice(index, 1);
+    }
   }
 
   addUser(fName: string, lName: string){

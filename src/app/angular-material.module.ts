@@ -8,13 +8,12 @@ import {
   MatIconModule,
   MatListModule,
   MatStepperModule,
-  MatFormFieldModule,
-  MatInputModule,
   MatCardModule,
   MatButtonModule,
   MatRippleModule,
   MatTooltipModule,
-  MatDialogModule
+  MatDialogModule,
+  MatInputModule
 } from '@angular/material';
 
 
@@ -26,8 +25,6 @@ import {
     MatIconModule,
     MatListModule,
     MatStepperModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatCardModule,
     MatButtonModule,
     MatInputModule,
@@ -42,8 +39,6 @@ import {
     MatIconModule,
     MatListModule,
     MatStepperModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatCardModule,
     MatButtonModule,
     MatInputModule,
