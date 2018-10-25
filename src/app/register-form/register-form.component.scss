@@ -52,6 +52,11 @@
     width: 0;
   }
 
+  ::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+
+
   #skills {
     margin: 10px !important;
 
