@@ -43,7 +43,7 @@
             
             <div class="bodyContentContainer">
                 <h1>Education</h1>
-                <div id="educationContainer">
+                <div>
                     <education-card *ngFor='let education of user.educationItems' [EducationItem]="education"></education-card>
                 </div>
             </div>
@@ -51,7 +51,7 @@
             <div class="bodyContentContainer">
                 <h1>Skills</h1>
                 <div>
-                    <skill-card></skill-card>
+                    <skill-card *ngFor='let skill of user.skills' [SkillItem]='skill'></skill-card>
                 </div>
             </div>
             

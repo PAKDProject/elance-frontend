@@ -1,0 +1,15 @@
+.modalContainer {
+    .modalHeader {
+        display: grid;
+        grid-template-columns: 1fr auto;
+
+        div {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+    }
+    
+    .modalBody {
+
+    }
+}

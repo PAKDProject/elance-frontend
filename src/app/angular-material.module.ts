@@ -10,7 +10,10 @@ import {
   MatStepperModule,
   MatCardModule,
   MatButtonModule,
-  MatTooltipModule
+  MatRippleModule,
+  MatTooltipModule,
+  MatDialogModule,
+  MatInputModule
 } from '@angular/material';
 
 
@@ -24,7 +27,10 @@ import {
     MatStepperModule,
     MatCardModule,
     MatButtonModule,
-    MatTooltipModule
+    MatInputModule,
+    MatRippleModule,
+    MatTooltipModule,
+    MatDialogModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -35,7 +41,10 @@ import {
     MatStepperModule,
     MatCardModule,
     MatButtonModule,
-    MatTooltipModule
+    MatInputModule,
+    MatRippleModule,
+    MatTooltipModule,
+    MatDialogModule
   ]
 })
 export class AngularMaterialModule { }

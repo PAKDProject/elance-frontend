@@ -36,6 +36,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ViewComponent } from './view/view.component';
 import { EducationCardComponent } from './cards/education-card/education-card.component';
 import { SkillCardComponent } from './cards/skill-card/skill-card.component';
+import { EducationModalComponent } from './modals/education-modal/education-modal.component';
+import { SkillsModalComponent } from './modals/skills-modal/skills-modal.component';
 
 
 @NgModule({
@@ -57,7 +59,9 @@ import { SkillCardComponent } from './cards/skill-card/skill-card.component';
     RegisterFormComponent,
     ViewComponent,
     EducationCardComponent,
-    SkillCardComponent
+    SkillCardComponent,
+    EducationModalComponent,
+    SkillsModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
