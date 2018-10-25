@@ -1,8 +1,15 @@
 .modalContainer {
     .modalHeader {
+        background: #188C72;
+        padding: 10px;
+
         .topRow {
             display: grid;
             grid-template-columns: 1fr auto;
+
+            mat-icon {
+                cursor: pointer;
+            }
         }
         .timeCollegeRow {
             display: grid;

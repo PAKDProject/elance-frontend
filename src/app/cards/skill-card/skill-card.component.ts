@@ -15,12 +15,8 @@ export class SkillCardComponent {
 
   openSkillModal(): void {
     const dialogRef = this.dialog.open(SkillsModalComponent, {
-      width: '1000px',
+      maxWidth: '1000px',
       data: this.skill
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dailog was closed');
-    });
+    })
   }
 }

@@ -1,11 +1,3 @@
-// .pageContainer {
-//     background: white;
-//     width: 100%;
-//     height: 100%;
-  
-//     display: grid;
-//     grid-template-rows: auto 1fr;
-  
 .profileHeader {
   display: grid;
   grid-template-rows: auto auto;
@@ -122,6 +114,14 @@
       justify-self: center;
       font-size: 40px;
       padding-right: 20px;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .profileBody{
+    .bodyContentContainer {
+      grid-template-columns: auto;
     }
   }
 }

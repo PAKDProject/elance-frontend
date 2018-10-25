@@ -15,13 +15,8 @@ export class EducationCardComponent {
 
   openEduModal(): void {
     const dialogRef = this.dialog.open(EducationModalComponent, {
-      width: '1000px',
+      maxWidth: '1000px',
       data: this.education
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dailog was closed');
-    });
+    })
   }
-
 }
