@@ -19,7 +19,7 @@
       </mat-step>
       <!-- PERSONAL INFO -->
       <mat-step [stepControl]="personalInfoFrom">
-        <form>
+        <form [formGroup]="personalDetailsForm">
           <!--Label-->
           <ng-template matStepLabel>Personal Information</ng-template>
           <!--Form-->
@@ -27,13 +27,19 @@
             <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
               <div class="form-group">
                 <label for="fName">First Name</label>
-                <input type="text" id="fName" name="fName" class="form-control" placeholder="Joe" />
+                <input type="text" id="fName" name="fName" class="form-control" placeholder="Joe" formControlName="fName" />
+                <div class="feedback-invalid" *ngIf="!personalDetailsForm.controls['fName'].valid && personalDetailsForm.controls['fName'].touched">
+                  Name is required
+                </div>
               </div>
             </div>
             <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
               <div class="form-group">
                 <label for="lName">Last Name</label>
-                <input type="text" id="lName" name="lName" class="form-control" placeholder="Sample" />
+                <input type="text" id="lName" name="lName" class="form-control" placeholder="Sample" formControlName="lName" />
+                <div class="feedback-invalid" *ngIf="!personalDetailsForm.controls['lName'].valid && personalDetailsForm.controls['lName'].touched">
+                  Surname is required
+                </div>
               </div>
             </div>
           </div>
@@ -41,7 +47,10 @@
             <div class="col">
               <div class="form-group">
                 <label for="dob">Date of Birth</label>
-                <input type="date" id="dob" name="dob" class="form-control" max="2018-01-01" />
+                <input type="date" id="dob" name="dob" class="form-control" max="2018-01-01" formControlName="dob" />
+                <div class="feedback-invalid" *ngIf="!personalDetailsForm.controls['dob'].valid && personalDetailsForm.controls['dob'].touched">
+                  Please enter a real age
+                </div>
               </div>
             </div>
           </div>
@@ -53,14 +62,18 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupPrepend">+353</span>
                   </div>
-                  <input type="tel" id="phone" name="phone" class="form-control" placeholder="851234567" />
+                  <input type="tel" id="phone" name="phone" class="form-control" placeholder="851234567"
+                    formControlName="phone" />
+                </div>
+                <div class="feedback-invalid" *ngIf="!personalDetailsForm.controls['phone'].valid && personalDetailsForm.controls['phone'].touched">
+                  Please enter a valid phone number
                 </div>
               </div>
             </div>
           </div>
           <!--Buttons-->
           <div>
-            <button class="btn next" matStepperNext>Next</button>
+            <button class="btn next" [disabled]="!personalDetailsForm.valid" matStepperNext>Next</button>
             <button class="btn back" matStepperPrevious>Back</button>
           </div>
         </form>

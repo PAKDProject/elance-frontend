@@ -4,6 +4,7 @@ export interface IUser {
   fName?: string;
   lName?: string;
   dob?: Date;
+  phone?: string;
   summary?: string;
   skills?: ISkill[];
   educationItems?: IEducationItem[];

@@ -15,13 +15,31 @@ import * as AWS from 'aws-sdk';
 export class RegisterFormComponent implements OnInit {
   isLinear = true;
   skills: string[] = []
+  user: IUser = { email: "sample@gmail.com", userID: 1 };
 
-  image: any;
-  fileToUpload: File;
-  constructor() { }
+
+  personalDetailsForm: FormGroup;
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+
+    this.personalDetailsForm = this.fb.group({
+      fName: [this.user.fName, Validators.required],
+      lName: [this.user.lName, Validators.required],
+      dob: [this.user.dob, [Validators.min(1900), Validators.max(2018)]],
+      phone: [this.user.phone, [Validators.pattern("\\d{6,8}")]]
+    });
+
+    this.personalDetailsForm.valueChanges.subscribe(data => {
+      this.user.fName = data.fName;
+      this.user.lName = data.lName;
+      this.user.dob = data.dob;
+      this.user.phone = data.phone;
+      console.log(this.user);
+    });
   }
+
 
 
   addItem(title: string) {
