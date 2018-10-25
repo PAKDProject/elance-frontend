@@ -13,7 +13,8 @@ import {
   MatCardModule,
   MatButtonModule,
   MatRippleModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatDialogModule
 } from '@angular/material';
 
 
@@ -31,7 +32,8 @@ import {
     MatButtonModule,
     MatInputModule,
     MatRippleModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -46,7 +48,8 @@ import {
     MatButtonModule,
     MatInputModule,
     MatRippleModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule
   ]
 })
 export class AngularMaterialModule { }

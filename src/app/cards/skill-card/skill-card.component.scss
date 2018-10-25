@@ -1,11 +1,23 @@
-.cardContainer {
-    display: grid;
-    grid-template-columns: 1fr auto;
+.inlineContainer {
+    display: inline-block;
+    margin: 5px;
 
-    .skillTitle {
-
-    }
-    mat-icon {
+    .cardContainer {
+        padding: 5px;
+        display: grid;
+        grid-template-columns: 1fr auto;
         
+        color: #4B515D;
+        background: #CBCBCB;
+
+        box-shadow: 3px 4px 6px rgba(0,0,0,0.2);
+        .skillTitle {
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        mat-icon {
+            vertical-align: middle;
+            justify-self: center;
+        }
     }
 }
