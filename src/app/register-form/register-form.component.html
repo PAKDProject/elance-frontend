@@ -180,8 +180,59 @@
                 <button mat-button matStepperPrevious>Back</button>
                 <button mat-button (click)="stepper.reset()">Reset</button>
               </div>
-            </mat-step>
-          </mat-vertical-stepper>
-        </mat-card>
-      </div>
-      
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button class="btn next" (click)="addItem(title.value)">Add Skill</button>
+            </div>
+          </div>
+        </form>
+        <div class="row">
+          <div class="col" id="skills">
+            <div class="skillItem" *ngFor="let skill of skills">
+              <span>{{skill}} <span style="color: #12896e" (click)="removeItem(skill)">X</span></span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <button class="btn next" matStepperNext>Next</button>
+          <button class="btn back" matStepperPrevious>Back</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Education</ng-template>
+        You are now done.
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Work Experience</ng-template>
+        You are now done.
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Social Links</ng-template>
+        You are now done.
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Finished!</ng-template>
+        You are now done.
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </mat-card>
+</div>
