@@ -1,6 +1,9 @@
 <div class="modalContainer">
     <div class="modalHeader">
+      <div class="topRow">
       <h1>{{data.degreeTitle}}</h1>
+      <mat-icon (click)='onNoClick()'>close</mat-icon>
+      </div>
       <div class="timeCollegeRow">
         <div class="timeContainer">{{data.startYear}}-{{data.endYear}}</div>
         <div class="collegeName">{{data.collegeName}}</div>

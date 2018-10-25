@@ -1,5 +1,9 @@
 .modalContainer {
     .modalHeader {
+        .topRow {
+            display: grid;
+            grid-template-columns: 1fr auto;
+        }
         .timeCollegeRow {
             display: grid;
             grid-template-columns: 1fr auto;

@@ -1,20 +1,26 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ISkill } from 'src/app/models/user-model';
+import { SkillsModalComponent } from 'src/app/modals/skills-modal/skills-modal.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'skill-card',
   templateUrl: './skill-card.component.html',
   styleUrls: ['./skill-card.component.scss']
 })
-export class SkillCardComponent implements OnInit {
+export class SkillCardComponent {
   @Input('SkillItem') skill: ISkill
 
-  constructor() { }
+  constructor(public dialog: MatDialog) {}
 
-  ngOnInit() {
-  }
+  openSkillModal(): void {
+    const dialogRef = this.dialog.open(SkillsModalComponent, {
+      width: '1000px',
+      data: this.skill
+    });
 
-  openSkillModal() {
-    
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dailog was closed');
+    });
   }
 }

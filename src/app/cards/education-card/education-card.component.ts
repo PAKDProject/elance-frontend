@@ -21,7 +21,7 @@ export class EducationCardComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dailog was closed');
-    })
+    });
   }
 
 }

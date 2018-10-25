@@ -1,21 +1,19 @@
-import { Component, Input, Inject, OnInit } from '@angular/core';
-import { ISkill, IUser } from 'src/app/models/user-model';
-import { TempUserStorageService } from '../../temp-user-storage.service'
+import { Component, Inject } from '@angular/core';
+import { ISkill } from 'src/app/models/user-model';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'skills-modal',
   templateUrl: './skills-modal.component.html',
   styleUrls: ['./skills-modal.component.scss']
 })
-export class SkillsModalComponent implements OnInit {
-  @Input('SkillItem') skill: ISkill
-  user: IUser
+export class SkillsModalComponent {
 
-  constructor(private userService: TempUserStorageService) {}
+  constructor(
+    public dialogRef: MatDialogRef<SkillsModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data : ISkill) { }
 
-  ngOnInit() {
-    this.user = this.userService.getUser()
-
-    this.skill = this.user.skills[0]
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

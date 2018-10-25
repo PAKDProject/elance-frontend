@@ -1,9 +1,10 @@
 <div class="modalContainer">
   <div class="modalHeader">
-    <div class="skillTitle">{{skill.title}}</div>
-    <div class="skillConfidence">Confidence: {{skill.levelOfConfidence}}</div>
+    <div class="skillTitle">{{data.title}}</div>
+    <mat-icon (click)='onNoClick()'>close</mat-icon>
   </div>
+  <div class="skillConfidence">Confidence: {{data.levelOfConfidence}}</div>
   <div class="modalBody">
-    {{skill.description}}
+    {{data.description}}
   </div>
 </div>
