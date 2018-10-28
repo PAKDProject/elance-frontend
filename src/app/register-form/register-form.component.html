@@ -48,8 +48,12 @@
               <div class="form-group">
                 <label for="dob">Date of Birth</label>
                 <input type="date" id="dob" name="dob" class="form-control" max="2018-01-01" formControlName="dob" />
-                <div class="feedback-invalid" *ngIf="!personalDetailsForm.controls['dob'].valid && personalDetailsForm.controls['dob'].touched">
-                  Please enter a real age
+
+                <div class="feedback-invalid" *ngIf="!personalDetailsForm.controls['dob'].pending && personalDetailsForm.controls['dob'].errors?.min">
+                  You cant be THAT old
+                </div>
+                <div class="feedback-invalid" *ngIf="personalDetailsForm.controls['dob'].errors?.max">
+                  You cant be born in the future smartass
                 </div>
               </div>
             </div>
@@ -79,55 +83,63 @@
         </form>
       </mat-step>
       <!-- ABOUT YOU -->
-      <mat-step [stepControl]="aboutYouForm">
+      <mat-step>
         <ng-template matStepLabel>About You</ng-template>
-        <div class="row">
-          <div class="col">
-            <label>Add a profile image</label>
-            <!-- <input type="file" id="file" accept="image/*" />
+        <form [formGroup]="aboutYouForm">
+          <div class="row">
+            <div class="col">
+              <label>Add a profile image</label>
+              <!-- <input type="file" id="file" accept="image/*" />
             <label for="file" class="btn btn-block next" id="fileBtn">choose a file</label> -->
-            <div class="input-group mb-3">
-              <div class="custom-file">
-                <input type="file" class="custom-file-input" id="inputGroupFile02">
-                <label class="custom-file-label back" for="inputGroupFile02">Choose file</label>
+              <div class="input-group mb-3">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="inputGroupFile02">
+                  <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                </div>
+                <div class="input-group-append">
+                  <span class="input-group-text next" id="">Upload</span>
+                </div>
               </div>
-              <div class="input-group-append">
-                <span class="input-group-text next" id="">Upload</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="tagline">Job Title</label>
+                <input type="text" id="tagline" name="tagline" class="form-control" placeholder="eg. Software Developer"
+                  formControlName="tagline">
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <label for="tagline">Job Title</label>
-              <input type="text" id="tagline" name="tagline" class="form-control" placeholder="eg. Software Developer">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="description">Personal Statement</label>
+                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Tell us something about you ..."
+                  formControlName="description" maxlength="300"></textarea>
+                <div class="feedback-invalid" *ngIf="!aboutYouForm.controls['description'].valid && aboutYouForm.controls['description'].touched">
+                  This field only accepts up to 300 characters
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <label for="description">Personal Statement</label>
-              <textarea class="form-control" id="description" name="description" rows="3" placeholder="Tell us something about you ..."></textarea>
-            </div>
+          <div>
+            <button class="btn next" matStepperNext>Next</button>
+            <button class="btn back" matStepperPrevious>Back</button>
           </div>
-        </div>
-        <div>
-          <button class="btn next" matStepperNext>Next</button>
-          <button class="btn back" matStepperPrevious>Back</button>
-        </div>
+        </form>
       </mat-step>
       <!-- SKILLS -->
       <mat-step [stepControl]="skillsForm">
         <ng-template matStepLabel>Skills</ng-template>
-        <form>
+        <form [formGroup]="skillForm" (ngSubmit)="addSkill()">
           <div class="row">
             <div class="col">
               <div class="form-group">
                 <label for="skillTitle">Skill</label>
                 <input type="text" id="skillTitle" name="skillTitle" class="form-control" placeholder="eg. JavaScript"
-                  #title>
+                  formControlName="skillTitle">
+
               </div>
             </div>
           </div>
@@ -135,20 +147,21 @@
             <div class="col">
               <div class="form-group">
                 <label for="skillDescription">Description</label>
-                <textarea class="form-control" id="skillDescription" name="skillDescription" rows="3" placeholder="Your experience with this skill ..."></textarea>
+                <textarea class="form-control" id="skillDescription" name="skillDescription" rows="3" placeholder="Your experience with this skill ..."
+                  formControlName="skillDescription"></textarea>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <button class="btn next" (click)="addItem(title.value)">Add Skill</button>
+              <button class="btn next" type="submit">Add Skill</button>
             </div>
           </div>
         </form>
         <div class="row">
           <div class="col" id="skills">
-            <div class="skillItem" *ngFor="let skill of skills">
-              <span>{{skill}} <span style="color: #12896e" (click)="removeItem(skill)">X</span></span>
+            <div class="skillItem" *ngFor="let skill of skillsAdded">
+              <span>{{skill.title}} <span style="color: #12896e" (click)="removeItem(skill)">X</span></span>
             </div>
           </div>
         </div>
