@@ -1,60 +1,60 @@
 <div class="main-content">
-    <div class="container-fluid">
-        <div class="profileHeader">
-            <div class="bg-ImgContainer">
-                <img src="../../assets/images/profile-background.png"/>
-            </div>
+  <div class="container-fluid">
+    <div class="profileHeader">
+      <div class="bg-ImgContainer">
+        <img src="../../assets/images/profile-background.png" />
+      </div>
 
-            <div class="profilePictureContainer">
-                <img src="../../assets/images/stock-steve.jpg"/>
-            </div>
+      <div class="profilePictureContainer">
+        <img src="../../assets/images/stock-steve.jpg" />
+      </div>
 
-            <div class="nameContainer">
-                <h1>{{user.fName}} {{user.lName}}</h1>
-            </div>
+      <div class="nameContainer">
+        <h1>{{user.fName}} {{user.lName}}</h1>
+      </div>
 
-            <div class="jobTitleContainer">
-                <h2>{{user.tagline}}</h2>
-            </div>
+      <div class="jobTitleContainer">
+        <h2>{{user.tagline}}</h2>
+      </div>
 
-            <div class="emailContainer">
-                <h4>{{user.email}}</h4>
-            </div>
+      <div class="emailContainer">
+        <h4>{{user.email}}</h4>
+      </div>
 
-            <div class="socailConnectionContainer">
-                
-            </div>
+      <div class="socailConnectionContainer">
 
-            <div class="socialConnectionContainer">
-                <a *ngFor='let connection of user.socialLinks' href="https://{{connection.linkUrl}}" target="_blank">
-                    <img src="../../assets//icons/{{connection.socialPlatformName}}.png" alt="{{connection.SocialPlatformName}}"/>
-                </a>
-            </div>
-        </div>
+      </div>
 
-        <div class="profileBody">
-
-            <div class="bodyContentContainer">
-                <h1>About Me</h1>
-                <p>
-                    {{user.summary}}
-                </p>
-            </div>
-            
-            <div class="bodyContentContainer">
-                <h1>Education</h1>
-                <div>
-                    <education-card *ngFor='let education of user.educationItems' [EducationItem]="education"></education-card>
-                </div>
-            </div>
-            
-            <div class="bodyContentContainer">
-                <h1>Skills</h1>
-                <div>
-                    <skill-card *ngFor='let skill of user.skills' [SkillItem]='skill'></skill-card>
-                </div>
-            </div>
-            
-        </div>
+      <div class="socialConnectionContainer">
+        <a *ngFor='let connection of user.socialLinks' href="https://{{connection.linkUrl}}" target="_blank">
+          <img src="../../assets//icons/{{connection.socialPlatformName}}.png" alt="{{connection.SocialPlatformName}}" />
+        </a>
+      </div>
     </div>
+
+    <div class="profileBody">
+
+      <div class="bodyContentContainer">
+        <h1>About Me</h1>
+        <p>
+          {{user.summary}}
+        </p>
+      </div>
+
+      <div class="bodyContentContainer">
+        <h1>Education</h1>
+        <div>
+          <education-card *ngFor='let education of user.educationItems' [EducationItem]="education"></education-card>
+        </div>
+      </div>
+
+      <div class="bodyContentContainer">
+        <h1>Skills</h1>
+        <div>
+          <skill-card *ngFor='let skill of user.skills' [SkillItem]='skill' [editing]="false"></skill-card>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser, ISkill } from '../models/user-model';
+import { IUser, ISkill, IEducationItem, ISocialLink } from '../models/user-model';
 import { TempUserStorageService } from '../temp-user-storage.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -14,15 +14,19 @@ import * as AWS from 'aws-sdk';
 })
 export class RegisterFormComponent implements OnInit {
   isLinear = true;
-  skillsAdded: ISkill[] = []
-  user: IUser = { email: "sample@gmail.com", userID: 1, skills: this.skillsAdded };
+  skillsAdded: ISkill[] = [];
+  educationAdded: IEducationItem[] = [];
+  socialsAdded: ISocialLink[] = [];
+  user: IUser = { email: "sample@gmail.com", userID: 1, skills: this.skillsAdded, educationItems: this.educationAdded, socialLinks: this.socialsAdded };
 
 
   personalDetailsForm: FormGroup;
   aboutYouForm: FormGroup;
   skillForm: FormGroup;
+  educationForm: FormGroup;
+  socialForm: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private userService: TempUserStorageService, private router: Router) { }
 
   ngOnInit() {
 
@@ -43,6 +47,24 @@ export class RegisterFormComponent implements OnInit {
       skillDescription: ''
     });
 
+    this.educationForm = this.fb.group({
+      degreeTitle: '',
+      educationStartDate: '',
+      educationEndDate: '',
+      collegeName: '',
+      finalGrade: '',
+      educationDescription: ''
+    });
+
+    this.socialForm = this.fb.group({
+      facebook: '',
+      twitter: '',
+      github: '',
+      linkedin: ''
+    });
+
+
+
     this.personalDetailsForm.valueChanges.subscribe(data => {
       this.user.fName = data.fName;
       this.user.lName = data.lName;
@@ -56,6 +78,8 @@ export class RegisterFormComponent implements OnInit {
       this.user.summary = data.description;
       console.log(this.user);
     });
+
+    this.educationForm.valueChanges.subscribe(console.log)
 
 
   }
@@ -76,6 +100,33 @@ export class RegisterFormComponent implements OnInit {
     this.skillForm.reset();
   }
 
+  addEducation() {
+    let valid: boolean = true;
+    if (this.educationForm.get('educationStartDate').value >= this.educationForm.get('educationEndDate').value) {
+      valid = false;
+    }
+
+    if (valid) {
+      this.educationAdded.push({
+        degreeTitle: this.educationForm.get('degreeTitle').value,
+        startYear: this.educationForm.get('educationStartDate').value,
+        endYear: this.educationForm.get('educationEndDate').value,
+        grade: this.educationForm.get('finalGrade').value,
+        description: this.educationForm.get('educationDescription').value,
+        collegeName: this.educationForm.get('collegeName').value
+      });
+
+      this.educationForm.reset();
+
+      console.log(this.user)
+    }
+  }
+
+
+  removeItem(skill: ISkill) {
+    let i = this.skillsAdded.indexOf(skill);
+    this.skillsAdded.splice(i, 1);
+  }
 
 
   addUser(fName: string, lName: string) {
@@ -87,5 +138,27 @@ export class RegisterFormComponent implements OnInit {
     }
 
 
+  }
+
+  createUser() {
+    this.checkSocials();
+
+    if (this.user.fName && this.user.lName) {
+      this.userService.setUser(this.user);
+
+      this.router.navigateByUrl('/user-profile');
+    }
+  }
+
+  checkSocials() {
+    const facebook = this.socialForm.get('facebook').value;
+    const twitter = this.socialForm.get('twitter').value;
+    const github = this.socialForm.get('github').value;
+    const linkedin = this.socialForm.get('linkedin').value;
+
+    if (facebook) this.socialsAdded.push({ socialPlatformName: 'facebook', linkUrl: facebook });
+    if (twitter) this.socialsAdded.push({ socialPlatformName: 'twitter', linkUrl: twitter });
+    if (github) this.socialsAdded.push({ socialPlatformName: 'github', linkUrl: github });
+    if (linkedin) this.socialsAdded.push({ socialPlatformName: 'linkedin', linkUrl: linkedin });
   }
 }

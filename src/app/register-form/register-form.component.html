@@ -18,7 +18,7 @@
         <button class="btn float-right next" matStepperNext>Get Started</button>
       </mat-step>
       <!-- PERSONAL INFO -->
-      <mat-step [stepControl]="personalInfoFrom">
+      <mat-step [stepControl]="personalDetailsForm">
         <form [formGroup]="personalDetailsForm">
           <!--Label-->
           <ng-template matStepLabel>Personal Information</ng-template>
@@ -77,13 +77,13 @@
           </div>
           <!--Buttons-->
           <div>
-            <button class="btn next" [disabled]="!personalDetailsForm.valid" matStepperNext>Next</button>
+            <button class="btn next" matStepperNext>Next</button>
             <button class="btn back" matStepperPrevious>Back</button>
           </div>
         </form>
       </mat-step>
       <!-- ABOUT YOU -->
-      <mat-step>
+      <mat-step [stepControl]="aboutYouForm">
         <ng-template matStepLabel>About You</ng-template>
         <form [formGroup]="aboutYouForm">
           <div class="row">
@@ -130,7 +130,7 @@
         </form>
       </mat-step>
       <!-- SKILLS -->
-      <mat-step [stepControl]="skillsForm">
+      <mat-step [stepControl]="skillForm">
         <ng-template matStepLabel>Skills</ng-template>
         <form [formGroup]="skillForm" (ngSubmit)="addSkill()">
           <div class="row">
@@ -160,8 +160,9 @@
         </form>
         <div class="row">
           <div class="col" id="skills">
-            <div class="skillItem" *ngFor="let skill of skillsAdded">
-              <span>{{skill.title}} <span style="color: #12896e" (click)="removeItem(skill)">X</span></span>
+            <div *ngFor="let skill of skillsAdded" class="skillItem">
+              <!-- <span>{{skill.title}} <span style="color: #12896e" (click)="removeItem(skill)">X</span></span> -->
+              <skill-card [SkillItem]=skill [editing]=true (deleteEmit)="removeItem(skill)"></skill-card>
             </div>
           </div>
         </div>
@@ -174,36 +175,36 @@
       <!-- EDUCATION -->
       <mat-step [stepControl]="educationForm">
         <ng-template matStepLabel>Education</ng-template>
-        <form>
+        <form [formGroup]="educationForm" (ngSubmit)="addEducation()">
           <div class="row">
             <div class="col">
               <div class="form-group">
                 <label for="degreeTitle">Degree Title</label>
-                <input type="text" class="form-control" id="degreeTitle" name="degreeTitle" placeholder="BSc(Hons) Business">
+                <input type="text" class="form-control" id="degreeTitle" formControlName="degreeTitle" placeholder="BSc(Hons) Business">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
               <label for="educationStartDate">Started</label>
-              <input type="month" class="form-control" value="2005-09" id="educationStartDate" name="educationStartDate" />
+              <input type="month" class="form-control" value="2005-09" id="educationStartDate" formControlName="educationStartDate" />
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
               <label for="educationEndDate">Finished</label>
-              <input type="month" class="form-control" value="2009-05" id="educationEndDate" name="educationEndDate" />
+              <input type="month" class="form-control" value="2009-05" id="educationEndDate" formControlName="educationEndDate" />
             </div>
           </div>
           <div class="row">
             <div class="col-lg-10 col-md-10 col-sm-12">
               <div class="form-group">
                 <label for="collegeName">College Name</label>
-                <input class="form-control" id="collegeName" name="collegeName" type="text" placeholder="IT Sligo" />
+                <input class="form-control" id="collegeName" formControlName="collegeName" type="text" placeholder="IT Sligo" />
               </div>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-12">
               <div class="form-group">
                 <label for="finalGrade">Grade</label>
-                <input type="text" class="form-control" id="finalGrade" name="finalGrade" placeholder="1.1" />
+                <input type="text" class="form-control" id="finalGrade" formControlName="finalGrade" placeholder="1.1" />
               </div>
             </div>
           </div>
@@ -212,13 +213,13 @@
               <div class="form-group">
                 <label for="educationDescription">Details</label>
                 <textarea class="form-control" id="educationDescription" name="educationDescription" rows="3"
-                  placeholder="Any detail on projects or grades ..."></textarea>
+                  placeholder="Any detail on projects or grades ..." formControlName="educationDescription"></textarea>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <button class="btn next" (click)="addItem(title.value)">Add Education Item</button>
+              <button class="btn next" type="submit">Add Education Item</button>
             </div>
           </div>
         </form>
@@ -230,7 +231,7 @@
       <!-- WORK EXPERIENCE -->
       <mat-step [stepControl]="workExperienceForm">
         <ng-template matStepLabel>Work Experience</ng-template>
-        You are now done.
+        Coming soon
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button (click)="stepper.reset()">Reset</button>
@@ -239,54 +240,58 @@
       <!-- SOCIAL LINKS -->
       <mat-step [stepControl]="socialForm">
         <ng-template matStepLabel>Social Links</ng-template>
-        <div class="row">
-          <div class="col">
-            <div class="input-group mb-2">
-              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Facebook">
-              <div class="input-group-apend">
-                <div class="input-group-image">
-                  <img src="../../assets/icons/facebook.png" height="38px" width="38px">
+        <form [formGroup]="socialForm">
+          <div class="row">
+            <div class="col">
+              <div class="input-group mb-2">
+                <input type="text" class="form-control" id="inlineFormInputGroup" formControlName="facebook"
+                  placeholder="Facebook">
+                <div class="input-group-apend">
+                  <div class="input-group-image">
+                    <img src="../../assets/icons/facebook.png" height="38px" width="38px">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="input-group mb-2">
-              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Twitter">
-              <div class="input-group-apend">
-                <div class="input-group-image">
-                  <img src="../../assets/icons/twitter.png" height="38px" width="38px">
+          <div class="row">
+            <div class="col">
+              <div class="input-group mb-2">
+                <input type="text" class="form-control" id="inlineFormInputGroup" formControlName="twitter" placeholder="Twitter">
+                <div class="input-group-apend">
+                  <div class="input-group-image">
+                    <img src="../../assets/icons/twitter.png" height="38px" width="38px">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="input-group mb-2">
-              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Github">
-              <div class="input-group-apend">
-                <div class="input-group-image">
-                  <img src="../../assets/icons/github.png" height="38px" width="38px">
+          <div class="row">
+            <div class="col">
+              <div class="input-group mb-2">
+                <input type="text" class="form-control" id="inlineFormInputGroup" formControlName="github" placeholder="Github">
+                <div class="input-group-apend">
+                  <div class="input-group-image">
+                    <img src="../../assets/icons/github.png" height="38px" width="38px">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="input-group mb-2">
-              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Linkedin">
-              <div class="input-group-apend">
-                <div class="input-group-image">
-                  <img src="../../assets/icons/linkedin.png" height="38px" width="38px">
+          <div class="row">
+            <div class="col">
+              <div class="input-group mb-2">
+                <input type="text" class="form-control" id="inlineFormInputGroup" formControlName="linkedin"
+                  placeholder="Linkedin">
+                <div class="input-group-apend">
+                  <div class="input-group-image">
+                    <img src="../../assets/icons/linkedin.png" height="38px" width="38px">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </form>
         <div>
           <button class="btn next" matStepperNext>Next</button>
           <button class="btn back" matStepperPrevious>Back</button>
@@ -295,10 +300,10 @@
       <!-- COMPLETE -->
       <mat-step>
         <ng-template matStepLabel>Finished!</ng-template>
-        You are now done.
+        Thank you for filling out your details!
         <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="stepper.reset()">Reset</button>
+          <button class="btn next" (click)="createUser()">Get Started!</button>
+          <button class="btn back" matStepperPrevious>Back</button>
         </div>
       </mat-step>
     </mat-vertical-stepper>
