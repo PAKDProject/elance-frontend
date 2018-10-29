@@ -161,4 +161,9 @@ export class RegisterFormComponent implements OnInit {
     if (github) this.socialsAdded.push({ socialPlatformName: 'github', linkUrl: github });
     if (linkedin) this.socialsAdded.push({ socialPlatformName: 'linkedin', linkUrl: linkedin });
   }
+
+  createTestUser() {
+    this.userService.setUser(this.userService.getTestUser());
+    this.router.navigateByUrl('/user-profile');
+  }
 }
