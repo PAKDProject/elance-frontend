@@ -44,6 +44,10 @@ import { SkillCardComponent } from './cards/skill-card/skill-card.component';
 //Modals
 import { EducationModalComponent } from './modals/education-modal/education-modal.component';
 import { SkillsModalComponent } from './modals/skills-modal/skills-modal.component';
+import { InactiveJobCardComponent } from './cards/inactive-job-card/inactive-job-card.component';
+import { ActiveJobCardComponent } from './cards/active-job-card/active-job-card.component';
+import { InactiveJobModalComponent } from './modals/inactive-job-modal/inactive-job-modal.component';
+import { ActiveJobModalComponent } from './modals/active-job-modal/active-job-modal.component';
 
 
 @NgModule({
@@ -67,7 +71,11 @@ import { SkillsModalComponent } from './modals/skills-modal/skills-modal.compone
     EducationCardComponent,
     SkillCardComponent,
     EducationModalComponent,
-    SkillsModalComponent
+    SkillsModalComponent,
+    InactiveJobCardComponent,
+    ActiveJobCardComponent,
+    InactiveJobModalComponent,
+    ActiveJobModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
