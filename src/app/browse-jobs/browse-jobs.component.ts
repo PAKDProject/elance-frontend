@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TempJobStorageService } from '../temp-job-storage.service';
 
 @Component({
   selector: 'app-browse-jobs',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./browse-jobs.component.scss']
 })
 export class BrowseJobsComponent implements OnInit {
+  
+  isList: boolean;
 
-  constructor() { }
+  constructor(private jobService: TempJobStorageService) {
+    this.isList = false;
+   }
 
   ngOnInit() {
   }
 
+  //Inverts list type
+  changeListType() {
+    this.isList = !this.isList;
+  }
 }

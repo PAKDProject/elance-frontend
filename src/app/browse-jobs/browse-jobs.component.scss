@@ -1,0 +1,39 @@
+.main-content {
+    .container-fluid {
+        h2 {
+            margin-bottom: 20px;
+        }
+        .topBar {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+
+            .searchBox {
+                margin-right: 40px;
+                min-width: 300px;
+            }
+
+            .filterButtonContainer {
+                display: grid;
+                grid-template-columns: auto auto;
+                max-width: 50px;
+
+                mat-icon {
+                    justify-self: center;
+                    font-size: 32px;
+                    margin-left: 5px;
+                }
+            }
+
+            .listTypeButton {
+                display: grid;
+                grid-template-columns: auto auto;
+                
+                mat-icon {
+                    justify-self: center;
+                    font-size: 32px;
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+}
