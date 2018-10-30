@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser } from '../models/user-model';
-import { TempUserStorageService } from '../temp-user-storage.service';
+import { IUser, ISkill, IEducationItem, ISocialLink } from '../models/user-model';
+import { Observable } from 'rxjs';
+import { Select } from '@ngxs/store';
+import { UserState } from 'src/redux/states/user.state';
 
 @Component({
   selector: 'app-profile-menu',
@@ -8,11 +10,19 @@ import { TempUserStorageService } from '../temp-user-storage.service';
   styleUrls: ['./profile-menu.component.scss']
 })
 export class ProfileMenuComponent implements OnInit {
-  user: IUser
-  constructor(private userService: TempUserStorageService) { }
+  @Select(UserState.getUser) user$: Observable<IUser>
+  skills: ISkill[]
+  educationItems: IEducationItem[]
+  socialLinks: ISocialLink[]
+
+  constructor() { }
 
   ngOnInit() {
-    this.user = this.userService.getUser()
+    this.user$.subscribe(element => {
+      this.skills = element.skills
+      this.educationItems = element.educationItems
+      this.socialLinks = element.socialLinks
+    })
   }
 
 }
