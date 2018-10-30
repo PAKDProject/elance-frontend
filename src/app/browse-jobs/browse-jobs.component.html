@@ -13,14 +13,16 @@
       </div>
 
       <!-- Change List Type Buttons -->
-      <div class="listTypeButton" *ngIf='!isList' (click)='changeListType()'>
+      <div class="listTypeButton" *ngIf='!isList' (click)='changeListType()' routerLink='list'>
         <h4>List View</h4>
         <mat-icon>list</mat-icon>
       </div>
-      <div class="listTypeButton" *ngIf='isList' (click)='changeListType()'>
+      <div class="listTypeButton" *ngIf='isList' (click)='changeListType()' routerLink='grid'>
         <h4>Grid View</h4>
         <mat-icon>view_module</mat-icon>
       </div>
     </div>
+    
+    <router-outlet></router-outlet>
   </div>
 </div>

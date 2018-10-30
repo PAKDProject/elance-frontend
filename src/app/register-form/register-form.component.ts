@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import * as AWS from 'aws-sdk';
 import { Store } from '@ngxs/store';
 import { RequestUserSuccessAction } from 'src/redux/actions/user.actions';
+import { UserService } from '../services/user.service';
 
 
 
@@ -35,6 +36,7 @@ export class RegisterFormComponent implements OnInit {
     private store: Store) { }
 
   ngOnInit() {
+
 
     this.personalDetailsForm = this.fb.group({
       fName: [this.user.fName, Validators.required],

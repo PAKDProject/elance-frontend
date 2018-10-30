@@ -15,6 +15,8 @@ import { RegisterFormComponent } from './register-form/register-form.component';
 import { StateGuard } from './registered.guard';
 
 import { ViewComponent } from './view/view.component';
+import { GridComponent } from './browse-jobs/grid/grid.component';
+import { ListComponent } from './browse-jobs/list/list.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -24,7 +26,14 @@ const routes: Routes = [
     path: 'home', component: ViewComponent, pathMatch: 'prefix', canActivate: [StateGuard], children: [
       { path: '', redirectTo: 'user-dashboard', pathMatch: 'full' },
       { path: 'user-dashboard', canActivate: [FeatureTogglingService, StateGuard], component: UserDashboardComponent },
-      { path: 'browse-jobs', canActivate: [FeatureTogglingService, StateGuard], component: BrowseJobsComponent },
+      {
+        path: 'browse-jobs', canActivate: [FeatureTogglingService, StateGuard], component: BrowseJobsComponent, children: [
+          { path: '', redirectTo: 'grid', pathMatch: 'full' },
+          { path: 'grid', component: GridComponent },
+          { path: 'list', component: ListComponent },
+          { path: '**', component: PageNotFoundComponent }
+        ]
+      },
       { path: 'messages', canActivate: [FeatureTogglingService, StateGuard], component: MessagesComponent },
       { path: 'organization-dashboard', canActivate: [FeatureTogglingService, StateGuard], component: OrganizationDashboardComponent },
       { path: 'user-profile', canActivate: [FeatureTogglingService, StateGuard], component: ProfileMenuComponent },
