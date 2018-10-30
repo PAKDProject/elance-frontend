@@ -6,7 +6,9 @@
   </div>
 
   <div class="middleRow">
-    <div class="jobDescription">{{job.description}}</div>
+    <div class="jobDescription">
+        {{(job.description.length>300)? (job.description|slice:0:300)+'...':(job.description)}}
+      </div>
     <div class="modalButton">
       <mat-icon>open_in_new</mat-icon>
     </div>
