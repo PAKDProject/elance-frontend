@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IUser, IEducationItem, ISkill, ISocialLink } from './models/user-model';
+import { IUser, IEducationItem, ISkill, ISocialLink } from 'src/models/user-model';
 import { getLocaleDateTimeFormat } from '@angular/common';
 import { ConvertActionBindingResult } from '@angular/compiler/src/compiler_util/expression_converter';
 import { Observable, of } from 'rxjs';

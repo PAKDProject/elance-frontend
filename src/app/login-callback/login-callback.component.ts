@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CognitoWebTokenAuthService } from '../cognito-web-token-auth.service';
 import { NgxSpinnerService } from 'ngx-spinner'
-import { TempUserStorageService } from '../temp-user-storage.service';
+import { TempUserStorageService } from '../../services/temp-user/temp-user-storage.service';
 import { Store } from '@ngxs/store';
 import { RequestUserSuccessAction, RequestUserFailedActions } from 'src/redux/actions/user.actions';
-import { IUser } from '../models/user-model';
+import { IUser } from 'src/models/user-model';
 import { Location } from '@angular/common';
 
 @Component({

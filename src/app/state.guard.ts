@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { TempUserStorageService } from './temp-user-storage.service';
+import { TempUserStorageService } from '../services/temp-user/temp-user-storage.service';
 import { environment } from '../environments/environment'
 import { Store } from '@ngxs/store';
 import { UserState, UserStateModel } from 'src/redux/states/user.state';

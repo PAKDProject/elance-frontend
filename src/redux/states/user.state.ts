@@ -1,8 +1,8 @@
-import { IUser, ISkill, IEducationItem, ISocialLink } from 'src/app/models/user-model'
+import { IUser, ISkill, IEducationItem, ISocialLink } from 'src/models/user-model'
 import { State, Selector, Action, Store, StateContext } from '@ngxs/store';
 import { RequestUserSuccessAction, RequestUserFailedActions } from '../actions/user.actions';
 import { request } from 'http';
-import { TempUserStorageService } from 'src/app/temp-user-storage.service';
+import { TempUserStorageService } from 'src/services/temp-user/temp-user-storage.service';
 
 export class UserStateModel {
     userID?: number

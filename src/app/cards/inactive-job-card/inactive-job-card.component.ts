@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IJob } from 'src/app/models/job-model';
+import { IJob } from 'src/models/job-model';
 
 @Component({
   selector: 'inactive-job-card',
@@ -8,7 +8,7 @@ import { IJob } from 'src/app/models/job-model';
 })
 export class InactiveJobCardComponent implements OnInit {
 
-  @Input('JobInput') job : IJob;
+  @Input('JobInput') job: IJob;
 
   constructor() { }
 
