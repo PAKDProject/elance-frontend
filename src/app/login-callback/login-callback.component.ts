@@ -48,7 +48,6 @@ export class LoginCallbackComponent implements OnInit {
     this.getWebTokenFromUrl()
     //validate tokens
     this.validateTokens().then(isValid => {
-      isValid = true //used for testing delete afterwards!
       if (!isValid)
         window.location.href = "https://login.elance.site"
       else {
@@ -66,11 +65,14 @@ export class LoginCallbackComponent implements OnInit {
           }
         })
       }
+    }).catch(err => {
+      console.log(err)
+      window.location.href = "https://login.elance.site"
     })
   }
 
   getWebTokenFromUrl() {
-    this.activeRoute.queryParamMap.subscribe(params => {
+    this.activeRoute.queryParams.subscribe(params => {
       this.access_token = params['access_token']
       this.id_token = params['id_token']
     })
@@ -79,9 +81,10 @@ export class LoginCallbackComponent implements OnInit {
   validateTokens(): Promise<Boolean> {
     return new Promise<Boolean>((resolve, reject) => {
       this.cognitoService.validateTokens([this.access_token, this.id_token]).subscribe(res => {
+        console.log(res)
         let response = res as IValidateTokenResponse
         resolve(response.isValid)
-      })
+      }, err => reject(err))
     })
   }
 
