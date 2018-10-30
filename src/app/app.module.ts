@@ -10,6 +10,9 @@ import { AngularMaterialModule } from './angular-material.module';
 // Routing Module
 import { AppRoutingModule } from './app-routing.module';
 
+// Redux Module
+import { AppReduxModule } from './app-redux.module'
+
 // Page Components
 import { AppComponent } from './app.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
@@ -25,7 +28,7 @@ import { LoginCallbackComponent } from './login-callback/login-callback.componen
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { TempUserStorageService } from './temp-user-storage.service';
-import { RegisteredGuard } from './registered.guard';
+import { StateGuard } from './registered.guard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -88,9 +91,9 @@ import { ActiveJobModalComponent } from './modals/active-job-modal/active-job-mo
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-
+    AppReduxModule
   ],
-  providers: [TempUserStorageService, RegisteredGuard],
+  providers: [TempUserStorageService, StateGuard],
   bootstrap: [AppComponent],
   entryComponents: [
     EducationModalComponent,
