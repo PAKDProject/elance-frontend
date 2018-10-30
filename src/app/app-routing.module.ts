@@ -12,22 +12,25 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { FeatureTogglingService } from './feature-toggling.service';
 import { LoginCallbackComponent } from './login-callback/login-callback.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
-import { RegisteredGuard } from './registered.guard';
+import { StateGuard } from './registered.guard';
 
 import { ViewComponent } from './view/view.component';
 
 const routes: Routes = [
-  { path: 'callback/auth/:jwt', component: LoginCallbackComponent},
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
+  { path: 'callback/auth', component: LoginCallbackComponent },
   { path: 'user/create', component: RegisterFormComponent },
-  { path: '', component: ViewComponent, canActivate: [RegisteredGuard], children: [
-    { path: '', redirectTo: 'user-dashboard', pathMatch: 'full' },
-    { path: 'user-dashboard', canActivate: [FeatureTogglingService], component: UserDashboardComponent },
-    { path: 'browse-jobs',canActivate: [FeatureTogglingService], component: BrowseJobsComponent },
-    { path: 'messages', canActivate: [FeatureTogglingService], component: MessagesComponent },
-    { path: 'organization-dashboard', canActivate: [FeatureTogglingService], component: OrganizationDashboardComponent },
-    { path: 'user-profile', canActivate: [FeatureTogglingService], component: ProfileMenuComponent },
-    { path: '**', component: PageNotFoundComponent }
-  ]},
+  {
+    path: 'home', component: ViewComponent, pathMatch: 'prefix', canActivate: [StateGuard], children: [
+      { path: '', redirectTo: 'user-dashboard', pathMatch: 'full' },
+      { path: 'user-dashboard', canActivate: [FeatureTogglingService, StateGuard], component: UserDashboardComponent },
+      { path: 'browse-jobs', canActivate: [FeatureTogglingService, StateGuard], component: BrowseJobsComponent },
+      { path: 'messages', canActivate: [FeatureTogglingService, StateGuard], component: MessagesComponent },
+      { path: 'organization-dashboard', canActivate: [FeatureTogglingService, StateGuard], component: OrganizationDashboardComponent },
+      { path: 'user-profile', canActivate: [FeatureTogglingService, StateGuard], component: ProfileMenuComponent },
+      { path: '**', component: PageNotFoundComponent }
+    ]
+  },
   { path: '**', component: PageNotFoundComponent }
 ];
 
