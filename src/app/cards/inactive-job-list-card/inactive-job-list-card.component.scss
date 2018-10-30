@@ -1,0 +1,80 @@
+.cardContainer {
+    margin-top: 10px;
+    display: grid; 
+    grid-template-areas: 'leftCol topRow'
+                         'leftCol bottomRow';
+
+    max-height: 100px;
+    overflow: hidden;
+
+    background: #CBCBCB;
+    border-bottom: 2px #E3E3E3 solid;
+
+    .leftColumn {
+        padding: 5px;
+        grid-area: leftCol;
+        display: grid;
+        grid-template-rows: repeat(2,auto);
+
+        color: white;
+        background: #4B515D;
+
+        .jobPayment {
+            vertical-align: middle;
+            mat-icon {
+                font-size: 20px;
+                vertical-align: middle;
+            }
+        }
+        
+        .jobDueDate {
+            vertical-align: middle;
+            mat-icon {
+                font-size: 20px;
+                vertical-align: middle;
+            }
+        }
+    }
+    
+    .topRow {
+        margin: 5px;
+        grid-area: topRow;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        border-bottom: 2px #E3E3E3 solid;
+    }
+
+    .bottomRow {
+        margin: 5px;
+        grid-area: bottomRow;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        margin-bottom: 10px;
+
+        .jobDescription {
+            font-size: 14px;
+            line-height: 14px;
+            height: 76px;
+            text-overflow: ellipsis;
+        }
+
+        .modalButton {
+            margin-left: 10px;
+            margin-right: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #4B515D;
+            color: white;
+            cursor: pointer;
+
+            mat-icon {
+                height: 100%; width: 100%;
+                line-height: 30px;
+                font-size: 22px;
+                vertical-align: middle;
+                text-align: center;
+            }
+        }
+    }
+}
