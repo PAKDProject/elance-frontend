@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { TempUserStorageService } from '../services/temp-user/temp-user-storage.service';
 import { environment } from '../environments/environment'
 import { Store } from '@ngxs/store';
-import { UserState, UserStateModel } from 'src/redux/states/user.state';
+import { UserState } from 'src/redux/states/user.state';
 
 @Injectable({
   providedIn: 'root'
