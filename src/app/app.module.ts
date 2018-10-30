@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-// Angular material imports Module
+// Loading Spinner
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 // Angular material imports
@@ -12,6 +12,28 @@ import { AppRoutingModule } from './app-routing.module';
 
 // Redux Module
 import { AppReduxModule } from './app-redux.module'
+
+//Navigation
+import { FooterComponent } from './components/footer/footer.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+
+//Page Container
+import { ViewComponent } from './view/view.component';
+
+//Cards
+import { EducationCardComponent } from './cards/education-card/education-card.component';
+import { SkillCardComponent } from './cards/skill-card/skill-card.component';
+import { InactiveJobCardComponent } from './cards/inactive-job-card/inactive-job-card.component';
+import { ActiveJobCardComponent } from './cards/active-job-card/active-job-card.component';
+import { InactiveJobListCardComponent } from './cards/inactive-job-list-card/inactive-job-list-card.component';
+import { ActiveJobListCardComponent } from './cards/active-job-list-card/active-job-list-card.component'
+
+//Modals
+import { EducationModalComponent } from './modals/education-modal/education-modal.component';
+import { SkillsModalComponent } from './modals/skills-modal/skills-modal.component';
+import { InactiveJobModalComponent } from './modals/inactive-job-modal/inactive-job-modal.component';
+import { ActiveJobModalComponent } from './modals/active-job-modal/active-job-modal.component';
 
 // Page Components
 import { AppComponent } from './app.component';
@@ -31,31 +53,8 @@ import { TempUserStorageService } from './temp-user-storage.service';
 import { StateGuard } from './registered.guard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-//Navigation
-import { FooterComponent } from './components/footer/footer.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-
-//Page Container
-import { ViewComponent } from './view/view.component';
-
-//Cards
-import { EducationCardComponent } from './cards/education-card/education-card.component';
-import { SkillCardComponent } from './cards/skill-card/skill-card.component';
-
-//Modals
-import { EducationModalComponent } from './modals/education-modal/education-modal.component';
-import { SkillsModalComponent } from './modals/skills-modal/skills-modal.component';
-import { InactiveJobCardComponent } from './cards/inactive-job-card/inactive-job-card.component';
-import { ActiveJobCardComponent } from './cards/active-job-card/active-job-card.component';
-import { InactiveJobModalComponent } from './modals/inactive-job-modal/inactive-job-modal.component';
-import { ActiveJobModalComponent } from './modals/active-job-modal/active-job-modal.component';
 import { ListComponent } from './browse-jobs/list/list.component';
 import { GridComponent } from './browse-jobs/grid/grid.component';
-import { InactiveJobListCardComponent } from './cards/inactive-job-list-card/inactive-job-list-card.component';
-import { ActiveJobListCardComponent } from './cards/active-job-list-card/active-job-list-card.component';
-
 
 @NgModule({
   declarations: [
@@ -105,7 +104,9 @@ import { ActiveJobListCardComponent } from './cards/active-job-list-card/active-
   bootstrap: [AppComponent],
   entryComponents: [
     EducationModalComponent,
-    SkillsModalComponent
+    SkillsModalComponent,
+    InactiveJobModalComponent,
+    ActiveJobModalComponent
   ]
 })
 export class AppModule { }

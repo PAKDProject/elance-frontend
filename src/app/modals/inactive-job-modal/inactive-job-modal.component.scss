@@ -1,0 +1,21 @@
+.modalContainer {
+    .modalHeader {
+        // background: #188C72;
+        padding: 10px;
+
+        .topRow {
+            display: grid;
+            grid-template-columns: 1fr auto;
+
+            mat-icon {
+                cursor: pointer;
+            }
+        }
+        .employerPaymentRow {
+            display: grid;
+            grid-template-columns: 1fr auto;
+
+            font-size: 20px;
+        }
+    }
+}
