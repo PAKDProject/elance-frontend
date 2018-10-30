@@ -9,20 +9,20 @@
     <div class="jobDescription">
       {{(job.description.length>300)? (job.description|slice:0:300)+'...':(job.description)}}
     </div>
-    <div class="modalButton">
+    <div class="modalButton" (click)='openJobModal()'>
       <mat-icon>open_in_new</mat-icon>
     </div>
   </div>
   
   <div class="leftColumn">
     <div class="jobPayment">
-      <mat-icon>attach_money</mat-icon>
+      <mat-icon>euro_symbol</mat-icon>
       {{job.payment | number: '.0'}}
     </div>
-    <!-- <div class="jobDueDate">{{job.dateDue}}</div> -->
+    
     <div class="jobDueDate">
         <mat-icon>access_time</mat-icon>
-        19/01/2019
+        {{job.datePosted | date: 'dd/MM/yyyy'}}
     </div>
   </div>
 </div>

@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { IJob } from 'src/app/models/job-model';
 
 @Component({
-  selector: 'app-inactive-job-modal',
+  selector: 'inactive-job-modal',
   templateUrl: './inactive-job-modal.component.html',
   styleUrls: ['./inactive-job-modal.component.scss']
 })
-export class InactiveJobModalComponent implements OnInit {
+export class InactiveJobModalComponent {
 
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<InactiveJobModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data : IJob) { }
 
-  ngOnInit() {
+  onNoClick(): void {
+    this.dialogRef.close();
   }
-
 }

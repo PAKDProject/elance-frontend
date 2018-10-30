@@ -1,3 +1,16 @@
-<p>
-  inactive-job-modal works!
-</p>
+<div class="modalContainer">
+    <div class="modalHeader">
+      <div class="topRow">
+      <h1>{{data.title}}</h1>
+      <mat-icon (click)='onNoClick()'>close</mat-icon>
+      </div>
+      <div class="employerPaymentRow">
+        <div>{{data.employer}}</div>
+        <div>€{{data.payment | number: '.0'}}</div>
+      </div>
+      <h3>Posted: {{data.datePosted | date: 'dd/MM/yyyy'}} {{(data.dateDue)? ('Due: '+data.dateDue | date: 'dd/MM/yyyy'):''}}</h3>
+    </div>
+    <div class="modalBody">
+      {{data.description}}
+    </div>
+  </div>
