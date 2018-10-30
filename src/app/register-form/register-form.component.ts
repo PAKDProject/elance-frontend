@@ -4,6 +4,8 @@ import { TempUserStorageService } from '../temp-user-storage.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import * as AWS from 'aws-sdk';
+import { Store } from '@ngxs/store';
+import { RequestUserSuccessAction } from 'src/redux/actions/user.actions';
 
 
 
@@ -26,7 +28,11 @@ export class RegisterFormComponent implements OnInit {
   educationForm: FormGroup;
   socialForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: TempUserStorageService, private router: Router) { }
+  constructor(
+    private fb: FormBuilder,
+    private userService: TempUserStorageService,
+    private router: Router,
+    private store: Store) { }
 
   ngOnInit() {
 
@@ -144,9 +150,11 @@ export class RegisterFormComponent implements OnInit {
     this.checkSocials();
 
     if (this.user.fName && this.user.lName) {
-      this.userService.setUser(this.user);
+      //this.userService.setUser(this.user);
+      this.user.summary = this.stupidify(this.user.summary)
+      this.store.dispatch(new RequestUserSuccessAction(this.user))
 
-      this.router.navigateByUrl('/user-profile');
+      this.router.navigateByUrl('home/user-profile');
     }
   }
 
@@ -163,7 +171,34 @@ export class RegisterFormComponent implements OnInit {
   }
 
   createTestUser() {
-    this.userService.setUser(this.userService.getTestUser());
-    this.router.navigateByUrl('/user-profile');
+    this.userService.getTestUser().subscribe(user => {
+      this.store.dispatch(new RequestUserSuccessAction(user))
+      this.router.navigateByUrl('home/user-profile');
+    });
+  }
+
+  stupidify(string: string): string {
+    if (string !== undefined) {
+      let descArr = string.split('')
+      let big = false
+      for (var j = 0; j < descArr.length; j++) {
+        if (descArr[j] == ' ') {
+          continue
+        }
+        else {
+          if (big) {
+            descArr[j] = descArr[j].toUpperCase()
+            big = false
+          }
+          else {
+            descArr[j] = descArr[j].toLowerCase()
+            big = true
+            continue
+          }
+        }
+      }
+      return descArr.join('')
+    }
+    return
   }
 }
