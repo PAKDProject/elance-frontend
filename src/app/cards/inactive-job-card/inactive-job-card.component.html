@@ -1,3 +1,26 @@
-<p>
-  inactive-job-card works!
-</p>
+<div class="cardContainer">
+
+  <div class="topRow">
+    <div class="jobTitle">{{job.title}}</div>
+    <div class="jobEmployer">{{job.employer}}</div>
+  </div>
+
+  <div class="middleRow">
+    <div class="jobDescription">{{job.description}}</div>
+    <div class="modalButton">
+      <mat-icon>open_in_new</mat-icon>
+    </div>
+  </div>
+
+  <div class="bottomRow">
+    <div class="jobPayment">
+      <mat-icon>access_time</mat-icon>
+      {{job.payment | number: '.0'}}
+    </div>
+    <!-- <div class="jobDueDate">{{job.dateDue}}</div> -->
+    <div class="jobDueDate">
+      <mat-icon>access_time</mat-icon>
+      19/01/2019
+    </div>
+  </div>
+</div>
