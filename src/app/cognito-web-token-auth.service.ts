@@ -15,11 +15,7 @@ export class CognitoWebTokenAuthService {
   validateTokens(jwt: string[]) {
     return new Observable<boolean>((subscriber) => {
       subscriber.next(true)
-    })
+    }) // used for testing
     return this._http.post(this.url + 'auth/validatetoken', { tokens: jwt });
-  }
-
-  getUserDetails(email: string): Observable<IUser> {
-    return this._http.get<IUser>(this.url + 'users/' + email);
   }
 }
