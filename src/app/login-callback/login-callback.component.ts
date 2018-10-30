@@ -3,6 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CognitoWebTokenAuthService } from '../cognito-web-token-auth.service';
 import { NgxSpinnerService } from 'ngx-spinner'
 import { TempUserStorageService } from '../temp-user-storage.service';
+import { Store } from '@ngxs/store';
+import { RequestUserSuccessAction, RequestUserFailedActions } from 'src/redux/actions/user.actions';
+import { IUser } from '../models/user-model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login-callback',
@@ -10,11 +14,20 @@ import { TempUserStorageService } from '../temp-user-storage.service';
   styleUrls: ['./login-callback.component.scss']
 })
 export class LoginCallbackComponent implements OnInit {
-  jwt: string
+  access_token: string
+  id_token: string
   messages: string[]
   randomMessage: string;
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute, private cognitoService: CognitoWebTokenAuthService, private spinner: NgxSpinnerService, private userService: TempUserStorageService) {
+  constructor(
+    private router: Router,
+    private activeRoute: ActivatedRoute,
+    private cognitoService: CognitoWebTokenAuthService,
+    private spinner: NgxSpinnerService,
+    private userService: TempUserStorageService,
+    private store: Store,
+    private _location: Location) {
+
     this.messages = [
       '418: Tea not found',
       'Q: If you have one 404 error then you add another 404 error, what do you have? A: A bad backend team!',
@@ -28,54 +41,60 @@ export class LoginCallbackComponent implements OnInit {
   }
 
   ngOnInit() {
+    //show display
     this.spinner.show()
     this.showMessage()
+    //get access_token and id_token from url
     this.getWebTokenFromUrl()
-    this.getUserDataFromToken(this.jwt).then(data => {
-      this.setLocalStorage("id_token", this.jwt)
-      let email = data as string
-      this.setLocalStorage("email", email)
-      this.getUserData(email).then(data => {
-        if (data !== undefined) {
-          this.removeFromStorage("email")
-          this.userService.setUser(data)
-          this.router.navigate(['user-dashboard'])
-        }
-        else {
-          this.router.navigate(['user/create'])
-        }
-      })
+    //validate tokens
+    this.validateTokens().then(isValid => {
+      isValid = true //used for testing delete afterwards!
+      if (!isValid)
+        window.location.href = "https://login.elance.site"
+      else {
+        this.setLocalStorage('access_token', this.access_token)
+        this.setLocalStorage('id_token', this.id_token)
+
+        this.userService.getTestUser().subscribe(user => {
+          if (Object.keys(user).length === 0) {
+            this.store.dispatch(new RequestUserFailedActions('User not present in the db'))
+            this.router.navigate(['user/create'])
+          }
+          else {
+            this.store.dispatch(new RequestUserSuccessAction(user))
+            this.router.navigate([''])
+          }
+        })
+      }
     })
   }
 
   getWebTokenFromUrl() {
-    this.activeRoute.params.subscribe(params => {
-      this.jwt = params['jwt'].toString()
+    this.activeRoute.queryParamMap.subscribe(params => {
+      this.access_token = params['access_token']
+      this.id_token = params['id_token']
     })
   }
 
-  getUserDataFromToken(jwt: string) {
-    return new Promise((resolve, reject) => {
-      this.cognitoService.getCognitoDetails(jwt).subscribe(res => {
-        let response = res as IIdToken
-        console.log(response)
-        resolve(response.email)
-      })
-    })
-  }
-
-  getUserData(email: string) {
-    return new Promise(resolve => {
-      this.cognitoService.getUserDetails(email).subscribe(data => {
-        resolve(data)
-      }, err => {
-        resolve(undefined)
+  validateTokens(): Promise<Boolean> {
+    return new Promise<Boolean>((resolve, reject) => {
+      this.cognitoService.validateTokens([this.access_token, this.id_token]).subscribe(res => {
+        let response = res as IValidateTokenResponse
+        resolve(response.isValid)
       })
     })
   }
 
   setLocalStorage(tokenName: string, token: string) {
     localStorage.setItem(tokenName, token)
+  }
+
+  getEmailFromToken() {
+    let idPayload = this.id_token.split('.')[1]
+    let jsonLoad = window.atob(idPayload)
+    let idDecoded = JSON.parse(jsonLoad) as IIdToken
+
+    return idDecoded.email
   }
 
   removeFromStorage(key: string) {
@@ -104,4 +123,8 @@ export class LoginCallbackComponent implements OnInit {
 
 export interface IIdToken {
   email: string
+}
+
+export interface IValidateTokenResponse {
+  isValid: boolean
 }
