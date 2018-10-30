@@ -37,3 +37,35 @@
         }
     }
 }
+
+
+@media only screen and (max-width: 620px) {
+    .main-content {
+        .container-fluid {
+            .topBar {
+                display: grid;
+                grid-template-columns: repeat(2,auto);
+                grid-template-areas: 'search search'
+                                     'filter listGrid';
+
+                .searchBox {
+                    margin-right: 0px;
+                    min-width: none;
+                    width: 100%;
+                    grid-area: search;
+                }
+    
+                .filterButtonContainer {
+                    max-width: none;
+                    width: 100%;
+                    grid-area: filter;
+                }
+    
+                .listTypeButton {
+                    width: 100%;
+                    grid-area: listGrid;
+                }
+            }
+        }
+    }
+}
