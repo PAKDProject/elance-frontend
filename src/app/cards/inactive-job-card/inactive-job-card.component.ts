@@ -8,7 +8,7 @@ import { IJob } from 'src/app/models/job-model';
 })
 export class InactiveJobCardComponent implements OnInit {
 
-  @Input('JobInput') job : IJob
+  @Input('JobInput') job : IJob;
 
   constructor() { }
 

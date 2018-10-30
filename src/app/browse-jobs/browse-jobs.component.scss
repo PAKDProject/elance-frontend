@@ -59,11 +59,19 @@
                     max-width: none;
                     width: 100%;
                     grid-area: filter;
+
+                    mat-icon {
+                        margin-left: none;
+                    }
                 }
     
                 .listTypeButton {
                     width: 100%;
                     grid-area: listGrid;
+
+                    mat-icon {
+                        margin-left: none;
+                    }
                 }
             }
         }

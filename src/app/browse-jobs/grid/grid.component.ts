@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IJob } from 'src/app/models/job-model';
+import { TempJobStorageService } from 'src/app/temp-job-storage.service';
 
 @Component({
   selector: 'jobs-grid',
@@ -8,11 +9,12 @@ import { IJob } from 'src/app/models/job-model';
 })
 export class GridComponent implements OnInit {
 
-  @Input('JobsInput') jobs: IJob
+  jobs: IJob[]
 
-  constructor() { }
+  constructor(private _jobService: TempJobStorageService) { }
 
   ngOnInit() {
+    this.jobs = this._jobService.getAllJobs();
   }
 
 }
