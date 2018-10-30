@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser, ISkill, IEducationItem, ISocialLink } from '../models/user-model';
-import { TempUserStorageService } from '../temp-user-storage.service';
+import { IUser, ISkill, IEducationItem, ISocialLink } from 'src/models/user-model';
+import { TempUserStorageService } from '../../services/temp-user/temp-user-storage.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import * as AWS from 'aws-sdk';
 import { Store } from '@ngxs/store';
 import { RequestUserSuccessAction } from 'src/redux/actions/user.actions';
-import { UserService } from '../services/user.service';
+import { UserService } from '../../services/user-service/user.service';
 
 
 

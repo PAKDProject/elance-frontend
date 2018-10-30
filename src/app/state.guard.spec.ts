@@ -1,15 +1,15 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 
-import { RegisteredGuard } from './registered.guard';
+import { StateGuard } from './state.guard';
 
 describe('RegisteredGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [RegisteredGuard]
+      providers: [StateGuard]
     });
   });
 
-  it('should ...', inject([RegisteredGuard], (guard: RegisteredGuard) => {
+  it('should ...', inject([StateGuard], (guard: StateGuard) => {
     expect(guard).toBeTruthy();
   }));
 });

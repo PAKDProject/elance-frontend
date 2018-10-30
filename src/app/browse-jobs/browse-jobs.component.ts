@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TempJobStorageService } from '../temp-job-storage.service';
-import { IJob } from '../models/job-model';
+import { TempJobStorageService } from 'src/services/temp-job/temp-job-storage.service';
+import { IJob } from 'src/models/job-model';
 
 @Component({
   selector: 'app-browse-jobs',
@@ -8,13 +8,13 @@ import { IJob } from '../models/job-model';
   styleUrls: ['./browse-jobs.component.scss']
 })
 export class BrowseJobsComponent implements OnInit {
-  
+
   isList: boolean;
   jobs: IJob[];
 
   constructor(private jobService: TempJobStorageService) {
     this.isList = false;
-   }
+  }
 
   ngOnInit() {
     this.jobService.addSampleJobs();

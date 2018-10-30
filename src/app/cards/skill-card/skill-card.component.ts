@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { ISkill } from 'src/app/models/user-model';
+import { ISkill } from 'src/models/user-model';
 import { SkillsModalComponent } from 'src/app/modals/skills-modal/skills-modal.component';
 import { MatDialog } from '@angular/material';
 

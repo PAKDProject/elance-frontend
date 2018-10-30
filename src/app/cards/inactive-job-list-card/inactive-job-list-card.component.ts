@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { IJob } from 'src/app/models/job-model';
-import { InactiveJobModalComponent } from 'src/app/modals/inactive-job-modal/inactive-job-modal.component';
+import { Component, OnInit, Input } from '@angular/core';
+import { IJob } from 'src/models/job-model';
 import { MatDialog } from '@angular/material';
+import { InactiveJobModalComponent } from 'src/app/modals/inactive-job-modal/inactive-job-modal.component';
 
 @Component({
   selector: 'inactive-job-list-card',

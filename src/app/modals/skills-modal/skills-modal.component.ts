@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { ISkill } from 'src/app/models/user-model';
+import { ISkill } from 'src/models/user-model';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
@@ -11,7 +11,7 @@ export class SkillsModalComponent {
 
   constructor(
     public dialogRef: MatDialogRef<SkillsModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data : ISkill) { }
+    @Inject(MAT_DIALOG_DATA) public data: ISkill) { }
 
   onNoClick(): void {
     this.dialogRef.close();

@@ -1,6 +1,6 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import {MediaMatcher} from '@angular/cdk/layout';
-import { FeatureToggling } from '../feature-toggling.component';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { FeatureToggling } from '../../services/feature-toggle/feature-toggling.component';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -25,6 +25,6 @@ export class SidenavComponent extends FeatureToggling implements OnDestroy, OnIn
   }
 
   ngOnInit() {
-    this.router.navigate(['user-dashboard'], {relativeTo: this._route})
+    this.router.navigate(['user-dashboard'], { relativeTo: this._route })
   }
 }

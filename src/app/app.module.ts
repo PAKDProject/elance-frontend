@@ -49,8 +49,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { LoginCallbackComponent } from './login-callback/login-callback.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterFormComponent } from './register-form/register-form.component';
-import { TempUserStorageService } from './temp-user-storage.service';
-import { StateGuard } from './registered.guard';
+import { TempUserStorageService } from '../services/temp-user/temp-user-storage.service';
+import { StateGuard } from './state.guard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListComponent } from './browse-jobs/list/list.component';

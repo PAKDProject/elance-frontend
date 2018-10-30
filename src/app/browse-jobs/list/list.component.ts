@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IJob } from 'src/app/models/job-model';
-import { TempJobStorageService } from 'src/app/temp-job-storage.service';
+import { IJob } from 'src/models/job-model';
+import { TempJobStorageService } from 'src/services/temp-job/temp-job-storage.service';
 
 @Component({
   selector: 'jobs-list',
@@ -8,8 +8,8 @@ import { TempJobStorageService } from 'src/app/temp-job-storage.service';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  
-  jobs : IJob[]
+
+  jobs: IJob[]
 
   constructor(private _jobService: TempJobStorageService) { }
 

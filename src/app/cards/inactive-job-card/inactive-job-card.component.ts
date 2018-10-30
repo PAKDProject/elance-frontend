@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { IJob } from 'src/app/models/job-model';
 import { InactiveJobModalComponent } from 'src/app/modals/inactive-job-modal/inactive-job-modal.component';
 import { MatDialog } from '@angular/material';
+import { Component, OnInit, Input } from '@angular/core';
+import { IJob } from 'src/models/job-model';
 
 @Component({
   selector: 'inactive-job-card',
@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material';
 })
 export class InactiveJobCardComponent {
 
-  @Input('JobInput') job : IJob;
+  @Input('JobInput') job: IJob;
 
   constructor(public dialog: MatDialog) {}
 

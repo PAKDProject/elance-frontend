@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser, ISkill, IEducationItem, ISocialLink } from '../models/user-model';
+import { IUser, ISkill, IEducationItem, ISocialLink } from 'src/models/user-model';
 import { Observable } from 'rxjs';
 import { Select } from '@ngxs/store';
 import { UserState } from 'src/redux/states/user.state';
