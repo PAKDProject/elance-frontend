@@ -4,6 +4,7 @@ import { TempUserStorageService } from '../temp-user-storage.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import * as AWS from 'aws-sdk';
+import { UserService } from '../services/user.service';
 
 
 
@@ -29,6 +30,7 @@ export class RegisterFormComponent implements OnInit {
   constructor(private fb: FormBuilder, private userService: TempUserStorageService, private router: Router) { }
 
   ngOnInit() {
+
 
     this.personalDetailsForm = this.fb.group({
       fName: [this.user.fName, Validators.required],
