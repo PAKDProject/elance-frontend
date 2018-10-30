@@ -10,23 +10,23 @@
       </div>
 
       <div class="nameContainer">
-        <h1>{{user.fName}} {{user.lName}}</h1>
+        <h1>{{(user$ | async).fName}} {{(user$ | async).lName}}</h1>
       </div>
 
       <div class="jobTitleContainer">
-        <h2>{{user.tagline}}</h2>
+        <h2>{{(user$ | async).tagline}}</h2>
       </div>
 
       <div class="emailContainer">
-        <h4>{{user.email}}</h4>
+        <h4>{{(user$ | async).email}}</h4>
       </div>
 
       <div class="socailConnectionContainer">
 
       </div>
 
-      <div class="socialConnectionContainer">
-        <a *ngFor='let connection of user.socialLinks' href="https://{{connection.linkUrl}}" target="_blank">
+      <div class="socialConnectionContainer" *ngIf="socialLinks">
+        <a *ngFor='let connection of socialLinks' href="https://{{connection.linkUrl}}" target="_blank">
           <img src="../../assets//icons/{{connection.socialPlatformName}}.png" alt="{{connection.SocialPlatformName}}" />
         </a>
       </div>
@@ -37,21 +37,21 @@
       <div class="bodyContentContainer">
         <h1>About Me</h1>
         <p>
-          {{user.summary}}
+          {{(user$ | async).summary}}
         </p>
       </div>
 
       <div class="bodyContentContainer">
         <h1>Education</h1>
-        <div>
-          <education-card *ngFor='let education of user.educationItems' [EducationItem]="education"></education-card>
+        <div *ngIf="educationItems">
+          <education-card *ngFor='let education of educationItems' [EducationItem]="education"></education-card>
         </div>
       </div>
 
       <div class="bodyContentContainer">
         <h1>Skills</h1>
-        <div>
-          <skill-card *ngFor='let skill of user.skills' [SkillItem]='skill' [editing]="false"></skill-card>
+        <div *ngIf="skills">
+          <skill-card *ngFor='let skill of skills' [SkillItem]='skill' [editing]="false"></skill-card>
         </div>
       </div>
 
