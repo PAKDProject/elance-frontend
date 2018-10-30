@@ -22,5 +22,9 @@
         <mat-icon>view_module</mat-icon>
       </div>
     </div>
+    
+    <jobs-list *ngIf='isList' [JobsInput]='jobs'></jobs-list>
+    <jobs-grid *ngIf='!isList' [JobsInput]='jobs'></jobs-grid>
+
   </div>
 </div>

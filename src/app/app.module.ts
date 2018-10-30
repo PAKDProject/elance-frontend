@@ -48,6 +48,8 @@ import { InactiveJobCardComponent } from './cards/inactive-job-card/inactive-job
 import { ActiveJobCardComponent } from './cards/active-job-card/active-job-card.component';
 import { InactiveJobModalComponent } from './modals/inactive-job-modal/inactive-job-modal.component';
 import { ActiveJobModalComponent } from './modals/active-job-modal/active-job-modal.component';
+import { ListComponent } from './browse-jobs/list/list.component';
+import { GridComponent } from './browse-jobs/grid/grid.component';
 
 
 @NgModule({
@@ -75,7 +77,9 @@ import { ActiveJobModalComponent } from './modals/active-job-modal/active-job-mo
     InactiveJobCardComponent,
     ActiveJobCardComponent,
     InactiveJobModalComponent,
-    ActiveJobModalComponent
+    ActiveJobModalComponent,
+    ListComponent,
+    GridComponent
   ],
   imports: [
     BrowserAnimationsModule,

@@ -22,7 +22,7 @@ export class TempJobStorageService {
     this.jobs = [];
   }
 
-  getSampleJobs() {
+  addSampleJobs() {
     this.jobs = [
       {
         id: 1,
