@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="container-fluid text-center" style="min-height: 100vh" *ngIf="(isLoading$ | async) === true">
     <mat-spinner style="margin: 0 auto" color=""></mat-spinner>
-    <marquee scrollAmount="15">Loading jobs...</marquee>
+    <marquee scrollAmount="20">Loading jobs...</marquee>
   </div>
   <div class="container-fluid" *ngIf="(isLoading$ | async) === false">
     <h2>Browse Jobs</h2>
