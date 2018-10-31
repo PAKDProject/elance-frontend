@@ -1,79 +1,79 @@
 .main-content {
-    .container-fluid {
-        h2 {
-            margin-bottom: 20px;
-        }
-        .topBar {
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-
-            .searchBox {
-                margin-right: 40px;
-                min-width: 300px;
-            }
-
-            .filterButtonContainer {
-                display: grid;
-                grid-template-columns: auto auto;
-                max-width: 100px;
-
-                mat-icon {
-                    justify-self: center;
-                    font-size: 32px;
-                    margin-left: 5px;
-                }
-            }
-
-            .listTypeButton {
-                display: grid;
-                grid-template-columns: auto auto;
-                
-                mat-icon {
-                    justify-self: center;
-                    font-size: 32px;
-                    margin-left: 5px;
-                }
-            }
-        }
+  .container-fluid {
+    h2 {
+      margin-bottom: 20px;
     }
+    .topBar {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+
+      .searchBox {
+        margin-right: 40px;
+        min-width: 300px;
+      }
+
+      .filterButtonContainer {
+        display: grid;
+        grid-template-columns: auto auto;
+        max-width: 100px;
+
+        mat-icon {
+          justify-self: center;
+          font-size: 32px;
+          margin-left: 5px;
+        }
+      }
+
+      .listTypeButton {
+        display: grid;
+        grid-template-columns: auto auto;
+
+        mat-icon {
+          justify-self: center;
+          font-size: 32px;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
 }
 
-
 @media only screen and (max-width: 620px) {
-    .main-content {
-        .container-fluid {
-            .topBar {
-                display: grid;
-                grid-template-columns: repeat(2,auto);
-                grid-template-areas: 'search search'
-                                     'filter listGrid';
+  .main-content {
+    .container-fluid {
+      .topBar {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        grid-template-areas:
+          "search search"
+          "filter listGrid";
 
-                .searchBox {
-                    margin-right: 0px;
-                    min-width: none;
-                    width: 100%;
-                    grid-area: search;
-                }
-    
-                .filterButtonContainer {
-                    max-width: none;
-                    width: 100%;
-                    grid-area: filter;
-
-                    mat-icon {
-                        margin-left: none;
-                    }
-                }
-    
-                .listTypeButton {
-                    width: 100%;
-                    grid-area: listGrid;
-
-                    mat-icon {
-                        margin-left: none;
-                    }
-                }
-            }
+        .searchBox {
+          margin-right: 0px;
+          min-width: none;
+          width: 100%;
+          grid-area: search;
         }
+
+        .filterButtonContainer {
+          max-width: none;
+          width: 100%;
+          grid-area: filter;
+
+          mat-icon {
+            margin-left: none;
+          }
+        }
+
+        .listTypeButton {
+          width: 100%;
+          grid-area: listGrid;
+
+          mat-icon {
+            margin-left: none;
+          }
+        }
+      }
     }
+  }
 }
