@@ -5,10 +5,10 @@
       <mat-icon (click)='onNoClick()'>close</mat-icon>
       </div>
       <div class="employerPaymentRow">
-        <div>{{data.employer}}</div>
-        <div>€{{data.payment | number: '.0'}}</div>
+        <div>Employer: {{data.employer}}</div>
+        <div>Payment: €{{data.payment | number: '.0'}}</div>
       </div>
-      <h3>Posted: {{data.datePosted | date: 'dd/MM/yyyy'}} {{(data.dateDue)? ('Due: '+data.dateDue | date: 'dd/MM/yyyy'):''}}</h3>
+      <h5>Posted: {{data.datePosted | date: 'dd/MM/yyyy'}} {{(data.dateDue)? ('Due: '+data.dateDue | date: 'dd/MM/yyyy'):''}}</h5>
     </div>
     <div class="modalBody">
       {{data.description}}
