@@ -1,7 +1,7 @@
-<div class="container-fluid" *ngIf="(isLoading$ | async) === true">
-    <ngx-spinner bdColor="rgba(0, 0, 0, 1)" size="large" color="#12896e" type="ball-climbing-dot">
-        <h2>Loading potential jobs...</h2>
-      </ngx-spinner>
+<div class="container-fluid" style="min-height: 100vh" *ngIf="(isLoading$ | async) === true">
+  <ngx-spinner bdColor="rgba(0, 0, 0, 1)" size="large" color="#12896e" type="ball-climbing-dot">
+    <h2>Loading potential jobs...</h2>
+  </ngx-spinner>
 </div>
 
 <div class="main-content" *ngIf="(isLoading$ | async) === false">
@@ -33,7 +33,7 @@
     <div class="filterOptions" *ngIf='filterToggle'>
       Filters go here
     </div>
-    
+
     <router-outlet></router-outlet>
   </div>
 </div>
