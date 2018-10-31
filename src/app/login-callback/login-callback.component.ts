@@ -51,8 +51,8 @@ export class LoginCallbackComponent implements OnInit {
       if (!isValid)
         window.location.href = "https://login.elance.site"
       else {
-        this.setLocalStorage('access_token', this.access_token)
-        this.setLocalStorage('id_token', this.id_token)
+        this.setSessionStorage('access_token', this.access_token)
+        this.setSessionStorage('id_token', this.id_token)
 
         this.userService.getTestUser().subscribe(user => {
           if (Object.keys(user).length === 0) {
@@ -88,7 +88,7 @@ export class LoginCallbackComponent implements OnInit {
     })
   }
 
-  setLocalStorage(tokenName: string, token: string) {
+  setSessionStorage(tokenName: string, token: string) {
     sessionStorage.setItem(tokenName, token)
   }
 

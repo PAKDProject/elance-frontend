@@ -15,23 +15,23 @@ export class CognitoWebTokenAuthService {
 
   validateTokens(jwt: string[]): Observable<IValidateTokenResponse> {
     return new Observable<IValidateTokenResponse>((subscriber) => {
-      //   let isValid = true
+      let isValid = true
 
-      //   jwt.forEach(element => {
-      //     if (element === undefined)
-      //       isValid = false
-      //   })
-
-      //   subscriber.next({
-      //     isValid
-      //   })
-      // }) // used for testing jwt and redirect
+      jwt.forEach(element => {
+        if (element === undefined)
+          isValid = false
+      })
 
       subscriber.next({
-        isValid: true
-      })// used for bypassing the callback -- all other testing 
+        isValid
+      })
+    }) // used for testing jwt and redirect
 
-      // return this._http.post<IValidateTokenResponse>(this.url + 'auth/validatetoken', { tokens: jwt });
-    })
+    // subscriber.next({
+    //   isValid: true
+    // })// used for bypassing the callback -- all other testing 
+
+    // return this._http.post<IValidateTokenResponse>(this.url + 'auth/validatetoken', { tokens: jwt });
+    // })
   }
 }
