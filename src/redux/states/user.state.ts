@@ -5,7 +5,7 @@ import { request } from 'http';
 import { TempUserStorageService } from 'src/services/temp-user/temp-user-storage.service';
 
 export class UserStateModel {
-    userID?: number
+    userID?: string
     email?: string
     fName?: string
     lName?: string

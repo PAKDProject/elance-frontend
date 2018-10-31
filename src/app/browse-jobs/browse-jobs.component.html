@@ -1,28 +1,37 @@
 <div class="main-content">
-  <div class="container-fluid">
-    <!-- <h2>Browse Jobs</h2> -->
-    <div class="topBar">
-      <div class="searchBox">
-        <input type="text" value="" class="form-control" placeholder="Search...">
+  <div class="container-fluid text-center" style="min-height: 100vh" *ngIf="(isLoading$ | async) === true">
+    <mat-spinner style="margin: 0 auto" color=""></mat-spinner>
+    <marquee scrollAmount="20">Loading jobs...</marquee>
+  </div>
+  <div class="container-fluid" *ngIf="(isLoading$ | async) === false">
+    <h2>Browse Jobs</h2>
+    <div>
+      <div class="topBar">
+        <div class="searchBox">
+          <input type="text" value="" class="form-control" placeholder="Search...">
+        </div>
+
+        <!-- Filter Opening Button -->
+        <div class="filterButtonContainer" (click)='openFilter()'>
+          <h4>Filter</h4>
+          <mat-icon>filter_list</mat-icon>
+        </div>
+
+        <!-- Change List Type Buttons -->
+        <div (click)='refresh()'>
+          <h4>Refresh</h4>
+          <mat-icon>refresh</mat-icon>
+        </div>
+        <div class="listTypeButton" *ngIf='!isList' (click)='changeListType()' routerLink='list'>
+          <h4>List View</h4>
+          <mat-icon>list</mat-icon>
+        </div>
+        <div class="listTypeButton" *ngIf='isList' (click)='changeListType()' routerLink='grid'>
+          <h4>Grid View</h4>
+          <mat-icon>view_module</mat-icon>
+        </div>
       </div>
 
-      <!-- Filter Opening Button -->
-      <div class="filterButtonContainer" (click)='openFilter()'>
-        <h4>Filter</h4>
-        <mat-icon>filter_list</mat-icon>
-      </div>
-
-      <!-- Change List Type Buttons -->
-      <div class="listTypeButton" *ngIf='!isList' (click)='changeListType()' routerLink='list'>
-        <h4>List View</h4>
-        <mat-icon>list</mat-icon>
-      </div>
-      <div class="listTypeButton" *ngIf='isList' (click)='changeListType()' routerLink='grid'>
-        <h4>Grid View</h4>
-        <mat-icon>view_module</mat-icon>
-      </div>
-    </div>
-    
     <!-- Filters -->
     <form class="filterOptions" *ngIf='filterToggle'>
       <div class="form-group">

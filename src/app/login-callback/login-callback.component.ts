@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CognitoWebTokenAuthService } from 'src/services/cognito-auth/cognito-web-token-auth.service';
 import { NgxSpinnerService } from 'ngx-spinner'
@@ -13,7 +13,7 @@ import { Location } from '@angular/common';
   templateUrl: './login-callback.component.html',
   styleUrls: ['./login-callback.component.scss']
 })
-export class LoginCallbackComponent implements OnInit {
+export class LoginCallbackComponent implements OnInit, OnDestroy {
   access_token: string
   id_token: string
   messages: string[]
@@ -51,18 +51,27 @@ export class LoginCallbackComponent implements OnInit {
       if (!isValid)
         window.location.href = "https://login.elance.site"
       else {
-        this.setLocalStorage('access_token', this.access_token)
-        this.setLocalStorage('id_token', this.id_token)
-
+        this.setSessionStorage('access_token', this.access_token)
+        this.setSessionStorage('id_token', this.id_token)
+        let decodedUser = this.getIDDetailsFromToken()
         this.userService.getTestUser().subscribe(user => {
-          if (Object.keys(user).length === 0) {
-            this.store.dispatch(new RequestUserFailedActions('User not present in the db'))
-            this.router.navigate(['user/create'])
+          // if (Object.keys(user).length === 0) {
+          this.store.dispatch(new RequestUserFailedActions('User not present in the db'))
+
+          let tempUser: IUser = {
+            email: decodedUser.email,
+            userID: decodedUser["cognito:username"],
+            fName: decodedUser.name,
+            lName: decodedUser.family_name
           }
-          else {
-            this.store.dispatch(new RequestUserSuccessAction(user))
-            this.router.navigate([''])
-          }
+
+          this.store.dispatch(new RequestUserSuccessAction(tempUser))
+          this.router.navigate(['user/create'])
+          //   }
+          //   else {
+          //     this.store.dispatch(new RequestUserSuccessAction(user))
+          //     this.router.navigate([''])
+          //   }
         })
       }
     }).catch(err => {
@@ -88,20 +97,19 @@ export class LoginCallbackComponent implements OnInit {
     })
   }
 
-  setLocalStorage(tokenName: string, token: string) {
-    localStorage.setItem(tokenName, token)
+  setSessionStorage(tokenName: string, token: string) {
+    sessionStorage.setItem(tokenName, token)
   }
 
-  getEmailFromToken() {
+  getIDDetailsFromToken() {
     let idPayload = this.id_token.split('.')[1]
     let jsonLoad = window.atob(idPayload)
     let idDecoded = JSON.parse(jsonLoad) as IIdToken
-
-    return idDecoded.email
+    return idDecoded
   }
 
   removeFromStorage(key: string) {
-    localStorage.removeItem(key)
+    sessionStorage.removeItem(key)
   }
 
   showMessage() {
@@ -122,10 +130,21 @@ export class LoginCallbackComponent implements OnInit {
   randomInt(min: number, max: number) {
     return Math.floor(Math.random() * (max - min) + min);
   }
+
+  ngOnDestroy() {
+    this.spinner.hide()
+  }
 }
 
 export interface IIdToken {
-  email: string
+  email: string,
+  name: string,
+  family_name: string,
+  'cognito:username': string
+}
+
+export interface IAccessToken {
+  username: string
 }
 
 export interface IValidateTokenResponse {

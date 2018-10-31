@@ -18,7 +18,7 @@ export class TempUserStorageService {
 
   getTestUser(): Observable<IUser> {
     this.user = {
-      userID: 1,
+      userID: '1',
       email: 'stocksteve@email.com',
       fName: 'Stock',
       lName: 'Steve',

@@ -15,8 +15,8 @@
               opportunities</p>
           </div>
         </div>
-        
-        
+
+
         <!-- TEMPORARY -->
         <button class="btn float-right next" (click)='createTestUser()'>Use Test User</button>
         <!--  -->
@@ -34,7 +34,8 @@
             <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
               <div class="form-group">
                 <label for="fName">First Name</label>
-                <input type="text" id="fName" name="fName" class="form-control" placeholder="Joe" formControlName="fName" />
+                <input type="text" id="fName" name="fName" class="form-control" placeholder="Joe" formControlName="fName"
+                  value="this.user.fName" />
                 <div class="feedback-invalid" *ngIf="!personalDetailsForm.controls['fName'].valid && personalDetailsForm.controls['fName'].touched">
                   Name is required
                 </div>
@@ -43,7 +44,8 @@
             <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
               <div class="form-group">
                 <label for="lName">Last Name</label>
-                <input type="text" id="lName" name="lName" class="form-control" placeholder="Sample" formControlName="lName" />
+                <input type="text" id="lName" name="lName" class="form-control" placeholder="Sample" formControlName="lName"
+                  value="this.user.lName" />
                 <div class="feedback-invalid" *ngIf="!personalDetailsForm.controls['lName'].valid && personalDetailsForm.controls['lName'].touched">
                   Surname is required
                 </div>

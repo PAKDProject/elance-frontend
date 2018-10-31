@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IJob } from 'src/models/job-model';
+import { of, Observable } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +12,9 @@ export class TempJobStorageService {
 
   private jobs: IJob[]
 
-  getAllJobs() {
-    return this.jobs;
+  getAllJobs(): Observable<IJob[]> {
+    this.addSampleJobs()
+    return of(this.jobs).pipe(delay(3000));
   }
 
   addJob(value: IJob) {
