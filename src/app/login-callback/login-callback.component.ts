@@ -89,7 +89,7 @@ export class LoginCallbackComponent implements OnInit {
   }
 
   setLocalStorage(tokenName: string, token: string) {
-    localStorage.setItem(tokenName, token)
+    sessionStorage.setItem(tokenName, token)
   }
 
   getEmailFromToken() {
@@ -101,7 +101,7 @@ export class LoginCallbackComponent implements OnInit {
   }
 
   removeFromStorage(key: string) {
-    localStorage.removeItem(key)
+    sessionStorage.removeItem(key)
   }
 
   showMessage() {
