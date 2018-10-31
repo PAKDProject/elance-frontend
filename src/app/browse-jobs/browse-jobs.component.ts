@@ -10,6 +10,7 @@ import { IJob } from 'src/models/job-model';
 export class BrowseJobsComponent implements OnInit {
 
   isList: boolean;
+  filterToggle: boolean;
   jobs: IJob[];
 
   constructor(private jobService: TempJobStorageService) {
@@ -24,5 +25,10 @@ export class BrowseJobsComponent implements OnInit {
   //Inverts list type
   changeListType() {
     this.isList = !this.isList;
+  }
+
+  //Toggles the filter area
+  openFilter() {
+    this.filterToggle = !this.filterToggle
   }
 }

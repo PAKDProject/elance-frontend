@@ -7,7 +7,7 @@
       </div>
 
       <!-- Filter Opening Button -->
-      <div class="filterButtonContainer">
+      <div class="filterButtonContainer" (click)='openFilter()'>
         <h4>Filter</h4>
         <mat-icon>filter_list</mat-icon>
       </div>
@@ -21,6 +21,11 @@
         <h4>Grid View</h4>
         <mat-icon>view_module</mat-icon>
       </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filterOptions" *ngIf='filterToggle'>
+      Filters go here
     </div>
     
     <router-outlet></router-outlet>
