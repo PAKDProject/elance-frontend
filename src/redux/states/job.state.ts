@@ -32,18 +32,16 @@ export class JobsState {
     }
 
     @Action(RequestJobs)
-    requestStarted( { getState, patchState }: StateContext<JobsStateModel>) {
-        this.jobsService.getAllJobs().pipe(tap(jobs => {
-            console.log(jobs)
-            this.store.dispatch(new RequestJobsSuccess(jobs))
-        }), catchError(err => 
-            this.store.dispatch(new RequestJobsFail(err))
-        ))
+    requestStarted({ getState, patchState }: StateContext<JobsStateModel>) {
         const state = getState()
         state.isLoading = true
         state.jobs = []
         patchState(state)
 
+        this.jobsService.getAllJobs().subscribe(jobs => {
+            console.log(jobs)
+            this.store.dispatch(new RequestJobsSuccess(jobs))
+        })
         // this.jobsService.getAllJobs().pipe(tap(jobs => {
         //     console.log(jobs)
         //     this.store.dispatch(new RequestJobsSuccess(jobs))
@@ -64,7 +62,7 @@ export class JobsState {
     requestFailed({ getState, patchState }: StateContext<JobsStateModel>, { errorMessage }: RequestJobsFail) {
         const state = getState()
         state.isLoading = false
-        state.jobs = [ ]
+        state.jobs = []
         patchState(state)
     }
 }

@@ -16,9 +16,7 @@ export class BrowseJobsComponent implements OnInit {
 
   isList: boolean;
   filterToggle: boolean;
-  jobs: IJob[];
   @Select(JobsState.getIsLoading) isLoading$: Observable<boolean>
-  @Select(JobsState.getJobs) jobs$: Observable<IJob[]>
 
   constructor(
     private store: Store,
@@ -29,13 +27,6 @@ export class BrowseJobsComponent implements OnInit {
   ngOnInit() {
     this.spinner.show()
     this.store.dispatch(new RequestJobs())
-    this.jobs$.subscribe(jobs => {
-      this.jobs = jobs
-    })
-
-    this.isLoading$.subscribe(bool => {
-      alert(bool)
-    })
   }
 
   //Inverts list type
@@ -46,5 +37,9 @@ export class BrowseJobsComponent implements OnInit {
   //Toggles the filter area
   openFilter() {
     this.filterToggle = !this.filterToggle
+  }
+
+  refresh() {
+    this.store.dispatch(new RequestJobs())
   }
 }

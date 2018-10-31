@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IJob } from 'src/models/job-model';
 import { TempJobStorageService } from 'src/services/temp-job/temp-job-storage.service';
+import { Store, Select } from '@ngxs/store';
+import { JobsState } from 'src/redux/states/job.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'jobs-grid',
@@ -10,11 +13,12 @@ import { TempJobStorageService } from 'src/services/temp-job/temp-job-storage.se
 export class GridComponent implements OnInit {
 
   jobs: IJob[]
+  @Select(JobsState.getJobs) jobs$: Observable<IJob[]>
 
-  constructor(private _jobService: TempJobStorageService) { }
+  constructor() { }
 
   ngOnInit() {
-    this._jobService.getAllJobs().subscribe(jobs => {
+    this.jobs$.subscribe(jobs => {
       this.jobs = jobs
     })
   }

@@ -1,39 +1,44 @@
-<div class="container-fluid" style="min-height: 100vh" *ngIf="(isLoading$ | async) === true">
-  <ngx-spinner bdColor="rgba(0, 0, 0, 1)" size="large" color="#12896e" type="ball-climbing-dot">
-    <h2>Loading potential jobs...</h2>
-  </ngx-spinner>
-</div>
-
-<div class="main-content" *ngIf="(isLoading$ | async) === false">
+<div class="main-content">
   <div class="container-fluid">
     <h2>Browse Jobs</h2>
-    <div class="topBar">
-      <div class="searchBox">
-        <input type="text" value="" class="form-control" placeholder="Search...">
-      </div>
-
-      <!-- Filter Opening Button -->
-      <div class="filterButtonContainer" (click)='openFilter()'>
-        <h4>Filter</h4>
-        <mat-icon>filter_list</mat-icon>
-      </div>
-
-      <!-- Change List Type Buttons -->
-      <div class="listTypeButton" *ngIf='!isList' (click)='changeListType()' routerLink='list'>
-        <h4>List View</h4>
-        <mat-icon>list</mat-icon>
-      </div>
-      <div class="listTypeButton" *ngIf='isList' (click)='changeListType()' routerLink='grid'>
-        <h4>Grid View</h4>
-        <mat-icon>view_module</mat-icon>
-      </div>
+    <div class="container-fluid" style="min-height: 100vh" *ngIf="(isLoading$ | async) === true">
+      <ngx-spinner bdColor="rgba(0, 0, 0, 1)" size="large" color="#12896e" type="ball-climbing-dot">
+        <h2>Loading potential jobs...</h2>
+      </ngx-spinner>
     </div>
+    <div *ngIf="(isLoading$ | async) === false">
+      <div class="topBar">
+        <div class="searchBox">
+          <input type="text" value="" class="form-control" placeholder="Search...">
+        </div>
 
-    <!-- Filters -->
-    <div class="filterOptions" *ngIf='filterToggle'>
-      Filters go here
+        <!-- Filter Opening Button -->
+        <div class="filterButtonContainer" (click)='openFilter()'>
+          <h4>Filter</h4>
+          <mat-icon>filter_list</mat-icon>
+        </div>
+
+        <!-- Change List Type Buttons -->
+        <div (click)='refresh()'>
+          <h4>Refresh</h4>
+          <mat-icon>refresh</mat-icon>
+        </div>
+        <div class="listTypeButton" *ngIf='!isList' (click)='changeListType()' routerLink='list'>
+          <h4>List View</h4>
+          <mat-icon>list</mat-icon>
+        </div>
+        <div class="listTypeButton" *ngIf='isList' (click)='changeListType()' routerLink='grid'>
+          <h4>Grid View</h4>
+          <mat-icon>view_module</mat-icon>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="filterOptions" *ngIf='filterToggle'>
+        Filters go here
+      </div>
+
+      <router-outlet></router-outlet>
     </div>
-
-    <router-outlet></router-outlet>
   </div>
 </div>
