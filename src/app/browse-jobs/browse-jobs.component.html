@@ -1,12 +1,11 @@
 <div class="main-content">
-  <div class="container-fluid">
+  <div class="container-fluid text-center" style="min-height: 100vh" *ngIf="(isLoading$ | async) === true">
+    <mat-spinner style="margin: 0 auto" color=""></mat-spinner>
+    <marquee scrollAmount="15">Loading jobs...</marquee>
+  </div>
+  <div class="container-fluid" *ngIf="(isLoading$ | async) === false">
     <h2>Browse Jobs</h2>
-    <div class="container-fluid" style="min-height: 100vh" *ngIf="(isLoading$ | async) === true">
-      <ngx-spinner bdColor="rgba(0, 0, 0, 1)" size="large" height='200px' color="#12896e" type="ball-climbing-dot">
-        <h2>Loading potential jobs...</h2>
-      </ngx-spinner>
-    </div>
-    <div *ngIf="(isLoading$ | async) === false">
+    <div>
       <div class="topBar">
         <div class="searchBox">
           <input type="text" value="" class="form-control" placeholder="Search...">

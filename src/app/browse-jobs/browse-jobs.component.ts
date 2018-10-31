@@ -6,6 +6,7 @@ import { JobsState } from 'src/redux/states/job.state'
 import { Observable } from 'rxjs';
 import { RequestJobs } from 'src/redux/actions/job.actions';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ThemePalette } from '@angular/material';
 
 @Component({
   selector: 'app-browse-jobs',
@@ -13,7 +14,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./browse-jobs.component.scss']
 })
 export class BrowseJobsComponent implements OnInit {
-
   isList: boolean;
   filterToggle: boolean;
   @Select(JobsState.getIsLoading) isLoading$: Observable<boolean>
