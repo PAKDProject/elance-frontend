@@ -24,9 +24,23 @@
     </div>
     
     <!-- Filters -->
-    <div class="filterOptions" *ngIf='filterToggle'>
-      Filters go here
-    </div>
+    <form class="filterOptions" *ngIf='filterToggle'>
+      <div class="form-group">
+        <label for="minPayment">Min. Payment</label>
+        <input type="number" class="form-control form-control-sm" id="minPayment" placeholder="0">
+      </div>
+      <div class="form-group">
+        <label for="maxPayment">Max. Payment</label>
+        <input type="number" class="form-control form-control-sm" id="maxPayment" placeholder="1,000,000">
+      </div>
+      <div class="form-group">
+        <h2>Sort by date:</h2>
+        <label for="dateNewOld">New to old</label>
+        <input type="radio" class="radio-inline" id="dateNewOld" checked>
+        <label for="dateOldNew">Old to new</label>
+        <input type="radio" class="radio-inline" id="dateOldNew">
+      </div>
+    </form>
     
     <router-outlet></router-outlet>
   </div>
