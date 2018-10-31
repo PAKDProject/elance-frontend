@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { TempJobStorageService } from 'src/services/temp-job/temp-job-storage.service';
 import { IJob } from 'src/models/job-model';
+import { Select, Store } from '@ngxs/store';
+import { JobsState } from 'src/redux/states/job.state'
+import { Observable } from 'rxjs';
+import { RequestJobs } from 'src/redux/actions/job.actions';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-browse-jobs',
@@ -12,14 +17,25 @@ export class BrowseJobsComponent implements OnInit {
   isList: boolean;
   filterToggle: boolean;
   jobs: IJob[];
+  @Select(JobsState.getIsLoading) isLoading$: Observable<boolean>
+  @Select(JobsState.getJobs) jobs$: Observable<IJob[]>
 
-  constructor(private jobService: TempJobStorageService) {
+  constructor(
+    private store: Store,
+    private spinner: NgxSpinnerService) {
     this.isList = false;
   }
 
   ngOnInit() {
-    this.jobService.addSampleJobs();
-    this.jobs = this.jobService.getAllJobs();
+    this.spinner.show()
+    this.store.dispatch(new RequestJobs())
+    this.jobs$.subscribe(jobs => {
+      this.jobs = jobs
+    })
+
+    this.isLoading$.subscribe(bool => {
+      alert(bool)
+    })
   }
 
   //Inverts list type

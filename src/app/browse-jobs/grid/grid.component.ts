@@ -14,7 +14,9 @@ export class GridComponent implements OnInit {
   constructor(private _jobService: TempJobStorageService) { }
 
   ngOnInit() {
-    this.jobs = this._jobService.getAllJobs();
+    this._jobService.getAllJobs().subscribe(jobs => {
+      this.jobs = jobs
+    })
   }
 
 }
