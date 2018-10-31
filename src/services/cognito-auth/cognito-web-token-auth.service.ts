@@ -32,5 +32,6 @@ export class CognitoWebTokenAuthService {
       })// used for bypassing the callback -- all other testing 
 
       // return this._http.post<IValidateTokenResponse>(this.url + 'auth/validatetoken', { tokens: jwt });
-    }
+    })
+  }
 }
