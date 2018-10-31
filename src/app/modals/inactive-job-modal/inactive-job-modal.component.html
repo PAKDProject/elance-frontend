@@ -4,11 +4,14 @@
       <h1>{{data.title}}</h1>
       <mat-icon (click)='onNoClick()'>close</mat-icon>
       </div>
-      <div class="employerPaymentRow">
+      <div class="infoRow">
         <div>Employer: {{data.employer}}</div>
         <div>Payment: €{{data.payment | number: '.0'}}</div>
       </div>
-      <h5>Posted: {{data.datePosted | date: 'dd/MM/yyyy'}} {{(data.dateDue)? ('Due: '+data.dateDue | date: 'dd/MM/yyyy'):''}}</h5>
+      <div class="infoRow">
+      <div>Posted: {{data.datePosted | date: 'dd/MM/yyyy'}} {{(data.dateDue)? ('Due: '+data.dateDue | date: 'dd/MM/yyyy'):''}}</div>
+      <div>{{(data.location)? ('Location:'+data.location) : ''}}</div>
+      </div>
     </div>
     <div class="modalBody">
       {{data.description}}

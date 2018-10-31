@@ -5,6 +5,7 @@ export interface IJob {
     title: string;
     // employer: IUser;
     employer: string;
+    location?: string;
     description: string;
     datePosted: Date;
     payment: number;

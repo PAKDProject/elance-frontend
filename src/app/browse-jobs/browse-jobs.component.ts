@@ -29,6 +29,7 @@ export class BrowseJobsComponent implements OnInit {
 
   //Toggles the filter area
   openFilter() {
-    this.filterToggle = !this.filterToggle
+    // this.filterToggle = !this.filterToggle
+    this.jobService.clearJobs();
   }
 }

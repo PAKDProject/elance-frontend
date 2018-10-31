@@ -33,4 +33,5 @@ export class CognitoWebTokenAuthService {
 
       // return this._http.post<IValidateTokenResponse>(this.url + 'auth/validatetoken', { tokens: jwt });
     }
+  }
 }

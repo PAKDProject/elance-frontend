@@ -6,6 +6,7 @@
         .topBar {
             display: grid;
             grid-template-columns: auto 1fr auto;
+            margin-bottom: 10px;
 
             .searchBox {
                 margin-right: 40px;
@@ -34,6 +35,11 @@
                     margin-left: 5px;
                 }
             }
+        }
+
+        .filterOptions {
+            margin-bottom: 5px;
+            border: 1px solid slategray;
         }
     }
 }
