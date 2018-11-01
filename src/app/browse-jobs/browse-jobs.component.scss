@@ -1,4 +1,5 @@
 .main-content {
+<<<<<<< HEAD
   .container-fluid {
     h2 {
       margin-bottom: 20px;
@@ -16,6 +17,52 @@
         display: grid;
         grid-template-columns: auto auto;
         max-width: 100px;
+=======
+    .spinner {
+        display: grid;
+        // grid-template-columns: auto;
+        grid-template-rows: repeat(4,25vh);
+
+        mat-spinner {
+            grid-row: 2;
+            justify-self: center;
+        }
+        .marquee {
+            grid-row: 3;
+            width: 40%;
+            justify-self: center;
+        }
+    }
+
+    .container-fluid {
+        .headerBar {
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+
+            .refreshButton {
+                display: grid;
+                grid-template-columns: repeat(2,auto);
+                font-size: 32px;
+
+                mat-icon {
+                    justify-self: center;
+                    font-size: 32px;
+                    margin-left: 5px;
+                }
+            }
+        }
+        .topBar {
+            display: grid;
+            grid-template-columns: auto auto 320px;
+            margin-bottom: 10px;
+
+            .listViewButton {
+                display: grid;
+                grid-template-columns: auto auto;
+                font-size: 32px;
+                justify-self: left;
+>>>>>>> d0a4f26f0591c2ef6c5fde43bba748acdfc6d81d
 
         mat-icon {
           justify-self: center;
@@ -28,10 +75,43 @@
         display: grid;
         grid-template-columns: auto auto;
 
+<<<<<<< HEAD
         mat-icon {
           justify-self: center;
           font-size: 32px;
           margin-left: 5px;
+=======
+            .filterButton {
+                display: grid;
+                grid-template-columns: auto auto;
+                font-size: 32px;
+                justify-self: right;
+
+                mat-icon {
+                    justify-self: center;
+                    font-size: 32px;
+                    margin-left: 5px;
+                }
+            }
+            
+            .searchBox {
+                justify-self: right;
+                width: 300px;
+            }
+        }
+
+        .filterOptions {
+            margin-bottom: 5px;
+            padding: 10px;
+            border: 1px gray solid;
+            border-radius: 5px;
+            display: grid;
+            grid-template-columns: repeat(4,auto);
+
+            .form-group {
+                margin: 5px;
+            }
+>>>>>>> d0a4f26f0591c2ef6c5fde43bba748acdfc6d81d
         }
       }
     }

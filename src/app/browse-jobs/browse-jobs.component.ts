@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Component, OnInit } from "@angular/core";
 import { TempJobStorageService } from "src/services/temp-job/temp-job-storage.service";
 import { IJob } from "src/models/job-model";
@@ -6,6 +7,17 @@ import { JobsState } from "src/redux/states/job.state";
 import { Observable } from "rxjs";
 import { RequestJobs } from "src/redux/actions/job.actions";
 import { NgxSpinnerService } from "ngx-spinner";
+=======
+import { Component, OnInit } from '@angular/core';
+import { TempJobStorageService } from 'src/services/temp-job/temp-job-storage.service';
+import { IJob } from 'src/models/job-model';
+import { Select, Store } from '@ngxs/store';
+import { JobsState } from 'src/redux/states/job.state'
+import { Observable } from 'rxjs';
+import { RequestJobs } from 'src/redux/actions/job.actions';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ThemePalette } from '@angular/material';
+>>>>>>> d0a4f26f0591c2ef6c5fde43bba748acdfc6d81d
 
 @Component({
   selector: "app-browse-jobs",

@@ -7,6 +7,7 @@ import { Store } from '@ngxs/store';
 import { RequestUserSuccessAction, RequestUserFailedActions } from 'src/redux/actions/user.actions';
 import { IUser } from 'src/models/user-model';
 import { Location } from '@angular/common';
+import { UserService } from 'src/services/user-service/user.service';
 
 @Component({
   selector: 'app-login-callback',
@@ -24,7 +25,8 @@ export class LoginCallbackComponent implements OnInit, OnDestroy {
     private activeRoute: ActivatedRoute,
     private cognitoService: CognitoWebTokenAuthService,
     private spinner: NgxSpinnerService,
-    private userService: TempUserStorageService,
+    private userServiceTemp: TempUserStorageService,
+    private userService: UserService,
     private store: Store,
     private _location: Location) {
 
@@ -54,24 +56,25 @@ export class LoginCallbackComponent implements OnInit, OnDestroy {
         this.setSessionStorage('access_token', this.access_token)
         this.setSessionStorage('id_token', this.id_token)
         let decodedUser = this.getIDDetailsFromToken()
-        this.userService.getTestUser().subscribe(user => {
-          // if (Object.keys(user).length === 0) {
-          this.store.dispatch(new RequestUserFailedActions('User not present in the db'))
+        this.userServiceTemp.getTestUser().subscribe(user => {
+          // this.userService.getUserByEmail(decodedUser.email).subscribe(user => {
+          if (Object.keys(user).length === 0) {
+            this.store.dispatch(new RequestUserFailedActions('User not present in the db'))
 
-          let tempUser: IUser = {
-            email: decodedUser.email,
-            userID: decodedUser["cognito:username"],
-            fName: decodedUser.name,
-            lName: decodedUser.family_name
+            let tempUser: IUser = {
+              email: decodedUser.email,
+              userID: decodedUser["cognito:username"],
+              fName: decodedUser.name,
+              lName: decodedUser.family_name
+            }
+
+            this.store.dispatch(new RequestUserSuccessAction(tempUser))
+            this.router.navigate(['user/create'])
           }
-
-          this.store.dispatch(new RequestUserSuccessAction(tempUser))
-          this.router.navigate(['user/create'])
-          //   }
-          //   else {
-          //     this.store.dispatch(new RequestUserSuccessAction(user))
-          //     this.router.navigate([''])
-          //   }
+          else {
+            this.store.dispatch(new RequestUserSuccessAction(user))
+            this.router.navigate([''])
+          }
         })
       }
     }).catch(err => {

@@ -7,11 +7,15 @@
             display: grid;
             grid-template-columns: 1fr auto;
 
+            h1 {
+                color: #188C72;
+            }
+
             mat-icon {
                 cursor: pointer;
             }
         }
-        .employerPaymentRow {
+        .infoRow {
             display: grid;
             grid-template-columns: 1fr auto;
 

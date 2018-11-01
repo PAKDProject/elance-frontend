@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="container-fluid" *ngIf="(isLoading$ | async) === true">
   <ngx-spinner bdColor="rgba(0, 0, 0, 1)" size="large" color="#12896e" type="ball-climbing-dot">
     <h2>Loading potential jobs...</h2>
@@ -11,40 +12,69 @@
       <ngx-spinner bdColor="rgba(0, 0, 0, 1)" size="large" height='200px' color="#12896e" type="ball-climbing-dot">
         <h2>Loading potential jobs...</h2>
       </ngx-spinner>
+=======
+<div class="main-content">
+  <div class="spinner" *ngIf="(isLoading$ | async) === true">
+    <mat-spinner style="margin: 0 auto" color=""></mat-spinner>
+    <div class="marquee">
+      <marquee scrollAmount="20">Loading jobs...</marquee>
+>>>>>>> d0a4f26f0591c2ef6c5fde43bba748acdfc6d81d
     </div>
-    <div *ngIf="(isLoading$ | async) === false">
-      <div class="topBar">
-        <div class="searchBox">
-          <input type="text" value="" class="form-control" placeholder="Search...">
-        </div>
-
-        <!-- Filter Opening Button -->
-        <div class="filterButtonContainer" (click)='openFilter()'>
-          <h4>Filter</h4>
-          <mat-icon>filter_list</mat-icon>
-        </div>
-
-        <!-- Change List Type Buttons -->
-        <div (click)='refresh()'>
+  </div>
+  <div class="container-fluid" *ngIf="(isLoading$ | async) === false">
+    <div class="headerBar">
+        <h2>Browse Jobs</h2>
+        
+        <!-- Refresh Button -->
+        <div class="refreshButton" (click)='refresh()'>
           <h4>Refresh</h4>
           <mat-icon>refresh</mat-icon>
-        </div>
-        <div class="listTypeButton" *ngIf='!isList' (click)='changeListType()' routerLink='list'>
+        </div>  
+    </div>
+    <div>
+      <div class="topBar">
+
+        <!-- Change List Type Buttons -->
+        <div class="listViewButton" *ngIf='!isList' (click)='changeListType()' routerLink='list'>
           <h4>List View</h4>
           <mat-icon>list</mat-icon>
         </div>
-        <div class="listTypeButton" *ngIf='isList' (click)='changeListType()' routerLink='grid'>
+        <div class="listViewButton" *ngIf='isList' (click)='changeListType()' routerLink='grid'>
           <h4>Grid View</h4>
           <mat-icon>view_module</mat-icon>
         </div>
+
+        <!-- Filter Opening Button -->
+        <div class="filterButton" (click)='openFilter()'>
+          <h4>Filter</h4>
+          <mat-icon>filter_list</mat-icon>
+        </div>
+        
+        <!-- Search Box -->
+        <div class="searchBox">
+          <input type="text" value="" class="form-control" placeholder="Search...">
+        </div>
       </div>
 
-      <!-- Filters -->
-      <div class="filterOptions" *ngIf='filterToggle'>
-        Filters go here
+    <!-- Filters -->
+    <form class="filterOptions" *ngIf='filterToggle'>
+      <div class="form-group">
+        <label for="minPayment">Min. Payment</label>
+        <input type="number" class="form-control form-control-sm" id="minPayment" placeholder="0">
       </div>
-
-      <router-outlet></router-outlet>
-    </div>
+      <div class="form-group">
+        <label for="maxPayment">Max. Payment</label>
+        <input type="number" class="form-control form-control-sm" id="maxPayment" placeholder="1,000,000">
+      </div>
+      <div class="form-group">
+        <h4>Sort by date:</h4>
+        <label for="dateNewOld">New to old</label>
+        <input type="radio" class="radio-inline" id="dateNewOld" checked>
+        <label for="dateOldNew">Old to new</label>
+        <input type="radio" class="radio-inline" id="dateOldNew">
+      </div>
+    </form>
+    
+    <router-outlet></router-outlet>
   </div>
 </div>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Component, OnInit } from "@angular/core";
 import {
   IUser,
@@ -19,6 +20,22 @@ import { RequestUserSuccessAction } from "src/redux/actions/user.actions";
 import { UserService } from "../../services/user-service/user.service";
 import { UserState } from "src/redux/states/user.state";
 import { Observable } from "rxjs";
+=======
+import { Component, OnInit } from '@angular/core';
+import { IUser, ISkill, IEducationItem, ISocialLink } from 'src/models/user-model';
+import { TempUserStorageService } from '../../services/temp-user/temp-user-storage.service';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import * as AWS from 'aws-sdk';
+import { Store, Select } from '@ngxs/store';
+import { RequestUserSuccessAction } from 'src/redux/actions/user.actions';
+import { UserService } from '../../services/user-service/user.service';
+import { UserState } from 'src/redux/states/user.state';
+import { Observable } from 'rxjs';
+import { secret } from 'src/assets/secret';
+
+
+>>>>>>> d0a4f26f0591c2ef6c5fde43bba748acdfc6d81d
 
 @Component({
   selector: "app-register-form",
@@ -49,11 +66,18 @@ export class RegisterFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+<<<<<<< HEAD
     private _userService: TempUserStorageService,
     private router: Router,
     private store: Store,
     private userService: UserService
   ) {}
+=======
+    private userServiceTemp: TempUserStorageService,
+    private router: Router,
+    private store: Store,
+    private userService: UserService) { }
+>>>>>>> d0a4f26f0591c2ef6c5fde43bba748acdfc6d81d
 
   ngOnInit() {
     //Set up all the forms
@@ -180,6 +204,7 @@ export class RegisterFormComponent implements OnInit {
   createUser() {
     //Retrieve any social media links that were entered
     this.checkSocials();
+<<<<<<< HEAD
 
     //Ensure that the user still has a first and last name
     if (this.user.fName && this.user.lName) {
@@ -194,6 +219,19 @@ export class RegisterFormComponent implements OnInit {
           this.router.navigateByUrl("home/user-profile");
         }
       });
+=======
+    if (this.user.fName == "Bee" && this.user.lName == "Movie") {
+      this.router.navigate(['secret'])
+    }
+    else {
+      if (this.user.fName && this.user.lName) {
+        //this.userServiceTemp.setUser(this.user);
+        this.user.summary = RegisterFormComponent.stupidify(this.user.summary)
+        this.userService.createUser(this.user)
+        this.store.dispatch(new RequestUserSuccessAction(this.user))
+        this.router.navigateByUrl('home/user-profile');
+      }
+>>>>>>> d0a4f26f0591c2ef6c5fde43bba748acdfc6d81d
     }
   }
 
@@ -224,13 +262,19 @@ export class RegisterFormComponent implements OnInit {
   }
 
   createTestUser() {
+<<<<<<< HEAD
     this._userService.getTestUser().subscribe(user => {
       this.store.dispatch(new RequestUserSuccessAction(user));
       this.router.navigateByUrl("home/user-profile");
+=======
+    this.userServiceTemp.getTestUser().subscribe(user => {
+      this.store.dispatch(new RequestUserSuccessAction(user))
+      this.router.navigateByUrl('home/browse-jobs/grid');
+>>>>>>> d0a4f26f0591c2ef6c5fde43bba748acdfc6d81d
     });
   }
 
-  stupidify(string: string): string {
+  public static stupidify(string: string): string {
     if (string !== undefined) {
       let descArr = string.split("");
       let big = false;

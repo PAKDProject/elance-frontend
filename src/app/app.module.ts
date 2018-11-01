@@ -55,6 +55,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListComponent } from './browse-jobs/list/list.component';
 import { GridComponent } from './browse-jobs/grid/grid.component';
+import { SecretComponent } from 'src/assets/secret/secret.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { GridComponent } from './browse-jobs/grid/grid.component';
     ListComponent,
     GridComponent,
     InactiveJobListCardComponent,
-    ActiveJobListCardComponent
+    ActiveJobListCardComponent,
+    SecretComponent
   ],
   imports: [
     BrowserAnimationsModule,
