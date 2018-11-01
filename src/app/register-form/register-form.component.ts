@@ -14,9 +14,11 @@ import {
   ReactiveFormsModule
 } from "@angular/forms";
 import * as AWS from "aws-sdk";
-import { Store } from "@ngxs/store";
+import { Store, Select } from "@ngxs/store";
 import { RequestUserSuccessAction } from "src/redux/actions/user.actions";
 import { UserService } from "../../services/user-service/user.service";
+import { UserState } from "src/redux/states/user.state";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-register-form",
@@ -31,13 +33,14 @@ export class RegisterFormComponent implements OnInit {
   socialsAdded: ISocialLink[] = [];
   user: IUser = {
     email: "sample@gmail.com",
-    userID: 1,
+    userID: "1",
     skills: this.skillsAdded,
     educationItems: this.educationAdded,
     socialLinks: this.socialsAdded
   };
+  @Select(UserState.getUser)
+  user$: Observable<IUser>;
 
-  //Form groups
   personalDetailsForm: FormGroup;
   aboutYouForm: FormGroup;
   skillForm: FormGroup;
@@ -56,6 +59,12 @@ export class RegisterFormComponent implements OnInit {
     //Set up all the forms
 
     //Personal Details form
+    this.user$.subscribe(user => {
+      this.user.email = user.email;
+      this.user.fName = user.fName;
+      this.user.lName = user.lName;
+      this.user.userID = user.userID;
+    });
     this.personalDetailsForm = this.fb.group({
       fName: [this.user.fName, Validators.required],
       lName: [this.user.lName, Validators.required],
@@ -156,15 +165,16 @@ export class RegisterFormComponent implements OnInit {
     let i = this.skillsAdded.indexOf(skill);
     this.skillsAdded.splice(i, 1);
   }
-  //Testing
-  addUser(fName: string, lName: string) {
-    let user: IUser = {
-      userID: 0,
-      email: localStorage.getItem("email"),
-      fName,
-      lName
-    };
-  }
+
+  // addUser(fName: string, lName: string) {
+  //   let user: IUser = {
+  //     userID: 0,
+  //     email: localStorage.getItem("email"),
+  //     fName,
+  //     lName
+  //   }
+
+  // }
 
   //On submit of entire page
   createUser() {

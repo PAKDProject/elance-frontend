@@ -13,7 +13,8 @@ import {
   MatRippleModule,
   MatTooltipModule,
   MatDialogModule,
-  MatInputModule
+  MatInputModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 
@@ -30,7 +31,8 @@ import {
     MatInputModule,
     MatRippleModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -44,7 +46,8 @@ import {
     MatInputModule,
     MatRippleModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ]
 })
 export class AngularMaterialModule { }
