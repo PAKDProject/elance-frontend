@@ -1,24 +1,8 @@
-<<<<<<< HEAD
-<div class="container-fluid" *ngIf="(isLoading$ | async) === true">
-  <ngx-spinner bdColor="rgba(0, 0, 0, 1)" size="large" color="#12896e" type="ball-climbing-dot">
-    <h2>Loading potential jobs...</h2>
-  </ngx-spinner>
-</div>
-
-<div class="main-content" *ngIf="(isLoading$ | async) === false">
-  <div class="container-fluid">
-    <h2>Browse Jobs</h2>
-    <div class="container-fluid" style="min-height: 100vh" *ngIf="(isLoading$ | async) === true">
-      <ngx-spinner bdColor="rgba(0, 0, 0, 1)" size="large" height='200px' color="#12896e" type="ball-climbing-dot">
-        <h2>Loading potential jobs...</h2>
-      </ngx-spinner>
-=======
 <div class="main-content">
   <div class="spinner" *ngIf="(isLoading$ | async) === true">
     <mat-spinner style="margin: 0 auto" color=""></mat-spinner>
     <div class="marquee">
       <marquee scrollAmount="20">Loading jobs...</marquee>
->>>>>>> d0a4f26f0591c2ef6c5fde43bba748acdfc6d81d
     </div>
   </div>
   <div class="container-fluid" *ngIf="(isLoading$ | async) === false">

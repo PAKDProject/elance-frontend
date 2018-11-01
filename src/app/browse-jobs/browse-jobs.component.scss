@@ -50,28 +50,22 @@
           margin-left: 5px;
         }
       }
-
-      .listTypeButton {
+      .filterButton {
         display: grid;
         grid-template-columns: auto auto;
+        font-size: 32px;
+        justify-self: right;
 
-        .filterButton {
-          display: grid;
-          grid-template-columns: auto auto;
+        mat-icon {
+          justify-self: center;
           font-size: 32px;
-          justify-self: right;
-
-          mat-icon {
-            justify-self: center;
-            font-size: 32px;
-            margin-left: 5px;
-          }
+          margin-left: 5px;
         }
+      }
 
-        .searchBox {
-          justify-self: right;
-          width: 300px;
-        }
+      .searchBox {
+        justify-self: right;
+        width: 300px;
       }
 
       .filterOptions {
