@@ -1,68 +1,48 @@
 .main-content {
-<<<<<<< HEAD
+  .spinner {
+    display: grid;
+    // grid-template-columns: auto;
+    grid-template-rows: repeat(4, 25vh);
+
+    mat-spinner {
+      grid-row: 2;
+      justify-self: center;
+    }
+    .marquee {
+      grid-row: 3;
+      width: 40%;
+      justify-self: center;
+    }
+  }
+
   .container-fluid {
-    h2 {
+    .headerBar {
       margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+
+      .refreshButton {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        font-size: 32px;
+
+        mat-icon {
+          justify-self: center;
+          font-size: 32px;
+          margin-left: 5px;
+        }
+      }
     }
     .topBar {
       display: grid;
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: auto auto 320px;
+      margin-bottom: 10px;
 
-      .searchBox {
-        margin-right: 40px;
-        min-width: 300px;
-      }
-
-      .filterButtonContainer {
+      .listViewButton {
         display: grid;
         grid-template-columns: auto auto;
-        max-width: 100px;
-=======
-    .spinner {
-        display: grid;
-        // grid-template-columns: auto;
-        grid-template-rows: repeat(4,25vh);
-
-        mat-spinner {
-            grid-row: 2;
-            justify-self: center;
-        }
-        .marquee {
-            grid-row: 3;
-            width: 40%;
-            justify-self: center;
-        }
-    }
-
-    .container-fluid {
-        .headerBar {
-            margin-bottom: 20px;
-            display: grid;
-            grid-template-columns: 1fr auto;
-
-            .refreshButton {
-                display: grid;
-                grid-template-columns: repeat(2,auto);
-                font-size: 32px;
-
-                mat-icon {
-                    justify-self: center;
-                    font-size: 32px;
-                    margin-left: 5px;
-                }
-            }
-        }
-        .topBar {
-            display: grid;
-            grid-template-columns: auto auto 320px;
-            margin-bottom: 10px;
-
-            .listViewButton {
-                display: grid;
-                grid-template-columns: auto auto;
-                font-size: 32px;
-                justify-self: left;
->>>>>>> d0a4f26f0591c2ef6c5fde43bba748acdfc6d81d
+        font-size: 32px;
+        justify-self: left;
 
         mat-icon {
           justify-self: center;
@@ -75,43 +55,35 @@
         display: grid;
         grid-template-columns: auto auto;
 
-<<<<<<< HEAD
-        mat-icon {
-          justify-self: center;
+        .filterButton {
+          display: grid;
+          grid-template-columns: auto auto;
           font-size: 32px;
-          margin-left: 5px;
-=======
-            .filterButton {
-                display: grid;
-                grid-template-columns: auto auto;
-                font-size: 32px;
-                justify-self: right;
+          justify-self: right;
 
-                mat-icon {
-                    justify-self: center;
-                    font-size: 32px;
-                    margin-left: 5px;
-                }
-            }
-            
-            .searchBox {
-                justify-self: right;
-                width: 300px;
-            }
+          mat-icon {
+            justify-self: center;
+            font-size: 32px;
+            margin-left: 5px;
+          }
         }
 
-        .filterOptions {
-            margin-bottom: 5px;
-            padding: 10px;
-            border: 1px gray solid;
-            border-radius: 5px;
-            display: grid;
-            grid-template-columns: repeat(4,auto);
+        .searchBox {
+          justify-self: right;
+          width: 300px;
+        }
+      }
 
-            .form-group {
-                margin: 5px;
-            }
->>>>>>> d0a4f26f0591c2ef6c5fde43bba748acdfc6d81d
+      .filterOptions {
+        margin-bottom: 5px;
+        padding: 10px;
+        border: 1px gray solid;
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(4, auto);
+
+        .form-group {
+          margin: 5px;
         }
       }
     }

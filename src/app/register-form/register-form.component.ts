@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Component, OnInit } from "@angular/core";
 import {
   IUser,
@@ -20,22 +19,7 @@ import { RequestUserSuccessAction } from "src/redux/actions/user.actions";
 import { UserService } from "../../services/user-service/user.service";
 import { UserState } from "src/redux/states/user.state";
 import { Observable } from "rxjs";
-=======
-import { Component, OnInit } from '@angular/core';
-import { IUser, ISkill, IEducationItem, ISocialLink } from 'src/models/user-model';
-import { TempUserStorageService } from '../../services/temp-user/temp-user-storage.service';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import * as AWS from 'aws-sdk';
-import { Store, Select } from '@ngxs/store';
-import { RequestUserSuccessAction } from 'src/redux/actions/user.actions';
-import { UserService } from '../../services/user-service/user.service';
-import { UserState } from 'src/redux/states/user.state';
-import { Observable } from 'rxjs';
-import { secret } from 'src/assets/secret';
-
-
->>>>>>> d0a4f26f0591c2ef6c5fde43bba748acdfc6d81d
+import { secret } from "src/assets/secret";
 
 @Component({
   selector: "app-register-form",
@@ -66,18 +50,11 @@ export class RegisterFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-<<<<<<< HEAD
     private _userService: TempUserStorageService,
     private router: Router,
     private store: Store,
     private userService: UserService
   ) {}
-=======
-    private userServiceTemp: TempUserStorageService,
-    private router: Router,
-    private store: Store,
-    private userService: UserService) { }
->>>>>>> d0a4f26f0591c2ef6c5fde43bba748acdfc6d81d
 
   ngOnInit() {
     //Set up all the forms
@@ -89,6 +66,7 @@ export class RegisterFormComponent implements OnInit {
       this.user.lName = user.lName;
       this.user.userID = user.userID;
     });
+
     this.personalDetailsForm = this.fb.group({
       fName: [this.user.fName, Validators.required],
       lName: [this.user.lName, Validators.required],
@@ -112,7 +90,10 @@ export class RegisterFormComponent implements OnInit {
     //Education form
     this.educationForm = this.fb.group({
       degreeTitle: "",
-      educationStartDate: "",
+      educationStartDate: [
+        "",
+        [Validators.min(1900), Validators.max(new Date().getFullYear())]
+      ],
       educationEndDate: "",
       collegeName: "",
       finalGrade: "",
@@ -132,7 +113,7 @@ export class RegisterFormComponent implements OnInit {
       this.user.fName = data.fName;
       this.user.lName = data.lName;
       this.user.dob = data.dob;
-      this.user.phone = data.phone;
+      this.user.phone = this.formatPhone(data.phone);
     });
     //Store values into relevant fields
     this.aboutYouForm.valueChanges.subscribe(data => {
@@ -168,6 +149,7 @@ export class RegisterFormComponent implements OnInit {
       this.educationForm.get("educationEndDate").value
     ) {
       valid = false;
+      this.educationForm.controls['educationEndDate'].setErrors({'incorrect': true});
     }
 
     if (valid) {
@@ -204,35 +186,30 @@ export class RegisterFormComponent implements OnInit {
   createUser() {
     //Retrieve any social media links that were entered
     this.checkSocials();
-<<<<<<< HEAD
-
-    //Ensure that the user still has a first and last name
-    if (this.user.fName && this.user.lName) {
-      //this.userService.setUser(this.user);
-      this.user.summary = this.stupidify(this.user.summary);
-
-      //Create user into db
-      this.userService.createUser(this.user).subscribe(res => {
-        if (res !== undefined && res !== null) {
-          //Set the user into redux
-          this.store.dispatch(new RequestUserSuccessAction(this.user));
-          this.router.navigateByUrl("home/user-profile");
-        }
-      });
-=======
     if (this.user.fName == "Bee" && this.user.lName == "Movie") {
-      this.router.navigate(['secret'])
-    }
-    else {
+      this.router.navigate(["secret"]);
+    } else {
       if (this.user.fName && this.user.lName) {
         //this.userServiceTemp.setUser(this.user);
-        this.user.summary = RegisterFormComponent.stupidify(this.user.summary)
-        this.userService.createUser(this.user)
-        this.store.dispatch(new RequestUserSuccessAction(this.user))
-        this.router.navigateByUrl('home/user-profile');
+        this.user.summary = RegisterFormComponent.stupidify(this.user.summary);
+        this.userService.createUser(this.user);
+        this.store.dispatch(new RequestUserSuccessAction(this.user));
+        this.router.navigateByUrl("home/user-profile");
       }
->>>>>>> d0a4f26f0591c2ef6c5fde43bba748acdfc6d81d
     }
+  }
+
+  formatPhone(phone: string): string {
+    if (phone) {
+      const leadingNumber = phone.substring(0, 1);
+
+      if (leadingNumber === "0") {
+        return `00353${phone.substring(1, phone.length)}`;
+      }
+      return `00353${phone}`;
+    }
+
+    return "";
   }
 
   //Get social media links and set them
@@ -262,15 +239,9 @@ export class RegisterFormComponent implements OnInit {
   }
 
   createTestUser() {
-<<<<<<< HEAD
     this._userService.getTestUser().subscribe(user => {
       this.store.dispatch(new RequestUserSuccessAction(user));
       this.router.navigateByUrl("home/user-profile");
-=======
-    this.userServiceTemp.getTestUser().subscribe(user => {
-      this.store.dispatch(new RequestUserSuccessAction(user))
-      this.router.navigateByUrl('home/browse-jobs/grid');
->>>>>>> d0a4f26f0591c2ef6c5fde43bba748acdfc6d81d
     });
   }
 
