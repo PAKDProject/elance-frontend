@@ -32,7 +32,7 @@
     }
     .topBar {
       display: grid;
-      grid-template-columns: auto auto 320px;
+      grid-template-columns: auto auto 305px;
       margin-bottom: 5px;
 
       .listViewButton {
@@ -57,8 +57,10 @@
         font-size: 22px;
         justify-self: right;
         cursor: pointer;
-        height: 36px;
+        height: 40px;
         border-radius: 5px;
+        line-height: 40px;
+        vertical-align: middle;
         
         p {
           margin-left: 5px;
@@ -68,6 +70,8 @@
           font-size: 32px;
           margin-left: 5px;
           margin-right: 10px;
+          line-height: 40px;
+          vertical-align: middle;
         }
       }
       .active {
@@ -93,6 +97,10 @@
 
       .form-group {
         margin: 5px;
+
+        .radio {
+          margin-left: 10px;
+        }
       }
     }
 
@@ -101,7 +109,8 @@
       display: grid;
       grid-template-rows: auto auto;
   
-      mat-spinner, marquee {
+      mat-spinner, .marquee {
+        margin-top: 10px;
         justify-self: center;
       }
     }
@@ -120,6 +129,7 @@
 
         .searchBox {
           margin-right: 0px;
+          margin-bottom: 10px;
           min-width: none;
           width: 100%;
           grid-area: search;
@@ -143,6 +153,10 @@
             margin-left: none;
           }
         }
+      }
+  
+      .filterOptions {
+        grid-template-columns: repeat(2, auto);
       }
     }
   }
