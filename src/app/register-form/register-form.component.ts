@@ -186,7 +186,7 @@ export class RegisterFormComponent implements OnInit {
   createTestUser() {
     this.userServiceTemp.getTestUser().subscribe(user => {
       this.store.dispatch(new RequestUserSuccessAction(user))
-      this.router.navigateByUrl('home/user-profile');
+      this.router.navigateByUrl('home/browse-jobs/grid');
     });
   }
 
