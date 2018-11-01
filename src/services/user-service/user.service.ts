@@ -11,7 +11,7 @@ import { catchError } from 'rxjs/operators';
 
 export class UserService {
 
-  endpoint: string = 'localhost:3000/users';
+  endpoint: string = 'http://localhost:3000/users';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'

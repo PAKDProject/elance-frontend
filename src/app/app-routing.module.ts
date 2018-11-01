@@ -17,11 +17,13 @@ import { StateGuard } from './state.guard';
 import { ViewComponent } from './view/view.component';
 import { GridComponent } from './browse-jobs/grid/grid.component';
 import { ListComponent } from './browse-jobs/list/list.component';
+import { SecretComponent } from 'src/assets/secret/secret.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'callback/auth', component: LoginCallbackComponent },
   { path: 'user/create', component: RegisterFormComponent },
+  { path: 'secret', component: SecretComponent },
   {
     path: 'home', component: ViewComponent, pathMatch: 'prefix', canActivate: [StateGuard], children: [
       { path: '', redirectTo: 'user-dashboard', pathMatch: 'full' },

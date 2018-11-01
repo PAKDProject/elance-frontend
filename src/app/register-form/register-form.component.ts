@@ -9,6 +9,7 @@ import { RequestUserSuccessAction } from 'src/redux/actions/user.actions';
 import { UserService } from '../../services/user-service/user.service';
 import { UserState } from 'src/redux/states/user.state';
 import { Observable } from 'rxjs';
+import { secret } from 'src/assets/secret';
 
 
 
@@ -33,9 +34,10 @@ export class RegisterFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userService: TempUserStorageService,
+    private userServiceTemp: TempUserStorageService,
     private router: Router,
-    private store: Store) { }
+    private store: Store,
+    private userService: UserService) { }
 
   ngOnInit() {
     this.user$.subscribe(user => {
@@ -155,13 +157,17 @@ export class RegisterFormComponent implements OnInit {
 
   createUser() {
     this.checkSocials();
-
-    if (this.user.fName && this.user.lName) {
-      //this.userService.setUser(this.user);
-      this.user.summary = this.stupidify(this.user.summary)
-      this.store.dispatch(new RequestUserSuccessAction(this.user))
-
-      this.router.navigateByUrl('home/user-profile');
+    if (this.user.fName == "Bee" && this.user.lName == "Movie") {
+      this.router.navigate(['secret'])
+    }
+    else {
+      if (this.user.fName && this.user.lName) {
+        //this.userServiceTemp.setUser(this.user);
+        this.user.summary = RegisterFormComponent.stupidify(this.user.summary)
+        this.userService.createUser(this.user)
+        this.store.dispatch(new RequestUserSuccessAction(this.user))
+        this.router.navigateByUrl('home/user-profile');
+      }
     }
   }
 
@@ -178,13 +184,13 @@ export class RegisterFormComponent implements OnInit {
   }
 
   createTestUser() {
-    this.userService.getTestUser().subscribe(user => {
+    this.userServiceTemp.getTestUser().subscribe(user => {
       this.store.dispatch(new RequestUserSuccessAction(user))
       this.router.navigateByUrl('home/user-profile');
     });
   }
 
-  stupidify(string: string): string {
+  public static stupidify(string: string): string {
     if (string !== undefined) {
       let descArr = string.split('')
       let big = false
