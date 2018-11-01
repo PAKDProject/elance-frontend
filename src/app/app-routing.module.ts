@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'secret', component: SecretComponent },
   {
     path: 'home', component: ViewComponent, pathMatch: 'prefix', canActivate: [StateGuard], children: [
-      { path: '', redirectTo: 'user-dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'browse-jobs', pathMatch: 'full' },
       { path: 'user-dashboard', canActivate: [FeatureTogglingService, StateGuard], component: UserDashboardComponent },
       {
         path: 'browse-jobs', canActivate: [FeatureTogglingService, StateGuard], component: BrowseJobsComponent, children: [

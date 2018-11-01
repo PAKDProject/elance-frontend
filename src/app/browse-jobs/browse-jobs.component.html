@@ -1,17 +1,34 @@
+<!-- <<<<<<< HEAD
+<div class="container-fluid" *ngIf="(isLoading$ | async) === true">
+  <ngx-spinner bdColor="rgba(0, 0, 0, 1)" size="large" color="#12896e" type="ball-climbing-dot">
+    <h2>Loading potential jobs...</h2>
+  </ngx-spinner>
+</div>
+
+<div class="main-content" *ngIf="(isLoading$ | async) === false">
+  <div class="container-fluid">
+    <h2>Browse Jobs</h2>
+    <div class="container-fluid" style="min-height: 100vh" *ngIf="(isLoading$ | async) === true">
+      <ngx-spinner bdColor="rgba(0, 0, 0, 1)" size="large" height='200px' color="#12896e" type="ball-climbing-dot">
+        <h2>Loading potential jobs...</h2>
+      </ngx-spinner>
+======= -->
 <div class="main-content">
-  <div class="spinner" *ngIf="(isLoading$ | async) === true">
+  <!-- <div class="spinner" *ngIf="(isLoading$ | async) === true">
     <mat-spinner style="margin: 0 auto" color=""></mat-spinner>
     <div class="marquee">
       <marquee scrollAmount="20">Loading jobs...</marquee>
     </div>
-  </div>
-  <div class="container-fluid" *ngIf="(isLoading$ | async) === false">
+  </div> -->
+<!-- >>>>>>> d0a4f26f0591c2ef6c5fde43bba748acdfc6d81d -->
+  <!-- <div class="container-fluid" *ngIf="(isLoading$ | async) === false"> -->
+  <div class="container-fluid">
     <div class="headerBar">
         <h2>Browse Jobs</h2>
         
         <!-- Refresh Button -->
-        <div class="refreshButton" (click)='refresh()'>
-          <h4>Refresh</h4>
+        <div class="refreshButton" [class.active]='(isLoading$ | async) === true' (click)='refresh()'>
+          <p>Refresh</p>
           <mat-icon>refresh</mat-icon>
         </div>  
     </div>
@@ -20,17 +37,17 @@
 
         <!-- Change List Type Buttons -->
         <div class="listViewButton" *ngIf='!isList' (click)='changeListType()' routerLink='list'>
-          <h4>List View</h4>
+          <p>List View</p>
           <mat-icon>list</mat-icon>
         </div>
         <div class="listViewButton" *ngIf='isList' (click)='changeListType()' routerLink='grid'>
-          <h4>Grid View</h4>
+          <p>Grid View</p>
           <mat-icon>view_module</mat-icon>
         </div>
 
         <!-- Filter Opening Button -->
-        <div class="filterButton" (click)='openFilter()'>
-          <h4>Filter</h4>
+        <div class="filterButton" [class.active]='filterToggle' (click)='openFilter()'>
+          <p>Filter</p>
           <mat-icon>filter_list</mat-icon>
         </div>
         
@@ -43,15 +60,15 @@
     <!-- Filters -->
     <form class="filterOptions" *ngIf='filterToggle'>
       <div class="form-group">
-        <label for="minPayment">Min. Payment</label>
+        <label for="minPayment">Min. Payment:</label>
         <input type="number" class="form-control form-control-sm" id="minPayment" placeholder="0">
       </div>
       <div class="form-group">
-        <label for="maxPayment">Max. Payment</label>
+        <label for="maxPayment">Max. Payment:</label>
         <input type="number" class="form-control form-control-sm" id="maxPayment" placeholder="1,000,000">
       </div>
       <div class="form-group">
-        <h4>Sort by date:</h4>
+        <p>Sort by date:</p>
         <label for="dateNewOld">New to old</label>
         <input type="radio" class="radio-inline" id="dateNewOld" checked>
         <label for="dateOldNew">Old to new</label>
@@ -59,6 +76,15 @@
       </div>
     </form>
     
-    <router-outlet></router-outlet>
+    <div class="spinner" *ngIf="(isLoading$ | async) === true">
+      <mat-spinner color=""></mat-spinner>
+      <div class="marquee">
+        Loading Jobs...
+      </div>
+    </div>
+
+    <div *ngIf="(isLoading$ | async) === false">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

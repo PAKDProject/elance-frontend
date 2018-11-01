@@ -33,9 +33,9 @@ export class BrowseJobsComponent implements OnInit {
       this.jobs = jobs;
     });
 
-    this.isLoading$.subscribe(bool => {
-      alert(bool);
-    });
+    // this.isLoading$.subscribe(bool => {
+    //   alert(bool);
+    // });
   }
 
   //Inverts list type
