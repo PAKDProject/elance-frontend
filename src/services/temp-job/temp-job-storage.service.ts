@@ -10,6 +10,7 @@ export class TempJobStorageService {
 
   constructor() { }
 
+  private jobsMaster: IJob[];
   private jobs: IJob[]
 
   getAllJobs(): Observable<IJob[]> {
@@ -17,16 +18,32 @@ export class TempJobStorageService {
     return of(this.jobs).pipe(delay(3000));
   }
 
+  performSearch(searchBy: string) {
+    if (searchBy.length > 0) {
+      console.log('performing search using term: ' + searchBy)
+      searchBy = searchBy.toLocaleLowerCase();
+
+      this.jobs = (this.jobsMaster.filter((j: IJob) => 
+      j.title.toLocaleLowerCase().indexOf(searchBy) !== -1));
+    }
+    else {
+      this.jobs = this.jobsMaster;
+      console.log('Setting jobs to master list');
+    }
+    
+    console.log(this.jobs);
+  }
+
   addJob(value: IJob) {
-    this.jobs.push(value)
+    this.jobsMaster.push(value)
   }
 
   clearJobs() {
-    this.jobs = [];
+    this.jobsMaster = [];
   }
 
   addSampleJobs() {
-    this.jobs = [
+    this.jobsMaster = [
       {
         id: 1,
         title: 'Software Developer',
@@ -95,5 +112,6 @@ export class TempJobStorageService {
         progress: 0.8,
       }
     ]
+    this.jobs = this.jobsMaster;
   }
 }

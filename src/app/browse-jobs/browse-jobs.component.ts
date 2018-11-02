@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { TempJobStorageService } from "src/services/temp-job/temp-job-storage.service";
 import { IJob } from "src/models/job-model";
 import { Select, Store } from "@ngxs/store";
@@ -13,16 +13,29 @@ import { ThemePalette } from "@angular/material";
   templateUrl: "./browse-jobs.component.html",
   styleUrls: ["./browse-jobs.component.scss"]
 })
-export class BrowseJobsComponent implements OnInit {
+export class BrowseJobsComponent implements OnInit, OnDestroy {
   isList: boolean;
   filterToggle: boolean;
   jobs: IJob[];
+
+  _searchTerm: string;
+  get searchTerm(): string{
+    return this._searchTerm;
+  }
+  set searchTerm(value: string){
+    this._searchTerm = value;
+    this.jobService.performSearch(this.searchTerm)
+  }
+
   @Select(JobsState.getIsLoading)
   isLoading$: Observable<boolean>;
   @Select(JobsState.getJobs)
   jobs$: Observable<IJob[]>;
 
-  constructor(private store: Store, private spinner: NgxSpinnerService) {
+  constructor(private store: Store,
+              private spinner: NgxSpinnerService,
+              private jobService: TempJobStorageService
+    ) {
     this.isList = false;
   }
 
@@ -36,6 +49,10 @@ export class BrowseJobsComponent implements OnInit {
     // this.isLoading$.subscribe(bool => {
     //   alert(bool);
     // });
+  }
+
+  ngOnDestroy() {
+    this.searchTerm = '';
   }
 
   //Inverts list type
@@ -52,3 +69,4 @@ export class BrowseJobsComponent implements OnInit {
     this.store.dispatch(new RequestJobs());
   }
 }
+
