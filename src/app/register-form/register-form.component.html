@@ -31,22 +31,27 @@
           <ng-template matStepLabel>Personal Information</ng-template>
           <!--Form-->
           <div class="row">
+            <div class="col">
+              <p class="float-right"><span class="required">*</span> Required Field</p>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
               <div class="form-group">
-                <label for="fName">First Name</label>
+                <label for="fName">First Name <span class="required">*</span></label>
                 <input type="text" id="fName" name="fName" class="form-control" placeholder="Joe" formControlName="fName"
                   value="this.user.fName" />
-                <div class="feedback-invalid" *ngIf="!personalDetailsForm.controls['fName'].valid && personalDetailsForm.controls['fName'].touched">
+                <div class="feedback-invalid" *ngIf="!fName.valid && fName.touched">
                   Name is required
                 </div>
               </div>
             </div>
             <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
               <div class="form-group">
-                <label for="lName">Last Name</label>
+                <label for="lName">Last Name <span class="required">*</span></label>
                 <input type="text" id="lName" name="lName" class="form-control" placeholder="Sample" formControlName="lName"
                   value="this.user.lName" />
-                <div class="feedback-invalid" *ngIf="!personalDetailsForm.controls['lName'].valid && personalDetailsForm.controls['lName'].touched">
+                <div class="feedback-invalid" *ngIf="!lName.valid && lName.touched">
                   Surname is required
                 </div>
               </div>
@@ -58,10 +63,10 @@
                 <label for="dob">Date of Birth</label>
                 <input type="date" id="dob" name="dob" class="form-control" max="2018-01-01" formControlName="dob" />
 
-                <div class="feedback-invalid" *ngIf="!personalDetailsForm.controls['dob'].pending && personalDetailsForm.controls['dob'].errors?.min">
+                <div class="feedback-invalid" *ngIf="!dob.pending && dob.errors?.min">
                   You cant be THAT old
                 </div>
-                <div class="feedback-invalid" *ngIf="personalDetailsForm.controls['dob'].errors?.max">
+                <div class="feedback-invalid" *ngIf="dob.errors?.max">
                   You cant be born in the future smartass
                 </div>
               </div>
@@ -78,7 +83,7 @@
                   <input type="tel" id="phone" name="phone" class="form-control" placeholder="851234567"
                     formControlName="phone" />
                 </div>
-                <div class="feedback-invalid" *ngIf="!personalDetailsForm.controls['phone'].valid && personalDetailsForm.controls['phone'].touched">
+                <div class="feedback-invalid" *ngIf="!phone.valid && phone.touched">
                   Please enter a valid phone number
                 </div>
               </div>
@@ -126,7 +131,7 @@
                 <label for="description">Personal Statement</label>
                 <textarea class="form-control" id="description" name="description" rows="3" placeholder="Tell us something about you ..."
                   formControlName="description" maxlength="300"></textarea>
-                <div class="feedback-invalid" *ngIf="!aboutYouForm.controls['description'].valid && aboutYouForm.controls['description'].touched">
+                <div class="feedback-invalid" *ngIf="!description.valid && description.touched">
                   This field only accepts up to 300 characters
                 </div>
               </div>
@@ -207,13 +212,13 @@
 
           </div>
           <div class="row">
-            <div class="feedback-invalid ml-3" *ngIf="!educationForm.controls['educationStartDate'].pending && educationForm.controls['educationStartDate'].errors?.min">
+            <div class="feedback-invalid ml-3" *ngIf="!educationStartDate.pending && educationStartDate.errors?.min">
               Cool Story bro, how was the viking era?
             </div>
-            <div class="feedback-invalid  ml-3" *ngIf="!educationForm.controls['educationStartDate'].pending && educationForm.controls['educationStartDate'].errors?.max">
+            <div class="feedback-invalid  ml-3" *ngIf="!educationStartDate.pending && educationStartDate.errors?.max">
               Cool Story bro, how are the flying cars?
             </div>
-            <div class="feedback-invalid  ml-3" *ngIf="!educationForm.controls['educationEndDate'].valid && educationForm.controls['educationEndDate'].touched">
+            <div class="feedback-invalid  ml-3" *ngIf="!educationEndDate.valid && educationEndDate.touched">
               Course must have ended after it began ... duh
             </div>
           </div>

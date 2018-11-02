@@ -7,12 +7,7 @@ import {
 } from "src/models/user-model";
 import { TempUserStorageService } from "../../services/temp-user/temp-user-storage.service";
 import { Router } from "@angular/router";
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import * as AWS from "aws-sdk";
 import { Store, Select } from "@ngxs/store";
 import { RequestUserSuccessAction } from "src/redux/actions/user.actions";
@@ -32,6 +27,7 @@ export class RegisterFormComponent implements OnInit {
   skillsAdded: ISkill[] = [];
   educationAdded: IEducationItem[] = [];
   socialsAdded: ISocialLink[] = [];
+  //user object
   user: IUser = {
     email: "sample@gmail.com",
     userID: "1",
@@ -59,7 +55,6 @@ export class RegisterFormComponent implements OnInit {
   ngOnInit() {
     //Set up all the forms
 
-    //Personal Details form
     this.user$.subscribe(user => {
       this.user.email = user.email;
       this.user.fName = user.fName;
@@ -67,10 +62,14 @@ export class RegisterFormComponent implements OnInit {
       this.user.userID = user.userID;
     });
 
+    //Personal Details form
     this.personalDetailsForm = this.fb.group({
       fName: [this.user.fName, Validators.required],
       lName: [this.user.lName, Validators.required],
-      dob: [this.user.dob, [Validators.min(1900), Validators.max(2018)]],
+      dob: [
+        this.user.dob,
+        [Validators.min(1900), Validators.max(new Date().getFullYear())]
+      ],
       phone: [this.user.phone, [Validators.pattern("\\d{6,10}")]]
     });
 
@@ -83,29 +82,29 @@ export class RegisterFormComponent implements OnInit {
 
     //Skills form
     this.skillForm = this.fb.group({
-      skillTitle: "",
-      skillDescription: ""
+      skillTitle: [""],
+      skillDescription: [""]
     });
 
     //Education form
     this.educationForm = this.fb.group({
-      degreeTitle: "",
+      degreeTitle: [""],
       educationStartDate: [
         "",
         [Validators.min(1900), Validators.max(new Date().getFullYear())]
       ],
-      educationEndDate: "",
-      collegeName: "",
-      finalGrade: "",
-      educationDescription: ""
+      educationEndDate: [""],
+      collegeName: [""],
+      finalGrade: [""],
+      educationDescription: [""]
     });
 
     //Social links form
     this.socialForm = this.fb.group({
-      facebook: "",
-      twitter: "",
-      github: "",
-      linkedin: ""
+      facebook: [""],
+      twitter: [""],
+      github: [""],
+      linkedin: [""]
     });
 
     //Store values entered into the form into relevant properties
@@ -115,6 +114,7 @@ export class RegisterFormComponent implements OnInit {
       this.user.dob = data.dob;
       this.user.phone = this.formatPhone(data.phone);
     });
+
     //Store values into relevant fields
     this.aboutYouForm.valueChanges.subscribe(data => {
       this.user.tagline = data.tagline;
@@ -122,21 +122,72 @@ export class RegisterFormComponent implements OnInit {
     });
   }
 
+  //#region Getters
+  get fName() {
+    return this.personalDetailsForm.get("fName");
+  }
+  get lName() {
+    return this.personalDetailsForm.get("lName");
+  }
+  get dob() {
+    return this.personalDetailsForm.get("dob");
+  }
+  get phone() {
+    return this.personalDetailsForm.get("phone");
+  }
+  get description() {
+    return this.aboutYouForm.get("description");
+  }
+  get skillTitle() {
+    return this.skillForm.get("skillTitle");
+  }
+  get skillDescription() {
+    return this.skillForm.get("skillDescription");
+  }
+  get degreeTitle() {
+    return this.educationForm.get("degreeTitle");
+  }
+  get collegeName() {
+    return this.educationForm.get("collegeName");
+  }
+  get finalGrade() {
+    return this.educationForm.get("finalGrade");
+  }
+  get educationDescription() {
+    return this.educationForm.get("educationDescription");
+  }
+  get educationStartDate() {
+    return this.educationForm.get("educationStartDate");
+  }
+  get educationEndDate() {
+    return this.educationForm.get("educationEndDate");
+  }
+  get facebook() {
+    return this.socialForm.get("facebook");
+  }
+  get github() {
+    return this.socialForm.get("github");
+  }
+  get twitter() {
+    return this.socialForm.get("twitter");
+  }
+  get linkedin() {
+    return this.socialForm.get("linkedin");
+  }
+  //#endregion
+
   //Retrieve skill, check if it has already been added, if not add to array
   addSkill() {
     let alreadyContained = false;
     this.skillsAdded.forEach(skill => {
-      if (
-        skill.title.toLowerCase() ===
-        this.skillForm.get("skillTitle").value.toLowerCase()
-      ) {
+      if (skill.title.toLowerCase() === this.skillTitle.value.toLowerCase()) {
         alreadyContained = true;
       }
     });
     if (!alreadyContained) {
       this.skillsAdded.push({
-        title: this.skillForm.get("skillTitle").value,
-        description: this.skillForm.get("skillDescription").value
+        title: this.skillTitle.value,
+        description: this.skillDescription.value
       });
     }
     this.skillForm.reset();
@@ -144,22 +195,21 @@ export class RegisterFormComponent implements OnInit {
   //Retrieve education from form, check if start date is before end date and then add to array
   addEducation() {
     let valid: boolean = true;
-    if (
-      this.educationForm.get("educationStartDate").value >=
-      this.educationForm.get("educationEndDate").value
-    ) {
+    if (this.educationStartDate.value >= this.educationEndDate.value) {
       valid = false;
-      this.educationForm.controls['educationEndDate'].setErrors({'incorrect': true});
+      this.educationEndDate.setErrors({
+        incorrect: true
+      });
     }
 
     if (valid) {
       this.educationAdded.push({
-        degreeTitle: this.educationForm.get("degreeTitle").value,
-        startYear: this.educationForm.get("educationStartDate").value,
-        endYear: this.educationForm.get("educationEndDate").value,
-        grade: this.educationForm.get("finalGrade").value,
-        description: this.educationForm.get("educationDescription").value,
-        collegeName: this.educationForm.get("collegeName").value
+        degreeTitle: this.degreeTitle.value,
+        startYear: this.educationStartDate.value,
+        endYear: this.educationEndDate.value,
+        grade: this.finalGrade.value,
+        description: this.educationDescription.value,
+        collegeName: this.collegeName.value
       });
 
       this.educationForm.reset();
@@ -171,16 +221,6 @@ export class RegisterFormComponent implements OnInit {
     let i = this.skillsAdded.indexOf(skill);
     this.skillsAdded.splice(i, 1);
   }
-
-  // addUser(fName: string, lName: string) {
-  //   let user: IUser = {
-  //     userID: 0,
-  //     email: localStorage.getItem("email"),
-  //     fName,
-  //     lName
-  //   }
-
-  // }
 
   //On submit of entire page
   createUser() {
@@ -214,10 +254,10 @@ export class RegisterFormComponent implements OnInit {
 
   //Get social media links and set them
   checkSocials() {
-    const facebook = this.socialForm.get("facebook").value;
-    const twitter = this.socialForm.get("twitter").value;
-    const github = this.socialForm.get("github").value;
-    const linkedin = this.socialForm.get("linkedin").value;
+    const facebook = this.facebook.value;
+    const twitter = this.twitter.value;
+    const github = this.github.value;
+    const linkedin = this.linkedin.value;
 
     if (facebook)
       this.socialsAdded.push({
