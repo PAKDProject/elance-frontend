@@ -33,6 +33,15 @@ export class TempJobStorageService {
     console.log(this.jobs);
   }
 
+  applyFilters(minPrice: number, maxPrice: number, dateSort) {
+    if (minPrice > 0) {
+
+    }
+    else {
+
+    }
+  }
+
   addJob(value: IJob) {
     this.jobsMaster.push(value)
   }

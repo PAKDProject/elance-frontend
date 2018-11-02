@@ -1,5 +1,5 @@
 import { State, StateContext, Action, Selector, Store } from "@ngxs/store";
-import { RequestJobsSuccess, RequestJobsFail, RequestJobs } from "../actions/job.actions";
+import { RequestJobsSuccess, RequestJobsFail, RequestJobs, SearchJobs } from "../actions/job.actions";
 import { IJob } from "src/models/job-model";
 import { HttpClient } from "@angular/common/http";
 import { TempJobStorageService } from "src/services/temp-job/temp-job-storage.service";
@@ -64,5 +64,15 @@ export class JobsState {
         state.isLoading = false
         state.jobs = []
         patchState(state)
+    }
+
+    @Action(SearchJobs)
+    searchStarted({ getState, patchState }: StateContext<JobsStateModel>, { searchTerm }: SearchJobs) {
+        const state = getState()
+        // state.isLoading = true;
+        state.jobs = []
+        patchState(state)
+
+        this.jobsService.performSearch(searchTerm)
     }
 }

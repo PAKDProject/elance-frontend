@@ -15,3 +15,8 @@ export class RequestJobsFail {
 
     constructor(public errorMessage: string) { }
 }
+
+export class SearchJobs {
+    static readonly type = '[Jobs] Search'
+    constructor(public searchTerm: string) {}
+}

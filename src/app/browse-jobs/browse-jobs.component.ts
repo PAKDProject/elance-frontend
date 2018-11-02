@@ -1,12 +1,13 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { TempJobStorageService } from "src/services/temp-job/temp-job-storage.service";
+import { Component, OnInit, OnDestroy, Output } from "@angular/core";
 import { IJob } from "src/models/job-model";
 import { Select, Store } from "@ngxs/store";
 import { JobsState } from "src/redux/states/job.state";
-import { Observable } from "rxjs";
-import { RequestJobs } from "src/redux/actions/job.actions";
+import { Observable, Subject } from "rxjs";
+import { debounceTime, distinctUntilChanged } from "rxjs/operators"
+import { RequestJobs, SearchJobs } from "src/redux/actions/job.actions";
 import { NgxSpinnerService } from "ngx-spinner";
-import { ThemePalette } from "@angular/material";
+import {FormControl, FormGroup} from '@angular/forms';
+import { EventEmitter } from "protractor";
 
 @Component({
   selector: "app-browse-jobs",
@@ -16,16 +17,7 @@ import { ThemePalette } from "@angular/material";
 export class BrowseJobsComponent implements OnInit, OnDestroy {
   isList: boolean;
   filterToggle: boolean;
-
-  _searchTerm: string;
-  get searchTerm(): string{
-    return this._searchTerm;
-  }
-  set searchTerm(value: string){
-    this._searchTerm = value;
-    this.jobService.performSearch(this.searchTerm)
-    this.store.dispatch(new RequestJobs());
-  }
+  term: FormControl = new FormControl;
 
   @Select(JobsState.getIsLoading)
   isLoading$: Observable<boolean>;
@@ -33,21 +25,27 @@ export class BrowseJobsComponent implements OnInit, OnDestroy {
   jobs$: Observable<IJob[]>;
 
   constructor(private store: Store,
-              private spinner: NgxSpinnerService,
-              private jobService: TempJobStorageService
+              private spinner: NgxSpinnerService
     ) {
     this.isList = false;
+
+    this.term.valueChanges
+        .pipe(debounceTime(1000))
+        .pipe(distinctUntilChanged())
+        .subscribe(searchTerm =>
+          this.store.dispatch(new SearchJobs(searchTerm))
+          &&
+          this.store.dispatch(new RequestJobs())
+          )
   }
 
-  ngOnInit() {
-    this.jobService.addSampleJobs();
-    
+  ngOnInit() {    
     this.spinner.show();
     this.store.dispatch(new RequestJobs());
   }
 
   ngOnDestroy() {
-    this.searchTerm = '';
+    // this.searchTerm = '';
   }
 
   //Inverts list type
