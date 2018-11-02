@@ -40,6 +40,8 @@ export class BrowseJobsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.jobService.addSampleJobs();
+
     this.spinner.show();
     this.store.dispatch(new RequestJobs());
     this.jobs$.subscribe(jobs => {
