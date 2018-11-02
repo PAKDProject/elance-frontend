@@ -1,22 +1,22 @@
 .gridContainer {
     display: grid;
-    grid-template-columns: repeat(4,auto);
+    grid-template-columns: repeat(4,1fr);
 }
 
 @media only screen and (max-width: 1300px) {
     .gridContainer {
-        grid-template-columns: repeat(3, auto);
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media only screen and (max-width: 768px) {
     .gridContainer {
-        grid-template-columns: repeat(2, auto);
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media only screen and (max-width: 425px) {
     .gridContainer {
-        grid-template-columns: auto;
+        grid-template-columns: 1fr;
     }
 }

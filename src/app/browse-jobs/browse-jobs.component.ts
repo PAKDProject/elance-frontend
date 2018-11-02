@@ -16,7 +16,6 @@ import { ThemePalette } from "@angular/material";
 export class BrowseJobsComponent implements OnInit, OnDestroy {
   isList: boolean;
   filterToggle: boolean;
-  jobs: IJob[];
 
   _searchTerm: string;
   get searchTerm(): string{
@@ -25,6 +24,7 @@ export class BrowseJobsComponent implements OnInit, OnDestroy {
   set searchTerm(value: string){
     this._searchTerm = value;
     this.jobService.performSearch(this.searchTerm)
+    this.store.dispatch(new RequestJobs());
   }
 
   @Select(JobsState.getIsLoading)
@@ -41,16 +41,9 @@ export class BrowseJobsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.jobService.addSampleJobs();
-
+    
     this.spinner.show();
     this.store.dispatch(new RequestJobs());
-    this.jobs$.subscribe(jobs => {
-      this.jobs = jobs;
-    });
-
-    // this.isLoading$.subscribe(bool => {
-    //   alert(bool);
-    // });
   }
 
   ngOnDestroy() {

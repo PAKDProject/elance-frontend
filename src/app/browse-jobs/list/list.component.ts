@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IJob } from 'src/models/job-model';
-import { TempJobStorageService } from 'src/services/temp-job/temp-job-storage.service';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { JobsState } from 'src/redux/states/job.state';
