@@ -4,9 +4,9 @@ import { Select, Store } from "@ngxs/store";
 import { JobsState } from "src/redux/states/job.state";
 import { Observable } from "rxjs";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators"
-import { RequestJobs, SearchJobs } from "src/redux/actions/job.actions";
+import { RequestJobs, SearchJobs, FilterJobs } from "src/redux/actions/job.actions";
 import { NgxSpinnerService } from "ngx-spinner";
-import {FormControl} from '@angular/forms';
+import {FormControl, FormGroup, NgForm} from '@angular/forms';
 @Component({
   selector: "app-browse-jobs",
   templateUrl: "./browse-jobs.component.html",
@@ -15,26 +15,24 @@ import {FormControl} from '@angular/forms';
 export class BrowseJobsComponent implements OnInit {
   isList: boolean;
   filterToggle: boolean;
-  term: FormControl = new FormControl;
+  searchTerm: FormControl = new FormControl;
 
   @Select(JobsState.getIsLoading)
   isLoading$: Observable<boolean>;
   @Select(JobsState.getJobs)
   jobs$: Observable<IJob[]>;
 
-  constructor(private store: Store,
-              private spinner: NgxSpinnerService
-    ) {
+  constructor(private store: Store, private spinner: NgxSpinnerService) {
+
     this.isList = false;
 
-    this.term.valueChanges
+    this.searchTerm.valueChanges
         .pipe(debounceTime(1000))
         .pipe(distinctUntilChanged())
         .subscribe(searchTerm =>
           this.store.dispatch(new SearchJobs(searchTerm))
           &&
-          this.store.dispatch(new RequestJobs())
-          )
+          this.store.dispatch(new RequestJobs()))
   }
 
   ngOnInit() {    
@@ -55,5 +53,18 @@ export class BrowseJobsComponent implements OnInit {
   refresh() {
     this.store.dispatch(new RequestJobs());
   }
+
+  applyFilters(filters : NgForm) {
+    let f = filters.value as filterForm;
+
+    console.log('Dispatching filters')
+    this.store.dispatch(new FilterJobs(f))
+    this.store.dispatch(new RequestJobs())
+  }
 }
 
+export interface filterForm {
+  minPayment: number;
+  maxPayment: number;
+  dateRadio: string;
+}

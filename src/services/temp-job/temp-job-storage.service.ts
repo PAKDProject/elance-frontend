@@ -2,11 +2,17 @@ import { Injectable } from '@angular/core';
 import { IJob } from 'src/models/job-model';
 import { of, Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { filterForm } from 'src/app/browse-jobs/browse-jobs.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TempJobStorageService {
+  searchApplied: boolean;
+  lastSearch: string;
+
+  filterApplied: boolean;
+  lastFilter: filterForm;
 
   constructor() { }
 
@@ -18,27 +24,62 @@ export class TempJobStorageService {
   }
 
   performSearch(searchBy: string) {
-    if (searchBy.length > 0) {
-      console.log('performing search using term: ' + searchBy)
-      searchBy = searchBy.toLocaleLowerCase();
-
-      this.jobs = (this.jobsMaster.filter((j: IJob) => 
-      j.title.toLocaleLowerCase().indexOf(searchBy) !== -1));
+    if(this.filterApplied)
+    {
+      if (searchBy.length > 0) {
+        console.log('performing search using term: ' + searchBy)
+        searchBy = searchBy.toLocaleLowerCase();
+        this.searchApplied = true;
+        this.lastSearch = searchBy;
+      }
+      else {
+        console.log('Setting jobs to master list');
+        this.searchApplied = false;
+      }
+      this.performFilter(this.lastFilter);
     }
-    else {
-      this.jobs = this.jobsMaster;
-      console.log('Setting jobs to master list');
+    else
+    {
+      if (searchBy.length > 0) {
+        console.log('performing search using term: ' + searchBy)
+        searchBy = searchBy.toLocaleLowerCase();
+  
+        this.jobs = (this.jobsMaster.filter((j: IJob) => 
+        j.title.toLocaleLowerCase().indexOf(searchBy) !== -1));
+        this.searchApplied = true;
+        this.lastSearch = searchBy;
+      }
+      else {
+        this.jobs = this.jobsMaster;
+        console.log('Setting jobs to master list');
+        this.searchApplied = false;
+      }
     }
-    
-    console.log(this.jobs);
   }
 
-  applyFilters(minPrice: number, maxPrice: number, dateSort) {
-    if (minPrice > 0) {
+  performFilter(filterForm : filterForm) {
+    //Reset jobs array to all jobs
+    this.jobs = this.jobsMaster;
 
+    this.filterApplied = true;
+    this.lastFilter = filterForm;
+
+    //Default values
+    if(!filterForm.minPayment) { filterForm.minPayment = 0 }
+    if(!filterForm.maxPayment) { filterForm.maxPayment = 1000000000000}
+
+    //If a search is applied
+    if(this.searchApplied && filterForm){
+      this.jobs = (this.jobsMaster.filter((j: IJob) => 
+      j.payment > filterForm.minPayment
+      && j.payment < filterForm.maxPayment
+      && j.title.toLocaleLowerCase().indexOf(this.lastSearch) !== -1));
     }
-    else {
-
+    //Else
+    else{
+      this.jobs = (this.jobsMaster.filter((j: IJob) => 
+      j.payment > filterForm.minPayment
+      && j.payment < filterForm.maxPayment))
     }
   }
 

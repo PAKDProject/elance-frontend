@@ -1,4 +1,5 @@
 import { IJob } from "src/models/job-model";
+import { filterForm } from "src/app/browse-jobs/browse-jobs.component";
 
 export class RequestJobs {
     static readonly type = '[Jobs] Request'
@@ -18,5 +19,10 @@ export class RequestJobsFail {
 
 export class SearchJobs {
     static readonly type = '[Jobs] Search'
-    constructor(public searchTerm: string) {}
+    constructor(public searchTerm: string) { }
+}
+
+export class FilterJobs {
+    static readonly type = '[Jobs] Filter'
+    constructor(public filterForm: filterForm) {}
 }
