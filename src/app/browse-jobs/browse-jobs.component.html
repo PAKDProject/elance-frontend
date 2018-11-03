@@ -77,13 +77,11 @@
       <div class="form-group">
         <p>Sort by date:</p>
         <label class="radio">
-          <input type="radio" name="dateRadio" checked
-                 ngModel name="dateRadio" value="newToOld">
+          <input type="radio" name="dateRadio" value="newToOld" [(ngModel)]='dateOrderRadio' checked>
           New to Old
         </label>
         <label class="radio">
-          <input type="radio" name="dateRadio"
-                 ngModel name="dateRadio" value="oldToNew">
+          <input type="radio" name="dateRadio" value="oldToNew" [(ngModel)]='dateOrderRadio'>
           Old to New
         </label>
       </div>

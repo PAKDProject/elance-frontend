@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Pipe } from '@angular/core';
 import { IJob } from 'src/models/job-model';
 import { of, Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { filterForm } from 'src/app/browse-jobs/browse-jobs.component';
+import { transformAll } from '@angular/compiler/src/render3/r3_ast';
+import { InactiveJobCardComponent } from 'src/app/cards/inactive-job-card/inactive-job-card.component';
 
 @Injectable({
   providedIn: 'root'
@@ -28,9 +30,9 @@ export class TempJobStorageService {
     {
       if (searchBy.length > 0) {
         console.log('performing search using term: ' + searchBy)
-        searchBy = searchBy.toLocaleLowerCase();
+
         this.searchApplied = true;
-        this.lastSearch = searchBy;
+        this.lastSearch = searchBy.toLocaleLowerCase();;
       }
       else {
         console.log('Setting jobs to master list');
@@ -42,10 +44,9 @@ export class TempJobStorageService {
     {
       if (searchBy.length > 0) {
         console.log('performing search using term: ' + searchBy)
-        searchBy = searchBy.toLocaleLowerCase();
-  
+
         this.jobs = (this.jobsMaster.filter((j: IJob) => 
-        j.title.toLocaleLowerCase().indexOf(searchBy) !== -1));
+        j.title.toLocaleLowerCase().indexOf(searchBy.toLocaleLowerCase()) !== -1));
         this.searchApplied = true;
         this.lastSearch = searchBy;
       }
@@ -80,6 +81,23 @@ export class TempJobStorageService {
       this.jobs = (this.jobsMaster.filter((j: IJob) => 
       j.payment > filterForm.minPayment
       && j.payment < filterForm.maxPayment))
+    }
+
+    switch(filterForm.dateRadio) {
+      case 'newToOld':
+        this.jobs.sort(function(a,b){
+          var jobA = a.datePosted, jobB = b.datePosted;
+          if(jobA > jobB) return -1;
+          if(jobB > jobA) return 1;
+        })
+        break;
+      case 'oldToNew':
+        this.jobs.sort(function(a,b){
+          var jobA = a.datePosted, jobB = b.datePosted;
+          if(jobA > jobB) return -1;
+          if(jobB > jobA) return 1;
+        }).reverse();
+        break;
     }
   }
 

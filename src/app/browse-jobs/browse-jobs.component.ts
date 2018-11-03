@@ -6,7 +6,8 @@ import { Observable } from "rxjs";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators"
 import { RequestJobs, SearchJobs, FilterJobs } from "src/redux/actions/job.actions";
 import { NgxSpinnerService } from "ngx-spinner";
-import {FormControl, FormGroup, NgForm} from '@angular/forms';
+import {FormControl, NgForm} from '@angular/forms';
+
 @Component({
   selector: "app-browse-jobs",
   templateUrl: "./browse-jobs.component.html",
@@ -16,6 +17,8 @@ export class BrowseJobsComponent implements OnInit {
   isList: boolean;
   filterToggle: boolean;
   searchTerm: FormControl = new FormControl;
+
+  dateOrderRadio: string = 'newToOld';
 
   @Select(JobsState.getIsLoading)
   isLoading$: Observable<boolean>;
