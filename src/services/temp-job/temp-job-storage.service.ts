@@ -117,7 +117,7 @@ export class TempJobStorageService {
         employer: 'Bob Bossman',
         location: 'Dublin',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non eros viverra, fringilla massa rhoncus, dictum nulla. In rhoncus nunc sed ante maximus tincidunt. Praesent ut lectus nisl. Etiam elementum dictum elit at aliquet. Sed vitae vehicula massa, sed luctus velit. Morbi aliquam sodales tempor. Praesent tempus, felis et luctus porttitor, quam lectus elementum nulla, sit amet pretium nisi dolor vel eros. Nulla vestibulum eu velit ac semper. Morbi gravida rhoncus libero, a rhoncus sapien. Morbi non sem a ligula viverra fermentum elementum ac odio. Fusce eget justo eros.',
-        datePosted: new Date(20 / 10 / 2018),
+        datePosted: new Date('2018-10-19T00:00:00'),
         payment: 10000,
         isAccepted: false
       },
@@ -127,7 +127,7 @@ export class TempJobStorageService {
         employer: 'Susan CEO',
         location: 'Galway',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non eros viverra, fringilla massa rhoncus, dictum nulla. In rhoncus nunc sed ante maximus tincidunt. Praesent ut lectus nisl. Etiam elementum dictum elit at aliquet. Sed vitae vehicula massa, sed luctus velit. Morbi aliquam sodales tempor. Praesent tempus, felis et luctus porttitor, quam lectus elementum nulla, sit amet pretium nisi dolor vel eros. Nulla vestibulum eu velit ac semper. Morbi gravida rhoncus libero, a rhoncus sapien. Morbi non sem a ligula viverra fermentum elementum ac odio. Fusce eget justo eros.',
-        datePosted: new Date(20 / 10 / 2018),
+        datePosted: new Date('2018-10-20T00:00:00'),
         payment: 1000000,
         isAccepted: false
       },
@@ -136,7 +136,7 @@ export class TempJobStorageService {
         title: 'Backend Developer',
         employer: 'Eddie Employer',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non eros viverra, fringilla massa rhoncus, dictum nulla. In rhoncus nunc sed ante maximus tincidunt. Praesent ut lectus nisl. Etiam elementum dictum elit at aliquet. Sed vitae vehicula massa, sed luctus velit. Morbi aliquam sodales tempor. Praesent tempus, felis et luctus porttitor, quam lectus elementum nulla, sit amet pretium nisi dolor vel eros. Nulla vestibulum eu velit ac semper. Morbi gravida rhoncus libero, a rhoncus sapien. Morbi non sem a ligula viverra fermentum elementum ac odio. Fusce eget justo eros.',
-        datePosted: new Date(20 / 10 / 2018),
+        datePosted: new Date('2018-10-21T00:00:00'),
         payment: 10750,
         isAccepted: false
       },
@@ -146,9 +146,9 @@ export class TempJobStorageService {
         employer: 'Jason Jobgiver',
         location: 'Sligo',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non eros viverra, fringilla massa rhoncus, dictum nulla. In rhoncus nunc sed ante maximus tincidunt. Praesent ut lectus nisl. Etiam elementum dictum elit at aliquet. Sed vitae vehicula massa, sed luctus velit. Morbi aliquam sodales tempor. Praesent tempus, felis et luctus porttitor, quam lectus elementum nulla, sit amet pretium nisi dolor vel eros. Nulla vestibulum eu velit ac semper. Morbi gravida rhoncus libero, a rhoncus sapien. Morbi non sem a ligula viverra fermentum elementum ac odio. Fusce eget justo eros.',
-        datePosted: new Date(20 / 10 / 2018),
-        dateAccepted: new Date(29 / 10 / 2018),
-        dateDue: new Date(1 / 12 / 2018),
+        datePosted: new Date('2018-10-22T00:00:00'),
+        dateAccepted: new Date('2018-10-29T00:00:00'),
+        dateDue: new Date('2018-12-01T00:00:00'),
         payment: 12000,
         isAccepted: true,
         progress: 0.3,
@@ -159,9 +159,9 @@ export class TempJobStorageService {
         employer: 'John Smith',
         location: 'Cork',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non eros viverra, fringilla massa rhoncus, dictum nulla. In rhoncus nunc sed ante maximus tincidunt. Praesent ut lectus nisl. Etiam elementum dictum elit at aliquet. Sed vitae vehicula massa, sed luctus velit. Morbi aliquam sodales tempor. Praesent tempus, felis et luctus porttitor, quam lectus elementum nulla, sit amet pretium nisi dolor vel eros. Nulla vestibulum eu velit ac semper. Morbi gravida rhoncus libero, a rhoncus sapien. Morbi non sem a ligula viverra fermentum elementum ac odio. Fusce eget justo eros.',
-        datePosted: new Date(20 / 10 / 2018),
-        dateAccepted: new Date(29 / 10 / 2018),
-        dateDue: new Date(1 / 12 / 2018),
+        datePosted: new Date('2018-10-23T00:00:00'),
+        dateAccepted: new Date('2018-10-29T00:00:00'),
+        dateDue: new Date('2018-12-01T00:00:00'),
         payment: 8000,
         isAccepted: true,
         progress: 0.5,
@@ -171,14 +171,20 @@ export class TempJobStorageService {
         title: 'Artist',
         employer: 'Jane Doe',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non eros viverra, fringilla massa rhoncus, dictum nulla. In rhoncus nunc sed ante maximus tincidunt. Praesent ut lectus nisl. Etiam elementum dictum elit at aliquet. Sed vitae vehicula massa, sed luctus velit. Morbi aliquam sodales tempor. Praesent tempus, felis et luctus porttitor, quam lectus elementum nulla, sit amet pretium nisi dolor vel eros. Nulla vestibulum eu velit ac semper. Morbi gravida rhoncus libero, a rhoncus sapien. Morbi non sem a ligula viverra fermentum elementum ac odio. Fusce eget justo eros.',
-        datePosted: new Date(20 / 10 / 2018),
-        dateAccepted: new Date(29 / 10 / 2018),
-        dateDue: new Date(1 / 12 / 2018),
+        datePosted: new Date('2018-10-24T00:00:00'),
+        dateAccepted: new Date('2018-10-29T00:00:00'),
+        dateDue: new Date('2018-12-01T00:00:00'),
         payment: 9000,
         isAccepted: true,
         progress: 0.8,
       }
     ]
+    
+    this.jobsMaster.sort(function(a,b){
+      var jobA = a.datePosted, jobB = b.datePosted;
+      if(jobA > jobB) return -1;
+      if(jobB > jobA) return 1;
+    })
     this.jobs = this.jobsMaster;
   }
 }
