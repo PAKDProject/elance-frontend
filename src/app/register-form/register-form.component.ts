@@ -23,6 +23,8 @@ import { secret } from "src/assets/secret";
 })
 export class RegisterFormComponent implements OnInit {
   isLinear = true;
+  modifySelection: boolean = false;
+
   //User related fields
   skillsAdded: ISkill[] = [];
   educationAdded: IEducationItem[] = [];
@@ -194,12 +196,16 @@ export class RegisterFormComponent implements OnInit {
   }
   //Retrieve education from form, check if start date is before end date and then add to array
   addEducation() {
+    console.log(this.educationStartDate.value);
     let valid: boolean = true;
-    if (this.educationStartDate.value >= this.educationEndDate.value) {
-      valid = false;
-      this.educationEndDate.setErrors({
-        incorrect: true
-      });
+    if (this.modifySelection) this.modifySelection = false;
+    if (this.educationStartDate.value && this.educationEndDate.value) {
+      if (this.educationStartDate.value >= this.educationEndDate.value) {
+        valid = false;
+        this.educationEndDate.setErrors({
+          incorrect: true
+        });
+      }
     }
 
     if (valid) {
@@ -220,6 +226,17 @@ export class RegisterFormComponent implements OnInit {
   removeItem(skill: ISkill) {
     let i = this.skillsAdded.indexOf(skill);
     this.skillsAdded.splice(i, 1);
+  }
+
+  deleteItem(type: string) {
+    this.modifySelection = false;
+    switch (type) {
+      case "education":
+        this.educationForm.reset();
+        break;
+      default:
+        break;
+    }
   }
 
   //On submit of entire page
@@ -276,6 +293,21 @@ export class RegisterFormComponent implements OnInit {
         socialPlatformName: "linkedin",
         linkUrl: linkedin
       });
+  }
+
+  editItem(item: IEducationItem) {
+    this.modifySelection = true;
+    const index = this.educationAdded.indexOf(item);
+    if (index !== -1) this.educationAdded.splice(index, 1);
+
+    this.educationForm.setValue({
+      degreeTitle: item.degreeTitle,
+      collegeName: item.collegeName,
+      educationStartDate: item.startYear,
+      educationEndDate: item.endYear,
+      finalGrade: item.grade,
+      educationDescription: item.description
+    });
   }
 
   createTestUser() {

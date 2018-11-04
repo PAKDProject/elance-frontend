@@ -91,7 +91,7 @@
           </div>
           <!--Buttons-->
           <div>
-            <button class="btn next" matStepperNext>Next</button>
+            <button class="btn next" matStepperNext [disabled]="!personalDetailsForm.valid">Next</button>
             <button class="btn back" matStepperPrevious>Back</button>
           </div>
         </form>
@@ -172,6 +172,7 @@
             </div>
           </div>
         </form>
+        <hr />
         <div class="row">
           <div class="col" id="skills">
             <div *ngFor="let skill of skillsAdded" class="skillItem">
@@ -180,7 +181,7 @@
             </div>
           </div>
         </div>
-
+        <hr />
         <div>
           <button class="btn next" matStepperNext>Next</button>
           <button class="btn back" matStepperPrevious>Back</button>
@@ -189,6 +190,22 @@
       <!-- EDUCATION -->
       <mat-step [stepControl]="educationForm">
         <ng-template matStepLabel>Education</ng-template>
+
+        <div class="row" *ngIf="this.educationAdded.length > 0">
+          <div class="col">
+            <h5>You have added the following education items</h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <ul>
+              <li *ngFor="let education of educationAdded" (click)="editItem(education)">{{education.degreeTitle}}
+                <span *ngIf="education.collegeName"> from
+                  {{education.collegeName}} </span><span *ngIf="education.startYear || education.endYear">({{education.startYear}}-{{education.endYear}})</span></li>
+            </ul>
+          </div>
+        </div>
+        <hr *ngIf="this.educationAdded.length > 0" />
         <form [formGroup]="educationForm" (ngSubmit)="addEducation()">
           <div class="row">
             <div class="col">
@@ -223,13 +240,13 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-10 col-md-10 col-sm-12">
+            <div class="col-lg-8 col-md-8 col-sm-12">
               <div class="form-group">
                 <label for="collegeName">College Name</label>
                 <input class="form-control" id="collegeName" formControlName="collegeName" type="text" placeholder="IT Sligo" />
               </div>
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-12">
+            <div class="col-lg-4 col-md-4 col-sm-12">
               <div class="form-group">
                 <label for="finalGrade">Grade</label>
                 <input type="text" class="form-control" id="finalGrade" formControlName="finalGrade" placeholder="1.1" />
@@ -247,17 +264,16 @@
           </div>
           <div class="row">
             <div class="col">
-              <button class="btn next" [disabled]="!educationForm.valid" type="submit">Add Education Item</button>
+              <button class="btn btn-danger mt-3 mb-3" id="deleteEducation" [disabled]="!modifySelection" (click)="deleteItem('education')">Remove
+                Item</button>
+            </div>
+            <div class="col">
+              <button class="btn next mt-3 mb-3" id="addEducation" [disabled]="!educationForm.valid" type="submit">Save
+                Education Item</button>
             </div>
           </div>
         </form>
-        <div class="row">
-          <div class="col">
-            <ul>
-              <li *ngFor="let education of educationAdded">{{education.degreeTitle}}</li>
-            </ul>
-          </div>
-        </div>
+        <hr />
         <div>
           <button class="btn next" matStepperNext>Next</button>
           <button class="btn back" matStepperPrevious>Back</button>
