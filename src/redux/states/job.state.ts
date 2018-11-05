@@ -1,10 +1,8 @@
 import { State, StateContext, Action, Selector, Store } from "@ngxs/store";
 import { RequestJobsSuccess, RequestJobsFail, RequestJobs, SearchJobs, FilterJobs } from "../actions/job.actions";
 import { IJob } from "src/models/job-model";
-import { HttpClient } from "@angular/common/http";
 import { TempJobStorageService } from "src/services/temp-job/temp-job-storage.service";
-import { tap, catchError } from "rxjs/operators";
-import { throwError } from "rxjs";
+
 
 export class JobsStateModel {
     jobs: IJob[]
@@ -72,12 +70,12 @@ export class JobsState {
         state.isLoading = true
         state.jobs = []
         patchState(state)
-        
+
         this.jobsService.performSearch(searchTerm)
     }
 
     @Action(FilterJobs)
-    filterStarted({ getState, patchState }: StateContext<JobsStateModel>,  {filterForm}: FilterJobs) {
+    filterStarted({ getState, patchState }: StateContext<JobsStateModel>, { filterForm }: FilterJobs) {
         const state = getState()
         state.isLoading = true
         state.jobs = []

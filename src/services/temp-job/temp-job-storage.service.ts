@@ -26,39 +26,31 @@ export class TempJobStorageService {
   }
 
   performSearch(searchBy: string) {
-    if(this.filterApplied)
-    {
+    if (this.filterApplied) {
       if (searchBy.length > 0) {
-        console.log('performing search using term: ' + searchBy)
-
         this.searchApplied = true;
         this.lastSearch = searchBy.toLocaleLowerCase();;
       }
       else {
-        console.log('Setting jobs to master list');
         this.searchApplied = false;
       }
       this.performFilter(this.lastFilter);
     }
-    else
-    {
+    else {
       if (searchBy.length > 0) {
-        console.log('performing search using term: ' + searchBy)
-
-        this.jobs = (this.jobsMaster.filter((j: IJob) => 
-        j.title.toLocaleLowerCase().indexOf(searchBy.toLocaleLowerCase()) !== -1));
+        this.jobs = (this.jobsMaster.filter((j: IJob) =>
+          j.title.toLocaleLowerCase().indexOf(searchBy.toLocaleLowerCase()) !== -1));
         this.searchApplied = true;
         this.lastSearch = searchBy;
       }
       else {
         this.jobs = this.jobsMaster;
-        console.log('Setting jobs to master list');
         this.searchApplied = false;
       }
     }
   }
 
-  performFilter(filterForm : filterForm) {
+  performFilter(filterForm: filterForm) {
     //Reset jobs array to all jobs
     this.jobs = this.jobsMaster;
 
@@ -66,36 +58,36 @@ export class TempJobStorageService {
     this.lastFilter = filterForm;
 
     //Default values
-    if(!filterForm.minPayment) { filterForm.minPayment = 0 }
-    if(!filterForm.maxPayment) { filterForm.maxPayment = 1000000000000}
+    if (!filterForm.minPayment) { filterForm.minPayment = 0 }
+    if (!filterForm.maxPayment) { filterForm.maxPayment = 1000000000000 }
 
     //If a search is applied
-    if(this.searchApplied && filterForm){
-      this.jobs = (this.jobsMaster.filter((j: IJob) => 
-      j.payment > filterForm.minPayment
-      && j.payment < filterForm.maxPayment
-      && j.title.toLocaleLowerCase().indexOf(this.lastSearch) !== -1));
+    if (this.searchApplied && filterForm) {
+      this.jobs = (this.jobsMaster.filter((j: IJob) =>
+        j.payment > filterForm.minPayment
+        && j.payment < filterForm.maxPayment
+        && j.title.toLocaleLowerCase().indexOf(this.lastSearch) !== -1));
     }
     //Else
-    else{
-      this.jobs = (this.jobsMaster.filter((j: IJob) => 
-      j.payment > filterForm.minPayment
-      && j.payment < filterForm.maxPayment))
+    else {
+      this.jobs = (this.jobsMaster.filter((j: IJob) =>
+        j.payment > filterForm.minPayment
+        && j.payment < filterForm.maxPayment))
     }
 
-    switch(filterForm.dateRadio) {
+    switch (filterForm.dateRadio) {
       case 'newToOld':
-        this.jobs.sort(function(a,b){
+        this.jobs.sort(function (a, b) {
           var jobA = a.datePosted, jobB = b.datePosted;
-          if(jobA > jobB) return -1;
-          if(jobB > jobA) return 1;
+          if (jobA > jobB) return -1;
+          if (jobB > jobA) return 1;
         })
         break;
       case 'oldToNew':
-        this.jobs.sort(function(a,b){
+        this.jobs.sort(function (a, b) {
           var jobA = a.datePosted, jobB = b.datePosted;
-          if(jobA > jobB) return -1;
-          if(jobB > jobA) return 1;
+          if (jobA > jobB) return -1;
+          if (jobB > jobA) return 1;
         }).reverse();
         break;
     }
@@ -179,11 +171,11 @@ export class TempJobStorageService {
         progress: 0.8,
       }
     ]
-    
-    this.jobsMaster.sort(function(a,b){
+
+    this.jobsMaster.sort(function (a, b) {
       var jobA = a.datePosted, jobB = b.datePosted;
-      if(jobA > jobB) return -1;
-      if(jobB > jobA) return 1;
+      if (jobA > jobB) return -1;
+      if (jobB > jobA) return 1;
     })
     this.jobs = this.jobsMaster;
   }
