@@ -8,6 +8,7 @@ import { RequestUserSuccessAction, RequestUserFailedActions } from 'src/redux/ac
 import { IUser } from 'src/models/user-model';
 import { Location } from '@angular/common';
 import { UserService } from 'src/services/user-service/user.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-callback',
@@ -56,20 +57,16 @@ export class LoginCallbackComponent implements OnInit, OnDestroy {
         this.setSessionStorage('access_token', this.access_token)
         this.setSessionStorage('id_token', this.id_token)
         let decodedUser = this.getIDDetailsFromToken()
-        console.log(decodedUser)
+        let tempUser: IUser = {
+          email: decodedUser.email,
+          id: decodedUser["cognito:username"],
+          fName: decodedUser.name,
+          lName: decodedUser.family_name
+        }
+
         this.userService.getUserByID(decodedUser["cognito:username"]).subscribe(user => {
-          // this.userService.getUserByEmail(decodedUser.email).subscribe(user => {
-          console.log(user)
           if (Object.keys(user).length === 0) {
             this.store.dispatch(new RequestUserFailedActions('User not present in the db'))
-
-            let tempUser: IUser = {
-              email: decodedUser.email,
-              userID: decodedUser["cognito:username"],
-              fName: decodedUser.name,
-              lName: decodedUser.family_name
-            }
-
             this.store.dispatch(new RequestUserSuccessAction(tempUser))
             this.router.navigate(['user/create'])
           }
@@ -77,15 +74,19 @@ export class LoginCallbackComponent implements OnInit, OnDestroy {
             this.store.dispatch(new RequestUserSuccessAction(user))
             this.router.navigate([''])
           }
+        }, (err: HttpErrorResponse) => {
+          if (err.status == 404) {
+            this.store.dispatch(new RequestUserSuccessAction(tempUser))
+            this.router.navigate(['user/create'])
+          }
+          else {
+            window.location.href = "https://login.elance.site"
+          }
         })
       }
     }).catch(err => {
-      console.log(err)
-      this.router.navigate(['user/create'])
+      window.location.href = "https://login.elance.site"
     })
-
-    //window.location.href = "https://login.elance.site"
-    // })
   }
 
   getWebTokenFromUrl() {
