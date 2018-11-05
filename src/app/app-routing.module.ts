@@ -22,7 +22,7 @@ import { SecretComponent } from 'src/assets/secret/secret.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'callback/auth', component: LoginCallbackComponent },
-  { path: 'user/create', component: RegisterFormComponent },
+  { path: 'user/create', component: RegisterFormComponent, canActivate: [StateGuard] },
   { path: 'secret', component: SecretComponent },
   {
     path: 'home', component: ViewComponent, pathMatch: 'prefix', canActivate: [StateGuard], children: [
