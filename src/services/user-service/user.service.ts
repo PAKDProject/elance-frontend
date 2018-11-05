@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { IUser } from 'src/models/user-model';
 import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, tap, map } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
 import { RequestUserSuccessAction } from 'src/redux/actions/user.actions';
 
@@ -25,39 +25,50 @@ export class UserService {
    * Returns all users in collection
    */
   getAllUsers(): Observable<IUser[]> {
-    return this.http.get<IUser[]>(`${this.endpoint}`).pipe(catchError(this.handleError));
+    return this.http.get(`${this.endpoint}`).pipe(map((res) => {
+      let response = res as { users: IUser[] }
+      return response.users;
+    }), catchError(this.handleError));
   }
   /**
    * Returns one user based on their email address
    * @param email Type : string
    */
   getUserByID(id: string): Observable<IUser> {
-    return this.http.get<IUser>(`${this.endpoint}/${id}`).pipe(catchError(this.handleError));
+    return this.http.get(`${this.endpoint}/${id}`).pipe(map((res) => {
+      let response = res as { user: IUser }
+      return response.user;
+    }), catchError(this.handleError));
   }
   /**
    * Find a number of users by a First Name
    * @param fName Type : string
    */
   getUsersByFName(fName: string): Observable<IUser[]> {
-    return this.http.get<IUser[]>(`${this.endpoint}/fname/${fName}`).pipe(catchError(this.handleError));
+    return this.http.get(`${this.endpoint}/fname/${fName}`).pipe(map((res) => {
+      let response = res as { users: IUser[] }
+      return response.users;
+    }), catchError(this.handleError));
   }
   /**
    * Find a number of user by a Last Name
    * @param lName Type: string
    */
   getUsersByLName(lName: string): Observable<IUser[]> {
-    return this.http.get<IUser[]>(`${this.endpoint}/lname/${lName}`).pipe(catchError(this.handleError));
+    return this.http.get(`${this.endpoint}/lname/${lName}`).pipe(map((res) => {
+      let response = res as { users: IUser[] }
+      return response.users;
+    }), catchError(this.handleError));
   }
   /**
    * Create a new user. Returns the created object
    * @param user Type : IUser
    */
-  createUser(user: IUser): Observable<IUser> {
-    console.log(user)
-    return this.http.post<IUser>(this.endpoint, JSON.stringify(user), this.httpOptions
+  createUser(user: IUser): void {
+    this.http.post<IUser>(this.endpoint, JSON.stringify(user), this.httpOptions
     ).pipe(
       catchError(this.handleError)
-    );
+    ).subscribe();
   }
   /**
    * Update a User with new details
@@ -87,7 +98,6 @@ export class UserService {
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
     }
-    return throwError(
-      'Something bad happened; please try again later.');
+    return throwError(error)
   };
 }
