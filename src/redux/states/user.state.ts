@@ -5,7 +5,7 @@ import { request } from 'http';
 import { TempUserStorageService } from 'src/services/temp-user/temp-user-storage.service';
 
 export class UserStateModel {
-    userID?: string
+    id?: string
     email?: string
     fName?: string
     lName?: string
@@ -34,7 +34,7 @@ export class UserState {
     }
 
     @Action(RequestUserSuccessAction)
-    requestSuccessful({ patchState }: StateContext<UserStateModel>, { payload }: RequestUserSuccessAction) {
+    requestSuccessful({ getState, patchState }: StateContext<UserStateModel>, { payload }: RequestUserSuccessAction) {
         patchState(payload)
     }
 

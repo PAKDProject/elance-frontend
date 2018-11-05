@@ -32,7 +32,7 @@ export class RegisterFormComponent implements OnInit {
   //user object
   user: IUser = {
     email: "sample@gmail.com",
-    userID: "1",
+    id: "1",
     skills: this.skillsAdded,
     educationItems: this.educationAdded,
     socialLinks: this.socialsAdded
@@ -61,7 +61,7 @@ export class RegisterFormComponent implements OnInit {
       this.user.email = user.email;
       this.user.fName = user.fName;
       this.user.lName = user.lName;
-      this.user.userID = user.userID;
+      this.user.id = user.id;
     });
 
     //Personal Details form
