@@ -146,7 +146,7 @@
       <!-- SKILLS -->
       <mat-step [stepControl]="skillForm">
         <ng-template matStepLabel>Skills</ng-template>
-        <form [formGroup]="skillForm" (ngSubmit)="addSkill()">
+        <form [formGroup]="skillForm">
           <div class="row">
             <div class="col">
               <div class="form-group">
@@ -154,6 +154,9 @@
                 <input type="text" id="skillTitle" name="skillTitle" class="form-control" placeholder="eg. JavaScript"
                   formControlName="skillTitle">
 
+              </div>
+              <div class="feedback-invalid" *ngIf="skillTitle.errors?.incorrect">
+                Please input a title for this skill
               </div>
             </div>
           </div>
@@ -168,7 +171,7 @@
           </div>
           <div class="row">
             <div class="col">
-              <button class="btn next" type="submit">Add Skill</button>
+              <button class="btn next" (click)="addSkill()" [disabled]="skillTitle.value === ''">Add Skill</button>
             </div>
           </div>
         </form>
@@ -181,7 +184,7 @@
             </div>
           </div>
         </div>
-        <hr />
+        <hr *ngIf="skillsAdded.length > 0" />
         <div>
           <button class="btn next" matStepperNext>Next</button>
           <button class="btn back" matStepperPrevious>Back</button>
@@ -212,9 +215,13 @@
               <div class="form-group">
                 <label for="degreeTitle">Degree Title</label>
                 <input type="text" class="form-control" id="degreeTitle" formControlName="degreeTitle" placeholder="BSc(Hons) Business">
+                <div class="feedback-invalid" *ngIf="degreeTitle.errors?.incorrect">
+                  Please enter at least a degree name
+                </div>
               </div>
             </div>
           </div>
+
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
               <label for="educationStartDate">Started</label>
@@ -279,15 +286,7 @@
           <button class="btn back" matStepperPrevious>Back</button>
         </div>
       </mat-step>
-      <!-- WORK EXPERIENCE -->
-      <mat-step [stepControl]="workExperienceForm">
-        <ng-template matStepLabel>Work Experience</ng-template>
-        Coming soon
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="stepper.reset()">Reset</button>
-        </div>
-      </mat-step>
+
       <!-- SOCIAL LINKS -->
       <mat-step [stepControl]="socialForm">
         <ng-template matStepLabel>Social Links</ng-template>

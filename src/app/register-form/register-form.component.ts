@@ -186,6 +186,7 @@ export class RegisterFormComponent implements OnInit {
         alreadyContained = true;
       }
     });
+
     if (!alreadyContained) {
       this.skillsAdded.push({
         title: this.skillTitle.value,
@@ -196,9 +197,10 @@ export class RegisterFormComponent implements OnInit {
   }
   //Retrieve education from form, check if start date is before end date and then add to array
   addEducation() {
-    console.log(this.educationStartDate.value);
     let valid: boolean = true;
+
     if (this.modifySelection) this.modifySelection = false;
+
     if (this.educationStartDate.value && this.educationEndDate.value) {
       if (this.educationStartDate.value >= this.educationEndDate.value) {
         valid = false;
@@ -206,6 +208,13 @@ export class RegisterFormComponent implements OnInit {
           incorrect: true
         });
       }
+    }
+
+    if (this.degreeTitle.value === "") {
+      valid = false;
+      this.degreeTitle.setErrors({
+        incorrect: true
+      });
     }
 
     if (valid) {
@@ -259,13 +268,11 @@ export class RegisterFormComponent implements OnInit {
   formatPhone(phone: string): string {
     if (phone) {
       const leadingNumber = phone.substring(0, 1);
-
       if (leadingNumber === "0") {
         return `00353${phone.substring(1, phone.length)}`;
       }
       return `00353${phone}`;
     }
-
     return "";
   }
 

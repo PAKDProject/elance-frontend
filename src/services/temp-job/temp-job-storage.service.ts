@@ -25,7 +25,7 @@ export class TempJobStorageService {
   private jobs: IJob[]
 
   getAllJobs(): Observable<IJob[]> {
-    return of(this.jobs).pipe(delay(3000));
+    return of(this.jobs).pipe(delay(1000));
   }
 
   getJobs(): Observable<IJob[]> {
