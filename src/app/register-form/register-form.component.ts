@@ -115,7 +115,6 @@ export class RegisterFormComponent implements OnInit {
       this.user.lName = data.lName;
       this.user.dob = data.dob;
       this.user.phone = this.formatPhone(data.phone);
-      console.log(data)
     });
 
     //Store values into relevant fields
@@ -260,13 +259,11 @@ export class RegisterFormComponent implements OnInit {
   formatPhone(phone: string): string {
     if (phone) {
       const leadingNumber = phone.substring(0, 1);
-
       if (leadingNumber === "0") {
         return `00353${phone.substring(1, phone.length)}`;
       }
       return `00353${phone}`;
     }
-
     return "";
   }
 
