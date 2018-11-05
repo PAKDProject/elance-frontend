@@ -1,10 +1,11 @@
 import { Injectable, Pipe } from '@angular/core';
 import { IJob } from 'src/models/job-model';
 import { of, Observable } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { delay, map, tap } from 'rxjs/operators';
 import { filterForm } from 'src/app/browse-jobs/browse-jobs.component';
 import { transformAll } from '@angular/compiler/src/render3/r3_ast';
 import { InactiveJobCardComponent } from 'src/app/cards/inactive-job-card/inactive-job-card.component';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +17,24 @@ export class TempJobStorageService {
   filterApplied: boolean;
   lastFilter: filterForm;
 
-  constructor() { }
+  constructor(
+    private _http: HttpClient
+  ) { }
 
   private jobsMaster: IJob[];
   private jobs: IJob[]
 
   getAllJobs(): Observable<IJob[]> {
     return of(this.jobs).pipe(delay(3000));
+  }
+
+  getJobs(): Observable<IJob[]> {
+    return this._http.get('http://localhost:3000/jobs').pipe(map(res => {
+      const { jobs } = res as { jobs: IJob[] }
+
+      return jobs
+    }))
+    //.subscribe(console.log);
   }
 
   performSearch(searchBy: string) {

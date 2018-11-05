@@ -36,8 +36,7 @@ export class JobsState {
         state.jobs = []
         patchState(state)
 
-        this.jobsService.getAllJobs().subscribe(jobs => {
-            console.log(jobs)
+        this.jobsService.getJobs().subscribe(jobs => {
             this.store.dispatch(new RequestJobsSuccess(jobs))
         })
         // this.jobsService.getAllJobs().pipe(tap(jobs => {

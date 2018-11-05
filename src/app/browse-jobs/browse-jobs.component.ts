@@ -6,7 +6,8 @@ import { Observable } from "rxjs";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators"
 import { RequestJobs, SearchJobs, FilterJobs } from "src/redux/actions/job.actions";
 import { NgxSpinnerService } from "ngx-spinner";
-import {FormControl, NgForm} from '@angular/forms';
+import { FormControl, NgForm } from '@angular/forms';
+import { TempJobStorageService } from "src/services/temp-job/temp-job-storage.service";
 
 @Component({
   selector: "app-browse-jobs",
@@ -25,21 +26,19 @@ export class BrowseJobsComponent implements OnInit {
   @Select(JobsState.getJobs)
   jobs$: Observable<IJob[]>;
 
-  constructor(private store: Store, private spinner: NgxSpinnerService) {
+  constructor(private store: Store) {
 
     this.isList = false;
-
     this.searchTerm.valueChanges
-        .pipe(debounceTime(1000))
-        .pipe(distinctUntilChanged())
-        .subscribe(searchTerm =>
-          this.store.dispatch(new SearchJobs(searchTerm))
-          &&
-          this.store.dispatch(new RequestJobs()))
+      .pipe(debounceTime(1000))
+      .pipe(distinctUntilChanged())
+      .subscribe(searchTerm =>
+        this.store.dispatch(new SearchJobs(searchTerm))
+        &&
+        this.store.dispatch(new RequestJobs()))
   }
 
-  ngOnInit() {    
-    this.spinner.show();
+  ngOnInit() {
     this.store.dispatch(new RequestJobs());
   }
 
@@ -57,7 +56,7 @@ export class BrowseJobsComponent implements OnInit {
     this.store.dispatch(new RequestJobs());
   }
 
-  applyFilters(filters : NgForm) {
+  applyFilters(filters: NgForm) {
     let f = filters.value as filterForm;
 
     console.log('Dispatching filters')

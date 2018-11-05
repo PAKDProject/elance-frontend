@@ -56,8 +56,10 @@ export class LoginCallbackComponent implements OnInit, OnDestroy {
         this.setSessionStorage('access_token', this.access_token)
         this.setSessionStorage('id_token', this.id_token)
         let decodedUser = this.getIDDetailsFromToken()
-        this.userServiceTemp.getTestUser().subscribe(user => {
+        console.log(decodedUser)
+        this.userService.getUserByID(decodedUser["cognito:username"]).subscribe(user => {
           // this.userService.getUserByEmail(decodedUser.email).subscribe(user => {
+          console.log(user)
           if (Object.keys(user).length === 0) {
             this.store.dispatch(new RequestUserFailedActions('User not present in the db'))
 
@@ -79,8 +81,11 @@ export class LoginCallbackComponent implements OnInit, OnDestroy {
       }
     }).catch(err => {
       console.log(err)
-      window.location.href = "https://login.elance.site"
+      this.router.navigate(['user/create'])
     })
+
+    //window.location.href = "https://login.elance.site"
+    // })
   }
 
   getWebTokenFromUrl() {

@@ -52,7 +52,7 @@ export class RegisterFormComponent implements OnInit {
     private router: Router,
     private store: Store,
     private userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit() {
     //Set up all the forms

@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { IUser } from 'src/models/user-model';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+import { Store } from '@ngxs/store';
+import { RequestUserSuccessAction } from 'src/redux/actions/user.actions';
 
 
 @Injectable({
@@ -18,7 +20,7 @@ export class UserService {
     })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private _store: Store) { }
   /**
    * Returns all users in collection
    */
@@ -29,8 +31,8 @@ export class UserService {
    * Returns one user based on their email address
    * @param email Type : string
    */
-  getUserByEmail(email: string): Observable<IUser> {
-    return this.http.get<IUser>(`${this.endpoint}/${email}`).pipe(catchError(this.handleError));
+  getUserByID(id: string): Observable<IUser> {
+    return this.http.get<IUser>(`${this.endpoint}/${id}`).pipe(catchError(this.handleError));
   }
   /**
    * Find a number of users by a First Name
@@ -51,6 +53,7 @@ export class UserService {
    * @param user Type : IUser
    */
   createUser(user: IUser): Observable<IUser> {
+    console.log(user)
     return this.http.post<IUser>(this.endpoint, JSON.stringify(user), this.httpOptions
     ).pipe(
       catchError(this.handleError)
