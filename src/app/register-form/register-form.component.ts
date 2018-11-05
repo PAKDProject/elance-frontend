@@ -52,7 +52,7 @@ export class RegisterFormComponent implements OnInit {
     private router: Router,
     private store: Store,
     private userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit() {
     //Set up all the forms
@@ -115,6 +115,7 @@ export class RegisterFormComponent implements OnInit {
       this.user.lName = data.lName;
       this.user.dob = data.dob;
       this.user.phone = this.formatPhone(data.phone);
+      console.log(data)
     });
 
     //Store values into relevant fields
