@@ -33,5 +33,5 @@ export interface ISkill {
   title?: string;
   description?: string;
   // An idea to be discussed. 1-10 on progress bar or something
-  levelOfConfidence?: number;
+  // levelOfConfidence?: number;
 }

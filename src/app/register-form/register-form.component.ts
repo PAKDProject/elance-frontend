@@ -256,8 +256,8 @@ export class RegisterFormComponent implements OnInit {
       this.router.navigate(["secret"]);
     } else {
       if (this.user.fName && this.user.lName) {
-        //this.userServiceTemp.setUser(this.user);
-        this.user.summary = RegisterFormComponent.stupidify(this.user.summary);
+        // this.userServiceTemp.setUser(this.user);
+        // this.user.summary = RegisterFormComponent.stupidify(this.user.summary); NEVER TOUCH THIS EVER AGAIN
         this.userService.createUser(this.user);
         this.store.dispatch(new RequestUserSuccessAction(this.user));
         this.router.navigateByUrl("home/user-profile");
