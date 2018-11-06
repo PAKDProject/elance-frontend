@@ -68,19 +68,19 @@ export class TempUserStorageService {
       backgroundUrl: '',
       socialLinks: [
         {
-          socialPlatformName: 'github',
+          name: 'github',
           linkUrl: 'github.com'
         },
         {
-          socialPlatformName: 'facebook',
+          name: 'facebook',
           linkUrl: 'facebook.com'
         },
         {
-          socialPlatformName: 'twitter',
+          name: 'twitter',
           linkUrl: 'twitter.com'
         },
         {
-          socialPlatformName: 'linkedin',
+          name: 'linkedin',
           linkUrl: 'linkedin.com'
         }
       ],

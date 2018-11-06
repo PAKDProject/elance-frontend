@@ -16,7 +16,7 @@ export interface IUser {
 }
 
 export interface ISocialLink {
-  socialPlatformName?: string;
+  name?: string;
   linkUrl: string;
 }
 

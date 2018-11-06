@@ -285,19 +285,19 @@ export class RegisterFormComponent implements OnInit {
 
     if (facebook)
       this.socialsAdded.push({
-        socialPlatformName: "facebook",
+        name: "facebook",
         linkUrl: facebook
       });
     if (twitter)
       this.socialsAdded.push({
-        socialPlatformName: "twitter",
+        name: "twitter",
         linkUrl: twitter
       });
     if (github)
-      this.socialsAdded.push({ socialPlatformName: "github", linkUrl: github });
+      this.socialsAdded.push({ name: "github", linkUrl: github });
     if (linkedin)
       this.socialsAdded.push({
-        socialPlatformName: "linkedin",
+        name: "linkedin",
         linkUrl: linkedin
       });
   }
