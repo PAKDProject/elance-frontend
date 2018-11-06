@@ -27,11 +27,26 @@ export class CognitoWebTokenAuthService {
       //   })
       // }) // used for testing jwt and redirect
 
-      subscriber.next({
-        isValid: true
-      })// used for bypassing the callback -- all other testing 
+      // subscriber.next({
+      //   isValid: true
+      // })// used for bypassing the callback -- all other testing 
 
-      //return this._http.post<IValidateTokenResponse>(this.url + 'auth/validatetoken', { tokens: jwt });
+      this._http.post<IValidateTokenResponse>(this.url + 'auth/validatetoken', { tokens: jwt }).subscribe(res => {
+        if (res.isValid) {
+          subscriber.next({
+            isValid: true
+          })
+        }
+        else {
+          subscriber.next({
+            isValid: false
+          })
+        }
+      }, err => {
+        subscriber.next({
+          isValid: false
+        })
+      });
     })
   }
 }
