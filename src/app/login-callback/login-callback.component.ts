@@ -99,7 +99,6 @@ export class LoginCallbackComponent implements OnInit, OnDestroy {
   validateTokens(): Promise<Boolean> {
     return new Promise<Boolean>((resolve, reject) => {
       this.cognitoService.validateTokens([this.access_token, this.id_token]).subscribe(res => {
-        console.log(res)
         let response = res as IValidateTokenResponse
         resolve(response.isValid)
       }, err => reject(err))
