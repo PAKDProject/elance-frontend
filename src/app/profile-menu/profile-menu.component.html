@@ -26,7 +26,7 @@
       </div>
 
       <div class="socialConnectionContainer" *ngIf="socialLinks">
-        <a *ngFor='let connection of socialLinks' href="https://{{connection.linkUrl}}" target="_blank">
+        <a *ngFor='let connection of socialLinks' href="{{connection.linkUrl}}" target="_blank">
           <img src="../../assets//icons/{{connection.socialPlatformName}}.png" alt="{{connection.SocialPlatformName}}" />
         </a>
       </div>
