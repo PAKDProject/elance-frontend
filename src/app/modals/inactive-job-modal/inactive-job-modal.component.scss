@@ -18,6 +18,7 @@
         .infoRow {
             display: grid;
             grid-template-columns: 1fr auto;
+            grid-column-gap: 20px;
 
             font-size: 20px;
         }
