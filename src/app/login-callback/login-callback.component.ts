@@ -50,10 +50,10 @@ export class LoginCallbackComponent implements OnInit, OnDestroy {
     //get access_token and id_token from url
     this.getWebTokenFromUrl()
     //validate tokens
-    this.validateTokens().then(isValid => {
-      if (!isValid)
-        window.location.href = "https://login.elance.site"
-      else {
+    // this.validateTokens().then(isValid => {
+    //   if (!isValid)
+    //     window.location.href = "https://login.elance.site"
+    //   else {
         this.setSessionStorage('access_token', this.access_token)
         this.setSessionStorage('id_token', this.id_token)
         let decodedUser = this.getIDDetailsFromToken()
@@ -83,10 +83,10 @@ export class LoginCallbackComponent implements OnInit, OnDestroy {
             window.location.href = "https://login.elance.site"
           }
         })
-      }
-    }).catch(err => {
-      window.location.href = "https://login.elance.site"
-    })
+    //   }
+    // }).catch(err => {
+    //   window.location.href = "https://login.elance.site"
+    // })
   }
 
   getWebTokenFromUrl() {
