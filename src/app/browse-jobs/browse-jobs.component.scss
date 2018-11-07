@@ -102,6 +102,13 @@
           margin-left: 10px;
         }
       }
+
+      .btn {
+        max-height: 40px;
+        line-height: 40px;
+        margin: unset;
+        vertical-align: middle;
+      }
     }
 
     .spinner {

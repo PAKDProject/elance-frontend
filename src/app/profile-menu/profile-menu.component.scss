@@ -110,6 +110,12 @@
     display: grid;
     grid-template-columns: 200px auto;
 
+    p {
+      white-space: pre-wrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     h1 {
       justify-self: center;
       font-size: 40px;

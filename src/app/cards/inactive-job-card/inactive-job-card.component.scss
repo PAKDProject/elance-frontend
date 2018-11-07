@@ -1,7 +1,7 @@
 .cardContainer {
     margin: 5px;
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: 1fr 4fr auto;
 
     height: 180px;
 
@@ -9,14 +9,18 @@
     box-shadow: 3px 4px 6px rgba(0,0,0,0.2);
 
     .topRow {
-        margin: 5px; padding: 5px;
+        justify-self: center;
+        width: 90%;
         display: grid;
-        grid-template-columns: 1fr 3fr auto;
+        grid-template-columns: 1fr auto;
         overflow: hidden;
         border-bottom: 2px #E3E3E3 solid;
 
         .jobTitle {
             font-weight: 400;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .jobEmployer {
             font-weight: 200;
@@ -32,9 +36,12 @@
 
         .jobDescription {
             font-size: 14px;
-            line-height: 14px;
+            line-height: 18px;
             height: 76px;
+            white-space: pre-wrap;
+            overflow: hidden;
             text-overflow: ellipsis;
+            height: 100%;
         }
 
         .modalButton {
