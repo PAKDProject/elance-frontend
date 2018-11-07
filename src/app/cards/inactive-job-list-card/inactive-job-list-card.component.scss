@@ -3,6 +3,7 @@
     display: grid; 
     grid-template-areas: 'leftCol topRow'
                          'leftCol bottomRow';
+    grid-template-columns: auto 1fr;
 
     // height: 100px;
 
