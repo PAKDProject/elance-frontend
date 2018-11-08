@@ -34,6 +34,8 @@ import { EducationModalComponent } from './modals/education-modal/education-moda
 import { SkillsModalComponent } from './modals/skills-modal/skills-modal.component';
 import { InactiveJobModalComponent } from './modals/inactive-job-modal/inactive-job-modal.component';
 import { ActiveJobModalComponent } from './modals/active-job-modal/active-job-modal.component';
+import { UploadImageModalComponent } from './modals/upload-image-modal/upload-image-modal.component';
+
 
 // Page Components
 import { AppComponent } from './app.component';
@@ -56,6 +58,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListComponent } from './browse-jobs/list/list.component';
 import { GridComponent } from './browse-jobs/grid/grid.component';
 import { SecretComponent } from 'src/assets/secret/secret.component';
+import { DropZoneDirective } from './directives/drop-zone.directive';
 
 @NgModule({
   declarations: [
@@ -87,7 +90,9 @@ import { SecretComponent } from 'src/assets/secret/secret.component';
     GridComponent,
     InactiveJobListCardComponent,
     ActiveJobListCardComponent,
-    SecretComponent
+    SecretComponent,
+    DropZoneDirective,
+    UploadImageModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -108,7 +113,8 @@ import { SecretComponent } from 'src/assets/secret/secret.component';
     EducationModalComponent,
     SkillsModalComponent,
     InactiveJobModalComponent,
-    ActiveJobModalComponent
+    ActiveJobModalComponent,
+    UploadImageModalComponent
   ]
 })
 export class AppModule { }

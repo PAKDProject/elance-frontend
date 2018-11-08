@@ -100,26 +100,15 @@
       <mat-step [stepControl]="aboutYouForm">
         <ng-template matStepLabel>About You</ng-template>
         <form [formGroup]="aboutYouForm">
-          <div class="row">
-            <div class="col">
-              <label>Add a profile image</label>
-              <!-- <input type="file" id="file" accept="image/*" />
-            <label for="file" class="btn btn-block next" id="fileBtn">choose a file</label> -->
-              <div class="input-group mb-3">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="inputGroupFile02">
-                  <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
-                </div>
-                <div class="input-group-append">
-                  <span class="input-group-text next" id="">Upload</span>
-                </div>
-              </div>
+          <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <button class="btn upload mt-3 mb-3" (click)=openUploadModal()>Upload Profile Image</button>
             </div>
           </div>
           <div class="row">
             <div class="col">
               <div class="form-group">
-                <label for="tagline">Job Title</label>
+                <label for="tagline">Tagline</label>
                 <input type="text" id="tagline" name="tagline" class="form-control" placeholder="eg. Software Developer"
                   formControlName="tagline">
               </div>

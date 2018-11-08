@@ -44,6 +44,16 @@
     color: white;
   }
 
+  .upload {
+    background-color: #eee;
+    color: #12896e;
+    border: 1px dashed #12896e;
+  }
+
+  .upload:hover {
+    background-color: white;
+  }
+
   .next:hover {
     color: #12896e;
     background-color: #eee;
@@ -92,6 +102,7 @@
       #addEducation {
         margin-top: 5px !important;
       }
+
       #deleteEducation {
         margin-bottom: 10px !important;
       }

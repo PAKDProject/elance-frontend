@@ -1,0 +1,28 @@
+<div class="modalContainer">
+  <div class="modalHeader">
+    <mat-icon (click)='onClick()'>close</mat-icon>
+  </div>
+  <div class="modalBody" dropZone (hovered)="toggleHover($event)" (dropped)="startUpload($event)" [class.hovering]="isHovering"
+    (click)="upload.click()">
+
+    <img *ngIf="filePath !== ''" id="image" [src]="filePath">
+    <h3>{{hoveringMessage}}</h3>
+    <div class="file">
+      <label class="file-label">
+
+
+        <input class="file-input" accept="image/*" type="file" style="display: none;" #upload (change)="startUpload($event.target.files)">
+
+
+        <span class="file-cta">
+          <span class="file-icon">
+            <mat-icon>publish</mat-icon>
+          </span>
+          <span class="file-label">
+            or choose a file…
+          </span>
+        </span>
+      </label>
+    </div>
+  </div>
+</div>

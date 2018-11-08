@@ -15,6 +15,9 @@ import { UserService } from "../../services/user-service/user.service";
 import { UserState } from "src/redux/states/user.state";
 import { Observable } from "rxjs";
 import { secret } from "src/assets/secret";
+import { MatDialog } from '@angular/material';
+import { UploadImageModalComponent } from 'src/app/modals/upload-image-modal/upload-image-modal.component';
+
 
 @Component({
   selector: "app-register-form",
@@ -51,7 +54,8 @@ export class RegisterFormComponent implements OnInit {
     private _userService: TempUserStorageService,
     private router: Router,
     private store: Store,
-    private userService: UserService
+    private userService: UserService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -321,6 +325,12 @@ export class RegisterFormComponent implements OnInit {
     this._userService.getTestUser().subscribe(user => {
       this.store.dispatch(new RequestUserSuccessAction(user));
       this.router.navigateByUrl("home/browse-jobs");
+    });
+  }
+
+  openUploadModal(): void {
+    this.dialog.open(UploadImageModalComponent, {
+      maxWidth: '1000px'
     });
   }
 
