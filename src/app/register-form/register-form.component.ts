@@ -15,9 +15,8 @@ import { UserService } from "../../services/user-service/user.service";
 import { UserState } from "src/redux/states/user.state";
 import { Observable } from "rxjs";
 import { secret } from "src/assets/secret";
-import { MatDialog } from '@angular/material';
-import { UploadImageModalComponent } from 'src/app/modals/upload-image-modal/upload-image-modal.component';
-
+import { MatDialog } from "@angular/material";
+import { UploadImageModalComponent } from "src/app/modals/upload-image-modal/upload-image-modal.component";
 
 @Component({
   selector: "app-register-form",
@@ -56,7 +55,7 @@ export class RegisterFormComponent implements OnInit {
     private store: Store,
     private userService: UserService,
     private dialog: MatDialog
-  ) { }
+  ) {}
 
   ngOnInit() {
     //Set up all the forms
@@ -297,8 +296,7 @@ export class RegisterFormComponent implements OnInit {
         name: "twitter",
         linkUrl: twitter
       });
-    if (github)
-      this.socialsAdded.push({ name: "github", linkUrl: github });
+    if (github) this.socialsAdded.push({ name: "github", linkUrl: github });
     if (linkedin)
       this.socialsAdded.push({
         name: "linkedin",
@@ -330,7 +328,8 @@ export class RegisterFormComponent implements OnInit {
 
   openUploadModal(): void {
     this.dialog.open(UploadImageModalComponent, {
-      maxWidth: '1000px'
+      maxWidth: "1000px",
+      panelClass: "modalStyle"
     });
   }
 

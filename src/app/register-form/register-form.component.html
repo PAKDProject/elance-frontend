@@ -11,47 +11,75 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <p class="text-center">We just need some information about you in order to find you some great freelance
-              opportunities</p>
+            <p class="text-center">
+              We just need some information about you in order to find you some
+              great freelance opportunities
+            </p>
           </div>
         </div>
 
-
         <!-- TEMPORARY -->
-        <button class="btn float-right next" (click)='createTestUser()'>Use Test User</button>
-        <!--  -->
-
+        <button class="btn float-right next" (click)="createTestUser()">
+          Use Test User
+        </button>
+        <!---->
 
         <button class="btn float-right next" matStepperNext>Get Started</button>
       </mat-step>
       <!-- PERSONAL INFO -->
       <mat-step [stepControl]="personalDetailsForm">
         <form [formGroup]="personalDetailsForm">
-          <!--Label-->
+          <!-- Label -->
           <ng-template matStepLabel>Personal Information</ng-template>
-          <!--Form-->
+          <!-- Form -->
           <div class="row">
             <div class="col">
-              <p class="float-right"><span class="required">*</span> Required Field</p>
+              <p class="float-right">
+                <span class="required">*</span> Required Field
+              </p>
             </div>
           </div>
           <div class="row">
             <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
               <div class="form-group">
-                <label for="fName">First Name <span class="required">*</span></label>
-                <input type="text" id="fName" name="fName" class="form-control" placeholder="Joe" formControlName="fName"
-                  value="this.user.fName" />
-                <div class="feedback-invalid" *ngIf="!fName.valid && fName.touched">
+                <label for="fName"
+                  >First Name <span class="required">*</span></label
+                >
+                <input
+                  type="text"
+                  id="fName"
+                  name="fName"
+                  class="form-control"
+                  placeholder="Joe"
+                  formControlName="fName"
+                  value="this.user.fName"
+                />
+                <div
+                  class="feedback-invalid"
+                  *ngIf="!fName.valid && fName.touched"
+                >
                   Name is required
                 </div>
               </div>
             </div>
             <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
               <div class="form-group">
-                <label for="lName">Last Name <span class="required">*</span></label>
-                <input type="text" id="lName" name="lName" class="form-control" placeholder="Sample" formControlName="lName"
-                  value="this.user.lName" />
-                <div class="feedback-invalid" *ngIf="!lName.valid && lName.touched">
+                <label for="lName"
+                  >Last Name <span class="required">*</span></label
+                >
+                <input
+                  type="text"
+                  id="lName"
+                  name="lName"
+                  class="form-control"
+                  placeholder="Sample"
+                  formControlName="lName"
+                  value="this.user.lName"
+                />
+                <div
+                  class="feedback-invalid"
+                  *ngIf="!lName.valid && lName.touched"
+                >
                   Surname is required
                 </div>
               </div>
@@ -61,9 +89,19 @@
             <div class="col">
               <div class="form-group">
                 <label for="dob">Date of Birth</label>
-                <input type="date" id="dob" name="dob" class="form-control" max="2018-01-01" formControlName="dob" />
+                <input
+                  type="date"
+                  id="dob"
+                  name="dob"
+                  class="form-control"
+                  max="2018-01-01"
+                  formControlName="dob"
+                />
 
-                <div class="feedback-invalid" *ngIf="!dob.pending && dob.errors?.min">
+                <div
+                  class="feedback-invalid"
+                  *ngIf="!dob.pending && dob.errors?.min"
+                >
                   You cant be THAT old
                 </div>
                 <div class="feedback-invalid" *ngIf="dob.errors?.max">
@@ -78,20 +116,37 @@
                 <label for="phone">Phone Number</label>
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupPrepend">+353</span>
+                    <span class="input-group-text" id="inputGroupPrepend"
+                      >+353</span
+                    >
                   </div>
-                  <input type="tel" id="phone" name="phone" class="form-control" placeholder="851234567"
-                    formControlName="phone" />
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    class="form-control"
+                    placeholder="851234567"
+                    formControlName="phone"
+                  />
                 </div>
-                <div class="feedback-invalid" *ngIf="!phone.valid && phone.touched">
+                <div
+                  class="feedback-invalid"
+                  *ngIf="!phone.valid && phone.touched"
+                >
                   Please enter a valid phone number
                 </div>
               </div>
             </div>
           </div>
-          <!--Buttons-->
+          <!-- Buttons -->
           <div>
-            <button class="btn next" matStepperNext [disabled]="!personalDetailsForm.valid">Next</button>
+            <button
+              class="btn next"
+              matStepperNext
+              [disabled]="!personalDetailsForm.valid"
+            >
+              Next
+            </button>
             <button class="btn back" matStepperPrevious>Back</button>
           </div>
         </form>
@@ -102,15 +157,23 @@
         <form [formGroup]="aboutYouForm">
           <div class="row justify-content-center">
             <div class="col-lg-4 col-md-4 col-sm-12">
-              <button class="btn upload mt-3 mb-3" (click)=openUploadModal()>Upload Profile Image</button>
+              <button class="btn upload mt-3 mb-3" (click)="openUploadModal()">
+                Upload Profile Image
+              </button>
             </div>
           </div>
           <div class="row">
             <div class="col">
               <div class="form-group">
                 <label for="tagline">Tagline</label>
-                <input type="text" id="tagline" name="tagline" class="form-control" placeholder="eg. Software Developer"
-                  formControlName="tagline">
+                <input
+                  type="text"
+                  id="tagline"
+                  name="tagline"
+                  class="form-control"
+                  placeholder="eg. Software Developer"
+                  formControlName="tagline"
+                />
               </div>
             </div>
           </div>
@@ -118,9 +181,19 @@
             <div class="col">
               <div class="form-group">
                 <label for="description">Personal Statement</label>
-                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Tell us something about you ..."
-                  formControlName="description" maxlength="300"></textarea>
-                <div class="feedback-invalid" *ngIf="!description.valid && description.touched">
+                <textarea
+                  class="form-control"
+                  id="description"
+                  name="description"
+                  rows="3"
+                  placeholder="Tell us something about you ..."
+                  formControlName="description"
+                  maxlength="300"
+                ></textarea>
+                <div
+                  class="feedback-invalid"
+                  *ngIf="!description.valid && description.touched"
+                >
                   This field only accepts up to 300 characters
                 </div>
               </div>
@@ -140,11 +213,19 @@
             <div class="col">
               <div class="form-group">
                 <label for="skillTitle">Skill</label>
-                <input type="text" id="skillTitle" name="skillTitle" class="form-control" placeholder="eg. JavaScript"
-                  formControlName="skillTitle">
-
+                <input
+                  type="text"
+                  id="skillTitle"
+                  name="skillTitle"
+                  class="form-control"
+                  placeholder="eg. JavaScript"
+                  formControlName="skillTitle"
+                />
               </div>
-              <div class="feedback-invalid" *ngIf="skillTitle.errors?.incorrect">
+              <div
+                class="feedback-invalid"
+                *ngIf="skillTitle.errors?.incorrect"
+              >
                 Please input a title for this skill
               </div>
             </div>
@@ -153,14 +234,26 @@
             <div class="col">
               <div class="form-group">
                 <label for="skillDescription">Description</label>
-                <textarea class="form-control" id="skillDescription" name="skillDescription" rows="3" placeholder="Your experience with this skill ..."
-                  formControlName="skillDescription"></textarea>
+                <textarea
+                  class="form-control"
+                  id="skillDescription"
+                  name="skillDescription"
+                  rows="3"
+                  placeholder="Your experience with this skill ..."
+                  formControlName="skillDescription"
+                ></textarea>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <button class="btn next" (click)="addSkill()" [disabled]="skillTitle.value === ''">Add Skill</button>
+              <button
+                class="btn next"
+                (click)="addSkill()"
+                [disabled]="skillTitle.value === ''"
+              >
+                Add Skill
+              </button>
             </div>
           </div>
         </form>
@@ -168,8 +261,14 @@
         <div class="row">
           <div class="col" id="skills">
             <div *ngFor="let skill of skillsAdded" class="skillItem">
-              <!-- <span>{{skill.title}} <span style="color: #12896e" (click)="removeItem(skill)">X</span></span> -->
-              <skill-card [SkillItem]=skill [editing]=true (deleteEmit)="removeItem(skill)"></skill-card>
+              <!--
+                <span>{{skill.title}} <span style="color: #12896e" (click)="removeItem(skill)">X</span></span>
+              -->
+              <skill-card
+                [SkillItem]="skill"
+                [editing]="true"
+                (deleteEmit)="removeItem(skill)"
+              ></skill-card>
             </div>
           </div>
         </div>
@@ -191,9 +290,17 @@
         <div class="row">
           <div class="col">
             <ul>
-              <li *ngFor="let education of educationAdded" (click)="editItem(education)">{{education.degreeTitle}}
-                <span *ngIf="education.collegeName"> from
-                  {{education.collegeName}} </span><span *ngIf="education.startYear || education.endYear">({{education.startYear}}-{{education.endYear}})</span></li>
+              <li
+                *ngFor="let education of educationAdded"
+                (click)="editItem(education)"
+              >
+                {{ education.degreeTitle }}
+                <span *ngIf="education.collegeName">
+                  from {{ education.collegeName }} </span
+                ><span *ngIf="education.startYear || education.endYear"
+                  >({{ education.startYear }}-{{ education.endYear }})</span
+                >
+              </li>
             </ul>
           </div>
         </div>
@@ -203,8 +310,17 @@
             <div class="col">
               <div class="form-group">
                 <label for="degreeTitle">Degree Title</label>
-                <input type="text" class="form-control" id="degreeTitle" formControlName="degreeTitle" placeholder="BSc(Hons) Business">
-                <div class="feedback-invalid" *ngIf="degreeTitle.errors?.incorrect">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="degreeTitle"
+                  formControlName="degreeTitle"
+                  placeholder="BSc(Hons) Business"
+                />
+                <div
+                  class="feedback-invalid"
+                  *ngIf="degreeTitle.errors?.incorrect"
+                >
                   Please enter at least a degree name
                 </div>
               </div>
@@ -214,24 +330,46 @@
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
               <label for="educationStartDate">Started</label>
-              <input type="number" class="form-control" id="educationStartDate" formControlName="educationStartDate"
-                placeholder="2012" />
+              <input
+                type="number"
+                class="form-control"
+                id="educationStartDate"
+                formControlName="educationStartDate"
+                placeholder="2012"
+              />
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
               <label for="educationEndDate">Finished</label>
-              <input type="number" class="form-control" id="educationEndDate" formControlName="educationEndDate"
-                placeholder="2016" />
+              <input
+                type="number"
+                class="form-control"
+                id="educationEndDate"
+                formControlName="educationEndDate"
+                placeholder="2016"
+              />
             </div>
-
           </div>
           <div class="row">
-            <div class="feedback-invalid ml-3" *ngIf="!educationStartDate.pending && educationStartDate.errors?.min">
+            <div
+              class="feedback-invalid ml-3"
+              *ngIf="
+                !educationStartDate.pending && educationStartDate.errors?.min
+              "
+            >
               Cool Story bro, how was the viking era?
             </div>
-            <div class="feedback-invalid  ml-3" *ngIf="!educationStartDate.pending && educationStartDate.errors?.max">
+            <div
+              class="feedback-invalid  ml-3"
+              *ngIf="
+                !educationStartDate.pending && educationStartDate.errors?.max
+              "
+            >
               Cool Story bro, how are the flying cars?
             </div>
-            <div class="feedback-invalid  ml-3" *ngIf="!educationEndDate.valid && educationEndDate.touched">
+            <div
+              class="feedback-invalid  ml-3"
+              *ngIf="!educationEndDate.valid && educationEndDate.touched"
+            >
               Course must have ended after it began ... duh
             </div>
           </div>
@@ -239,13 +377,25 @@
             <div class="col-lg-8 col-md-8 col-sm-12">
               <div class="form-group">
                 <label for="collegeName">College Name</label>
-                <input class="form-control" id="collegeName" formControlName="collegeName" type="text" placeholder="IT Sligo" />
+                <input
+                  class="form-control"
+                  id="collegeName"
+                  formControlName="collegeName"
+                  type="text"
+                  placeholder="IT Sligo"
+                />
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
               <div class="form-group">
                 <label for="finalGrade">Grade</label>
-                <input type="text" class="form-control" id="finalGrade" formControlName="finalGrade" placeholder="1.1" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="finalGrade"
+                  formControlName="finalGrade"
+                  placeholder="1.1"
+                />
               </div>
             </div>
           </div>
@@ -253,19 +403,37 @@
             <div class="col">
               <div class="form-group">
                 <label for="educationDescription">Details</label>
-                <textarea class="form-control" id="educationDescription" name="educationDescription" rows="3"
-                  placeholder="Any detail on projects or grades ..." formControlName="educationDescription"></textarea>
+                <textarea
+                  class="form-control"
+                  id="educationDescription"
+                  name="educationDescription"
+                  rows="3"
+                  placeholder="Any detail on projects or grades ..."
+                  formControlName="educationDescription"
+                ></textarea>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <button class="btn btn-danger mt-3 mb-3" id="deleteEducation" [disabled]="!modifySelection" (click)="deleteItem('education')">Remove
-                Item</button>
+              <button
+                class="btn btn-danger mt-3 mb-3"
+                id="deleteEducation"
+                [disabled]="!modifySelection"
+                (click)="deleteItem('education')"
+              >
+                Remove Item
+              </button>
             </div>
             <div class="col">
-              <button class="btn next mt-3 mb-3" id="addEducation" [disabled]="!educationForm.valid" type="submit">Save
-                Education Item</button>
+              <button
+                class="btn next mt-3 mb-3"
+                id="addEducation"
+                [disabled]="!educationForm.valid"
+                type="submit"
+              >
+                Save Education Item
+              </button>
             </div>
           </div>
         </form>
@@ -283,11 +451,20 @@
           <div class="row">
             <div class="col">
               <div class="input-group mb-2">
-                <input type="text" class="form-control" id="inlineFormInputGroup" formControlName="facebook"
-                  placeholder="Facebook">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inlineFormInputGroup"
+                  formControlName="facebook"
+                  placeholder="Facebook"
+                />
                 <div class="input-group-apend">
                   <div class="input-group-image">
-                    <img src="../../assets/icons/facebook.png" height="38px" width="38px">
+                    <img
+                      src="../../assets/icons/facebook.png"
+                      height="38px"
+                      width="38px"
+                    />
                   </div>
                 </div>
               </div>
@@ -296,10 +473,20 @@
           <div class="row">
             <div class="col">
               <div class="input-group mb-2">
-                <input type="text" class="form-control" id="inlineFormInputGroup" formControlName="twitter" placeholder="Twitter">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inlineFormInputGroup"
+                  formControlName="twitter"
+                  placeholder="Twitter"
+                />
                 <div class="input-group-apend">
                   <div class="input-group-image">
-                    <img src="../../assets/icons/twitter.png" height="38px" width="38px">
+                    <img
+                      src="../../assets/icons/twitter.png"
+                      height="38px"
+                      width="38px"
+                    />
                   </div>
                 </div>
               </div>
@@ -308,10 +495,20 @@
           <div class="row">
             <div class="col">
               <div class="input-group mb-2">
-                <input type="text" class="form-control" id="inlineFormInputGroup" formControlName="github" placeholder="Github">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inlineFormInputGroup"
+                  formControlName="github"
+                  placeholder="Github"
+                />
                 <div class="input-group-apend">
                   <div class="input-group-image">
-                    <img src="../../assets/icons/github.png" height="38px" width="38px">
+                    <img
+                      src="../../assets/icons/github.png"
+                      height="38px"
+                      width="38px"
+                    />
                   </div>
                 </div>
               </div>
@@ -320,11 +517,20 @@
           <div class="row">
             <div class="col">
               <div class="input-group mb-2">
-                <input type="text" class="form-control" id="inlineFormInputGroup" formControlName="linkedin"
-                  placeholder="Linkedin">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inlineFormInputGroup"
+                  formControlName="linkedin"
+                  placeholder="Linkedin"
+                />
                 <div class="input-group-apend">
                   <div class="input-group-image">
-                    <img src="../../assets/icons/linkedin.png" height="38px" width="38px">
+                    <img
+                      src="../../assets/icons/linkedin.png"
+                      height="38px"
+                      width="38px"
+                    />
                   </div>
                 </div>
               </div>
@@ -339,7 +545,9 @@
       <!-- COMPLETE -->
       <mat-step>
         <ng-template matStepLabel>Finished!</ng-template>
-        Thank you for filling out your details!
+        <h4 style="text-align: center; margin: 20px;">
+          Thank you for filling out your details!
+        </h4>
         <div>
           <button class="btn next" (click)="createUser()">Get Started!</button>
           <button class="btn back" matStepperPrevious>Back</button>
