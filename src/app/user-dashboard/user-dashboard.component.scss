@@ -15,13 +15,12 @@
             font-size: 20px;
             vertical-align: middle;
             align-self: center;
+            cursor: pointer;
         }
 
         drag-scroll {
             height: 100%;
             overflow: hidden;
-            // display: grid;
-            // grid-template-columns: repeat(3,320px);
             active-job-card, inactive-job-card {
                 width: 25%
             }
