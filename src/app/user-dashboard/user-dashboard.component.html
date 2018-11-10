@@ -34,10 +34,10 @@
 <button class="btn primary" (click)="openModal()">Create a job</button>
 
 <ng-template #prev>
-  <mat-icon>keyboard_arrow_left</mat-icon>
+  <mat-icon class="carouselArrow">keyboard_arrow_left</mat-icon>
 </ng-template>
 <ng-template #next>
-  <mat-icon>keyboard_arrow_right</mat-icon>
+  <mat-icon class="carouselArrow">keyboard_arrow_right</mat-icon>
 </ng-template>
 <ng-template #job let-job let-i='index'>
   <inactive-job-card [JobInput]='job'></inactive-job-card>

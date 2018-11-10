@@ -14,8 +14,13 @@
         padding: 0;
     }
 
-    #left, #right {
-        margin: 30px;
+    .carouselArrow {
+        margin: 10px;
+        background: white;
+        border-radius: 50%;
+        border: darkgray solid 2px;
+        font-size: 20px;
+        vertical-align: middle;
     }
 }
 @import "../../variables.scss";
