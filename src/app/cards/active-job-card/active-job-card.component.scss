@@ -64,6 +64,7 @@
     }
     .bottomRow {
         padding: 5px;
+        padding-top: 2px;
         display: grid;
         grid-template-rows: auto auto;
         overflow: hidden;
@@ -74,10 +75,17 @@
         .jobDueDate {
             text-align: right;
             justify-self: right;
+            align-self: center;
+            font-size: 16px;
+            vertical-align: middle;
+            height: 100%;
 
             mat-icon {
+                display: inline-block;
                 font-size: 20px;
+                line-height: 100%;
                 vertical-align: middle;
+                height: 100%;
             }
         }
 
