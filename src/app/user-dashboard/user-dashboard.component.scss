@@ -8,7 +8,7 @@
         grid-template-columns: repeat(3,auto);
 
         .carouselArrow {
-            margin: 10px;
+            margin: 5px;
             background: white;
             border-radius: 50%;
             border: darkgray solid 2px;
@@ -22,11 +22,13 @@
             height: 100%;
             overflow: hidden;
             active-job-card, inactive-job-card {
-                width: 25%
+                width: 25%;
+                min-width: 200px;
             }
         }
     }
 }
+
 @import "../../variables.scss";
 
 .primary {
