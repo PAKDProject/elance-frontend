@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 #background {
   background: url("../../assets/images/bg.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -22,7 +24,7 @@
   }
 
   /deep/ .mat-vertical-stepper-header .mat-step-icon {
-    background-color: #12896e !important;
+    background-color: $primary !important;
   }
 
   button {
@@ -32,7 +34,7 @@
 
   .back {
     background-color: white;
-    color: #12896e;
+    color: $primary;
   }
 
   .back:hover {
@@ -40,12 +42,22 @@
   }
 
   .next {
-    background-color: #12896e;
+    background-color: $primary;
     color: white;
   }
 
+  .upload {
+    background-color: #eee;
+    color: $primary;
+    border: 1px dashed $primary;
+  }
+
+  .upload:hover {
+    background-color: white;
+  }
+
   .next:hover {
-    color: #12896e;
+    color: $primary;
     background-color: #eee;
   }
 
@@ -84,6 +96,10 @@
     margin-right: 5px;
   }
 
+  .modalStyle {
+    border-radius: 60px;
+  }
+
   @media only screen and (max-width: 500px) {
     .container {
       width: 100%;
@@ -92,6 +108,7 @@
       #addEducation {
         margin-top: 5px !important;
       }
+
       #deleteEducation {
         margin-bottom: 10px !important;
       }

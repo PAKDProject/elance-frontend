@@ -1,0 +1,79 @@
+@import "../../../variables.scss";
+
+/deep/ .mat-dialog-container {
+  border-radius: 10px !important;
+  border: 1px solid $primary;
+}
+
+.modalContainer {
+  display: grid;
+  h2 {
+    font-size: 1.8em;
+    text-align: center;
+    margin: 0;
+  }
+}
+
+.modalBody {
+  width: 700px;
+  height: 300px;
+  border: 2px dashed $primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 5px;
+  background: white;
+  margin: 10px 0;
+
+  &.hovering {
+    border: 2px solid $primary;
+  }
+
+  h2 {
+    font-size: 1.8em;
+  }
+
+  .file-icon mat-icon {
+    align-self: baseline !important;
+  }
+  #image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+}
+
+.closeDialog {
+  width: 48%;
+  margin-right: 2%;
+  color: $primary;
+  background: white;
+  border: 1px solid $primary;
+}
+.upload {
+  width: 48%;
+  margin-left: 2%;
+  color: white;
+  background-color: $primary;
+}
+
+@media only screen and (max-width: 600px) {
+  .modalContainer {
+    max-width: 95vw;
+    max-height: 100vh;
+  }
+
+  .modalBody {
+    max-width: 95vw;
+    max-height: 100vh;
+    width: auto;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .modalBody h3 {
+    font-size: 1.5em;
+    text-align: center;
+  }
+}
