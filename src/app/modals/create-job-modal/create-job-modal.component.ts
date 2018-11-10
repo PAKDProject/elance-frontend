@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IJob } from "src/models/job-model";
+import { NotificationService } from "src/services/notifications/notification.service";
 
 @Component({
   selector: "app-create-job-modal",
@@ -11,7 +12,10 @@ export class CreateJobModalComponent implements OnInit {
   induvidual: boolean;
   induvidualJobForm: FormGroup;
   newJob: IJob;
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private notificationService: NotificationService
+  ) {}
 
   ngOnInit() {
     this.newJob = {
@@ -66,12 +70,15 @@ export class CreateJobModalComponent implements OnInit {
   //#endregion
 
   submitForm(): void {
-    const date = new Date(`${this.dateDue.value}T00:00:00`)
+    const date = new Date(`${this.dateDue.value}T00:00:00`);
     if (date <= new Date()) {
-
       this.dateDue.setErrors({ invalid: true });
+      this.notificationService.showError("An error occured");
     } else {
-      console.log(`Success : ${this.newJob}`);
+      this.notificationService.showSuccess(
+        "Job Created",
+        "Your Job can now be applied for"
+      );
     }
   }
 }
