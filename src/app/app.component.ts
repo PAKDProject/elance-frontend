@@ -9,9 +9,8 @@ import { TempJobStorageService } from 'src/services/temp-job/temp-job-storage.se
 export class AppComponent implements OnInit {
   title = 'elance-app-frontend';
 
-  constructor(private jobService: TempJobStorageService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.jobService.addSampleJobs();
   }
 }

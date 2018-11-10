@@ -1,0 +1,30 @@
+.modalContainer {
+    .modalHeader {
+        // background: #188C72;
+        padding: 10px;
+
+        .topRow {
+            display: grid;
+            grid-template-columns: 1fr auto;
+
+            h1 {
+                color: #188C72;
+            }
+
+            mat-icon {
+                cursor: pointer;
+            }
+        }
+        .infoRow {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            grid-column-gap: 20px;
+
+            font-size: 20px;
+
+            div{
+                width: 100%;
+            }
+        }
+    }
+}

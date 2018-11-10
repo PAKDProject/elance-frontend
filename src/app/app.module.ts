@@ -36,7 +36,6 @@ import { SkillCardComponent } from "./cards/skill-card/skill-card.component";
 import { InactiveJobCardComponent } from "./cards/inactive-job-card/inactive-job-card.component";
 import { ActiveJobCardComponent } from "./cards/active-job-card/active-job-card.component";
 import { InactiveJobListCardComponent } from "./cards/inactive-job-list-card/inactive-job-list-card.component";
-import { ActiveJobListCardComponent } from "./cards/active-job-list-card/active-job-list-card.component";
 
 //Modals
 import { EducationModalComponent } from "./modals/education-modal/education-modal.component";
@@ -99,7 +98,6 @@ import { NotificationService } from "../services/notifications/notification.serv
     ListComponent,
     GridComponent,
     InactiveJobListCardComponent,
-    ActiveJobListCardComponent,
     SecretComponent,
     DropZoneDirective,
     UploadImageModalComponent,

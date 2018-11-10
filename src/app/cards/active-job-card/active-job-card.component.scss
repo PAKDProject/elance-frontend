@@ -33,12 +33,13 @@
         grid-template-columns: 1fr auto;
         overflow: hidden;
         margin: 5px;
+        // padding-bottom: 12px;
 
         .jobDescription {
             font-size: 14px;
-            line-height: 18px;
+            line-height: 19px;
             height: 76px;
-            white-space: pre-wrap;
+            white-space: normal;
             overflow: hidden;
             text-overflow: ellipsis;
             height: 100%;
@@ -64,7 +65,6 @@
     }
     .bottomRow {
         padding: 5px;
-        padding-top: 2px;
         display: grid;
         grid-template-rows: auto auto;
         overflow: hidden;
@@ -73,6 +73,7 @@
         background: #4B515D;
 
         .jobDueDate {
+            margin: 0; padding: 0;
             text-align: right;
             justify-self: right;
             align-self: center;
