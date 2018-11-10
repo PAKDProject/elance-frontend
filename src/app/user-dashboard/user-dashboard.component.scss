@@ -1,37 +1,39 @@
-.container-fluid {
-    display: grid;
-    grid-template-rows: repeat(7,auto);
-
-    .carouselRow{
-        width: 100%;
-        display: grid;
-        grid-template-columns: repeat(3,auto);
-
-        .carouselArrow {
-            margin: 5px;
-            background: white;
-            border-radius: 50%;
-            border: darkgray solid 2px;
-            font-size: 20px;
-            vertical-align: middle;
-            align-self: center;
-            cursor: pointer;
-        }
-
-        drag-scroll {
-            height: 100%;
-            overflow: hidden;
-            active-job-card, inactive-job-card {
-                width: 25%;
-                min-width: 200px;
-            }
-        }
-    }
-}
-
 @import "../../variables.scss";
 
-.primary {
-  background-color: $primary;
-  color: white;
+.container-fluid {
+  display: grid;
+  grid-template-rows: repeat(7, auto);
+  .primary {
+    background-color: $primary;
+    color: white;
+    width: 20vw;
+    justify-self: end;
+    margin-right: 24px;
+  }
+  .carouselRow {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+
+    .carouselArrow {
+      margin: 5px;
+      background: white;
+      border-radius: 50%;
+      border: darkgray solid 2px;
+      font-size: 20px;
+      vertical-align: middle;
+      align-self: center;
+      cursor: pointer;
+    }
+
+    drag-scroll {
+      height: 100%;
+      overflow: hidden;
+      active-job-card,
+      inactive-job-card {
+        width: 25%;
+        min-width: 200px;
+      }
+    }
+  }
 }
