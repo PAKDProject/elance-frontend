@@ -1,3 +1,5 @@
+
+@import "../../../variables.scss";
 .cardContainer {
     margin: 5px;
     display: grid;
@@ -89,9 +91,10 @@
                 height: 100%;
             }
         }
-
-        .progressBar {
-
-        }
     }
+}
+
+:host /deep/ 
+.progress-bar{
+    background-color:  $primary !important;
 }
