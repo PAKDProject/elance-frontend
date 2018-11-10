@@ -1,5 +1,21 @@
 <div class="main-content">
   <div class="container-fluid">
     <h2>User Dashboard</h2>
+    <h4>Active Jobs</h4>
+    <div class="cardRow">
+      <active-job-card></active-job-card>
+      <active-job-card></active-job-card>
+      <active-job-card></active-job-card>
+    </div>
+    <h4>Posted Jobs</h4>
+    <div class="cardRow">
+      <inactive-job-card [JobInput]='jobs[0]'></inactive-job-card>
+      <inactive-job-card [JobInput]='jobs[1]'></inactive-job-card>
+      <inactive-job-card [JobInput]='jobs[2]'></inactive-job-card>
+    </div>
+    <h4>Contacts</h4>
+    <div class="cardRow">
+      <!-- <contact-card></contact-card> -->
+    </div>
   </div>
 </div>

@@ -320,7 +320,7 @@ export class RegisterFormComponent implements OnInit {
   createTestUser() {
     this._userService.getTestUser().subscribe(user => {
       this.store.dispatch(new RequestUserSuccessAction(user));
-      this.router.navigateByUrl("home/browse-jobs");
+      this.router.navigateByUrl("home/user-dashboard");
     });
   }
 
