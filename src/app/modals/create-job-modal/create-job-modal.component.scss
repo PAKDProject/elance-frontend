@@ -1,0 +1,40 @@
+@import "../../../variables.scss";
+.container {
+  width: 70vw;
+  height: auto;
+  h2 {
+    text-align: center;
+  }
+  #typeSelection {
+    text-align: center;
+  }
+}
+.secondary:hover {
+  background: $primary;
+  color: white;
+}
+
+#inputGroupPrepend {
+  background: $primary;
+  color: white;
+}
+
+.primary {
+  background: $primary;
+  color: white;
+}
+.primary:hover {
+  color: $primary;
+  background: white;
+  border: 1px solid $primary;
+}
+
+.secondary {
+  color: $primary;
+  background: #eee;
+}
+
+.feedback {
+  font-size: 0.8em;
+  color: darkred;
+}

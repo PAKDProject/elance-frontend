@@ -1,6 +1,8 @@
+@import "../../../variables.scss";
+
 /deep/ .mat-dialog-container {
   border-radius: 10px !important;
-  border: 1px solid #12896e;
+  border: 1px solid $primary;
 }
 
 .modalContainer {
@@ -15,7 +17,7 @@
 .modalBody {
   width: 700px;
   height: 300px;
-  border: 2px dashed #12896e;
+  border: 2px dashed $primary;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,7 +27,7 @@
   margin: 10px 0;
 
   &.hovering {
-    border: 2px solid #12896e;
+    border: 2px solid $primary;
   }
 
   h2 {
@@ -45,15 +47,15 @@
 .closeDialog {
   width: 48%;
   margin-right: 2%;
-  color: #12896e;
+  color: $primary;
   background: white;
-  border: 1px solid #12896e;
+  border: 1px solid $primary;
 }
 .upload {
   width: 48%;
   margin-left: 2%;
   color: white;
-  background-color: #12896e;
+  background-color: $primary;
 }
 
 @media only screen and (max-width: 600px) {

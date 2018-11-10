@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .main-content {
   .container-fluid {
     .headerBar {
@@ -13,7 +15,7 @@
         height: 36px;
 
         color: white;
-        background: #188C72;
+        background: $primary;
         border-radius: 5px;
 
         p {
@@ -27,7 +29,7 @@
         }
       }
       .active {
-        background: #136D5A;
+        background: $primary;
       }
     }
     .topBar {
@@ -61,7 +63,7 @@
         border-radius: 5px;
         line-height: 40px;
         vertical-align: middle;
-        
+
         p {
           margin-left: 5px;
         }
@@ -76,7 +78,7 @@
       }
       .active {
         color: white;
-        background: #188C72;
+        background: $primary;
       }
 
       .searchBox {
@@ -84,7 +86,7 @@
         width: 300px;
         border: 1px gray solid;
         border-radius: 5px;
-      }   
+      }
     }
 
     .filterOptions {
@@ -115,8 +117,9 @@
       margin-top: 100px;
       display: grid;
       grid-template-rows: auto auto;
-  
-      mat-spinner, .marquee {
+
+      mat-spinner,
+      .marquee {
         margin-top: 10px;
         justify-self: center;
       }
@@ -161,7 +164,7 @@
           }
         }
       }
-  
+
       .filterOptions {
         grid-template-columns: repeat(2, auto);
       }
