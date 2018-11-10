@@ -2,10 +2,11 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 
 //Carousels
-import { DragScrollModule } from 'ngx-drag-scroll';
+import { DragScrollModule } from "ngx-drag-scroll";
 
 // Loading Spinner
 import { NgxSpinnerModule } from "ngx-spinner";
+import { ToastrModule } from "ngx-toastr";
 
 // Angular material imports
 import { AngularMaterialModule } from "./angular-material.module";
@@ -62,6 +63,7 @@ import { ListComponent } from "./browse-jobs/list/list.component";
 import { GridComponent } from "./browse-jobs/grid/grid.component";
 import { SecretComponent } from "src/assets/secret/secret.component";
 import { DropZoneDirective } from "./directives/drop-zone.directive";
+import { NotificationService } from "../services/notifications/notification.service";
 
 @NgModule({
   declarations: [
@@ -110,9 +112,20 @@ import { DropZoneDirective } from "./directives/drop-zone.directive";
     FormsModule,
     ReactiveFormsModule,
     AppReduxModule,
-    DragScrollModule
+    DragScrollModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: "toast-bottom-right",
+      maxOpened: 4,
+      preventDuplicates: true,
+      closeButton: true,
+      easing: "ease-in",
+      newestOnTop: true,
+      autoDismiss: true,
+      easeTime: 300
+    })
   ],
-  providers: [TempUserStorageService, StateGuard],
+  providers: [TempUserStorageService, StateGuard, NotificationService],
   bootstrap: [AppComponent],
   entryComponents: [
     EducationModalComponent,
