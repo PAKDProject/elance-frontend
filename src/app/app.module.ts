@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+//Carousel
+import { Ng2CarouselamosModule } from 'ng2-carouselamos';
+
 // Loading Spinner
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -100,7 +103,8 @@ import { SecretComponent } from 'src/assets/secret/secret.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    AppReduxModule
+    AppReduxModule,
+    Ng2CarouselamosModule
   ],
   providers: [TempUserStorageService, StateGuard],
   bootstrap: [AppComponent],

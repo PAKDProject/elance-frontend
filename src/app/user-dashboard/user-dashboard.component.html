@@ -8,10 +8,22 @@
       <active-job-card></active-job-card>
     </div>
     <h4>Posted Jobs</h4>
-    <div class="cardRow">
+    <!-- <div class="cardRow">
       <inactive-job-card [JobInput]='jobs[0]'></inactive-job-card>
       <inactive-job-card [JobInput]='jobs[1]'></inactive-job-card>
       <inactive-job-card [JobInput]='jobs[2]'></inactive-job-card>
+    </div> -->
+    <div class="carouselContainer">
+      <div
+        ng2-carouselamos
+        class="slidesWrapper"
+        [items]='jobs'
+        [width]='900'
+        [$prev]='prev'
+        [$next]='next'
+        [$item]='job'
+      >
+      </div>
     </div>
     <h4>Contacts</h4>
     <div class="cardRow">
@@ -19,3 +31,13 @@
     </div>
   </div>
 </div>
+
+<ng-template #prev>
+  <mat-icon>keyboard_arrow_left</mat-icon>
+</ng-template>
+<ng-template #next>
+  <mat-icon>keyboard_arrow_right</mat-icon>
+</ng-template>
+<ng-template #job let-job let-i='index'>
+  <inactive-job-card [JobInput]='job'></inactive-job-card>
+</ng-template>
