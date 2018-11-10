@@ -66,18 +66,9 @@ export class CreateJobModalComponent implements OnInit {
   //#endregion
 
   submitForm(): void {
-    const a = this.dateDue.value.split("-");
-    console.log(a);
-    const date = new Date(a[2], a[1] - 1, a[0], 0, 0, 0);
-    var today = new Date();
-    var todayDateFormatted = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate()
-    );
-    if (date <= todayDateFormatted) {
-      console.log(date);
-      console.log(todayDateFormatted);
+    const date = new Date(`${this.dateDue.value}T00:00:00`)
+    if (date <= new Date()) {
+
       this.dateDue.setErrors({ invalid: true });
     } else {
       console.log(`Success : ${this.newJob}`);
