@@ -22,6 +22,15 @@
         font-size: 20px;
         vertical-align: middle;
     }
+
+    drag-scroll {
+        height: 100%;
+        // display: grid;
+        // grid-template-columns: repeat(3,320px);
+        active-job-card, inactive-job-card {
+            width: 25%
+        }
+    }
 }
 @import "../../variables.scss";
 

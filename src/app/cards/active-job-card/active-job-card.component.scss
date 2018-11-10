@@ -1,0 +1,90 @@
+.cardContainer {
+    margin: 5px;
+    display: grid;
+    grid-template-rows: 1fr 4fr auto;
+
+    height: 180px;
+
+    background: #CBCBCB;
+    box-shadow: 3px 4px 6px rgba(0,0,0,0.2);
+
+    min-width: 290px;
+
+    .topRow {
+        justify-self: center;
+        width: 90%;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        overflow: hidden;
+        border-bottom: 2px #E3E3E3 solid;
+
+        .jobTitle {
+            font-weight: 400;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .jobEmployer {
+            font-weight: 200;
+            text-align: right;
+            font-style: italic;
+        }
+    }
+    .middleRow {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        overflow: hidden;
+        margin: 5px;
+
+        .jobDescription {
+            font-size: 14px;
+            line-height: 18px;
+            height: 76px;
+            white-space: pre-wrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 100%;
+        }
+
+        .modalButton {
+            margin-left: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #4B515D;
+            color: white;
+            cursor: pointer;
+
+            mat-icon {
+                height: 100%; width: 100%;
+                line-height: 30px;
+                font-size: 22px;
+                vertical-align: middle;
+                text-align: center;
+            }
+        }
+    }
+    .bottomRow {
+        padding: 5px;
+        display: grid;
+        grid-template-rows: auto auto;
+        overflow: hidden;
+
+        color: white;
+        background: #4B515D;
+
+        .jobDueDate {
+            text-align: right;
+            justify-self: right;
+
+            mat-icon {
+                font-size: 20px;
+                vertical-align: middle;
+            }
+        }
+
+        .progressBar {
+
+        }
+    }
+}

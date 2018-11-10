@@ -1,3 +1,27 @@
-<p>
-  active-job-card works!
-</p>
+<div class="cardContainer">
+
+  <div class="topRow">
+    <div class="jobTitle">{{job.title}}</div>
+    <div class="jobEmployer">{{job.employer}}</div>
+  </div>
+
+  <div class="middleRow">
+    <div class="jobDescription">
+        <!-- {{(job.description.length>200)? (job.description|slice:0:200)+'...':(job.description)}} -->
+        {{job.description}}
+      </div>
+    <div class="modalButton" (click)='openJobModal()'>
+      <mat-icon>open_in_new</mat-icon>
+    </div>
+  </div>
+
+  <div class="bottomRow">    
+    <div class="jobDueDate">
+      <mat-icon>access_time</mat-icon>
+      {{job.datePosted | date: 'dd/MM/yyyy'}}
+    </div>
+    <div class="progressBar">
+      
+    </div>
+  </div>
+</div>

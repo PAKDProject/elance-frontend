@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { IJob } from 'src/models/job-model';
+import { MatDialog } from '@angular/material';
+import { ActiveJobModalComponent } from 'src/app/modals/active-job-modal/active-job-modal.component';
 
 @Component({
   selector: 'active-job-card',
   templateUrl: './active-job-card.component.html',
   styleUrls: ['./active-job-card.component.scss']
 })
-export class ActiveJobCardComponent implements OnInit {
+export class ActiveJobCardComponent {
 
-  constructor() { }
+  @Input('JobInput') job: IJob;
 
-  ngOnInit() {
+  constructor(public dialog: MatDialog) {}
+
+  openJobModal(): void {
+    const dialogRef = this.dialog.open(ActiveJobModalComponent, {
+      maxWidth: '1000px',
+      data: this.job
+    })
   }
-
 }

@@ -1,8 +1,8 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 
-//Carousel
-import { Ng2CarouselamosModule } from 'ng2-carouselamos';
+//Carousels
+import { DragScrollModule } from 'ngx-drag-scroll';
 
 // Loading Spinner
 import { NgxSpinnerModule } from "ngx-spinner";
@@ -110,7 +110,7 @@ import { DropZoneDirective } from "./directives/drop-zone.directive";
     FormsModule,
     ReactiveFormsModule,
     AppReduxModule,
-    Ng2CarouselamosModule
+    DragScrollModule
   ],
   providers: [TempUserStorageService, StateGuard],
   bootstrap: [AppComponent],
