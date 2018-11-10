@@ -2,26 +2,35 @@
   <div class="container-fluid">
     <h2>User Dashboard</h2>
     <h4>Active Jobs</h4>
-    <drag-scroll [scrollbar-hidden]>
-      <active-job-card drag-scroll-item *ngFor='let job of jobs' [JobInput]='job'></active-job-card>
-    </drag-scroll>
+    <div class="carouselRow">
+      <mat-icon class="carouselArrow" (click)='moveCarousel("left",1)'>keyboard_arrow_left</mat-icon>
+      <drag-scroll [scrollbar-hidden] #activeJobs>
+        <active-job-card drag-scroll-item *ngFor='let job of jobs' [JobInput]='job'></active-job-card>
+      </drag-scroll>
+      <mat-icon class="carouselArrow" (click)='moveCarousel("right",1)'>keyboard_arrow_right</mat-icon>
+    </div>
     <h4>Posted Jobs</h4>
-    <drag-scroll [scrollbar-hidden]>
+    <div class="carouselRow">
+      <mat-icon class="carouselArrow" (click)='moveCarousel("left",2)'>keyboard_arrow_left</mat-icon>
+      <drag-scroll [scrollbar-hidden] #inactiveJobs>
         <inactive-job-card drag-scroll-item *ngFor='let job of jobs' [JobInput]='job'></inactive-job-card>
       </drag-scroll>
+      <mat-icon class="carouselArrow" (click)='moveCarousel("right",2)'>keyboard_arrow_right</mat-icon>
+    </div>
     <h4>Contacts</h4>
-    <drag-scroll [scrollbar-hidden]>
-      <inactive-job-card drag-scroll-item *ngFor='let job of jobs' [JobInput]='job'></inactive-job-card>
-    </drag-scroll>
-    <!-- <div class="cardRow"> -->
-      <!-- <contact-card></contact-card> -->
-    <!-- </div> -->
+    <div class="carouselRow">
+      <mat-icon class="carouselArrow" (click)='moveCarousel("left",3)'>keyboard_arrow_left</mat-icon>
+      <drag-scroll [scrollbar-hidden] #contacts>
+        <!-- Temp -->
+        <active-job-card drag-scroll-item *ngFor='let job of jobs' [JobInput]='job'></active-job-card>
+      </drag-scroll>
+      <mat-icon class="carouselArrow" (click)='moveCarousel("right",3)'>keyboard_arrow_right</mat-icon>
+    </div>
   </div>
 </div>
 <button class="btn primary" (click)="openModal()">Create a job</button>
 
 <ng-template #prev>
-  <mat-icon class="carouselArrow">keyboard_arrow_left</mat-icon>
 </ng-template>
 <ng-template #next>
   <mat-icon class="carouselArrow">keyboard_arrow_right</mat-icon>
