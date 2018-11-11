@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Select } from '@ngxs/store';
+import { UserState } from 'src/redux/states/user.state';
+import { Observable } from 'rxjs';
+import { IUser } from 'src/models/user-model';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -21,6 +25,7 @@ export const ROUTES: RouteInfo[] = [
     styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+    @Select(UserState.getUser) user$: Observable<IUser>
     menuItems: any[];
 
     constructor() { }
@@ -34,4 +39,8 @@ export class SidebarComponent implements OnInit {
         }
         return true;
     };
+    
+    logOut() {
+        console.log('You can never leave.');
+    }
 }
