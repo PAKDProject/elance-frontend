@@ -57,7 +57,7 @@ import { OrganizationDashboardComponent } from "./organization-dashboard/organiz
 import { ProfileMenuComponent } from "./profile-menu/profile-menu.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { LoginCallbackComponent } from "./login-callback/login-callback.component";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { RegisterFormComponent } from "./register-form/register-form.component";
 import { TempUserStorageService } from "../services/temp-user/temp-user-storage.service";
 import { StateGuard } from "./state.guard";
@@ -68,6 +68,7 @@ import { GridComponent } from "./browse-jobs/grid/grid.component";
 import { SecretComponent } from "src/assets/secret/secret.component";
 import { DropZoneDirective } from "./directives/drop-zone.directive";
 import { NotificationService } from "../services/notifications/notification.service";
+import { HttpinterceptorService } from "src/services/http-interceptor/httpinterceptor.service";
 
 @NgModule({
   declarations: [
@@ -129,7 +130,7 @@ import { NotificationService } from "../services/notifications/notification.serv
       easeTime: 300
     })
   ],
-  providers: [TempUserStorageService, StateGuard, NotificationService],
+  providers: [TempUserStorageService, StateGuard, NotificationService, { provide: HTTP_INTERCEPTORS, useClass: HttpinterceptorService, multi: true }],
   bootstrap: [AppComponent],
   entryComponents: [
     EducationModalComponent,
@@ -140,4 +141,4 @@ import { NotificationService } from "../services/notifications/notification.serv
     CreateJobModalComponent
   ]
 })
-export class AppModule {}
+export class AppModule { }
