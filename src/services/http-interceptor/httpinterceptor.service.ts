@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpResponse } from '@angular/common/http';
+import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -12,12 +12,12 @@ export class HttpinterceptorService implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const customReq = request.clone({
-      headers: request.headers.set('Authorization', sessionStorage.getItem('access_token'))
+      headers: request.headers
+        .set('Authorization', sessionStorage.getItem('access_token'))
     })
 
     return next.handle(customReq).pipe(tap((ev: HttpEvent<any>) => {
       if (ev instanceof HttpResponse) {
-        console.log(ev)
         if (ev.headers.get('X-Auth-Tokens') !== null) {
           let tokens = JSON.parse(ev.headers.get('X-Auth-Tokens'))
 
