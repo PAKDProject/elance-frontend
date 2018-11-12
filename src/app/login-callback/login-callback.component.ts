@@ -54,35 +54,35 @@ export class LoginCallbackComponent implements OnInit, OnDestroy {
     //   if (!isValid)
     //     window.location.href = "https://login.elance.site"
     //   else {
-        this.setSessionStorage('access_token', this.access_token)
-        this.setSessionStorage('id_token', this.id_token)
-        let decodedUser = this.getIDDetailsFromToken()
-        let tempUser: IUser = {
-          email: decodedUser.email,
-          id: decodedUser["cognito:username"],
-          fName: decodedUser.name,
-          lName: decodedUser.family_name
-        }
+    this.setSessionStorage('access_token', this.access_token)
+    this.setSessionStorage('id_token', this.id_token)
+    let decodedUser = this.getIDDetailsFromToken()
+    let tempUser: IUser = {
+      email: decodedUser.email,
+      id: decodedUser["cognito:username"],
+      fName: decodedUser.name,
+      lName: decodedUser.family_name
+    }
 
-        this.userService.getUserByID(decodedUser["cognito:username"]).subscribe(res => {
-          if (Object.keys(res).length === 0 || res.email === null) {
-            this.store.dispatch(new RequestUserFailedActions('User not present in the db'))
-            this.store.dispatch(new RequestUserSuccessAction(tempUser))
-            this.router.navigate(['user/create'])
-          }
-          else {
-            this.store.dispatch(new RequestUserSuccessAction(res))
-            this.router.navigate([''])
-          }
-        }, (err: HttpErrorResponse) => {
-          if (err.status == 404) {
-            this.store.dispatch(new RequestUserSuccessAction(tempUser))
-            this.router.navigate(['user/create'])
-          }
-          else {
-            window.location.href = "https://login.elance.site"
-          }
-        })
+    this.userService.getUserByID(decodedUser["cognito:username"]).subscribe(res => {
+      if (Object.keys(res).length === 0 || res.email === null) {
+        this.store.dispatch(new RequestUserFailedActions('User not present in the db'))
+        this.store.dispatch(new RequestUserSuccessAction(tempUser))
+        this.router.navigate(['user/create'])
+      }
+      else {
+        this.store.dispatch(new RequestUserSuccessAction(res))
+        this.router.navigate([''])
+      }
+    }, (err: HttpErrorResponse) => {
+      if (err.status == 404) {
+        this.store.dispatch(new RequestUserSuccessAction(tempUser))
+        this.router.navigate(['user/create'])
+      }
+      else {
+        window.location.href = "http://login.elance.site"
+      }
+    })
     //   }
     // }).catch(err => {
     //   window.location.href = "https://login.elance.site"
