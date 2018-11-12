@@ -316,8 +316,7 @@
         @include set-background-color-button($brand-warning);
     }
     &[data-color="danger"]{
-        // @include set-background-color-button($brand-danger);
-        @include set-background-color-button(#188C72);
+        @include set-background-color-button($brand-danger);
     }
     &[data-color="rose"]{
         @include set-background-color-button($brand-rose);
@@ -326,6 +325,9 @@
     &[data-color="white"]{
         @include set-background-color-button($white-color);
         @include sidebar-active-color($black-color);
+    }
+    &[data-color="elance-green"]{
+        @include set-background-color-button(#188C72);
     }
 
     &[data-background-color="red"]{

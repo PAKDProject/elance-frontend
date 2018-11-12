@@ -65,8 +65,6 @@ export class UserDashboardComponent implements OnInit {
   }
   
   openModal(): void {
-    this.dialog.open(CreateJobModalComponent, {
-      maxWidth: "1000px"
-    });
+    this.dialog.open(CreateJobModalComponent);
   }
 }
