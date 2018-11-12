@@ -44,22 +44,22 @@ export class UserService {
    * Find a number of users by a First Name
    * @param fName Type : string
    */
-  getUsersByFName(fName: string): Observable<IUser[]> {
-    return this.http.get(`${this.endpoint}/fname/${fName}`).pipe(map((res) => {
-      let response = res as { users: IUser[] }
-      return response.users;
-    }), catchError(this.handleError));
-  }
+  // getUsersByFName(fName: string): Observable<IUser[]> {
+  //   return this.http.get(`${this.endpoint}/fname/${fName}`).pipe(map((res) => {
+  //     let response = res as { users: IUser[] }
+  //     return response.users;
+  //   }), catchError(this.handleError));
+  // }
   /**
    * Find a number of user by a Last Name
    * @param lName Type: string
    */
-  getUsersByLName(lName: string): Observable<IUser[]> {
-    return this.http.get(`${this.endpoint}/lname/${lName}`).pipe(map((res) => {
-      let response = res as { users: IUser[] }
-      return response.users;
-    }), catchError(this.handleError));
-  }
+  // getUsersByLName(lName: string): Observable<IUser[]> {
+  //   return this.http.get(`${this.endpoint}/lname/${lName}`).pipe(map((res) => {
+  //     let response = res as { users: IUser[] }
+  //     return response.users;
+  //   }), catchError(this.handleError));
+  // }
   /**
    * Create a new user. Returns the created object
    * @param user Type : IUser
