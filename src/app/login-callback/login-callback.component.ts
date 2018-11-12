@@ -65,7 +65,7 @@ export class LoginCallbackComponent implements OnInit, OnDestroy {
         }
 
         this.userService.getUserByID(decodedUser["cognito:username"]).subscribe(res => {
-          if (Object.keys(res).length === 0 || res.entity === 'token') {
+          if (Object.keys(res).length === 0 || res.email === null) {
             this.store.dispatch(new RequestUserFailedActions('User not present in the db'))
             this.store.dispatch(new RequestUserSuccessAction(tempUser))
             this.router.navigate(['user/create'])

@@ -13,7 +13,6 @@ export interface IUser {
   socialLinks?: ISocialLink[];
   tagline?: string;
   contacts?: IUser[];
-  entity?: string;
 }
 
 export interface ISocialLink {
