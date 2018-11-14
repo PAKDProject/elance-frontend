@@ -32,7 +32,9 @@
       active-job-card,
       inactive-job-card {
         width: 25%;
+        min-width: 200px;
         height: 180px;
+        margin-bottom: 15px;
       }
     }
   }
