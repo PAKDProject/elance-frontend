@@ -1,20 +1,24 @@
 .cardContainer {
     margin: 5px;
     display: grid;
-    grid-template-rows: 1fr 4fr auto;
+    grid-template-rows: auto 4fr auto;
 
-    height: 180px;
+    // height: 180px;
+    height: 100%;
 
     background: #CBCBCB;
     box-shadow: 3px 4px 6px rgba(0,0,0,0.2);
 
     .topRow {
         justify-self: center;
-        width: 90%;
+        width: 100%;
+        padding: 10px;
         display: grid;
         grid-template-columns: 1fr auto;
         overflow: hidden;
-        border-bottom: 2px #E3E3E3 solid;
+        // border-bottom: 2px #E3E3E3 solid;
+        background: #4B515D;
+        color: white;
 
         .jobTitle {
             font-weight: 400;
@@ -52,6 +56,7 @@
             background: #4B515D;
             color: white;
             cursor: pointer;
+            align-self: center;
 
             mat-icon {
                 height: 100%; width: 100%;
@@ -67,9 +72,12 @@
         display: grid;
         grid-template-columns: auto auto;
         overflow: hidden;
+        border-top: 2px #E3E3E3 solid;
+        width: 90%;
+        justify-self: center;
 
-        color: white;
-        background: #4B515D;
+        // color: white;
+        // background: #4B515D;
 
         .jobPayment {
             mat-icon {

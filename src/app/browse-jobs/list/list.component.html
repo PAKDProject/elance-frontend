@@ -1,3 +1,14 @@
-<div class="listContainer">
+<div *ngIf='(jobs.length > 0)' class="listContainer">
     <inactive-job-list-card *ngFor='let job of jobs' [JobInput]='job'></inactive-job-list-card>
+</div>
+<div *ngIf='!(jobs.length > 0)' class="listContainer">
+    <div class="noJobsFound">
+        <div class="centerContainer">
+            <div class='imgContainer'>
+                <i class="far fa-frown"></i>
+            </div>
+            <h2>No jobs found</h2>
+            <div>try changing your search terms</div>
+        </div>
+    </div>
 </div>
