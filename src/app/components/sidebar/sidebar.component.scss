@@ -39,8 +39,18 @@
             align-self: center;
             grid-area: bot;
 
+            display: grid;
+            grid-template-columns: auto auto 1fr;
+
             button {
                 padding: 2px;
+            }
+
+            i {
+                border: 1px darkgray solid;
+                border-radius: 5px;
+                padding: 2px;
+                margin: 2px;
             }
         }
     }
