@@ -3,21 +3,26 @@
 .cardContainer {
     margin: 5px;
     display: grid;
-    grid-template-rows: 1fr 4fr auto;
+    grid-template-rows: auto 1fr auto;
 
-    height: 180px;
+    height: 100%;
+
+    overflow: hidden;
 
     background: #CBCBCB;
     box-shadow: 3px 4px 6px rgba(0,0,0,0.2);
     
     .topRow {
         justify-self: center;
-        width: 90%;
+        width: 100%;
+        padding: 10px;
         display: grid;
         grid-template-columns: 1fr auto;
         overflow: hidden;
         border-bottom: 2px #E3E3E3 solid;
 
+        color: white;
+        background: #4B515D;    
         .jobTitle {
             font-weight: 400;
             white-space: nowrap;
@@ -35,7 +40,6 @@
         grid-template-columns: 1fr auto;
         overflow: hidden;
         margin: 5px;
-        // padding-bottom: 12px;
 
         .jobDescription {
             font-size: 14px;
@@ -52,8 +56,8 @@
             width: 30px;
             height: 30px;
             border-radius: 50%;
-            // background: #4B515D;
-            // color: white;
+            background: #4B515D;
+            color: white;
             cursor: pointer;
 
             mat-icon {
@@ -66,13 +70,17 @@
         }
     }
     .bottomRow {
-        padding: 5px;
+        padding: 2px;
+        padding-bottom: 10px;
         display: grid;
         grid-template-rows: auto auto;
         overflow: hidden;
+        border-top: 2px #E3E3E3 solid;
+        width: 90%;
+        justify-self: center;
 
-        color: white;
-        background: #4B515D;
+        // color: white;
+        // background: #4B515D;
 
         .jobDueDate {
             margin: 0; padding: 0;
