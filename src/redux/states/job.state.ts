@@ -1,6 +1,8 @@
 import { State, StateContext, Action, Selector, Store } from "@ngxs/store";
-import { RequestJobsSuccess, RequestJobsFail, RequestJobs, SearchJobs, FilterJobs } from "../actions/job.actions";
+import { RequestJobsSuccess, RequestJobsFail, RequestJobs, SearchJobs, FilterJobs, AddJob, AddJobSuccess, AddJobFail } from "../actions/job.actions";
 import { IJob } from "src/models/job-model";
+import { JobService } from "src/services/job-service/job.service";
+import { NotificationService } from "src/services/notifications/notification.service";
 import { TempJobStorageService } from "src/services/temp-job/temp-job-storage.service";
 
 
@@ -17,7 +19,7 @@ export class JobsStateModel {
     }
 })
 export class JobsState {
-    constructor(private jobsService: TempJobStorageService, private store: Store) { }
+    constructor(private jobsService: TempJobStorageService, private _jobsService: JobService, private store: Store, private _notification: NotificationService) { }
 
     @Selector()
     static getJobs(state: JobsStateModel) {
@@ -63,23 +65,51 @@ export class JobsState {
         patchState(state)
     }
 
-    @Action(SearchJobs)
-    searchStarted({ getState, patchState }: StateContext<JobsStateModel>, { searchTerm }: SearchJobs) {
+    // @Action(SearchJobs)
+    // searchStarted({ getState, patchState }: StateContext<JobsStateModel>, { searchTerm }: SearchJobs) {
+    //     const state = getState()
+    //     state.isLoading = true
+    //     state.jobs = []
+    //     patchState(state)
+
+    //     this._jobsService.performSearch(searchTerm)
+    // }
+
+    // @Action(FilterJobs)
+    // filterStarted({ getState, patchState }: StateContext<JobsStateModel>, { filterForm }: FilterJobs) {
+    //     const state = getState()
+    //     state.isLoading = true
+    //     state.jobs = []
+    //     patchState(state)
+
+    //     this._jobsService.performFilter(filterForm)
+    // }
+
+    @Action(AddJob)
+    addNewJob({ getState, patchState }: StateContext<JobsStateModel>, payload: IJob) {
         const state = getState()
         state.isLoading = true
-        state.jobs = []
-        patchState(state)
 
-        this.jobsService.performSearch(searchTerm)
+        alert(JSON.stringify(payload))
+        this._jobsService.createNewJob(payload).subscribe(() => {
+            this.store.dispatch(new AddJobSuccess(payload))
+        })
     }
 
-    @Action(FilterJobs)
-    filterStarted({ getState, patchState }: StateContext<JobsStateModel>, { filterForm }: FilterJobs) {
+    @Action(AddJobSuccess)
+    addNewJobSuccess({ getState, patchState }: StateContext<JobsStateModel>, payload: { job: IJob }) {
         const state = getState()
-        state.isLoading = true
-        state.jobs = []
-        patchState(state)
+        state.isLoading = false
+        state.jobs.push(payload.job)
 
-        this.jobsService.performFilter(filterForm)
+        patchState(state)
+    }
+
+    @Action(AddJobFail)
+    addNewJobFail({ getState, patchState }: StateContext<JobsStateModel>, message: string) {
+        const state = getState()
+        state.isLoading = false
+
+        this._notification.showError("An error occured in the state", message);
     }
 }

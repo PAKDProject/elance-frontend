@@ -69,6 +69,8 @@ import { SecretComponent } from "src/assets/secret/secret.component";
 import { DropZoneDirective } from "./directives/drop-zone.directive";
 import { NotificationService } from "../services/notifications/notification.service";
 import { HttpinterceptorService } from "src/services/http-interceptor/httpinterceptor.service";
+import { JobService } from "src/services/job-service/job.service";
+import { UserService } from "src/services/user-service/user.service";
 
 @NgModule({
   declarations: [
@@ -130,7 +132,13 @@ import { HttpinterceptorService } from "src/services/http-interceptor/httpinterc
       easeTime: 300
     })
   ],
-  providers: [TempUserStorageService, StateGuard, NotificationService, { provide: HTTP_INTERCEPTORS, useClass: HttpinterceptorService, multi: true }],
+  providers: [
+    TempUserStorageService,
+    UserService,
+    StateGuard,
+    NotificationService,
+    JobService,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpinterceptorService, multi: true }],
   bootstrap: [AppComponent],
   entryComponents: [
     EducationModalComponent,

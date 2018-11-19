@@ -24,5 +24,20 @@ export class SearchJobs {
 
 export class FilterJobs {
     static readonly type = '[Jobs] Filter'
-    constructor(public filterForm: filterForm) {}
+    constructor(public filterForm: filterForm) { }
 }
+
+export class AddJob {
+    static readonly type = '[Jobs] Add Job'
+    constructor(public payload: IJob) { }
+}
+
+export class AddJobSuccess {
+    static readonly type = '[Jobs] Add Job Success'
+    constructor(public payload: IJob) { }
+}
+export class AddJobFail {
+    static readonly type = '[Jobs] Add Job Fail'
+    constructor(public errorMessage: string) { }
+}
+

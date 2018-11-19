@@ -9,7 +9,7 @@ export interface IJob {
   description: string;
   datePosted: Date;
   payment: number;
-  isAccepted: boolean;
+  userId?: string;
   dateAccepted?: Date;
   dateDue?: Date;
   progress?: number;

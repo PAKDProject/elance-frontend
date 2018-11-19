@@ -2,6 +2,11 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IJob } from "src/models/job-model";
 import { NotificationService } from "src/services/notifications/notification.service";
+import { UserService } from "src/services/user-service/user.service";
+import { JobService } from "src/services/job-service/job.service";
+import { Store } from "@ngxs/store";
+import { AddJob } from "src/redux/actions/job.actions";
+import { MatDialogRef } from "@angular/material";
 
 @Component({
   selector: "app-create-job-modal",
@@ -14,8 +19,11 @@ export class CreateJobModalComponent implements OnInit {
   newJob: IJob;
   constructor(
     private fb: FormBuilder,
-    private notificationService: NotificationService
-  ) {}
+    private notificationService: NotificationService,
+    private _jobService: JobService,
+    private _store: Store,
+    private _dialogRef: MatDialogRef<CreateJobModalComponent>
+  ) { }
 
   ngOnInit() {
     this.newJob = {
@@ -24,7 +32,6 @@ export class CreateJobModalComponent implements OnInit {
       description: "",
       datePosted: new Date(),
       payment: null,
-      isAccepted: false
     };
     this.induvidualJobForm = this.fb.group({
       jobTitle: ["", [Validators.required]],
@@ -75,10 +82,13 @@ export class CreateJobModalComponent implements OnInit {
       this.dateDue.setErrors({ invalid: true });
       this.notificationService.showError("An error occured");
     } else {
+      this._store.dispatch(new AddJob(this.newJob))
       this.notificationService.showSuccess(
         "Job Created",
         "Your Job can now be applied for"
       );
+      this._dialogRef.close();
+
     }
   }
 }
