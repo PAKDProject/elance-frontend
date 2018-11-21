@@ -22,4 +22,9 @@ export class GridComponent implements OnInit {
     })
   }
 
+  //Hides the job
+  hideJob(j: IJob) {
+    this.jobs.splice(this.jobs.indexOf(j),1);
+  }
+
 }

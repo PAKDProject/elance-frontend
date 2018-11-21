@@ -122,8 +122,7 @@ export class TempJobStorageService {
         location: 'Dublin',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non eros viverra, fringilla massa rhoncus, dictum nulla. In rhoncus nunc sed ante maximus tincidunt. Praesent ut lectus nisl. Etiam elementum dictum elit at aliquet. Sed vitae vehicula massa, sed luctus velit. Morbi aliquam sodales tempor. Praesent tempus, felis et luctus porttitor, quam lectus elementum nulla, sit amet pretium nisi dolor vel eros. Nulla vestibulum eu velit ac semper. Morbi gravida rhoncus libero, a rhoncus sapien. Morbi non sem a ligula viverra fermentum elementum ac odio. Fusce eget justo eros.',
         datePosted: new Date('2018-10-19T00:00:00'),
-        payment: 10000,
-        isAccepted: false
+        payment: 10000
       },
       {
         id: 2,
@@ -132,8 +131,7 @@ export class TempJobStorageService {
         location: 'Galway',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non eros viverra, fringilla massa rhoncus, dictum nulla. In rhoncus nunc sed ante maximus tincidunt. Praesent ut lectus nisl. Etiam elementum dictum elit at aliquet. Sed vitae vehicula massa, sed luctus velit. Morbi aliquam sodales tempor. Praesent tempus, felis et luctus porttitor, quam lectus elementum nulla, sit amet pretium nisi dolor vel eros. Nulla vestibulum eu velit ac semper. Morbi gravida rhoncus libero, a rhoncus sapien. Morbi non sem a ligula viverra fermentum elementum ac odio. Fusce eget justo eros.',
         datePosted: new Date('2018-10-20T00:00:00'),
-        payment: 1000000,
-        isAccepted: false
+        payment: 1000000
       },
       {
         id: 3,
@@ -141,8 +139,7 @@ export class TempJobStorageService {
         employer: 'Eddie Employer',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non eros viverra, fringilla massa rhoncus, dictum nulla. In rhoncus nunc sed ante maximus tincidunt. Praesent ut lectus nisl. Etiam elementum dictum elit at aliquet. Sed vitae vehicula massa, sed luctus velit. Morbi aliquam sodales tempor. Praesent tempus, felis et luctus porttitor, quam lectus elementum nulla, sit amet pretium nisi dolor vel eros. Nulla vestibulum eu velit ac semper. Morbi gravida rhoncus libero, a rhoncus sapien. Morbi non sem a ligula viverra fermentum elementum ac odio. Fusce eget justo eros.',
         datePosted: new Date('2018-10-21T00:00:00'),
-        payment: 10750,
-        isAccepted: false
+        payment: 10750
       },
       {
         id: 4,
@@ -154,7 +151,6 @@ export class TempJobStorageService {
         dateAccepted: new Date('2018-10-29T00:00:00'),
         dateDue: new Date('2018-12-01T00:00:00'),
         payment: 12000,
-        isAccepted: true,
         progress: 0.3,
       },
       {
@@ -167,7 +163,6 @@ export class TempJobStorageService {
         dateAccepted: new Date('2018-10-29T00:00:00'),
         dateDue: new Date('2018-12-01T00:00:00'),
         payment: 8000,
-        isAccepted: true,
         progress: 0.5,
       },
       {
@@ -179,7 +174,6 @@ export class TempJobStorageService {
         dateAccepted: new Date('2018-10-29T00:00:00'),
         dateDue: new Date('2018-12-01T00:00:00'),
         payment: 9000,
-        isAccepted: true,
         progress: 0.8,
       }
     ]

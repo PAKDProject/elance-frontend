@@ -45,8 +45,17 @@
         margin: 5px;
         grid-area: topRow;
         display: grid;
-        grid-template-columns: 1fr auto;
+        grid-template-columns: 1fr auto auto;
         border-bottom: 2px #E3E3E3 solid;
+        
+        mat-icon {
+            margin-left: 10px;
+        }
+        mat-icon:hover{
+            color: #12896e;
+            margin-left: 10px;
+            cursor: pointer;
+        }
     }
 
     .bottomRow {
@@ -57,13 +66,11 @@
         margin-bottom: 10px;
 
         .jobDescription {
-            // max-height: 50px;
             word-wrap: break-word;
             overflow: hidden;
             font-size: 14px;
             line-height: 18px;
             height: 100%;
-            // height: 76px;
         }
 
         .modalButton {
@@ -83,6 +90,9 @@
                 font-size: 22px;
                 vertical-align: middle;
                 text-align: center;
+            }
+            mat-icon:hover {
+                color: #12896e;
             }
         }
     }

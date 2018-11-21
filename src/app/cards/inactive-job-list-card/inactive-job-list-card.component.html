@@ -3,6 +3,7 @@
   <div class="topRow">
     <div class="jobTitle">{{job.title}}</div>
     <div class="jobEmployer">{{job.employer}}</div>
+    <mat-icon (click)='hideJob()' *ngIf='canHide'>close</mat-icon>
   </div>
 
   <div class="bottomRow">

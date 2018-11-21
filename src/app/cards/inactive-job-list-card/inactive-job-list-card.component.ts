@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { IJob } from 'src/models/job-model';
 import { MatDialog } from '@angular/material';
 import { InactiveJobModalComponent } from 'src/app/modals/inactive-job-modal/inactive-job-modal.component';
@@ -10,7 +10,9 @@ import { InactiveJobModalComponent } from 'src/app/modals/inactive-job-modal/ina
 })
 export class InactiveJobListCardComponent{
 
+  @Input('canHide') canHide: boolean = false;
   @Input('JobInput') job: IJob;
+  @Output() notify: EventEmitter<boolean> = new EventEmitter<boolean>(); 
 
   constructor(public dialog: MatDialog) {}
 
@@ -19,5 +21,9 @@ export class InactiveJobListCardComponent{
       maxWidth: '1000px',
       data: this.job
     })
+  }
+
+  hideJob() {
+    this.notify.emit(true);
   }
 }
