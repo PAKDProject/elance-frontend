@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 
 //Angular Bootstrap
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 //Carousels
 import { DragScrollModule } from "ngx-drag-scroll";
@@ -71,6 +71,8 @@ import { NotificationService } from "../services/notifications/notification.serv
 import { HttpinterceptorService } from "src/services/http-interceptor/httpinterceptor.service";
 import { JobService } from "src/services/job-service/job.service";
 import { UserService } from "src/services/user-service/user.service";
+import { AddSkillModalComponent } from "./modals/add-skill-modal/add-skill-modal.component";
+import { NgSelectModule } from "@ng-select/ng-select";
 
 @NgModule({
   declarations: [
@@ -104,7 +106,8 @@ import { UserService } from "src/services/user-service/user.service";
     SecretComponent,
     DropZoneDirective,
     UploadImageModalComponent,
-    CreateJobModalComponent
+    CreateJobModalComponent,
+    AddSkillModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -120,6 +123,7 @@ import { UserService } from "src/services/user-service/user.service";
     AppReduxModule,
     DragScrollModule,
     NgbModule,
+    NgSelectModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: "toast-bottom-right",
@@ -138,7 +142,12 @@ import { UserService } from "src/services/user-service/user.service";
     StateGuard,
     NotificationService,
     JobService,
-    { provide: HTTP_INTERCEPTORS, useClass: HttpinterceptorService, multi: true }],
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpinterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     EducationModalComponent,
@@ -149,4 +158,4 @@ import { UserService } from "src/services/user-service/user.service";
     CreateJobModalComponent
   ]
 })
-export class AppModule { }
+export class AppModule {}

@@ -25,6 +25,7 @@
     "@angular/router": "^7.0.2",
     "@mdi/font": "^3.0.39",
     "@ng-bootstrap/ng-bootstrap": "^4.0.0",
+    "@ng-select/ng-select": "^2.12.1",
     "@ngxs/store": "^3.2.0",
     "aws-sdk": "^2.342.0",
     "bootstrap": "^4.1.3",

@@ -1,0 +1,25 @@
+#select {
+  width: 100%;
+}
+
+::ng-deep
+  .ng-select.ng-select-multiple
+  .ng-select-container
+  .ng-value-container
+  .ng-value {
+  background-color: #12896e;
+  border-color: #12896e;
+  color: white;
+
+  padding: 4px;
+  border-radius: 3px;
+}
+
+::ng-deep .ng-option.ng-star-inserted.ng-option-marked:hover {
+  background-color: white;
+}
+
+h2 {
+  background-color: #12896e;
+  color: white;
+}

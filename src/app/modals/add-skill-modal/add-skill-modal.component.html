@@ -1,0 +1,27 @@
+<div class="card">
+  <h2 class="card-header text-center">Add a skill</h2>
+
+  <div class="card-body">
+    <form class="form" [formGroup]="skillForm">
+      <div class="row">
+        <ng-select
+          [items]="refactoredSkills"
+          [multiple]="true"
+          [addTag]="addCustomSkill"
+          [markFirst]="false"
+          groupBy="skillType"
+          bindLabel="skill"
+          placeholder="Choose a skill"
+          appendTo="body"
+          id="select"
+          formControlName="selectedSkill"
+        >
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.skill }} <br />
+            <small>{{ item.area }}</small>
+          </ng-template>
+        </ng-select>
+      </div>
+    </form>
+  </div>
+</div>
