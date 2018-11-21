@@ -16,7 +16,7 @@ export class InactiveJobCardComponent {
 
   openJobModal(): void {
     const dialogRef = this.dialog.open(InactiveJobModalComponent, {
-      maxWidth: '1000px',
+      width: '1000px',
       data: this.job
     })
   }

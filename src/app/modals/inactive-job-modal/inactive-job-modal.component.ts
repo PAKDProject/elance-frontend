@@ -16,4 +16,8 @@ export class InactiveJobModalComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  apply(): void {
+    console.log('Applied for job');
+  }
 }
