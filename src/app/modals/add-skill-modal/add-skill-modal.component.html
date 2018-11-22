@@ -5,20 +5,22 @@
     <form class="form" [formGroup]="skillForm">
       <div class="row">
         <ng-select
-          [items]="refactoredSkills"
+          [items]="skills"
           [multiple]="true"
+          [loading]="skillsLoading"
           [addTag]="addCustomSkill"
           [markFirst]="false"
-          groupBy="skillType"
-          bindLabel="skill"
+          [searchFn]="customSearchFn"
+          groupBy="category"
+          bindLabel="skillTitle"
           placeholder="Choose a skill"
           appendTo="body"
           id="select"
           formControlName="selectedSkill"
         >
           <ng-template ng-option-tmp let-item="item">
-            {{ item.skill }} <br />
-            <small>{{ item.area }}</small>
+            {{ item.skillTitle }} <br />
+            <small>{{ item.category }}</small>
           </ng-template>
         </ng-select>
       </div>

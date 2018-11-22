@@ -1,0 +1,47 @@
+[
+  {
+    "id": "javascript",
+    "skillTitle": "JavaScript",
+    "category": "Software"
+  },
+  {
+    "id": "typescript",
+    "skillTitle": "TypeScript",
+    "category": "Software"
+  },
+  {
+    "id": "c#",
+    "skillTitle": "C#",
+    "category": "Software"
+  },
+  {
+    "id": "java",
+    "skillTitle": "Java",
+    "category": "Software"
+  },
+  {
+    "id": "python",
+    "skillTitle": "Python",
+    "category": "Software"
+  },
+  {
+    "id": "office",
+    "skillTitle": "Microsoft Office",
+    "category": "Business"
+  },
+  {
+    "id": "accounting",
+    "skillTitle": "Accounting",
+    "category": "Business"
+  },
+  {
+    "id": "brick_laying",
+    "skillTitle": "Brick Laying",
+    "category": "Construction"
+  },
+  {
+    "id": "coffee",
+    "skillTitle": "Barista",
+    "category": "Food"
+  }
+]
