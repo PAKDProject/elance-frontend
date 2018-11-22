@@ -2,13 +2,10 @@
     margin: 5px;
     display: grid;
     grid-template-rows: auto 1fr auto;
-
     height: 100%;
-    
-    overflow: hidden;
 
     background: #CBCBCB;
-    box-shadow: 3px 4px 6px rgba(0,0,0,0.2);
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.2);
 
     .topRow {
         justify-self: center;
@@ -16,11 +13,11 @@
         padding: 10px;
         display: grid;
         grid-template-columns: 1fr auto auto;
-        overflow: hidden;
         border-bottom: 2px #E3E3E3 solid;
+        min-height: 40px;
 
         color: white;
-        background: #4B515D;    
+        background: #4B515D;
         .jobTitle {
             font-weight: 400;
             white-space: nowrap;
@@ -43,8 +40,8 @@
     .middleRow {
         display: grid;
         grid-template-columns: 1fr auto;
-        overflow: hidden;
         margin: 5px;
+        height: 100%;
 
         .jobDescription {
             font-size: 14px;
@@ -53,7 +50,6 @@
             white-space: normal;
             overflow: hidden;
             text-overflow: ellipsis;
-            height: 100%;
         }
 
         .modalButton {
@@ -64,6 +60,7 @@
             background: #4B515D;
             color: white;
             cursor: pointer;
+            align-self: center;
 
             mat-icon {
                 height: 100%; width: 100%;
@@ -81,10 +78,10 @@
         padding: 5px;
         display: grid;
         grid-template-columns: auto auto;
-        overflow: hidden;
         border-top: 2px #E3E3E3 solid;
         width: 90%;
-        height: 100%;
+
+        min-height: 40px;
         justify-self: center;
         
         .jobPayment {
