@@ -3,6 +3,8 @@ import { Select } from '@ngxs/store';
 import { UserState } from 'src/redux/states/user.state';
 import { Observable } from 'rxjs';
 import { IUser } from 'src/models/user-model';
+import { CognitoWebTokenAuthService } from 'src/services/cognito-auth/cognito-web-token-auth.service';
+import { NotificationService } from 'src/services/notifications/notification.service';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -27,11 +29,19 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
     @Select(UserState.getUser) user$: Observable<IUser>
     menuItems: any[];
+    userFName: string
 
-    constructor() { }
+    constructor(
+        private _auth: CognitoWebTokenAuthService,
+        private _notifier: NotificationService
+    ) { }
 
     ngOnInit() {
         this.menuItems = ROUTES.filter(menuItem => menuItem);
+        this.user$.subscribe(res => {
+            this.userFName = res.fName;
+        })
+
     }
     isMobileMenu() {
         if ($(window).width() > 991) {
@@ -39,8 +49,13 @@ export class SidebarComponent implements OnInit {
         }
         return true;
     };
-    
+
     logOut() {
-        console.log('You can never leave.');
+        this._auth.logout().subscribe(res => {
+            this._notifier.showInfo("Bye " + this.userFName);
+            window.location.href = "http://login.elance.site"
+        }, err => {
+            this._notifier.showError("Failed to logout!")
+        })
     }
 }
