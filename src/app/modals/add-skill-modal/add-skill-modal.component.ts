@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { ISkills } from "../../../models/skill-model";
@@ -10,6 +10,9 @@ import { Observable } from "rxjs";
   styleUrls: ["./add-skill-modal.component.scss"]
 })
 export class AddSkillModalComponent implements OnInit {
+  @Output() dismissFormEmit: EventEmitter<boolean> = new EventEmitter<
+    boolean
+  >();
   skillForm: FormGroup;
   skills: ISkills[];
   skillsLoading: boolean;
@@ -44,5 +47,14 @@ export class AddSkillModalComponent implements OnInit {
       item.skillTitle.toLocaleLowerCase().indexOf(term) > -1 ||
       item.category.toLocaleLowerCase() === term
     );
+  }
+
+  addSkills() {
+    //Get current user and append skills to that profile.
+    //Emit a value and refresh the browse job page.
+  }
+
+  dismissForm() {
+    this.dismissFormEmit.emit(true);
   }
 }
