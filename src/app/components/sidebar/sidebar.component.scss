@@ -51,6 +51,12 @@
                 border-radius: 5px;
                 padding: 2px;
                 margin: 2px;
+                cursor: pointer;
+            }
+            .fa-sign-out-alt:hover {
+                //    background: #d9534f;
+                background: #cc0000;
+                color: white;
             }
         }
     }
