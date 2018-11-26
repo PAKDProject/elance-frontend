@@ -1,7 +1,7 @@
 <div class="logo">
     <a class="simple-text">
         <div class="logo-img">
-            <img src="../../../assets/images/elance-logo-small.png"/>
+            <img src="../../../assets/images/elance-logo-small.png" />
         </div>
         E-Lance
     </a>
@@ -29,7 +29,7 @@
             </li>
         </ul>
     </div> -->
-    
+
     <!-- Actual Navigation Buttons -->
     <ul class="nav">
         <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
@@ -43,7 +43,7 @@
     <!-- User profile options -->
     <div class="userInfoPanel">
         <div class="profilePic">
-            <img src="../../../assets/images/stock-steve.jpg"/>
+            <img src="../../../assets/images/stock-steve.jpg" />
         </div>
         <div class="topRow">
             <div>
@@ -53,7 +53,7 @@
         <div class="bottomRow">
             <!-- <button class="btn btn-danger btn-sm" (click)='logOut()'>Log out</button> -->
             <i class="fas fa-cog"></i>
-            <i class="fas fa-sign-out-alt"></i>
+            <i class="fas fa-sign-out-alt" (click)="logOut()"></i>
         </div>
     </div>
 </div>

@@ -86,21 +86,22 @@ export class JobsState {
     // }
 
     @Action(AddJob)
-    addNewJob({ getState, patchState }: StateContext<JobsStateModel>, payload: IJob) {
+    addNewJob({ getState, patchState }: StateContext<JobsStateModel>, { payload }: AddJob) {
         const state = getState()
         state.isLoading = true
 
-        alert(JSON.stringify(payload))
-        this._jobsService.createNewJob(payload).subscribe(() => {
-            this.store.dispatch(new AddJobSuccess(payload))
+        this._jobsService.createNewJob(payload).subscribe((res: { job: IJob }) => {
+            let updatedPayload = payload
+            updatedPayload.id = res.job.id
+            this.store.dispatch(new AddJobSuccess(updatedPayload))
         })
     }
 
     @Action(AddJobSuccess)
-    addNewJobSuccess({ getState, patchState }: StateContext<JobsStateModel>, payload: { job: IJob }) {
+    addNewJobSuccess({ getState, patchState }: StateContext<JobsStateModel>, { payload }: AddJobSuccess) {
         const state = getState()
         state.isLoading = false
-        state.jobs.push(payload.job)
+        state.jobs.push(payload)
 
         patchState(state)
     }

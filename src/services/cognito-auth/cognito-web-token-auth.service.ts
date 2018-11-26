@@ -49,4 +49,8 @@ export class CognitoWebTokenAuthService {
       });
     })
   }
+
+  logout() {
+    return this._http.post(this.url + 'auth/logout', {})
+  }
 }
