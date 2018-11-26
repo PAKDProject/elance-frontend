@@ -74,7 +74,7 @@ export class LoginCallbackComponent implements OnInit, OnDestroy {
             }
             else {
               this.store.dispatch(new RequestUserSuccessAction(res))
-              this.router.navigate([''])
+              this.router.navigate(['home/user-dashboard'])
             }
           }, (err: HttpErrorResponse) => {
             if (err.status == 404) {
