@@ -1,3 +1,5 @@
+import { ISkills } from "./skill-model";
+
 export interface IUser {
   id: string;
   email: string;
@@ -6,7 +8,7 @@ export interface IUser {
   dob?: Date;
   phone?: string;
   summary?: string;
-  skills?: ISkill[];
+  skills?: ISkills[];
   educationItems?: IEducationItem[];
   avatarUrl?: string;
   backgroundUrl?: string;
@@ -29,7 +31,7 @@ export interface IEducationItem {
   description?: string;
 }
 
-export interface ISkill {
+export interface ISkills {
   title?: string;
   description?: string;
   // An idea to be discussed. 1-10 on progress bar or something

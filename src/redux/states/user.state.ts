@@ -1,8 +1,10 @@
-import { IUser, ISkill, IEducationItem, ISocialLink } from 'src/models/user-model'
+import { IUser, IEducationItem, ISocialLink } from 'src/models/user-model'
 import { State, Selector, Action, Store, StateContext } from '@ngxs/store';
-import { RequestUserSuccessAction, RequestUserFailedActions } from '../actions/user.actions';
+import { RequestUserSuccessAction, RequestUserFailedActions, RequestAddSkillToUser, RequestAddSkillToUserSuccess } from '../actions/user.actions';
 import { request } from 'http';
 import { TempUserStorageService } from 'src/services/temp-user/temp-user-storage.service';
+import { UserService } from 'src/services/user-service/user.service';
+import { ISkills } from 'src/models/skill-model';
 
 export class UserStateModel {
     id?: string
@@ -12,7 +14,7 @@ export class UserStateModel {
     dob?: Date
     phone?: string
     summary?: string
-    skills?: ISkill[]
+    skills?: ISkills[]
     educationItems?: IEducationItem[]
     avatarUrl?: string
     backgroundUrl?: string
@@ -26,7 +28,7 @@ export class UserStateModel {
     defaults: {}
 })
 export class UserState {
-    constructor(private userService: TempUserStorageService, private store: Store) { }
+    constructor(private userService: TempUserStorageService, private store: Store, private _userService: UserService) { }
 
     @Selector()
     static getUser(state: UserStateModel) {
@@ -43,4 +45,21 @@ export class UserState {
         patchState({})
         // this.store.dispatch() dispatch an error store thingy
     }
+
+    @Action(RequestAddSkillToUser)
+    addSkillRequest({ getState }: StateContext<UserStateModel>, { skills }: RequestAddSkillToUser) {
+        let user = getState()
+        let existingSkills = user.skills
+        existingSkills.push(...skills)
+        user.skills = existingSkills
+        this._userService.updateUser(user as IUser).subscribe(res => {
+            this.store.dispatch(new RequestAddSkillToUserSuccess(user))
+        })
+    }
+
+    @Action(RequestAddSkillToUserSuccess)
+    addSkillRequestSuccess({ patchState }: StateContext<UserStateModel>, { user }: RequestAddSkillToUserSuccess) {
+        patchState(user)
+    }
+
 }
