@@ -73,6 +73,7 @@ import { JobService } from "src/services/job-service/job.service";
 import { UserService } from "src/services/user-service/user.service";
 import { AddSkillModalComponent } from "./modals/add-skill-modal/add-skill-modal.component";
 import { NgSelectModule } from "@ng-select/ng-select";
+import { AddCardComponent } from './cards/add-card/add-card.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { NgSelectModule } from "@ng-select/ng-select";
     DropZoneDirective,
     UploadImageModalComponent,
     CreateJobModalComponent,
-    AddSkillModalComponent
+    AddSkillModalComponent,
+    AddCardComponent
   ],
   imports: [
     BrowserAnimationsModule,

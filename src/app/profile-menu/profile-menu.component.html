@@ -59,14 +59,14 @@
           <skill-card
             *ngFor="let skill of skills"
             [SkillItem]="skill"
-            [editing]="false"
-          ></skill-card>
-
-          <div class="inlineContainer">
-            <div class="cardContainer">
+            [editing]="false">
+          </skill-card>
+          <add-card></add-card>
+          <!-- <div class="inlineContainer">
+            <div class="plusContainer">
               <mat-icon (click)="addNew()">add</mat-icon>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

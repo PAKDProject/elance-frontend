@@ -1,7 +1,7 @@
 .inlineContainer {
     display: inline-block;
-    margin: 5px;
-
+    margin: 2px;
+    overflow: hidden;
     .cardContainer {
         padding: 5px;
         display: grid;
@@ -11,6 +11,8 @@
         background: #CBCBCB;
 
         box-shadow: 3px 4px 6px rgba(0,0,0,0.2);
+
+        height: 35px;
         .skillTitle {
             margin-right: 5px;
             vertical-align: middle;
