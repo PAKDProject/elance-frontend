@@ -7,21 +7,21 @@
 
   <div class="middleRow">
     <div class="jobDescription">
-        <!-- {{(job.description.length>200)? (job.description|slice:0:200)+'...':(job.description)}} -->
-        {{job.description}}
-      </div>
+      <!-- {{(job.description.length>200)? (job.description|slice:0:200)+'...':(job.description)}} -->
+      {{job.description}}
+    </div>
     <div class="modalButton" (click)='openJobModal()'>
       <mat-icon>open_in_new</mat-icon>
     </div>
   </div>
 
-  <div class="bottomRow">    
+  <div class="bottomRow">
     <div class="jobDueDate">
       <mat-icon>access_time</mat-icon>
       {{job.datePosted | date: 'dd/MM/yyyy'}}
     </div>
     <div class="progressBar">
-      <ngb-progressbar [value]='(job.progress)? (job.progress):(0)' [striped]='true' [showValue]='true' [type]='success'></ngb-progressbar>
+      <ngb-progressbar [value]='(job.progress)? (job.progress):(0)' [striped]='true' [showValue]='true'></ngb-progressbar>
     </div>
   </div>
 </div>

@@ -17,6 +17,7 @@ import { Observable } from "rxjs";
 import { secret } from "src/assets/secret";
 import { MatDialog } from "@angular/material";
 import { UploadImageModalComponent } from "src/app/modals/upload-image-modal/upload-image-modal.component";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-register-form",
@@ -26,6 +27,7 @@ import { UploadImageModalComponent } from "src/app/modals/upload-image-modal/upl
 export class RegisterFormComponent implements OnInit {
   isLinear = true;
   modifySelection: boolean = false;
+  isProduction: boolean = environment.production
 
   //User related fields
   skillsAdded: ISkill[] = [];
@@ -55,7 +57,7 @@ export class RegisterFormComponent implements OnInit {
     private store: Store,
     private userService: UserService,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit() {
     //Set up all the forms

@@ -3,10 +3,14 @@ import { IJob } from "src/models/job-model";
 import { Select, Store } from "@ngxs/store";
 import { JobsState } from "src/redux/states/job.state";
 import { Observable } from "rxjs";
-import { debounceTime, distinctUntilChanged } from "rxjs/operators"
-import { RequestJobs, SearchJobs, FilterJobs } from "src/redux/actions/job.actions";
+import { debounceTime, distinctUntilChanged } from "rxjs/operators";
+import {
+  RequestJobs,
+  SearchJobs,
+  FilterJobs
+} from "src/redux/actions/job.actions";
 import { NgxSpinnerService } from "ngx-spinner";
-import { FormControl, NgForm } from '@angular/forms';
+import { FormControl, NgForm } from "@angular/forms";
 import { TempJobStorageService } from "src/services/temp-job/temp-job-storage.service";
 
 @Component({
@@ -17,9 +21,10 @@ import { TempJobStorageService } from "src/services/temp-job/temp-job-storage.se
 export class BrowseJobsComponent implements OnInit {
   isList: boolean;
   filterToggle: boolean;
-  searchTerm: FormControl = new FormControl;
+  showSkillsForm: boolean = true;
+  searchTerm: FormControl = new FormControl();
 
-  dateOrderRadio: string = 'newToOld';
+  dateOrderRadio: string = "newToOld";
 
   @Select(JobsState.getIsLoading)
   isLoading$: Observable<boolean>;
@@ -27,15 +32,15 @@ export class BrowseJobsComponent implements OnInit {
   jobs$: Observable<IJob[]>;
 
   constructor(private store: Store) {
-
     this.isList = false;
     this.searchTerm.valueChanges
       .pipe(debounceTime(1000))
       .pipe(distinctUntilChanged())
-      .subscribe(searchTerm =>
-        this.store.dispatch(new SearchJobs(searchTerm))
-        &&
-        this.store.dispatch(new RequestJobs()))
+      .subscribe(
+        searchTerm =>
+          this.store.dispatch(new SearchJobs(searchTerm)) &&
+          this.store.dispatch(new RequestJobs())
+      );
   }
 
   ngOnInit() {
@@ -59,9 +64,13 @@ export class BrowseJobsComponent implements OnInit {
   applyFilters(filters: NgForm) {
     let f = filters.value as filterForm;
 
-    console.log('Dispatching filters')
-    this.store.dispatch(new FilterJobs(f))
-    this.store.dispatch(new RequestJobs())
+    console.log("Dispatching filters");
+    this.store.dispatch(new FilterJobs(f));
+    this.store.dispatch(new RequestJobs());
+  }
+
+  dismissForm(e: boolean) {
+    if (e === true) this.showSkillsForm = false;
   }
 }
 
