@@ -4,62 +4,36 @@
       <h2>Browse Jobs</h2>
 
       <!-- Refresh Button -->
-      <div
-        class="refreshButton"
-        [class.active]="(isLoading$ | async) === true"
-        (click)="refresh()"
-      >
+      <div class="refreshButton" [class.active]="(isLoading$ | async) === true" (click)="refresh()">
         <p>Refresh</p>
         <mat-icon>refresh</mat-icon>
       </div>
     </div>
-    <div class="mb-2" *ngIf="showSkillsForm">
-      <app-add-skill-modal
-        (dismissFormEmit)="dismissForm($event)"
-      ></app-add-skill-modal>
+    <div class="mb-2" *ngIf="(skillsCount$ | async) < 3">
+      <app-add-skill (dismissFormEmit)="dismissForm($event)"></app-add-skill>
     </div>
     <div>
       <div class="topBar">
         <!-- Change List Type Buttons -->
-        <div
-          class="listViewButton"
-          *ngIf="!isList"
-          (click)="changeListType()"
-          routerLink="list"
-        >
+        <div class="listViewButton" *ngIf="!isList" (click)="changeListType()" routerLink="list">
           <p>List View</p>
           <mat-icon>list</mat-icon>
         </div>
-        <div
-          class="listViewButton"
-          *ngIf="isList"
-          (click)="changeListType()"
-          routerLink="grid"
-        >
+        <div class="listViewButton" *ngIf="isList" (click)="changeListType()" routerLink="grid">
           <p>Grid View</p>
           <mat-icon>view_module</mat-icon>
         </div>
 
         <!-- Filter Opening Button -->
-        <div
-          class="filterButton"
-          [class.active]="filterToggle"
-          (click)="openFilter()"
-        >
+        <div class="filterButton" [class.active]="filterToggle" (click)="openFilter()">
           <p>Filter</p>
           <mat-icon>filter_list</mat-icon>
         </div>
 
         <!-- Search Box -->
         <div class="searchBox">
-          <input
-            [formControl]="searchTerm"
-            type="text"
-            value=""
-            class="form-control"
-            placeholder="Search..."
-            [readonly]="(isLoading$ | async) === true"
-          />
+          <input [formControl]="searchTerm" type="text" value="" class="form-control" placeholder="Search..."
+            [readonly]="(isLoading$ | async) === true" />
         </div>
       </div>
 
@@ -67,61 +41,29 @@
       <form #filterForm="ngForm" class="filterOptions" *ngIf="filterToggle">
         <div class="form-group">
           <label for="minPayment">Min. Payment:</label>
-          <input
-            type="number"
-            class="form-control"
-            id="minPayment"
-            placeholder="0"
-            min="0"
-            max="1000000000000"
-            ngModel
-            name="minPayment"
-          />
+          <input type="number" class="form-control" id="minPayment" placeholder="0" min="0" max="1000000000000" ngModel
+            name="minPayment" />
         </div>
 
         <div class="form-group">
           <label for="maxPayment">Max. Payment:</label>
-          <input
-            type="number"
-            class="form-control"
-            id="maxPayment"
-            placeholder="100,000"
-            min="0"
-            max="1000000000000"
-            ngModel
-            name="maxPayment"
-          />
+          <input type="number" class="form-control" id="maxPayment" placeholder="100,000" min="0" max="1000000000000"
+            ngModel name="maxPayment" />
         </div>
 
         <div class="form-group">
           <p>Sort by date:</p>
           <label class="radio">
-            <input
-              type="radio"
-              name="dateRadio"
-              value="newToOld"
-              [(ngModel)]="dateOrderRadio"
-              checked
-            />
+            <input type="radio" name="dateRadio" value="newToOld" [(ngModel)]="dateOrderRadio" checked />
             New to Old
           </label>
           <label class="radio">
-            <input
-              type="radio"
-              name="dateRadio"
-              value="oldToNew"
-              [(ngModel)]="dateOrderRadio"
-            />
+            <input type="radio" name="dateRadio" value="oldToNew" [(ngModel)]="dateOrderRadio" />
             Old to New
           </label>
         </div>
 
-        <button
-          type="submit"
-          class="btn btn-primary"
-          (click)="applyFilters(filterForm)"
-          [disabled]="(isLoading$ | async) === true"
-        >
+        <button type="submit" class="btn btn-primary" (click)="applyFilters(filterForm)" [disabled]="(isLoading$ | async) === true">
           Apply Filters
         </button>
       </form>

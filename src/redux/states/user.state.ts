@@ -1,8 +1,11 @@
-import { IUser, ISkill, IEducationItem, ISocialLink } from 'src/models/user-model'
+import { IUser, IEducationItem, ISocialLink } from 'src/models/user-model'
 import { State, Selector, Action, Store, StateContext } from '@ngxs/store';
-import { RequestUserSuccessAction, RequestUserFailedActions } from '../actions/user.actions';
+import { RequestUserSuccessAction, RequestUserFailedActions, RequestAddSkillToUser, RequestAddSkillToUserSuccess, RequestAddSkillToUserFail } from '../actions/user.actions';
 import { request } from 'http';
 import { TempUserStorageService } from 'src/services/temp-user/temp-user-storage.service';
+import { UserService } from 'src/services/user-service/user.service';
+import { ISkills } from 'src/models/skill-model';
+import { NotificationService } from 'src/services/notifications/notification.service';
 
 export class UserStateModel {
     id?: string
@@ -12,7 +15,7 @@ export class UserStateModel {
     dob?: Date
     phone?: string
     summary?: string
-    skills?: ISkill[]
+    skills?: ISkills[]
     educationItems?: IEducationItem[]
     avatarUrl?: string
     backgroundUrl?: string
@@ -26,11 +29,16 @@ export class UserStateModel {
     defaults: {}
 })
 export class UserState {
-    constructor(private userService: TempUserStorageService, private store: Store) { }
+    constructor(private userService: TempUserStorageService, private store: Store, private _userService: UserService, private _notification: NotificationService) { }
 
     @Selector()
     static getUser(state: UserStateModel) {
         return state
+    }
+
+    @Selector()
+    static getSkillCount(state: UserStateModel) {
+        return state.skills.length
     }
 
     @Action(RequestUserSuccessAction)
@@ -42,5 +50,30 @@ export class UserState {
     requestFailed({ patchState }: StateContext<UserStateModel>, { payload }: RequestUserSuccessAction) {
         patchState({})
         // this.store.dispatch() dispatch an error store thingy
+    }
+
+    @Action(RequestAddSkillToUser)
+    addSkillRequest({ getState }: StateContext<UserStateModel>, { skills }: RequestAddSkillToUser) {
+        let user = getState()
+        let existingSkills = user.skills
+        existingSkills.push(...skills)
+        user.skills = existingSkills
+        this._userService.updateUser(existingSkills, user.id).subscribe(res => {
+            this.store.dispatch(new RequestAddSkillToUserSuccess(user))
+        }, err => {
+            this.store.dispatch(new RequestAddSkillToUserFail(err.message))
+        })
+    }
+
+    @Action(RequestAddSkillToUserSuccess)
+    addSkillRequestSuccess({ patchState }: StateContext<UserStateModel>, { user }: RequestAddSkillToUserSuccess) {
+        patchState(user)
+        this._notification.showSuccess("Skills added!", "We will now find you more suitable jobs")
+
+    }
+
+    @Action(RequestAddSkillToUserFail)
+    addNewJobFail({ getState, patchState }: StateContext<UserStateModel>, { errorMessage }: RequestAddSkillToUserFail) {
+        this._notification.showError("An error occured in the state", errorMessage);
     }
 }

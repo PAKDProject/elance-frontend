@@ -24,15 +24,8 @@
       <div class="socailConnectionContainer"></div>
 
       <div class="socialConnectionContainer" *ngIf="socialLinks">
-        <a
-          *ngFor="let connection of socialLinks"
-          href="{{connection.linkUrl}}"
-          target="_blank"
-        >
-          <img
-            src="../../assets//icons/{{connection.socialPlatformName}}.png"
-            alt="{{connection.SocialPlatformName}}"
-          />
+        <a *ngFor="let connection of socialLinks" href="{{connection.linkUrl}}" target="_blank">
+          <img src="../../assets//icons/{{connection.socialPlatformName}}.png" alt="{{connection.SocialPlatformName}}" />
         </a>
       </div>
     </div>
@@ -46,10 +39,7 @@
       <div class="bodyContentContainer">
         <h1>Education</h1>
         <div *ngIf="educationItems">
-          <education-card
-            *ngFor="let education of educationItems"
-            [EducationItem]="education"
-          ></education-card>
+          <education-card *ngFor="let education of educationItems" [EducationItem]="education"></education-card>
         </div>
       </div>
 
@@ -62,11 +52,6 @@
             [editing]="false">
           </skill-card>
           <add-card></add-card>
-          <!-- <div class="inlineContainer">
-            <div class="plusContainer">
-              <mat-icon (click)="addNew()">add</mat-icon>
-            </div>
-          </div> -->
         </div>
       </div>
     </div>

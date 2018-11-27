@@ -71,7 +71,7 @@ import { NotificationService } from "../services/notifications/notification.serv
 import { HttpinterceptorService } from "src/services/http-interceptor/httpinterceptor.service";
 import { JobService } from "src/services/job-service/job.service";
 import { UserService } from "src/services/user-service/user.service";
-import { AddSkillModalComponent } from "./modals/add-skill-modal/add-skill-modal.component";
+import { AddSkillComponent } from "./add-skill/add-skill.component";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { AddCardComponent } from './cards/add-card/add-card.component';
 
@@ -108,8 +108,8 @@ import { AddCardComponent } from './cards/add-card/add-card.component';
     DropZoneDirective,
     UploadImageModalComponent,
     CreateJobModalComponent,
-    AddSkillModalComponent,
-    AddCardComponent
+    AddCardComponent,
+    AddSkillComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -160,4 +160,4 @@ import { AddCardComponent } from './cards/add-card/add-card.component';
     CreateJobModalComponent
   ]
 })
-export class AppModule {}
+export class AppModule { }
