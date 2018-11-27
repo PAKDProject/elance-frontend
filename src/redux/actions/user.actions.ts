@@ -25,3 +25,8 @@ export class RequestAddSkillToUserSuccess {
 
     constructor(public user: UserStateModel) { }
 }
+
+export class RequestAddSkillToUserFail {
+    static readonly type = '[Jobs] Add Job Fail'
+    constructor(public errorMessage: string) { }
+}

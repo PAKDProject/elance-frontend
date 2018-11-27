@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { IJob } from "src/models/job-model";
 import { Select, Store } from "@ngxs/store";
 import { JobsState } from "src/redux/states/job.state";
+import { UserState } from "src/redux/states/user.state"
 import { Observable } from "rxjs";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 import {
@@ -30,6 +31,8 @@ export class BrowseJobsComponent implements OnInit {
   isLoading$: Observable<boolean>;
   @Select(JobsState.getJobs)
   jobs$: Observable<IJob[]>;
+  @Select(UserState.getSkillCount)
+  skillsCount$: Observable<number>
 
   constructor(private store: Store) {
     this.isList = false;

@@ -58,6 +58,7 @@ export class AddSkillModalComponent implements OnInit {
     //Emit a value and refresh the browse job page.
     console.log(this.selectedSkills)
     this.store.dispatch(new RequestAddSkillToUser(this.selectedSkills))
+    this.dismissFormEmit.emit(true);
 
   }
 
