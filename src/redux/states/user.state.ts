@@ -58,7 +58,7 @@ export class UserState {
         let existingSkills = user.skills
         existingSkills.push(...skills)
         user.skills = existingSkills
-        this._userService.updateUser(user as IUser).subscribe(res => {
+        this._userService.updateUser(existingSkills, user.id).subscribe(res => {
             this.store.dispatch(new RequestAddSkillToUserSuccess(user))
         }, err => {
             this.store.dispatch(new RequestAddSkillToUserFail(err.message))
@@ -67,8 +67,9 @@ export class UserState {
 
     @Action(RequestAddSkillToUserSuccess)
     addSkillRequestSuccess({ patchState }: StateContext<UserStateModel>, { user }: RequestAddSkillToUserSuccess) {
-        this._notification.showSuccess("Skills added!", "We will now find you more suitable jobs")
         patchState(user)
+        this._notification.showSuccess("Skills added!", "We will now find you more suitable jobs")
+
     }
 
     @Action(RequestAddSkillToUserFail)

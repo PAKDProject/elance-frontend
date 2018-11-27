@@ -27,6 +27,6 @@ export class RequestAddSkillToUserSuccess {
 }
 
 export class RequestAddSkillToUserFail {
-    static readonly type = '[Jobs] Add Job Fail'
+    static readonly type = '[User] Request Add Skill TO User Fail'
     constructor(public errorMessage: string) { }
 }

@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="mb-2" *ngIf="(skillsCount$ | async) < 3">
-      <app-add-skill-modal (dismissFormEmit)="dismissForm($event)"></app-add-skill-modal>
+      <app-add-skill (dismissFormEmit)="dismissForm($event)"></app-add-skill>
     </div>
     <div>
       <div class="topBar">

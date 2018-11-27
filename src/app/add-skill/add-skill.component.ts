@@ -1,17 +1,17 @@
 import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
-import { ISkills } from "../../../models/skill-model";
+import { ISkills } from "../../models/skill-model";
 import { Observable } from "rxjs";
 import { Store } from "@ngxs/store";
 import { RequestAddSkillToUser } from "src/redux/actions/user.actions";
 
 @Component({
-  selector: "app-add-skill-modal",
-  templateUrl: "./add-skill-modal.component.html",
-  styleUrls: ["./add-skill-modal.component.scss"]
+  selector: "app-add-skill",
+  templateUrl: "./add-skill.component.html",
+  styleUrls: ["./add-skill.component.scss"]
 })
-export class AddSkillModalComponent implements OnInit {
+export class AddSkillComponent implements OnInit {
   @Output() dismissFormEmit: EventEmitter<boolean> = new EventEmitter<boolean>();
   skillForm: FormGroup;
   skills: ISkills[];
@@ -54,9 +54,6 @@ export class AddSkillModalComponent implements OnInit {
   }
 
   addSkills() {
-    //Get current user and append skills to that profile.
-    //Emit a value and refresh the browse job page.
-    console.log(this.selectedSkills)
     this.store.dispatch(new RequestAddSkillToUser(this.selectedSkills))
     this.dismissFormEmit.emit(true);
 
