@@ -1,6 +1,7 @@
+@import "../../../variables.scss";
+
 .modalContainer {
     .modalHeader {
-        // background: #188C72;
         padding: 10px;
 
         .topRow {
@@ -8,7 +9,7 @@
             grid-template-columns: 1fr auto auto;
 
             h1 {
-                color: #188C72;
+                color: $primary;
             }
 
             mat-icon {

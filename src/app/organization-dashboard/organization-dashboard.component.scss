@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .main-content {
   background: url('../../assets/images/organizationBackground.png') no-repeat !important;
   height: 100vh;
@@ -15,7 +17,7 @@
     }
     button {
       color: white;
-      background: #12896e;
+      background: $primary;
       opacity: 100;
     }
   }

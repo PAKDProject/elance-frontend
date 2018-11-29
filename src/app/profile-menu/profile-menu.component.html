@@ -6,7 +6,8 @@
       </div>
 
       <div class="profilePictureContainer">
-        <img src="../../assets/images/stock-steve.jpg" />
+        <!-- <img src="../../assets/images/stock-steve.jpg" /> -->
+        <img src="../../assets/images/default_user.png"/>
       </div>
 
       <div class="nameContainer">
@@ -23,9 +24,9 @@
 
       <div class="socailConnectionContainer"></div>
 
-      <div class="socialConnectionContainer" *ngIf="socialLinks">
+      <div class="socialConnectionContainer" *ngIf="socialLinks.length > 0">
         <a *ngFor="let connection of socialLinks" href="{{connection.linkUrl}}" target="_blank">
-          <img src="../../assets//icons/{{connection.socialPlatformName}}.png" alt="{{connection.SocialPlatformName}}" />
+          <img src="../../assets/icons/{{connection.name}}.png" alt="{{connection.name}}" />
         </a>
       </div>
     </div>

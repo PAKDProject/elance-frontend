@@ -1,5 +1,5 @@
-
 @import "../../../variables.scss";
+
 .cardContainer {
     margin: 5px;
     display: grid;
@@ -65,7 +65,7 @@
                 text-align: center;
             }
             mat-icon:hover {
-                color: #12896e;
+                color: $primary;
             }
         }
     }

@@ -1,3 +1,5 @@
+@import '../../../variables.scss';
+
 .inlineContainer {
     display: inline-block;
     margin: 5px; 
@@ -11,7 +13,7 @@
         grid-template-rows: auto;
         
         color: white;
-        background: #12896e;
+        background: $primary;
 
         box-shadow: 3px 4px 6px rgba(0,0,0,0.2);
         

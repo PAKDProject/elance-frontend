@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 #select {
   margin: 1em;
 }
@@ -7,8 +9,8 @@
   .ng-select-container
   .ng-value-container
   .ng-value {
-  background-color: #12896e;
-  border-color: #12896e;
+  background-color: $primary;
+  border-color: $primary;
   color: white;
 
   padding: 4px;
@@ -28,6 +30,6 @@
   padding: 0;
 }
 .submit {
-  background: #12896e;
+  background: $primary;
   color: white;
 }
