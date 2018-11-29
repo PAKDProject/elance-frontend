@@ -72,19 +72,19 @@ export class TempUserStorageService {
       socialLinks: [
         {
           name: 'github',
-          linkUrl: 'github.com'
+          linkUrl: 'http://github.com'
         },
         {
           name: 'facebook',
-          linkUrl: 'facebook.com'
+          linkUrl: 'http://facebook.com'
         },
         {
           name: 'twitter',
-          linkUrl: 'twitter.com'
+          linkUrl: 'http://twitter.com'
         },
         {
           name: 'linkedin',
-          linkUrl: 'linkedin.com'
+          linkUrl: 'http://linkedin.com'
         }
       ],
       tagline: 'Software Developer',
