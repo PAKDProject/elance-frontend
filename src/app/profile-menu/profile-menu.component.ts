@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser, ISkill, IEducationItem, ISocialLink } from 'src/models/user-model';
+import { IUser, IEducationItem, ISocialLink } from 'src/models/user-model';
 import { Observable } from 'rxjs';
 import { Select } from '@ngxs/store';
 import { UserState } from 'src/redux/states/user.state';
+import { ISkills } from 'src/models/skill-model'
 
 @Component({
   selector: 'app-profile-menu',
@@ -11,7 +12,7 @@ import { UserState } from 'src/redux/states/user.state';
 })
 export class ProfileMenuComponent implements OnInit {
   @Select(UserState.getUser) user$: Observable<IUser>
-  skills: ISkill[]
+  skills: ISkills[]
   educationItems: IEducationItem[]
   socialLinks: ISocialLink[]
 

@@ -6,14 +6,15 @@
         <ng-template matStepLabel>Getting Started</ng-template>
         <div class="row">
           <div class="col-md-12">
-            <h2 class="text-center">Welcome to <em>ELance</em></h2>
+            <h2 class="text-center">Hello {{user.fName}}! </h2>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12">
+            <h6 class=text-center>Welcome to <b>ELance</b>!</h6>
             <p class="text-center">
               We just need some information about you in order to find you some
-              great freelance opportunities
+              great freelance opportunities.
             </p>
           </div>
         </div>
@@ -94,16 +95,17 @@
             </div>
           </div>
           <!-- Buttons -->
-          <div>
-            <button class="btn next" matStepperNext [disabled]="!personalDetailsForm.valid">
-              Next
-            </button>
-            <button class="btn back" matStepperPrevious>Back</button>
+          <div class="row">
+            <div class="col-lg-3 col-md-3 offset-md-6 offset-lg-6 col-sm-12">
+              <button class="btn back" matStepperPrevious>Back</button>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12">
+              <button class="btn next" matStepperNext [disabled]="!personalDetailsForm.valid">
+                Next
+              </button>
+            </div>
           </div>
         </form>
-      </mat-step>
-      <mat-step>
-        <app-add-skill-modal></app-add-skill-modal>
       </mat-step>
       <!-- ABOUT YOU -->
       <mat-step [stepControl]="aboutYouForm">
@@ -137,9 +139,13 @@
               </div>
             </div>
           </div>
-          <div>
-            <button class="btn next" matStepperNext>Next</button>
-            <button class="btn back" matStepperPrevious>Back</button>
+          <div class="row">
+            <div class="col">
+              <button class="btn back" matStepperPrevious>Back</button>
+            </div>
+            <div class="col">
+              <button class="btn next" matStepperNext>Next</button>
+            </div>
           </div>
         </form>
       </mat-step>
@@ -180,9 +186,7 @@
         <div class="row">
           <div class="col" id="skills">
             <div *ngFor="let skill of skillsAdded" class="skillItem">
-              <!--
-                <span>{{skill.title}} <span style="color: #12896e" (click)="removeItem(skill)">X</span></span>
-              -->
+
               <skill-card [SkillItem]="skill" [editing]="true" (deleteEmit)="removeItem(skill)"></skill-card>
             </div>
           </div>

@@ -1,5 +1,5 @@
 #select {
-  width: 100%;
+  margin: 1em;
 }
 
 ::ng-deep
@@ -19,7 +19,15 @@
   background-color: white;
 }
 
-h2 {
-  background-color: #12896e;
+.card-header {
+  background-color: #4b515d;
+  color: white;
+}
+
+.card-body {
+  padding: 0;
+}
+.submit {
+  background: #12896e;
   color: white;
 }

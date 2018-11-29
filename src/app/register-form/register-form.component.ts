@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import {
   IUser,
-  ISkill,
+  ISkills,
   IEducationItem,
   ISocialLink
 } from "src/models/user-model";
@@ -30,14 +30,14 @@ export class RegisterFormComponent implements OnInit {
   isProduction: boolean = environment.production
 
   //User related fields
-  skillsAdded: ISkill[] = [];
+  skillsAdded: ISkills[] = [];
   educationAdded: IEducationItem[] = [];
   socialsAdded: ISocialLink[] = [];
   //user object
   user: IUser = {
     email: "sample@gmail.com",
     id: "1",
-    skills: this.skillsAdded,
+    skills: [],
     educationItems: this.educationAdded,
     socialLinks: this.socialsAdded
   };
@@ -237,7 +237,7 @@ export class RegisterFormComponent implements OnInit {
   }
 
   //Remove a skill from the array
-  removeItem(skill: ISkill) {
+  removeItem(skill: ISkills) {
     let i = this.skillsAdded.indexOf(skill);
     this.skillsAdded.splice(i, 1);
   }

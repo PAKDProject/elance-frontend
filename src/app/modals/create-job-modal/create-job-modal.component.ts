@@ -37,6 +37,7 @@ export class CreateJobModalComponent implements OnInit {
       jobTitle: ["", [Validators.required]],
       employer: ["", [Validators.required]],
       location: [""],
+      remote: [''],
       dateDue: [""],
       payment: [
         "",
@@ -52,12 +53,16 @@ export class CreateJobModalComponent implements OnInit {
       this.newJob.location = data.location;
       this.newJob.dateDue = data.dateDue;
       this.newJob.payment = data.payment;
+      this.newJob.remote = data.remote;
     });
   }
 
   //#region getters
   get jobTitle() {
     return this.induvidualJobForm.get("jobTitle");
+  }
+  get remote() {
+    return this.induvidualJobForm.get("remote");
   }
   get employer() {
     return this.induvidualJobForm.get("employer");
@@ -76,6 +81,10 @@ export class CreateJobModalComponent implements OnInit {
   }
   //#endregion
 
+  toggleLocation() {
+    if (this.newJob.remote) this.location.disable()
+    if (this.newJob.remote == false) this.location.enable()
+  }
   submitForm(): void {
     const date = new Date(`${this.dateDue.value}T00:00:00`);
     if (date <= new Date()) {

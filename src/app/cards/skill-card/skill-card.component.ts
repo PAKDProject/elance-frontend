@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { ISkill } from 'src/models/user-model';
+import { ISkills } from 'src/models/user-model';
 import { SkillsModalComponent } from 'src/app/modals/skills-modal/skills-modal.component';
 import { MatDialog } from '@angular/material';
 
@@ -9,9 +9,9 @@ import { MatDialog } from '@angular/material';
   styleUrls: ['./skill-card.component.scss']
 })
 export class SkillCardComponent {
-  @Input('SkillItem') skill: ISkill
+  @Input('SkillItem') skill: ISkills
   @Input() editing?: boolean;
-  @Output() deleteEmit: EventEmitter<ISkill> = new EventEmitter();
+  @Output() deleteEmit: EventEmitter<ISkills> = new EventEmitter();
 
   constructor(public dialog: MatDialog) { }
 
