@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { SkillContainerModalComponent } from 'src/app/modals/skill-container-modal/skill-container-modal.component';
 
@@ -9,6 +9,7 @@ import { SkillContainerModalComponent } from 'src/app/modals/skill-container-mod
 })
 export class AddCardComponent implements OnInit {
 
+  @Input() message: string;
   constructor(private dialog: MatDialog) { }
 
   ngOnInit() {

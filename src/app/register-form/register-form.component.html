@@ -1,6 +1,6 @@
 <div id="background">
   <mat-card class="container">
-    <mat-vertical-stepper [linear]="isLinear" id="stepper" #stepper>
+    <mat-vertical-stepper id="stepper" #stepper>
       <!-- WELCOME -->
       <mat-step>
         <ng-template matStepLabel>Getting Started</ng-template>
@@ -26,86 +26,6 @@
         <!---->
 
         <button class="btn float-right next" matStepperNext>Get Started</button>
-      </mat-step>
-      <!-- PERSONAL INFO -->
-      <mat-step [stepControl]="personalDetailsForm">
-        <form [formGroup]="personalDetailsForm">
-          <!-- Label -->
-          <ng-template matStepLabel>Personal Information</ng-template>
-          <!-- Form -->
-          <div class="row">
-            <div class="col">
-              <p class="float-right">
-                <span class="required">*</span> Required Field
-              </p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
-              <div class="form-group">
-                <label for="fName">First Name <span class="required">*</span></label>
-                <input type="text" id="fName" name="fName" class="form-control" placeholder="Joe" formControlName="fName"
-                  value="this.user.fName" />
-                <div class="feedback-invalid" *ngIf="!fName.valid && fName.touched">
-                  Name is required
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
-              <div class="form-group">
-                <label for="lName">Last Name <span class="required">*</span></label>
-                <input type="text" id="lName" name="lName" class="form-control" placeholder="Sample" formControlName="lName"
-                  value="this.user.lName" />
-                <div class="feedback-invalid" *ngIf="!lName.valid && lName.touched">
-                  Surname is required
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="dob">Date of Birth</label>
-                <input type="date" id="dob" name="dob" class="form-control" max="2018-01-01" formControlName="dob" />
-
-                <div class="feedback-invalid" *ngIf="!dob.pending && dob.errors?.min">
-                  You cant be THAT old
-                </div>
-                <div class="feedback-invalid" *ngIf="dob.errors?.max">
-                  You cant be born in the future smartass
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupPrepend">+353</span>
-                  </div>
-                  <input type="tel" id="phone" name="phone" class="form-control" placeholder="851234567"
-                    formControlName="phone" />
-                </div>
-                <div class="feedback-invalid" *ngIf="!phone.valid && phone.touched">
-                  Please enter a valid phone number
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Buttons -->
-          <div class="row">
-            <div class="col-lg-3 col-md-3 offset-md-6 offset-lg-6 col-sm-12">
-              <button class="btn back" matStepperPrevious>Back</button>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-12">
-              <button class="btn next" matStepperNext [disabled]="!personalDetailsForm.valid">
-                Next
-              </button>
-            </div>
-          </div>
-        </form>
       </mat-step>
       <!-- ABOUT YOU -->
       <mat-step [stepControl]="aboutYouForm">
@@ -148,54 +68,6 @@
             </div>
           </div>
         </form>
-      </mat-step>
-      <!-- SKILLS -->
-      <mat-step [stepControl]="skillForm">
-        <ng-template matStepLabel>Skills</ng-template>
-        <form [formGroup]="skillForm">
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="skillTitle">Skill</label>
-                <input type="text" id="skillTitle" name="skillTitle" class="form-control" placeholder="eg. JavaScript"
-                  formControlName="skillTitle" />
-              </div>
-              <div class="feedback-invalid" *ngIf="skillTitle.errors?.incorrect">
-                Please input a title for this skill
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="skillDescription">Description</label>
-                <textarea class="form-control" id="skillDescription" name="skillDescription" rows="3" placeholder="Your experience with this skill ..."
-                  formControlName="skillDescription"></textarea>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <button class="btn next" (click)="addSkill()" [disabled]="skillTitle.value === ''">
-                Add Skill
-              </button>
-            </div>
-          </div>
-        </form>
-        <hr />
-        <div class="row">
-          <div class="col" id="skills">
-            <div *ngFor="let skill of skillsAdded" class="skillItem">
-
-              <skill-card [SkillItem]="skill" [editing]="true" (deleteEmit)="removeItem(skill)"></skill-card>
-            </div>
-          </div>
-        </div>
-        <hr *ngIf="skillsAdded.length > 0" />
-        <div>
-          <button class="btn next" matStepperNext>Next</button>
-          <button class="btn back" matStepperPrevious>Back</button>
-        </div>
       </mat-step>
       <!-- EDUCATION -->
       <mat-step [stepControl]="educationForm">
@@ -246,13 +118,11 @@
           </div>
           <div class="row">
             <div class="feedback-invalid ml-3" *ngIf="
-                !educationStartDate.pending && educationStartDate.errors?.min
-              ">
+                !educationStartDate.pending && educationStartDate.errors?.min">
               Cool Story bro, how was the viking era?
             </div>
             <div class="feedback-invalid  ml-3" *ngIf="
-                !educationStartDate.pending && educationStartDate.errors?.max
-              ">
+                !educationStartDate.pending && educationStartDate.errors?.max">
               Cool Story bro, how are the flying cars?
             </div>
             <div class="feedback-invalid  ml-3" *ngIf="!educationEndDate.valid && educationEndDate.touched">
@@ -296,9 +166,13 @@
           </div>
         </form>
         <hr />
-        <div>
-          <button class="btn next" matStepperNext>Next</button>
-          <button class="btn back" matStepperPrevious>Back</button>
+        <div class="row">
+          <div class="col">
+            <button class="btn back" matStepperPrevious>Back</button>
+          </div>
+          <div class="col">
+            <button class="btn next" matStepperNext>Next</button>
+          </div>
         </div>
       </mat-step>
 
@@ -357,20 +231,28 @@
             </div>
           </div>
         </form>
-        <div>
-          <button class="btn next" matStepperNext>Next</button>
-          <button class="btn back" matStepperPrevious>Back</button>
+        <div class="row">
+          <div class="col">
+            <button class="btn back" matStepperPrevious>Back</button>
+          </div>
+          <div class="col">
+            <button class="btn next" matStepperNext>Next</button>
+          </div>
         </div>
       </mat-step>
       <!-- COMPLETE -->
       <mat-step>
         <ng-template matStepLabel>Finished!</ng-template>
         <h4 style="text-align: center; margin: 20px;">
-          Thank you for filling out your details!
+          Great! You're all set!
         </h4>
-        <div>
-          <button class="btn next" (click)="createUser()">Get Started!</button>
-          <button class="btn back" matStepperPrevious>Back</button>
+        <div class="row">
+          <div class="col">
+            <button class="btn back" matStepperPrevious>Back</button>
+          </div>
+          <div class="col">
+            <button class="btn next" matStepperNext (click)="createUser()">Lets Go!</button>
+          </div>
         </div>
       </mat-step>
     </mat-vertical-stepper>
