@@ -1,12 +1,28 @@
 @import '../../../variables.scss';
 
 .inlineContainer {
-    display: inline-block;
-    margin: 5px; 
-    padding-top: 10px;
-    margin-bottom: 2px;
+  display: inline-block;
+  margin: 5px;
+  padding-top: 10px;
+  margin-bottom: 2px;
 
+  overflow: hidden;
+
+  .cardContainer {
+
+    padding: 5px;
+    display: grid;
+    grid-template-rows: auto;
+
+    color: white;
+    background: #12896e;
+
+    box-shadow: 3px 4px 6px rgba(0, 0, 0, 0.2);
+
+    height: 35px;
+    width: auto;
     overflow: hidden;
+
     .cardContainer {
         padding: 5px;
         display: grid;
@@ -30,5 +46,17 @@
             font-size: 1.5em;
             line-height: 0.9em;
         }
+    padding-top: 5px;
     }
+
+
+    i {
+      height: 100%;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 25px;
+      line-height: 0.9em;
+      margin-left: 5px;
+    }
+  }
 }

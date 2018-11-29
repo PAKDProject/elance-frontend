@@ -25,18 +25,16 @@ import { environment } from "src/environments/environment";
   styleUrls: ["./register-form.component.scss"]
 })
 export class RegisterFormComponent implements OnInit {
-  isLinear = true;
   modifySelection: boolean = false;
   isProduction: boolean = environment.production
 
   //User related fields
-  skillsAdded: ISkills[] = [];
   educationAdded: IEducationItem[] = [];
   socialsAdded: ISocialLink[] = [];
   //user object
   user: IUser = {
-    email: "sample@gmail.com",
-    id: "1",
+    email: "",
+    id: "",
     skills: [],
     educationItems: this.educationAdded,
     socialLinks: this.socialsAdded
@@ -44,9 +42,7 @@ export class RegisterFormComponent implements OnInit {
   @Select(UserState.getUser)
   user$: Observable<IUser>;
 
-  personalDetailsForm: FormGroup;
   aboutYouForm: FormGroup;
-  skillForm: FormGroup;
   educationForm: FormGroup;
   socialForm: FormGroup;
 
@@ -68,31 +64,12 @@ export class RegisterFormComponent implements OnInit {
       this.user.lName = user.lName;
       this.user.id = user.id;
     });
-
-    //Personal Details form
-    this.personalDetailsForm = this.fb.group({
-      fName: [this.user.fName, Validators.required],
-      lName: [this.user.lName, Validators.required],
-      dob: [
-        this.user.dob,
-        [Validators.min(1900), Validators.max(new Date().getFullYear())]
-      ],
-      phone: [this.user.phone, [Validators.pattern("\\d{6,10}")]]
-    });
-
     //About you form
     this.aboutYouForm = this.fb.group({
       //TODO - add profile image
       tagline: this.user.tagline,
       description: [this.user.summary, [Validators.maxLength(300)]]
     });
-
-    //Skills form
-    this.skillForm = this.fb.group({
-      skillTitle: [""],
-      skillDescription: [""]
-    });
-
     //Education form
     this.educationForm = this.fb.group({
       degreeTitle: [""],
@@ -114,14 +91,6 @@ export class RegisterFormComponent implements OnInit {
       linkedin: [""]
     });
 
-    //Store values entered into the form into relevant properties
-    this.personalDetailsForm.valueChanges.subscribe(data => {
-      this.user.fName = data.fName;
-      this.user.lName = data.lName;
-      this.user.dob = data.dob;
-      this.user.phone = this.formatPhone(data.phone);
-    });
-
     //Store values into relevant fields
     this.aboutYouForm.valueChanges.subscribe(data => {
       this.user.tagline = data.tagline;
@@ -130,27 +99,11 @@ export class RegisterFormComponent implements OnInit {
   }
 
   //#region Getters
-  get fName() {
-    return this.personalDetailsForm.get("fName");
-  }
-  get lName() {
-    return this.personalDetailsForm.get("lName");
-  }
-  get dob() {
-    return this.personalDetailsForm.get("dob");
-  }
-  get phone() {
-    return this.personalDetailsForm.get("phone");
-  }
+
   get description() {
     return this.aboutYouForm.get("description");
   }
-  get skillTitle() {
-    return this.skillForm.get("skillTitle");
-  }
-  get skillDescription() {
-    return this.skillForm.get("skillDescription");
-  }
+
   get degreeTitle() {
     return this.educationForm.get("degreeTitle");
   }
@@ -183,23 +136,6 @@ export class RegisterFormComponent implements OnInit {
   }
   //#endregion
 
-  //Retrieve skill, check if it has already been added, if not add to array
-  addSkill() {
-    let alreadyContained = false;
-    this.skillsAdded.forEach(skill => {
-      if (skill.title.toLowerCase() === this.skillTitle.value.toLowerCase()) {
-        alreadyContained = true;
-      }
-    });
-
-    if (!alreadyContained) {
-      this.skillsAdded.push({
-        title: this.skillTitle.value,
-        description: this.skillDescription.value
-      });
-    }
-    this.skillForm.reset();
-  }
   //Retrieve education from form, check if start date is before end date and then add to array
   addEducation() {
     let valid: boolean = true;
@@ -235,13 +171,6 @@ export class RegisterFormComponent implements OnInit {
       this.educationForm.reset();
     }
   }
-
-  //Remove a skill from the array
-  removeItem(skill: ISkills) {
-    let i = this.skillsAdded.indexOf(skill);
-    this.skillsAdded.splice(i, 1);
-  }
-
   deleteItem(type: string) {
     this.modifySelection = false;
     switch (type) {
@@ -269,18 +198,6 @@ export class RegisterFormComponent implements OnInit {
       }
     }
   }
-
-  formatPhone(phone: string): string {
-    if (phone) {
-      const leadingNumber = phone.substring(0, 1);
-      if (leadingNumber === "0") {
-        return `00353${phone.substring(1, phone.length)}`;
-      }
-      return `00353${phone}`;
-    }
-    return "";
-  }
-
   //Get social media links and set them
   checkSocials() {
     const facebook = this.facebook.value;

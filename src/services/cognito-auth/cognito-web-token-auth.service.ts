@@ -10,7 +10,7 @@ import { IValidateTokenResponse } from 'src/app/login-callback/login-callback.co
 export class CognitoWebTokenAuthService {
   url: string
   constructor(private _http: HttpClient) {
-    this.url = "http://localhost:3000/"
+    this.url = "https://api.elance.site/"
   }
 
   validateTokens(jwt: string[]): Observable<IValidateTokenResponse> {

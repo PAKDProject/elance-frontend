@@ -1,14 +1,18 @@
 @import "../../../variables.scss";
+
 .container {
   width: 70vw;
   height: auto;
+
   h2 {
     text-align: center;
   }
+
   #typeSelection {
     text-align: center;
   }
 }
+
 .secondary:hover {
   background: $primary;
   color: white;
@@ -23,6 +27,7 @@
   background: $primary;
   color: white;
 }
+
 .primary:hover {
   color: $primary;
   background: white;
@@ -31,10 +36,14 @@
 
 .secondary {
   color: $primary;
-  background: #eee;
+  background: $secondary;
 }
 
 .feedback {
   font-size: 0.8em;
   color: darkred;
+}
+
+#remote:checked {
+  background: $primary !important;
 }

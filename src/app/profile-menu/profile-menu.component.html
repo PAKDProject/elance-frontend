@@ -26,7 +26,7 @@
 
       <div class="socialConnectionContainer" *ngIf="socialLinks.length > 0">
         <a *ngFor="let connection of socialLinks" href="{{connection.linkUrl}}" target="_blank">
-          <img src="../../assets/icons/{{connection.name}}.png" alt="{{connection.name}}" />
+          <img src="../../assets/icons/{{connection.name}}.png" id="{{connection.name}}" alt="{{connection.name}}" />
         </a>
       </div>
     </div>
@@ -47,12 +47,9 @@
       <div class="bodyContentContainer">
         <h1>Skills</h1>
         <div *ngIf="skills">
-          <skill-card
-            *ngFor="let skill of skills"
-            [SkillItem]="skill"
-            [editing]="false">
+          <skill-card *ngFor="let skill of skills" [SkillItem]="skill" [editing]="false">
           </skill-card>
-          <add-card></add-card>
+          <add-card [message]="'Add some skills'"></add-card>
         </div>
       </div>
     </div>
