@@ -29,7 +29,7 @@ export class TempJobStorageService {
   }
 
   getJobs(): Observable<IJob[]> {
-    return this._http.get('http://localhost:3000/jobs').pipe(map(res => {
+    return this._http.get('https://api.elance.site/jobs').pipe(map(res => {
       const { jobs } = res as { jobs: IJob[] }
 
       return jobs
