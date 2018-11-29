@@ -23,13 +23,7 @@
           <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="form-group">
               <label for="jobTitle"> What kind of job will it be </label>
-              <input
-                type="text"
-                id="jobTitle"
-                formControlName="jobTitle"
-                placeholder="Angular 90 Project"
-                class="form-control"
-              />
+              <input type="text" id="jobTitle" formControlName="jobTitle" placeholder="Angular 90 Project" class="form-control" />
               <div class="feedback" *ngIf="!jobTitle.valid && jobTitle.touched">
                 Please enter a title for Freelancers to see
               </div>
@@ -42,13 +36,7 @@
               <label for="employer">
                 What name should be attatched to the job
               </label>
-              <input
-                type="text"
-                id="employer"
-                formControlName="employer"
-                placeholder="Padraig Harte"
-                class="form-control"
-              />
+              <input type="text" id="employer" formControlName="employer" placeholder="Jason Jobgiver" class="form-control" />
               <div class="feedback" *ngIf="!employer.valid && employer.touched">
                 Please enter an employer name
               </div>
@@ -56,32 +44,27 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col">
             <div class="form-group">
               <label for="location">
-                Where are you located or can they work remotely
+                Where are you located or
+                <div class="form-check ml-1" style="display: inline-block">
+                  <input type="checkbox" id="remote" formControlName="remote" class="form-check-input" (change)="toggleLocation()">
+                  <label for="remote" class="form-check-label">
+                    Remote
+                  </label>
+                </div>
               </label>
-              <input
-                type="text"
-                id="location"
-                formControlName="location"
-                placeholder="Galway / Remote Work"
-                class="form-control"
-              />
+              <input type="text" id="location" formControlName="location" placeholder="Galway" class="form-control" />
             </div>
           </div>
+
         </div>
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
               <label for="dateDue"> When should the job be completed </label>
-              <input
-                type="date"
-                id="dateDue"
-                min="2018-11-10"
-                formControlName="dateDue"
-                class="form-control"
-              />
+              <input type="date" id="dateDue" min="2018-11-10" formControlName="dateDue" class="form-control" />
               <div class="feedback" *ngIf="!dateDue.valid && dateDue.touched">
                 Woah that job was finished a bit too soon buddy
               </div>
@@ -94,24 +77,12 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="inputGroupPrepend">€</span>
                 </div>
-                <input
-                  type="number"
-                  id="payment"
-                  class="form-control"
-                  placeholder="4000"
-                  formControlName="payment"
-                />
+                <input type="number" id="payment" class="form-control" placeholder="4000" formControlName="payment" />
               </div>
-              <div
-                class="feedback"
-                *ngIf="payment.errors?.min && payment.touched"
-              >
+              <div class="feedback" *ngIf="payment.errors?.min && payment.touched">
                 Don't be cheap
               </div>
-              <div
-                class="feedback"
-                *ngIf="payment.errors?.max && payment.touched"
-              >
+              <div class="feedback" *ngIf="payment.errors?.max && payment.touched">
                 Baller!
               </div>
               <div class="feedback" *ngIf="!payment.valid && payment.touched">
@@ -124,17 +95,8 @@
           <div class="col-lg-12 col-md-12  col-sm-12">
             <div class="form-group">
               <label for="description"> Description of Job </label>
-              <textarea
-                id="description"
-                rows="3"
-                formControlName="description"
-                class="form-control"
-                placeholder="Please enter some details on the scope and ideas behind this job"
-              ></textarea>
-              <div
-                class="feedback"
-                *ngIf="!description.valid && description.touched"
-              >
+              <textarea id="description" rows="3" formControlName="description" class="form-control" placeholder="Please enter some details on the scope and ideas behind this job"></textarea>
+              <div class="feedback" *ngIf="!description.valid && description.touched">
                 Come on, give us something to work with!
               </div>
             </div>
@@ -147,11 +109,7 @@
             </button>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6">
-            <button
-              class="btn btn-block primary"
-              [disabled]="induvidualJobForm.invalid"
-              (click)="submitForm()"
-            >
+            <button class="btn btn-block primary" [disabled]="induvidualJobForm.invalid" (click)="submitForm()">
               Create Job
             </button>
           </div>

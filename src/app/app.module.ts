@@ -36,6 +36,8 @@ import { SkillCardComponent } from "./cards/skill-card/skill-card.component";
 import { InactiveJobCardComponent } from "./cards/inactive-job-card/inactive-job-card.component";
 import { ActiveJobCardComponent } from "./cards/active-job-card/active-job-card.component";
 import { InactiveJobListCardComponent } from "./cards/inactive-job-list-card/inactive-job-list-card.component";
+import { AddCardComponent } from './cards/add-card/add-card.component';
+
 
 //Modals
 import { EducationModalComponent } from "./modals/education-modal/education-modal.component";
@@ -44,6 +46,8 @@ import { InactiveJobModalComponent } from "./modals/inactive-job-modal/inactive-
 import { ActiveJobModalComponent } from "./modals/active-job-modal/active-job-modal.component";
 import { UploadImageModalComponent } from "./modals/upload-image-modal/upload-image-modal.component";
 import { CreateJobModalComponent } from "./modals/create-job-modal/create-job-modal.component";
+import { SkillContainerModalComponent } from './modals/skill-container-modal/skill-container-modal.component';
+
 
 // Page Components
 import { AppComponent } from "./app.component";
@@ -73,7 +77,6 @@ import { JobService } from "src/services/job-service/job.service";
 import { UserService } from "src/services/user-service/user.service";
 import { AddSkillComponent } from "./add-skill/add-skill.component";
 import { NgSelectModule } from "@ng-select/ng-select";
-import { AddCardComponent } from './cards/add-card/add-card.component';
 
 @NgModule({
   declarations: [
@@ -109,7 +112,8 @@ import { AddCardComponent } from './cards/add-card/add-card.component';
     UploadImageModalComponent,
     CreateJobModalComponent,
     AddCardComponent,
-    AddSkillComponent
+    AddSkillComponent,
+    SkillContainerModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -157,7 +161,8 @@ import { AddCardComponent } from './cards/add-card/add-card.component';
     InactiveJobModalComponent,
     ActiveJobModalComponent,
     UploadImageModalComponent,
-    CreateJobModalComponent
+    CreateJobModalComponent,
+    SkillContainerModalComponent
   ]
 })
 export class AppModule { }

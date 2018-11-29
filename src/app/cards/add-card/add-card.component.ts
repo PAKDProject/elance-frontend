@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { SkillContainerModalComponent } from 'src/app/modals/skill-container-modal/skill-container-modal.component';
 
 @Component({
   selector: 'add-card',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddCardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
   }
 
+  openSkillModal(): void {
+    this.dialog.open(SkillContainerModalComponent, {
+      maxWidth: '1000px',
+    })
+  }
 }
