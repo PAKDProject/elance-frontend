@@ -35,6 +35,11 @@
           text-align: center;
         }
       }
+      .modalButton:hover {
+        color: #4b515d;
+        background: white;
+        border: 1px solid #4b515d;
+      }
     }
     .bottomRow {
       padding: 5px;

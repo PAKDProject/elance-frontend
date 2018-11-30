@@ -8,7 +8,8 @@ import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 import {
   RequestJobs,
   SearchJobs,
-  FilterJobs
+  FilterJobs,
+  RequestJobsFail
 } from "src/redux/actions/job.actions";
 import { NgxSpinnerService } from "ngx-spinner";
 import { FormControl, NgForm } from "@angular/forms";
@@ -48,6 +49,9 @@ export class BrowseJobsComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new RequestJobs());
+    setTimeout(() => {
+      this.store.dispatch(new RequestJobsFail('No jobs found after 5 seconds'))
+    }, 5000)
   }
 
   //Inverts list type

@@ -9,7 +9,19 @@
     width: 20vw;
     justify-self: end;
     margin-right: 24px;
+    border: none;
   }
+  .primary {
+    background-color: $primary;
+    color: white;
+    border: 1px solid white;
+  }
+  .primary:hover {
+    color: $primary;
+    background-color: white;
+    border: 1px solid $primary;
+  }
+
   .carouselRow {
     width: 100%;
     display: grid;

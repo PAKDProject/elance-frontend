@@ -4,7 +4,7 @@
       <h2>Browse Jobs</h2>
 
       <!-- Refresh Button -->
-      <div class="refreshButton" [class.active]="(isLoading$ | async) === true" (click)="refresh()">
+      <div class="refreshButton" [class.active]="(isLoading$ | async) === false" (click)="refresh()">
         <p>Refresh</p>
         <mat-icon>refresh</mat-icon>
       </div>

@@ -14,8 +14,9 @@
         cursor: pointer;
         height: 36px;
 
-        color: white;
-        background: $primary;
+        background: $secondary;
+        color: $primary;
+
         border-radius: 5px;
         align-self: center;
 
@@ -29,8 +30,15 @@
           margin-right: 10px;
         }
       }
+      .active:hover{
+        color: $primary;
+        background-color: white;
+        border: 1px solid $primary;       
+      }
       .active {
         background: $primary;
+        color: white;
+        border: 1px solid white;
       }
     }
     .topBar {
