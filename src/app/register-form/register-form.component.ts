@@ -286,6 +286,8 @@ export class RegisterFormComponent implements OnInit {
     const github = this.github.value;
     const linkedin = this.linkedin.value;
 
+    this.socialsAdded = [];
+    
     if (facebook)
       this.socialsAdded.push({
         name: "facebook",
