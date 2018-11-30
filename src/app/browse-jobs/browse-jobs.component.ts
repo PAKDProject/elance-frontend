@@ -49,9 +49,9 @@ export class BrowseJobsComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new RequestJobs());
-    setTimeout(() => {
-      this.store.dispatch(new RequestJobsFail('No jobs found after 5 seconds'))
-    }, 5000)
+    // setTimeout(() => {
+    //   this.store.dispatch(new RequestJobsFail('No jobs found after 5 seconds'))
+    // }, 5000)
   }
 
   //Inverts list type
