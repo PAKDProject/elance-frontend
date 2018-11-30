@@ -13,7 +13,7 @@ import { RequestUserSuccessAction } from 'src/redux/actions/user.actions';
 
 export class UserService {
 
-  endpoint: string = 'http://localhost:3000/users';
+  endpoint: string = 'https://api.elance.site/users';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -31,35 +31,17 @@ export class UserService {
     }), catchError(this.handleError));
   }
   /**
-   * Returns one user based on their email address
-   * @param email Type : string
+   * Returns one user based on their userId
+   * @param userId Type : string
    */
-  getUserByID(id: string): Observable<IUser> {
-    return this.http.get(`${this.endpoint}/${id}`).pipe(map((res) => {
+  getUserByID(userId: string): Observable<IUser> {
+    return this.http.get(`${this.endpoint}/${userId}`).pipe(map((res) => {
       let response = res as { user: IUser }
       return response.user;
     }), catchError(this.handleError));
   }
-  /**
-   * Find a number of users by a First Name
-   * @param fName Type : string
-   */
-  // getUsersByFName(fName: string): Observable<IUser[]> {
-  //   return this.http.get(`${this.endpoint}/fname/${fName}`).pipe(map((res) => {
-  //     let response = res as { users: IUser[] }
-  //     return response.users;
-  //   }), catchError(this.handleError));
-  // }
-  /**
-   * Find a number of user by a Last Name
-   * @param lName Type: string
-   */
-  // getUsersByLName(lName: string): Observable<IUser[]> {
-  //   return this.http.get(`${this.endpoint}/lname/${lName}`).pipe(map((res) => {
-  //     let response = res as { users: IUser[] }
-  //     return response.users;
-  //   }), catchError(this.handleError));
-  // }
+
+
   /**
    * Create a new user. Returns the created object
    * @param user Type : IUser
@@ -71,21 +53,22 @@ export class UserService {
     ).subscribe();
   }
   /**
-   * Update a User with new details
-   * @param updatedUser Type : IUser
+   * Update a User with new details. Only pass in new properties as object of type any
+   * @param updatedUser Type : any
+   * @param userId Type: string
    */
-  updateUser(updatedUser: IUser): Observable<IUser> {
-    return this.http.put<IUser>(`${this.endpoint}/${updatedUser.email}`, JSON.stringify(updatedUser), this.httpOptions)
+  updateUser(updatedUser: any, userId: string): Observable<IUser> {
+    return this.http.put<IUser>(`${this.endpoint}/${userId}`, JSON.stringify(updatedUser), this.httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
   /**
-   * Delete a user by their email address
-   * @param email Type : string
+   * Delete a user by their userId
+   * @param userId Type : string
    */
-  deleteUser(email: string): Observable<IUser> {
-    return this.http.delete<IUser>(`${this.endpoint}/${email}`).pipe(catchError(this.handleError));
+  deleteUser(userId: string): Observable<IUser> {
+    return this.http.delete<IUser>(`${this.endpoint}/${userId}`).pipe(catchError(this.handleError));
   }
 
 
@@ -96,7 +79,7 @@ export class UserService {
     } else {
       console.error(
         `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
+        `body was: ${error.error.message}`);
     }
     return throwError(error)
   };

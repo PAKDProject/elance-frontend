@@ -32,22 +32,40 @@
     border: none;
   }
 
+  //Buttons
+  // <div class="row">
+  //   <div class="col">
+  //    <button class="btn back">Back</button>
+  //   </div>
+  //  <div class="col">
+  //    <button class="btn next">Next</button>
+  //  </div>
+  //</div>
   .back {
-    background-color: white;
+    background-color: $secondary;
     color: $primary;
   }
 
   .back:hover {
-    background-color: #eee;
+    background-color: white;
+    border: 1px solid $primary;
   }
 
   .next {
     background-color: $primary;
     color: white;
+    border: 1px solid white;
   }
 
+  .next:hover {
+    color: $primary;
+    background-color: white;
+    border: 1px solid $primary;
+  }
+
+  //end buttons
   .upload {
-    background-color: #eee;
+    background-color: $secondary;
     color: $primary;
     border: 1px dashed $primary;
   }
@@ -56,10 +74,7 @@
     background-color: white;
   }
 
-  .next:hover {
-    color: $primary;
-    background-color: #eee;
-  }
+
 
   ul li {
     width: auto;

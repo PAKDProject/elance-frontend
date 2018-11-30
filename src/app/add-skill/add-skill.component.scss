@@ -1,5 +1,7 @@
+@import '../../variables.scss';
+
 #select {
-  width: 100%;
+  margin: 1em;
 }
 
 ::ng-deep
@@ -7,8 +9,8 @@
   .ng-select-container
   .ng-value-container
   .ng-value {
-  background-color: #12896e;
-  border-color: #12896e;
+  background-color: $primary;
+  border-color: $primary;
   color: white;
 
   padding: 4px;
@@ -19,7 +21,15 @@
   background-color: white;
 }
 
-h2 {
-  background-color: #12896e;
+.card-header {
+  background-color: $accent;
+  color: white;
+}
+
+.card-body {
+  padding: 0;
+}
+.submit {
+  background: $primary;
   color: white;
 }

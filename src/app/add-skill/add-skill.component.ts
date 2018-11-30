@@ -1,29 +1,32 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
-import { ISkills } from "../../../models/skill-model";
+import { ISkills } from "../../models/skill-model";
 import { Observable } from "rxjs";
+import { Store } from "@ngxs/store";
+import { RequestAddSkillToUser } from "src/redux/actions/user.actions";
 
 @Component({
-  selector: "app-add-skill-modal",
-  templateUrl: "./add-skill-modal.component.html",
-  styleUrls: ["./add-skill-modal.component.scss"]
+  selector: "app-add-skill",
+  templateUrl: "./add-skill.component.html",
+  styleUrls: ["./add-skill.component.scss"]
 })
-export class AddSkillModalComponent implements OnInit {
+export class AddSkillComponent implements OnInit {
+  @Output() dismissFormEmit: EventEmitter<boolean> = new EventEmitter<boolean>();
   skillForm: FormGroup;
   skills: ISkills[];
   skillsLoading: boolean;
 
   selectedSkills: ISkills[] = [];
   addCustomSkill = term => ({
-    id: term.toLocaleLowerCase(),
     skillTitle: term,
     category: "Custom"
   });
 
-  constructor(private _fb: FormBuilder, private _http: HttpClient) {}
+  constructor(private _fb: FormBuilder, private _http: HttpClient, private store: Store) { }
 
   ngOnInit() {
+
     this.getSkills().subscribe(res => {
       console.log(res);
       this.skillsLoading = false;
@@ -33,6 +36,10 @@ export class AddSkillModalComponent implements OnInit {
     this.skillForm = this._fb.group({
       selectedSkill: []
     });
+
+    this.skillForm.valueChanges.subscribe(data => {
+      this.selectedSkills = data.selectedSkill;
+    })
   }
 
   getSkills(): Observable<ISkills[]> {
@@ -44,5 +51,15 @@ export class AddSkillModalComponent implements OnInit {
       item.skillTitle.toLocaleLowerCase().indexOf(term) > -1 ||
       item.category.toLocaleLowerCase() === term
     );
+  }
+
+  addSkills() {
+    this.store.dispatch(new RequestAddSkillToUser(this.selectedSkills))
+    this.dismissFormEmit.emit(true);
+
+  }
+
+  dismissForm() {
+    this.dismissFormEmit.emit(true);
   }
 }

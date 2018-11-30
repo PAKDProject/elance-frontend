@@ -11,10 +11,15 @@ export class HttpinterceptorService implements HttpInterceptor {
   constructor() { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    let access_token = sessionStorage.getItem('access_token')
+    if (access_token === null) {
+      access_token = ""
+    }
     const customReq = request.clone({
       headers: request.headers
-        .set('Authorization', sessionStorage.getItem('access_token'))
+        .set('Authorization', access_token)
     })
+
 
     return next.handle(customReq).pipe(tap((ev: HttpEvent<any>) => {
       if (ev instanceof HttpResponse) {
@@ -26,5 +31,6 @@ export class HttpinterceptorService implements HttpInterceptor {
         }
       }
     }))
+
   }
 }

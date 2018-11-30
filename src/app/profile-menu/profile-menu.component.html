@@ -6,55 +6,52 @@
       </div>
 
       <div class="profilePictureContainer">
-        <img src="../../assets/images/stock-steve.jpg" />
+        <!-- <img src="../../assets/images/stock-steve.jpg" /> -->
+        <img src="../../assets/images/default_user.png"/>
       </div>
 
       <div class="nameContainer">
-        <h1>{{(user$ | async).fName}} {{(user$ | async).lName}}</h1>
+        <h1>{{ (user$ | async).fName }} {{ (user$ | async).lName }}</h1>
       </div>
 
       <div class="jobTitleContainer">
-        <h2>{{(user$ | async).tagline}}</h2>
+        <h2>{{ (user$ | async).tagline }}</h2>
       </div>
 
       <div class="emailContainer">
-        <h4>{{(user$ | async).email}}</h4>
+        <h4>{{ (user$ | async).email }}</h4>
       </div>
 
-      <div class="socailConnectionContainer">
+      <div class="socailConnectionContainer"></div>
 
-      </div>
-
-      <div class="socialConnectionContainer" *ngIf="socialLinks">
-        <a *ngFor='let connection of socialLinks' href="{{connection.linkUrl}}" target="_blank">
-          <img src="../../assets//icons/{{connection.socialPlatformName}}.png" alt="{{connection.SocialPlatformName}}" />
+      <div class="socialConnectionContainer" *ngIf="socialLinks.length > 0">
+        <a *ngFor="let connection of socialLinks" href="{{connection.linkUrl}}" target="_blank">
+          <img src="../../assets/icons/{{connection.name}}.png" id="{{connection.name}}" alt="{{connection.name}}" />
         </a>
       </div>
     </div>
 
     <div class="profileBody">
-
       <div class="bodyContentContainer">
         <h1>About Me</h1>
-        <p>
-          {{(user$ | async).summary}}
-        </p>
+        <p>{{ (user$ | async).summary }}</p>
       </div>
 
       <div class="bodyContentContainer">
         <h1>Education</h1>
         <div *ngIf="educationItems">
-          <education-card *ngFor='let education of educationItems' [EducationItem]="education"></education-card>
+          <education-card *ngFor="let education of educationItems" [EducationItem]="education"></education-card>
         </div>
       </div>
 
       <div class="bodyContentContainer">
         <h1>Skills</h1>
         <div *ngIf="skills">
-          <skill-card *ngFor='let skill of skills' [SkillItem]='skill' [editing]="false"></skill-card>
+          <skill-card *ngFor="let skill of skills" [SkillItem]="skill" [editing]="false">
+          </skill-card>
+          <add-card [message]="'Add some skills'"></add-card>
         </div>
       </div>
-
     </div>
   </div>
 </div>

@@ -1,3 +1,4 @@
+@import '../../../variables.scss';
 .cardContainer {
     margin: 5px;
     display: grid;
@@ -17,7 +18,7 @@
         min-height: 40px;
 
         color: white;
-        background: #4B515D;
+        background: $accent;
         .jobTitle {
             font-weight: 400;
             white-space: nowrap;
@@ -34,7 +35,7 @@
             cursor: pointer;
         }
         mat-icon:hover{
-            color: #12896e;
+            color: $primary;
         }
     }
     .middleRow {
@@ -57,7 +58,7 @@
             width: 30px;
             height: 30px;
             border-radius: 50%;
-            background: #4B515D;
+            background: $accent;
             color: white;
             cursor: pointer;
             align-self: center;
@@ -70,7 +71,7 @@
                 text-align: center;
             }
             mat-icon:hover {
-                color: #12896e;
+                color: $primary;
             }
         }
     }

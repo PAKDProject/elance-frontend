@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddSkillModalComponent } from './add-skill-modal.component';
+import { AddCardComponent } from './add-card.component';
 
-describe('AddSkillModalComponent', () => {
-  let component: AddSkillModalComponent;
-  let fixture: ComponentFixture<AddSkillModalComponent>;
+describe('AddCardComponent', () => {
+  let component: AddCardComponent;
+  let fixture: ComponentFixture<AddCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddSkillModalComponent ]
+      declarations: [ AddCardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddSkillModalComponent);
+    fixture = TestBed.createComponent(AddCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

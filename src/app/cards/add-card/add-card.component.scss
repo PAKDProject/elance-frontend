@@ -1,0 +1,41 @@
+@import '../../../variables.scss';
+
+.inlineContainer {
+  display: inline-block;
+  margin: 5px;
+  padding-top: 10px;
+  margin-bottom: 2px;
+
+  overflow: hidden;
+
+  .cardContainer {
+
+    padding: 5px;
+    display: grid;
+    grid-template-rows: auto;
+
+    color: white;
+    background: $primary;
+
+    box-shadow: 3px 4px 6px rgba(0, 0, 0, 0.2);
+
+    height: 35px;
+    width: auto;
+    overflow: hidden;
+    cursor: pointer;
+
+    i {
+      height: 100%;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 25px;
+      line-height: 0.9em;
+      margin-left: 5px;
+    }
+  }
+  .cardContainer:hover {
+    color: $primary;
+    background: $secondary;
+    border: 1px solid $primary;
+  }
+}

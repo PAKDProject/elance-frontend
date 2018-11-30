@@ -112,5 +112,6 @@ export class JobsState {
         state.isLoading = false
 
         this._notification.showError("An error occured in the state", message);
+        patchState(state)
     }
 }
