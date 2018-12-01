@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material';
 export class SkillCardComponent {
   @Input('SkillItem') skill: ISkills
   @Input() editing?: boolean;
-  @Output() deleteEmit: EventEmitter<ISkills> = new EventEmitter();
+  @Output() deleteEmit: EventEmitter<ISkills> = new EventEmitter<ISkills>();
 
   constructor(public dialog: MatDialog) { }
 
@@ -23,6 +23,8 @@ export class SkillCardComponent {
   }
 
   remove() {
+    console.log('Deleting skill:');
+    console.log(this.skill);
     this.deleteEmit.emit(this.skill);
   }
 

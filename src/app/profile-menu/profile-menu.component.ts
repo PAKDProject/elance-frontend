@@ -31,4 +31,11 @@ export class ProfileMenuComponent implements OnInit {
     this.editing = !this.editing;
   }
 
+  removeSkill(rSkill) {
+    console.log('removing skill: ' + rSkill);
+    const index: number = this.skills.indexOf(rSkill);
+    if (index !== -1) {
+        this.skills.splice(index, 1);
+    }     
+  }
 }
