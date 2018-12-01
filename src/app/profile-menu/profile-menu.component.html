@@ -5,29 +5,42 @@
         <img src="../../assets/images/profile-background.png" />
       </div>
 
-      <div class="profilePictureContainer">
-        <!-- <img src="../../assets/images/stock-steve.jpg" /> -->
-        <img src="../../assets/images/default_user.png"/>
+      <div class="leftCol">
+
       </div>
 
-      <div class="nameContainer">
-        <h1>{{ (user$ | async).fName }} {{ (user$ | async).lName }}</h1>
+      <div class="midCol">
+        <div class="profilePictureContainer">
+          <!-- <img src="../../assets/images/stock-steve.jpg" /> -->
+          <img src="../../assets/images/default_user.png"/>
+        </div>
+        
+        <div class="nameContainer">
+          <h1>{{ (user$ | async).fName }} {{ (user$ | async).lName }}</h1>
+        </div>
+  
+        <div class="jobTitleContainer">
+          <h2>{{ (user$ | async).tagline }}</h2>
+        </div>
+  
+        <div class="emailContainer">
+          <h4>{{ (user$ | async).email }}</h4>
+        </div>
+  
+        <div class="socailConnectionContainer"></div>
+  
+        <div class="socialConnectionContainer" *ngIf="socialLinks.length > 0">
+          <a *ngFor="let connection of socialLinks" href="{{connection.linkUrl}}" target="_blank">
+            <img src="../../assets/icons/{{connection.name}}.png" id="{{connection.name}}" alt="{{connection.name}}" />
+          </a>
+        </div>
       </div>
 
-      <div class="jobTitleContainer">
-        <h2>{{ (user$ | async).tagline }}</h2>
-      </div>
-
-      <div class="emailContainer">
-        <h4>{{ (user$ | async).email }}</h4>
-      </div>
-
-      <div class="socailConnectionContainer"></div>
-
-      <div class="socialConnectionContainer" *ngIf="socialLinks.length > 0">
-        <a *ngFor="let connection of socialLinks" href="{{connection.linkUrl}}" target="_blank">
-          <img src="../../assets/icons/{{connection.name}}.png" id="{{connection.name}}" alt="{{connection.name}}" />
-        </a>
+      <div class="rightCol">
+        <div class="editButton" (click)='toggleEditing()'>
+          <div>{{(!editing)?('Edit'):('Stop Editing')}}</div>
+          <mat-icon>{{(!editing)?('edit'):('close')}}</mat-icon>
+        </div>
       </div>
     </div>
 
@@ -46,10 +59,10 @@
 
       <div class="bodyContentContainer">
         <h1>Skills</h1>
-        <div *ngIf="skills">
-          <skill-card *ngFor="let skill of skills" [SkillItem]="skill" [editing]="false">
+        <div *ngIf="skills" style="margin-top: 3px;">
+          <skill-card *ngFor="let skill of skills" [SkillItem]="skill" [editing]="editing">
           </skill-card>
-          <add-card [message]="'Add some skills'"></add-card>
+          <add-card [message]="'Add some skills'" *ngIf='editing'></add-card>
         </div>
       </div>
     </div>

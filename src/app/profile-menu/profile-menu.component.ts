@@ -26,4 +26,9 @@ export class ProfileMenuComponent implements OnInit {
     })
   }
 
+  editing: boolean = false;
+  toggleEditing() {
+    this.editing = !this.editing;
+  }
+
 }

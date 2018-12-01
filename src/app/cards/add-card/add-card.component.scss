@@ -2,9 +2,9 @@
 
 .inlineContainer {
   display: inline-block;
-  margin: 5px;
-  padding-top: 10px;
-  margin-bottom: 2px;
+  // margin: 5px;
+  margin: 2px;
+  // margin-bottom: 2px;
 
   overflow: hidden;
 
@@ -24,7 +24,7 @@
     overflow: hidden;
     cursor: pointer;
 
-    i {
+    mat-icon {
       height: 100%;
       text-align: center;
       vertical-align: middle;
