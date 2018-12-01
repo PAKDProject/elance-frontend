@@ -2,14 +2,9 @@
 
 .inlineContainer {
   display: inline-block;
-  // margin: 5px;
-  margin: 2px;
-  // margin-bottom: 2px;
-
-  overflow: hidden;
 
   .cardContainer {
-
+    margin: 2px;
     padding: 5px;
     display: grid;
     grid-template-rows: auto;
@@ -23,6 +18,8 @@
     width: auto;
     overflow: hidden;
     cursor: pointer;
+    
+    border: 1px solid $primary;
 
     mat-icon {
       height: 100%;

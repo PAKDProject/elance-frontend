@@ -1,26 +1,40 @@
 .inlineContainer {
     display: inline-block;
-    margin: 2px;
-    overflow: hidden;
     .cardContainer {
-        padding: 5px;
         display: grid;
-        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+
+        margin: 2px;
+        padding: 5px;
         
         color: #4B515D;
         background: #CBCBCB;
 
         box-shadow: 3px 4px 6px rgba(0,0,0,0.2);
 
-        height: 35px;
-        .skillTitle {
-            margin-right: 5px;
-            vertical-align: middle;
+        border: 1px solid #CBCBCB;
+
+        min-height: 35px;
+        .topContainer {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            grid-template-rows: auto;
+
+            .skillTitle {
+                margin-right: 5px;
+                vertical-align: middle;
+            }
+            mat-icon {
+                vertical-align: middle;
+                justify-self: center;
+                cursor: pointer;
+            }
         }
-        mat-icon {
-            vertical-align: middle;
-            justify-self: center;
-            cursor: pointer;
+
+        .moreInfo {
+            margin-top: 5px;
+            width: 100%;
+            height: 100%;
         }
     }
 }

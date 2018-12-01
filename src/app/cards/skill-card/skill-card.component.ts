@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material';
 @Component({
   selector: 'skill-card',
   templateUrl: './skill-card.component.html',
-  styleUrls: ['./skill-card.component.scss']
+  styleUrls: ['./skill-card.component.scss'],
 })
 export class SkillCardComponent {
   @Input('SkillItem') skill: ISkills
@@ -22,8 +22,12 @@ export class SkillCardComponent {
     })
   }
 
-
   remove() {
     this.deleteEmit.emit(this.skill);
+  }
+
+  moreInfo:boolean;
+  toggleMoreInfo() {
+    this.moreInfo = !this.moreInfo;
   }
 }
