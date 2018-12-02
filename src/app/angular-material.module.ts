@@ -1,7 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatSliderModule } from "@angular/material/slider";
 import {
   MatSidenavModule,
   MatToolbarModule,
@@ -15,8 +16,7 @@ import {
   MatDialogModule,
   MatInputModule,
   MatProgressSpinnerModule
-} from '@angular/material';
-
+} from "@angular/material";
 
 @NgModule({
   imports: [
@@ -32,7 +32,8 @@ import {
     MatRippleModule,
     MatTooltipModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSliderModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -47,7 +48,8 @@ import {
     MatRippleModule,
     MatTooltipModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSliderModule
   ]
 })
-export class AngularMaterialModule { }
+export class AngularMaterialModule {}

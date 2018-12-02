@@ -1,40 +1,56 @@
+@import "../../../variables.scss";
 .inlineContainer {
-    display: inline-block;
-    .cardContainer {
-        display: grid;
-        grid-template-rows: auto auto;
+  display: inline-block;
+  .cardContainer {
+    display: grid;
+    grid-template-rows: auto auto;
 
-        margin: 2px;
-        padding: 5px;
-        
-        color: #4B515D;
-        background: #CBCBCB;
+    margin: 2px;
+    padding: 5px;
 
-        box-shadow: 3px 4px 6px rgba(0,0,0,0.1);
+    color: #4b515d;
+    background: #cbcbcb;
 
-        border: 1px solid rgb(200,200,200);
+    box-shadow: 3px 4px 6px rgba(0, 0, 0, 0.1);
 
-        min-height: 35px;
-        .topContainer {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            grid-template-rows: auto;
+    border: 1px solid rgb(200, 200, 200);
 
-            .skillTitle {
-                margin-right: 5px;
-                vertical-align: middle;
-            }
-            mat-icon {
-                vertical-align: middle;
-                justify-self: center;
-                cursor: pointer;
-            }
-        }
+    min-height: 35px;
+    .topContainer {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto;
 
-        .moreInfo {
-            margin-top: 5px;
-            width: 100%;
-            height: 100%;
-        }
+      .skillTitle {
+        margin-right: 5px;
+        vertical-align: middle;
+      }
+      mat-icon {
+        vertical-align: middle;
+        justify-self: center;
+        cursor: pointer;
+      }
     }
+
+    .moreInfo {
+      margin-top: 5px;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+/deep/ .mat-accent .mat-slider-thumb {
+  background-color: $primary;
+}
+
+/deep/ .mat-accent .mat-slider-track-fill {
+  background-color: $primary;
+  height: 4px;
+}
+
+.primary {
+  background: $primary;
+  color: white;
+  border: 1px solid $primary;
 }
