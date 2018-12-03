@@ -18,7 +18,7 @@
     min-height: 35px;
     .topContainer {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: 1fr auto auto;
       grid-template-rows: auto;
 
       .skillTitle {
@@ -29,6 +29,12 @@
         vertical-align: middle;
         justify-self: center;
         cursor: pointer;
+      }
+      .moreInfoIcon:hover {
+        color: $primary;
+      }
+      .removeIcon:hover {
+        color: darkred;
       }
     }
 
