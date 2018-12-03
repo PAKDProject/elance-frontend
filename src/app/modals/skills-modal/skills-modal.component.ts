@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { ISkills } from 'src/models/user-model';
+import { ISkills } from 'src/models/skill-model';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
