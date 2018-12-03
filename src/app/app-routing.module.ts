@@ -25,20 +25,20 @@ const routes: Routes = [
   { path: 'user/create', component: RegisterFormComponent, canActivate: [StateGuard] },
   { path: 'secret', component: SecretComponent },
   {
-    path: 'home', component: ViewComponent, pathMatch: 'prefix', canActivate: [StateGuard], children: [
+    path: 'home', component: ViewComponent, canActivate: [StateGuard], children: [
       { path: '', redirectTo: 'browse-jobs', pathMatch: 'full' },
-      { path: 'user-dashboard', canActivate: [FeatureTogglingService, StateGuard], component: UserDashboardComponent },
+      { path: 'user-dashboard', canActivate: [StateGuard], component: UserDashboardComponent },
       {
-        path: 'browse-jobs', canActivate: [FeatureTogglingService, StateGuard], component: BrowseJobsComponent, children: [
+        path: 'browse-jobs', canActivate: [StateGuard], component: BrowseJobsComponent, children: [
           { path: '', redirectTo: 'grid', pathMatch: 'full' },
           { path: 'grid', component: GridComponent },
           { path: 'list', component: ListComponent },
           { path: '**', component: PageNotFoundComponent }
         ]
       },
-      { path: 'messages', canActivate: [FeatureTogglingService, StateGuard], component: MessagesComponent },
-      { path: 'organization-dashboard', canActivate: [FeatureTogglingService, StateGuard], component: OrganizationDashboardComponent },
-      { path: 'user-profile', canActivate: [FeatureTogglingService, StateGuard], component: ProfileMenuComponent },
+      { path: 'messages', canActivate: [StateGuard], component: MessagesComponent },
+      { path: 'organization-dashboard', canActivate: [StateGuard], component: OrganizationDashboardComponent },
+      { path: 'user-profile', canActivate: [StateGuard], component: ProfileMenuComponent },
       { path: '**', component: PageNotFoundComponent }
     ]
   },
