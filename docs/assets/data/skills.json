@@ -1,0 +1,37 @@
+[{
+    "skillTitle": "JavaScript",
+    "category": "Software"
+  },
+  {
+    "skillTitle": "TypeScript",
+    "category": "Software"
+  },
+  {
+    "skillTitle": "C#",
+    "category": "Software"
+  },
+  {
+    "skillTitle": "Java",
+    "category": "Software"
+  },
+  {
+    "skillTitle": "Python",
+    "category": "Software"
+  },
+  {
+    "skillTitle": "Microsoft Office",
+    "category": "Business"
+  },
+  {
+    "skillTitle": "Accounting",
+    "category": "Business"
+  },
+  {
+    "skillTitle": "Brick Laying",
+    "category": "Construction"
+  },
+  {
+    "skillTitle": "Barista",
+    "category": "Food"
+  }
+]
