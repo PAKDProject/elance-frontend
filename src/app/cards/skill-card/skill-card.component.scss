@@ -1,6 +1,9 @@
 @import "../../../variables.scss";
+
 .inlineContainer {
   display: inline-block;
+  cursor: pointer;
+
   .cardContainer {
     display: grid;
     grid-template-rows: auto auto;
@@ -16,6 +19,7 @@
     border: 1px solid rgb(200, 200, 200);
 
     min-height: 35px;
+
     .topContainer {
       display: grid;
       grid-template-columns: 1fr auto;
@@ -25,10 +29,10 @@
         margin-right: 5px;
         vertical-align: middle;
       }
+
       mat-icon {
         vertical-align: middle;
         justify-self: center;
-        cursor: pointer;
       }
     }
 
