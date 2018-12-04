@@ -4,13 +4,14 @@ import { IJob } from 'src/models/job-model';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { NotificationService } from '../notifications/notification.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JobService {
 
-  endpoint: string = 'http://localhost:3000/jobs';
+  endpoint: string = `${environment.backendUrl}/jobs`;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'

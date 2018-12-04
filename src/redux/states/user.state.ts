@@ -58,7 +58,7 @@ export class UserState {
         let existingSkills = user.skills
         existingSkills.push(...skills)
         user.skills = existingSkills
-        this._userService.updateUser(existingSkills, user.id).subscribe(res => {
+        this._userService.updateUser({ skills: existingSkills }, user.id).subscribe(res => {
             this.store.dispatch(new RequestAddSkillToUserSuccess(user))
         }, err => {
             this.store.dispatch(new RequestAddSkillToUserFail(err.message))
@@ -90,7 +90,7 @@ export class UserState {
         else {
             existingSkills.splice(index, 1)
             user.skills = existingSkills
-            this._userService.updateUser(existingSkills, user.id).subscribe(res => {
+            this._userService.updateUser({ skills: existingSkills }, user.id).subscribe(res => {
                 this.store.dispatch(new RequestRemoveSkillFromUserSuccess(user))
             }, err => {
                 this.store.dispatch(new RequestRemoveSkillFromUserFail(err))
@@ -122,7 +122,7 @@ export class UserState {
         else {
             existingSkills[index] = skill
             user.skills = existingSkills
-            this._userService.updateUser(existingSkills, user.id).subscribe(res => {
+            this._userService.updateUser({ skills: existingSkills }, user.id).subscribe(res => {
                 this.store.dispatch(new RequestUpdateSkillForUserSuccess(user))
             }, err => {
                 this.store.dispatch(new RequestUpdateSkillForUserFail(err))
