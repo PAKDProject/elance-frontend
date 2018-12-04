@@ -16,15 +16,15 @@ export class StateGuard implements CanActivate {
     state: RouterStateSnapshot,
   ): Observable<boolean> | Promise<boolean> | boolean {
     return new Observable<boolean>((observer) => {
-      // this.store.selectOnce(UserState.getUser).subscribe(user => {
-      //   if (Object.keys(user).length === 0) {
-      //     this.router.navigate(['callback/auth'])
-      //     observer.next(false);
-      //   }
-      //   else {
-      observer.next(true)
-      //   }
-      // })
+      this.store.selectOnce(UserState.getUser).subscribe(user => {
+        if (Object.keys(user).length === 0) {
+          this.router.navigate(['callback/auth'])
+          observer.next(false);
+        }
+        else {
+          observer.next(true)
+        }
+      })
     })
   }
 }
