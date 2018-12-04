@@ -20,7 +20,6 @@ export class HttpinterceptorService implements HttpInterceptor {
         .set('Authorization', access_token)
     })
 
-
     return next.handle(customReq).pipe(tap((ev: HttpEvent<any>) => {
       if (ev instanceof HttpResponse) {
         if (ev.headers.get('X-Auth-Tokens') !== null) {

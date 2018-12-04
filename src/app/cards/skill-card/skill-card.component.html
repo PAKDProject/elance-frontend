@@ -5,7 +5,7 @@
       <!--
         <mat-icon (click)='openSkillModal()' *ngIf="!editing">keyboard_arrow_down</mat-icon>
       -->
-      <mat-icon class="moreInfoIcon" (click)="toggleMoreInfo()">{{
+      <mat-icon class="moreInfoIcon">{{
         moreInfo ? "keyboard_arrow_up" : "keyboard_arrow_down"
         }}</mat-icon>
       <mat-icon class="removeIcon" (click)="remove()" *ngIf="editing">delete</mat-icon>
@@ -19,11 +19,13 @@
           skill.confidenceLevel ? skill.confidenceLevel : selectedConfidence
           }}
         </p>
-        <mat-slider [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="tickInterval"
-          (change)="changeLevel()" [(ngModel)]="value"></mat-slider>
-        <button class="btn btn-sm primary" (click)="saveConfidenceLevel()">
-          Save Changes
-        </button>
+        <div *ngIf="editing">
+          <mat-slider [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="tickInterval"
+            (change)="changeLevel()" [(ngModel)]="value"></mat-slider>
+          <button class="btn btn-sm primary" (click)="saveConfidenceLevel()">
+            Save Changes
+          </button>
+        </div>
       </div>
     </div>
   </div>

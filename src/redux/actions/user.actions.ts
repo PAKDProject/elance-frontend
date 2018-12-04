@@ -27,6 +27,43 @@ export class RequestAddSkillToUserSuccess {
 }
 
 export class RequestAddSkillToUserFail {
-    static readonly type = '[User] Request Add Skill TO User Fail'
+    static readonly type = '[User] Request Add Skill To User Fail'
+
+    constructor(public errorMessage: string) { }
+}
+
+export class RequestRemoveSkillFromUser {
+    static readonly type = '[User] Request Remove Skill From User'
+
+    constructor(public skill: ISkills) { }
+}
+
+export class RequestRemoveSkillFromUserSuccess {
+    static readonly type = '[User] Request Remove Skill From User Success'
+
+    constructor(public user: UserStateModel) { }
+}
+
+export class RequestRemoveSkillFromUserFail {
+    static readonly type = '[User] Request Remove Skill From User Fail'
+
+    constructor(public errorMessage: string) { }
+}
+
+export class RequestUpdateSkillForUser {
+    static readonly type = '[User] Request Update Skill For User'
+
+    constructor(public skill: ISkills) { }
+}
+
+export class RequestUpdateSkillForUserSuccess {
+    static readonly type = '[User] Request Update Skill For User Success'
+
+    constructor(public user: UserStateModel) { }
+}
+
+export class RequestUpdateSkillForUserFail {
+    static readonly type = '[User] Request Update Skill For User Fail'
+
     constructor(public errorMessage: string) { }
 }

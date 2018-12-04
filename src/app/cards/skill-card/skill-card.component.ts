@@ -2,6 +2,8 @@ import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { ISkills } from "src/models/skill-model";
 import { SkillsModalComponent } from "src/app/modals/skills-modal/skills-modal.component";
 import { MatDialog } from "@angular/material";
+import { Store } from "@ngxs/store";
+import { RequestRemoveSkillFromUser, RequestUpdateSkillForUser } from "src/redux/actions/user.actions";
 
 @Component({
   selector: "skill-card",
@@ -12,9 +14,7 @@ export class SkillCardComponent {
   @Input("SkillItem") skill: ISkills;
   @Input() editing?: boolean;
   @Output() deleteEmit: EventEmitter<ISkills> = new EventEmitter<ISkills>();
-  @Output() skillChangeEmit: EventEmitter<ISkills> = new EventEmitter<
-    ISkills
-  >();
+  @Output() skillChangeEmit: EventEmitter<ISkills> = new EventEmitter<ISkills>();
 
   //Slider properties
   skillLevels: string[] = [
@@ -34,7 +34,7 @@ export class SkillCardComponent {
   tickInterval = "auto";
   value: number = 0;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, public _store: Store) { }
 
   openSkillModal(): void {
     const dialogRef = this.dialog.open(SkillsModalComponent, {
@@ -44,9 +44,9 @@ export class SkillCardComponent {
   }
 
   remove() {
-    console.log("Deleting skill:");
-    console.log(this.skill);
-    this.deleteEmit.emit(this.skill);
+    this._store.dispatch(new RequestRemoveSkillFromUser(this.skill)).subscribe(() => {
+      this.deleteEmit.emit(this.skill);
+    })
   }
 
   toggleMoreInfo() {
@@ -60,7 +60,9 @@ export class SkillCardComponent {
 
   saveConfidenceLevel() {
     this.skill.confidenceLevel = this.selectedConfidence;
-    this.skillChangeEmit.emit(this.skill);
-    this.moreInfo = false;
+    this._store.dispatch(new RequestUpdateSkillForUser(this.skill)).subscribe(() => {
+      this.skillChangeEmit.emit(this.skill);
+      this.moreInfo = false;
+    })
   }
 }
