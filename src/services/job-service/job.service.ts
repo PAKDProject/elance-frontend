@@ -10,7 +10,7 @@ import { NotificationService } from '../notifications/notification.service';
 })
 export class JobService {
 
-  endpoint: string = 'https://api.elance.site/jobs';
+  endpoint: string = 'http://localhost:3000/jobs';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
