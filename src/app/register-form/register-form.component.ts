@@ -194,7 +194,7 @@ export class RegisterFormComponent implements OnInit {
         // this.user.summary = RegisterFormComponent.stupidify(this.user.summary); NEVER TOUCH THIS EVER AGAIN
         this.userService.createUser(this.user);
         this.store.dispatch(new RequestUserSuccessAction(this.user));
-        this.router.navigateByUrl("home/user-profile");
+        this.router.navigate(["home/user-profile"]);
       }
     }
   }
@@ -206,7 +206,7 @@ export class RegisterFormComponent implements OnInit {
     const linkedin = this.linkedin.value;
 
     this.socialsAdded = [];
-    
+
     if (facebook)
       this.socialsAdded.push({
         name: "facebook",

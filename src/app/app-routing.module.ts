@@ -25,13 +25,13 @@ const routes: Routes = [
   { path: 'user/create', component: RegisterFormComponent, canActivate: [StateGuard] },
   { path: 'secret', component: SecretComponent },
   {
-    path: 'home', component: ViewComponent, pathMatch: 'prefix', canActivate: [StateGuard], children: [
+    path: 'home', component: ViewComponent, canActivate: [StateGuard], children: [
       { path: '', redirectTo: 'browse-jobs', pathMatch: 'full' },
-      { path: 'user-dashboard', canActivate: [FeatureTogglingService, StateGuard], component: UserDashboardComponent },
-      { path: 'browse-jobs', canActivate: [FeatureTogglingService, StateGuard], component: BrowseJobsComponent },
-      { path: 'messages', canActivate: [FeatureTogglingService, StateGuard], component: MessagesComponent },
-      { path: 'organization-dashboard', canActivate: [FeatureTogglingService, StateGuard], component: OrganizationDashboardComponent },
-      { path: 'user-profile', canActivate: [FeatureTogglingService, StateGuard], component: ProfileMenuComponent },
+      { path: 'user-dashboard', canActivate: [StateGuard], component: UserDashboardComponent },
+      { path: 'browse-jobs', canActivate: [StateGuard], component: BrowseJobsComponent },
+      { path: 'messages', canActivate: [StateGuard], component: MessagesComponent },
+      { path: 'organization-dashboard', canActivate: [StateGuard], component: OrganizationDashboardComponent },
+      { path: 'user-profile', canActivate: [StateGuard], component: ProfileMenuComponent },
       { path: '**', component: PageNotFoundComponent }
     ]
   },
