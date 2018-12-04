@@ -28,14 +28,7 @@ const routes: Routes = [
     path: 'home', component: ViewComponent, canActivate: [StateGuard], children: [
       { path: '', redirectTo: 'browse-jobs', pathMatch: 'full' },
       { path: 'user-dashboard', canActivate: [StateGuard], component: UserDashboardComponent },
-      {
-        path: 'browse-jobs', canActivate: [StateGuard], component: BrowseJobsComponent, children: [
-          { path: '', redirectTo: 'grid', pathMatch: 'full' },
-          { path: 'grid', component: GridComponent },
-          { path: 'list', component: ListComponent },
-          { path: '**', component: PageNotFoundComponent }
-        ]
-      },
+      { path: 'browse-jobs', canActivate: [StateGuard], component: BrowseJobsComponent },
       { path: 'messages', canActivate: [StateGuard], component: MessagesComponent },
       { path: 'organization-dashboard', canActivate: [StateGuard], component: OrganizationDashboardComponent },
       { path: 'user-profile', canActivate: [StateGuard], component: ProfileMenuComponent },

@@ -1,30 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IJob } from 'src/models/job-model';
-import { Store, Select } from '@ngxs/store';
-import { JobsState } from 'src/redux/states/job.state';
-import { Observable } from 'rxjs';
-
 @Component({
   selector: 'jobs-grid',
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss']
 })
-export class GridComponent implements OnInit {
+export class GridComponent {
 
-  jobs: IJob[]
-  @Select(JobsState.getJobs) jobs$: Observable<IJob[]>
+  @Input('JobsInput') jobs: IJob[]
+  @Output() notify: EventEmitter<IJob> = new EventEmitter<IJob>(); 
 
   constructor() { }
 
-  ngOnInit() {
-    this.jobs$.subscribe(jobs => {
-      this.jobs = jobs
-    })
-  }
-
   //Hides the job
   hideJob(j: IJob) {
-    this.jobs.splice(this.jobs.indexOf(j),1);
+    this.notify.emit(j);
   }
-
 }

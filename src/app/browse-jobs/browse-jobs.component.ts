@@ -8,13 +8,9 @@ import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 import {
   RequestJobs,
   SearchJobs,
-  FilterJobs,
-  RequestJobsFail
+  FilterJobs
 } from "src/redux/actions/job.actions";
-import { NgxSpinnerService } from "ngx-spinner";
 import { FormControl, NgForm } from "@angular/forms";
-import { TempJobStorageService } from "src/services/temp-job/temp-job-storage.service";
-
 @Component({
   selector: "app-browse-jobs",
   templateUrl: "./browse-jobs.component.html",
@@ -27,6 +23,9 @@ export class BrowseJobsComponent implements OnInit {
   searchTerm: FormControl = new FormControl();
 
   dateOrderRadio: string = "newToOld";
+
+  jobs: IJob[];
+  lastJobHidden: IJob;
 
   @Select(JobsState.getIsLoading)
   isLoading$: Observable<boolean>;
@@ -48,10 +47,10 @@ export class BrowseJobsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new RequestJobs());
-    // setTimeout(() => {
-    //   this.store.dispatch(new RequestJobsFail('No jobs found after 5 seconds'))
-    // }, 5000)
+    // this.store.dispatch(new RequestJobs());
+    this.jobs$.subscribe(jobs => {
+      this.jobs = jobs
+    })
   }
 
   //Inverts list type
@@ -78,6 +77,32 @@ export class BrowseJobsComponent implements OnInit {
 
   dismissForm(e: boolean) {
     if (e === true) this.showSkillsForm = false;
+  }
+
+  hiddenJobIndex: number;
+  hideJob(j: IJob) {
+    if(j) {
+      console.log('Hiding Job ' + j.title);
+
+      this.hiddenJobIndex = this.jobs.indexOf(j);
+      this.jobs.splice(this.jobs.indexOf(j),1);
+      
+      this.lastJobHidden = j;
+      setTimeout(() => {
+        this.lastJobHidden = null;
+      }, 10000);
+    }
+    else {
+      console.log('Job not found')
+    }
+  }
+  undoHide(j: IJob) {
+    if(j) {
+      this.jobs.splice(this.hiddenJobIndex,0,j);
+    }
+    else {
+      console.log('Job not found')
+    }
   }
 }
 

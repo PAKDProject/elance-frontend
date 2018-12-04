@@ -1,5 +1,5 @@
 <div *ngIf='(jobs.length > 0)' class="listContainer">
-    <inactive-job-list-card *ngFor='let job of jobs' [JobInput]='job' [canHide]='true'></inactive-job-list-card>
+    <inactive-job-list-card *ngFor='let job of jobs' [JobInput]='job' (notify)='hideJob(job)' [canHide]='true'></inactive-job-list-card>
 </div>
 <div *ngIf='!(jobs.length > 0)' class="listContainer">
     <div class="noJobsFound">

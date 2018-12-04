@@ -1,12 +1,18 @@
-h2 {
-  color: white;
-  text-align: center;
-  z-index: 10;
-  font-family: "Comic Sans MS";
-  padding-top: 150px !important;
-  transition: opacity ease 2s;
+.pageContainer {
+  ngx-spinner {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+
+    h2 {
+      color: white;
+      padding-top: 150px;
+    }
+  }
 }
 
-button {
-  z-index: 1000 !important;
-}
+// @media only screen and (max-width: 1000px) {
+//   ngx-spinner {
+//     display: block;
+//   }
+// }

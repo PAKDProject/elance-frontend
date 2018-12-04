@@ -121,6 +121,13 @@
       }
     }
 
+    .hiddenNotification {
+      display: grid;
+      grid-template-columns: auto auto;
+      justify-self: center;
+      grid-column-gap: 10px;
+    }
+
     .spinner {
       margin-top: 100px;
       display: grid;
