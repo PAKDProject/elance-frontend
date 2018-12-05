@@ -45,7 +45,8 @@
     <div class="profileBody">
       <div class="bodyContentContainer">
         <h1>About Me</h1>
-        <p>{{ (user$ | async).summary }}</p>
+        <p *ngIf='!editing'>{{ (user$ | async).summary }}</p>
+        <textarea class='form-control' rows='4' autofocus value='{{ (user$ | async).summary}}' *ngIf='editing'></textarea>
       </div>
 
       <div class="bodyContentContainer">
