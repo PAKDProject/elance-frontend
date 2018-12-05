@@ -12,16 +12,12 @@
     <div class="mb-2" *ngIf="(skillsCount$ | async) < 3">
       <app-add-skill (dismissFormEmit)="dismissForm($event)"></app-add-skill>
     </div>
-    <div>
+    <div style="display: grid">
       <div class="topBar">
         <!-- Change List Type Buttons -->
-        <div class="listViewButton" *ngIf="!isList" (click)="changeListType()" routerLink="list">
-          <p>List View</p>
-          <mat-icon>list</mat-icon>
-        </div>
-        <div class="listViewButton" *ngIf="isList" (click)="changeListType()" routerLink="grid">
-          <p>Grid View</p>
-          <mat-icon>view_module</mat-icon>
+        <div class="listViewButton" (click)="changeListType()">
+          <p>{{(isList)?('Grid View'):('List View')}}</p>
+          <mat-icon>{{(isList)?('view_module'):('list')}}</mat-icon>
         </div>
 
         <!-- Filter Opening Button -->
@@ -68,6 +64,12 @@
         </button>
       </form>
 
+      <!-- Notification that appears when a job is hidden-->
+      <div class="hiddenNotification" *ngIf="lastJobHidden != null">
+          <div>The job {{lastJobHidden.title}} has been hidden</div>
+          <button (click)='undoHide(lastJobHidden)' class="btn btn-primary btn-sm">Undo</button>
+      </div>
+      
       <!-- Loading Spinner for when loading jobs -->
       <div class="spinner" *ngIf="(isLoading$ | async) === true">
         <mat-spinner color=""></mat-spinner>
@@ -76,7 +78,8 @@
 
       <!-- Router outlet (Disabled if loading anything) -->
       <div *ngIf="(isLoading$ | async) === false">
-        <router-outlet></router-outlet>
+        <jobs-grid *ngIf='!isList' [JobsInput]='(jobs$ | async)' (notify)='hideJob($event)'></jobs-grid>
+        <jobs-list *ngIf='isList' [JobsInput]='(jobs$ | async)' (notify)='hideJob($event)'></jobs-list>
       </div>
     </div>
   </div>

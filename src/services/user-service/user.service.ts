@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
 import { RequestUserSuccessAction } from 'src/redux/actions/user.actions';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -13,7 +14,7 @@ import { RequestUserSuccessAction } from 'src/redux/actions/user.actions';
 
 export class UserService {
 
-  endpoint: string = 'https://api.elance.site/users';
+  endpoint: string = `${environment.backendUrl}/users`;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'

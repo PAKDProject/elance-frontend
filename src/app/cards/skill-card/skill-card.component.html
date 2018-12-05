@@ -1,13 +1,13 @@
 <div class="inlineContainer">
   <div class="cardContainer">
-    <div class="topContainer">
+    <div class="topContainer" (click)="toggleMoreInfo()">
       <div class="skillTitle">{{ skill.skillTitle }}</div>
       <!--
         <mat-icon (click)='openSkillModal()' *ngIf="!editing">keyboard_arrow_down</mat-icon>
       -->
-      <mat-icon class="moreInfoIcon" (click)="toggleMoreInfo()">{{
+      <mat-icon class="moreInfoIcon">{{
         moreInfo ? "keyboard_arrow_up" : "keyboard_arrow_down"
-      }}</mat-icon>
+        }}</mat-icon>
       <mat-icon class="removeIcon" (click)="remove()" *ngIf="editing">delete</mat-icon>
     </div>
     <div *ngIf="moreInfo" class="moreInfo">
@@ -16,21 +16,16 @@
         <p>
           Confidence:
           {{
-            skill.confidenceLevel ? skill.confidenceLevel : selectedConfidence
+          skill.confidenceLevel ? skill.confidenceLevel : selectedConfidence
           }}
         </p>
-        <mat-slider *ngIf='editing'
-          [max]="max"
-          [min]="min"
-          [step]="step"
-          [thumbLabel]="thumbLabel"
-          [tickInterval]="tickInterval"
-          (change)="changeLevel()"
-          [(ngModel)]="value"
-        ></mat-slider>
-        <button class="btn btn-sm primary" *ngIf='editing' (click)="saveConfidenceLevel()">
-          Save Changes
-        </button>
+        <div *ngIf="editing">
+          <mat-slider [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="tickInterval"
+            (change)="changeLevel()" [(ngModel)]="value"></mat-slider>
+          <button class="btn btn-sm primary" (click)="saveConfidenceLevel()">
+            Save Changes
+          </button>
+        </div>
       </div>
     </div>
   </div>
