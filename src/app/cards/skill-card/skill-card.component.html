@@ -19,7 +19,7 @@
             skill.confidenceLevel ? skill.confidenceLevel : selectedConfidence
           }}
         </p>
-        <mat-slider
+        <mat-slider *ngIf='editing'
           [max]="max"
           [min]="min"
           [step]="step"
@@ -28,7 +28,7 @@
           (change)="changeLevel()"
           [(ngModel)]="value"
         ></mat-slider>
-        <button class="btn btn-sm primary" (click)="saveConfidenceLevel()">
+        <button class="btn btn-sm primary" *ngIf='editing' (click)="saveConfidenceLevel()">
           Save Changes
         </button>
       </div>
