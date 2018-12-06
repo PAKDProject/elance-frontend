@@ -6,53 +6,32 @@
     </button>
 
     <h4>Active Jobs</h4>
-    <div class="carouselRow">
-      <mat-icon class="carouselArrow" (click)="moveCarousel('left', 1)"
-        >keyboard_arrow_left</mat-icon
-      >
+    <div class="carouselRow" *ngIf="userActiveJobs">
+      <mat-icon class="carouselArrow" (click)="moveCarousel('left', 1)">keyboard_arrow_left</mat-icon>
       <drag-scroll [scrollbar-hidden] #activeJobs>
-        <active-job-card
-          drag-scroll-item
-          *ngFor="let job of jobs"
-          [JobInput]="job"
-        ></active-job-card>
+        <active-job-card drag-scroll-item *ngFor="let job of userActiveJobs" [JobInput]="job"></active-job-card>
       </drag-scroll>
-      <mat-icon class="carouselArrow" (click)="moveCarousel('right', 1)"
-        >keyboard_arrow_right</mat-icon
-      >
+      <mat-icon class="carouselArrow" (click)="moveCarousel('right', 1)">keyboard_arrow_right</mat-icon>
+    </div>
+    <div class="carouselRow" *ngIf="!userActiveJobs">
+      <h3>You have no active jobs!</h3>
     </div>
     <h4>Posted Jobs</h4>
     <div class="carouselRow">
-      <mat-icon class="carouselArrow" (click)="moveCarousel('left', 2)"
-        >keyboard_arrow_left</mat-icon
-      >
+      <mat-icon class="carouselArrow" (click)="moveCarousel('left', 2)">keyboard_arrow_left</mat-icon>
       <drag-scroll [scrollbar-hidden] #inactiveJobs>
-        <inactive-job-card
-          drag-scroll-item
-          *ngFor="let job of jobs"
-          [JobInput]="job"
-        ></inactive-job-card>
+        <inactive-job-card drag-scroll-item *ngFor="let job of jobs" [JobInput]="job"></inactive-job-card>
       </drag-scroll>
-      <mat-icon class="carouselArrow" (click)="moveCarousel('right', 2)"
-        >keyboard_arrow_right</mat-icon
-      >
+      <mat-icon class="carouselArrow" (click)="moveCarousel('right', 2)">keyboard_arrow_right</mat-icon>
     </div>
     <h4>Contacts</h4>
     <div class="carouselRow">
-      <mat-icon class="carouselArrow" (click)="moveCarousel('left', 3)"
-        >keyboard_arrow_left</mat-icon
-      >
+      <mat-icon class="carouselArrow" (click)="moveCarousel('left', 3)">keyboard_arrow_left</mat-icon>
       <drag-scroll [scrollbar-hidden] #contacts>
         <!-- Temp -->
-        <active-job-card
-          drag-scroll-item
-          *ngFor="let job of jobs"
-          [JobInput]="job"
-        ></active-job-card>
+        <active-job-card drag-scroll-item *ngFor="let job of jobs" [JobInput]="job"></active-job-card>
       </drag-scroll>
-      <mat-icon class="carouselArrow" (click)="moveCarousel('right', 3)"
-        >keyboard_arrow_right</mat-icon
-      >
+      <mat-icon class="carouselArrow" (click)="moveCarousel('right', 3)">keyboard_arrow_right</mat-icon>
     </div>
   </div>
 </div>

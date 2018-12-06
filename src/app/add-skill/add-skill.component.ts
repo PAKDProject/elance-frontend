@@ -54,9 +54,7 @@ export class AddSkillComponent implements OnInit {
   }
 
   addSkills() {
-    this.store.dispatch(new RequestAddSkillToUser(this.selectedSkills))
     this.dismissFormEmit.emit(true);
-
   }
 
   dismissForm() {
