@@ -1,16 +1,19 @@
 @import "../../../variables.scss";
 .inlineContainer {
   display: inline-block;
+
   .cardContainer {
-    margin: 5px;
     display: grid;
     grid-template-rows: repeat(2, auto);
+
+    margin: 5px;
 
     color: $accent;
     background: #cbcbcb;
 
     box-shadow: 3px 4px 6px rgba(0, 0, 0, 0.2);
 
+    min-height: 80px;
     .topRow {
       padding: 5px;
       display: grid;

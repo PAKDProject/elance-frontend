@@ -30,6 +30,9 @@ export class ProfileMenuComponent implements OnInit {
   editing: boolean = false;
   toggleEditing() {
     this.editing = !this.editing;
+    
+    if(this.editing)
+    { this._notify.showInfo("You are now editing the page","Click on a field to begin editing. NOTE: You cannot change your email.") }
   }
 
   removeSkill(rSkill) {

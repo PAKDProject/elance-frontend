@@ -201,7 +201,13 @@
 
     div {
       skill-card, add-card {
-        height: 40px;
+        height: 20px;
+      }
+    }
+
+    div {
+      education-card, add-education {
+        height: 20px;
       }
     }
   }
@@ -215,10 +221,10 @@
     }
     textarea {
       font-size: 16px;
+      line-height: 20px;
       border: 0;
       margin: 0;
       padding: 0;
-      resize: none;
     }
   }
 }

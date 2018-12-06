@@ -4,25 +4,28 @@
   display: inline-block;
 
   .cardContainer {
-    margin: 2px;
+    margin: 5px;
     padding: 5px;
     display: grid;
 
-    grid-template-columns: repeat(2,auto);
+    grid-template-rows: repeat(2,auto);
+
+    height: 80px;
 
     color: white;
     background: $primary;
 
     box-shadow: 3px 4px 6px rgba(0, 0, 0, 0.2);
 
-    height: 36px;
     width: auto;
     overflow: hidden;
     cursor: pointer;
     
-    border: 1px solid $primary;
-
+    div {
+      justify-self: center;
+    }
     mat-icon {
+      justify-self: center;
       height: 100%;
       text-align: center;
       vertical-align: middle;
