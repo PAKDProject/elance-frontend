@@ -6,12 +6,11 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'education-modal',
-  templateUrl: './education-modal.component.html',
-  styleUrls: ['./education-modal.component.scss']
+  selector: "education-modal",
+  templateUrl: "./education-modal.component.html",
+  styleUrls: ["./education-modal.component.scss"]
 })
 export class EducationModalComponent implements OnInit {
-
   editing: boolean;
   educationForm: FormGroup;
   educationItem: IEducationItem;
@@ -20,20 +19,21 @@ export class EducationModalComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EducationModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private _fb: FormBuilder) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private _fb: FormBuilder
+  ) { }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   ngOnInit(): void {
+    this.editing = this.data.editing;
     if (this.data.education) this.educationItem = this.data.education;
 
     this.oldItem = this.data.education;
-    this.editing = this.data.editing;
     //Education form
-    if (this.educationItem !== null) {
-
+    if (this.educationItem !== null && this.editing) {
       this.educationForm = this._fb.group({
         degreeTitle: [this.educationItem.degreeTitle, [Validators.required]],
         educationStartDate: [
@@ -45,8 +45,7 @@ export class EducationModalComponent implements OnInit {
         finalGrade: [this.educationItem.grade],
         educationDescription: [this.educationItem.description]
       });
-    }
-    else {
+    } else {
       this.educationForm = this._fb.group({
         degreeTitle: [""],
         educationStartDate: [
@@ -63,11 +62,9 @@ export class EducationModalComponent implements OnInit {
     this.educationEndDate.valueChanges
       .pipe(debounceTime(1000))
       .pipe(distinctUntilChanged())
-      .subscribe(
-        () => {
-          this.checkDate();
-        }
-      );
+      .subscribe(() => {
+        this.checkDate();
+      });
   }
 
   get degreeTitle() {
