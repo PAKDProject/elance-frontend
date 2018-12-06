@@ -92,10 +92,7 @@ export class CreateJobModalComponent implements OnInit {
       this.notificationService.showError("An error occured");
     } else {
       this._store.dispatch(new AddJob(this.newJob))
-      this.notificationService.showSuccess(
-        "Job Created",
-        "Your Job can now be applied for"
-      );
+
       this._dialogRef.close();
 
     }
