@@ -14,7 +14,14 @@
         </div>
 
         <div class="nameContainer">
-          <h1>{{ (user$ | async).fName }} {{ (user$ | async).lName }}</h1>
+          <h1 *ngIf='!editing'>{{ (user$ | async).fName }} {{ (user$ | async).lName }}</h1>
+          <div class='form-group nameEdit' *ngIf='editing'>
+            <!-- <label for='firstName'>First Name: </label> -->
+            <input type='text' id='firstName' class='form-group' value='{{ (user$ | async).fName }}' style='text-align: right'/>
+
+            <!-- <label for='lastName'>Surname: </label> -->
+            <input type='text' id='lastName' class='form-group' value='{{ (user$ | async).lName }}'/>
+          </div>
         </div>
 
         <div class="jobTitleContainer">
@@ -43,10 +50,12 @@
     </div>
 
     <div class="profileBody">
-      <div class="bodyContentContainer">
+      <div class="bodyContentContainer summaryContainer">
         <h1>About Me</h1>
         <p *ngIf='!editing'>{{ (user$ | async).summary }}</p>
-        <textarea class='form-control' rows='4' autofocus value='{{ (user$ | async).summary}}' *ngIf='editing'></textarea>
+        <textarea *ngIf='editing' rows='4' autofocus value='{{ (user$ | async).summary}}'></textarea>
+        <!-- <p *ngIf='editing && !summaryEdit' (click)='toggleEditSummary()'>{{ (user$ | async).summary }}</p>
+        <textarea *ngIf='editing && summaryEdit' class='form-control' rows='4' autofocus value='{{ (user$ | async).summary}}'></textarea> -->
       </div>
 
       <div class="bodyContentContainer">
