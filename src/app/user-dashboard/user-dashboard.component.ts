@@ -7,6 +7,7 @@ import { JobsState } from 'src/redux/states/job.state';
 import { MatDialog } from "@angular/material";
 import { CreateJobModalComponent } from "../modals/create-job-modal/create-job-modal.component";
 import { DragScrollComponent } from 'ngx-drag-scroll/lib';
+import { UserState } from 'src/redux/states/user.state';
 
 @Component({
   selector: "app-user-dashboard",
@@ -16,15 +17,16 @@ import { DragScrollComponent } from 'ngx-drag-scroll/lib';
 export class UserDashboardComponent implements OnInit {
 
   jobs: IJob[];
+  userActiveJobs: IJob[]
 
   //Carousels
-  @ViewChild('activeJobs', {read: DragScrollComponent}) activeCarousel: DragScrollComponent;
-  @ViewChild('inactiveJobs', {read: DragScrollComponent}) inactiveCarousel: DragScrollComponent;
-  @ViewChild('contacts', {read: DragScrollComponent}) contactsCarousel: DragScrollComponent;
-  
+  @ViewChild('activeJobs', { read: DragScrollComponent }) activeCarousel: DragScrollComponent;
+  @ViewChild('inactiveJobs', { read: DragScrollComponent }) inactiveCarousel: DragScrollComponent;
+  @ViewChild('contacts', { read: DragScrollComponent }) contactsCarousel: DragScrollComponent;
+
   moveCarousel(direction: string, carousel: number) {
-    if(direction == 'left') {
-      switch(carousel) {
+    if (direction == 'left') {
+      switch (carousel) {
         case 1:
           this.activeCarousel.moveLeft();
           break;
@@ -37,7 +39,7 @@ export class UserDashboardComponent implements OnInit {
       }
     }
     else {
-      switch(carousel) {
+      switch (carousel) {
         case 1:
           this.activeCarousel.moveRight();
           break;
@@ -50,9 +52,12 @@ export class UserDashboardComponent implements OnInit {
       }
     }
   }
-  
+
   @Select(JobsState.getJobs)
   jobs$: Observable<IJob[]>;
+
+  @Select(UserState.getActiveJobs)
+  activeJobs$: Observable<IJob[]>
 
   constructor(private store: Store, private dialog: MatDialog) { }
 
@@ -62,8 +67,12 @@ export class UserDashboardComponent implements OnInit {
     this.jobs$.subscribe(jobs => {
       this.jobs = jobs
     })
+
+    this.activeJobs$.subscribe(jobs => {
+      this.userActiveJobs = jobs
+    })
   }
-  
+
   openModal(): void {
     this.dialog.open(CreateJobModalComponent);
   }
