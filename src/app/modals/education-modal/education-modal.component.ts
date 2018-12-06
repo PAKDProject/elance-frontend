@@ -1,17 +1,15 @@
-import { Component, Inject, OnInit, Input } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { IEducationItem } from 'src/models/user-model';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-
+import { Component, Inject, OnInit, Input } from "@angular/core";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { IEducationItem } from "src/models/user-model";
+import { FormGroup, Validators, FormBuilder } from "@angular/forms";
+import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 
 @Component({
-  selector: 'education-modal',
-  templateUrl: './education-modal.component.html',
-  styleUrls: ['./education-modal.component.scss']
+  selector: "education-modal",
+  templateUrl: "./education-modal.component.html",
+  styleUrls: ["./education-modal.component.scss"]
 })
 export class EducationModalComponent implements OnInit {
-
   editing: boolean;
   educationForm: FormGroup;
   educationItem: IEducationItem;
@@ -19,20 +17,21 @@ export class EducationModalComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EducationModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private _fb: FormBuilder) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private _fb: FormBuilder
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   ngOnInit(): void {
-    if (this.data.educationItem) this.educationItem = this.data.education;
+    this.editing = this.data.editing;
+    if (this.data.education) this.educationItem = this.data.education;
 
     this.oldItem = this.data.education;
-    this.editing = this.data.editing;
     //Education form
-    if (this.educationItem !== null) {
-
+    if (this.educationItem !== null && this.editing) {
       this.educationForm = this._fb.group({
         degreeTitle: [this.educationItem.degreeTitle, [Validators.required]],
         educationStartDate: [
@@ -44,8 +43,7 @@ export class EducationModalComponent implements OnInit {
         finalGrade: [this.educationItem.grade],
         educationDescription: [this.educationItem.description]
       });
-    }
-    else {
+    } else {
       this.educationForm = this._fb.group({
         degreeTitle: [""],
         educationStartDate: [
@@ -62,13 +60,9 @@ export class EducationModalComponent implements OnInit {
     this.educationEndDate.valueChanges
       .pipe(debounceTime(1000))
       .pipe(distinctUntilChanged())
-      .subscribe(
-        () => {
-          this.checkDate();
-        }
-
-      );
-
+      .subscribe(() => {
+        this.checkDate();
+      });
   }
 
   get degreeTitle() {
@@ -91,7 +85,6 @@ export class EducationModalComponent implements OnInit {
   }
 
   checkDate() {
-
     if (this.educationStartDate.value && this.educationEndDate.value) {
       if (this.educationStartDate.value >= this.educationEndDate.value) {
         this.educationEndDate.setErrors({
@@ -110,9 +103,5 @@ export class EducationModalComponent implements OnInit {
       description: this.educationDescription.value,
       collegeName: this.collegeName.value
     };
-
-
-
   }
-
 }
