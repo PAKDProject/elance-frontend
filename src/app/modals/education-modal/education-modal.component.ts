@@ -1,9 +1,8 @@
-import { Component, Inject, OnInit, Input, EventEmitter } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { IEducationItem } from 'src/models/user-model';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-
+import { Component, Inject, OnInit, Input, EventEmitter } from "@angular/core";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { IEducationItem } from "src/models/user-model";
+import { FormGroup, Validators, FormBuilder } from "@angular/forms";
+import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 
 @Component({
   selector: "education-modal",
@@ -15,13 +14,15 @@ export class EducationModalComponent implements OnInit {
   educationForm: FormGroup;
   educationItem: IEducationItem;
   oldItem: IEducationItem;
-  emitEducation: EventEmitter<IEducationItem> = new EventEmitter<IEducationItem>()
+  emitEducation: EventEmitter<IEducationItem> = new EventEmitter<
+    IEducationItem
+  >();
 
   constructor(
     public dialogRef: MatDialogRef<EducationModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _fb: FormBuilder
-  ) { }
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -30,10 +31,11 @@ export class EducationModalComponent implements OnInit {
   ngOnInit(): void {
     this.editing = this.data.editing;
     if (this.data.education) this.educationItem = this.data.education;
+    else this.educationItem = {};
 
     this.oldItem = this.data.education;
     //Education form
-    if (this.educationItem !== null && this.editing) {
+    if (this.editing) {
       this.educationForm = this._fb.group({
         degreeTitle: [this.educationItem.degreeTitle, [Validators.required]],
         educationStartDate: [
@@ -44,18 +46,6 @@ export class EducationModalComponent implements OnInit {
         collegeName: [this.educationItem.collegeName],
         finalGrade: [this.educationItem.grade],
         educationDescription: [this.educationItem.description]
-      });
-    } else {
-      this.educationForm = this._fb.group({
-        degreeTitle: [""],
-        educationStartDate: [
-          "",
-          [Validators.min(1900), Validators.max(new Date().getFullYear())]
-        ],
-        educationEndDate: [""],
-        collegeName: [""],
-        finalGrade: [""],
-        educationDescription: [""]
       });
     }
 
@@ -106,6 +96,6 @@ export class EducationModalComponent implements OnInit {
       collegeName: this.collegeName.value
     };
     //HERE I EMIT THE EDUCATION ITEM, Where it ends up? I dont have a notion
-    this.emitEducation.emit(this.educationItem)
+    this.dialogRef.close(this.educationItem);
   }
 }

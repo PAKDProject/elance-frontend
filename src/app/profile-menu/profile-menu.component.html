@@ -14,25 +14,44 @@
         </div>
 
         <div class="nameContainer">
-          <h1 *ngIf='!editing'>{{ (user$ | async).fName }} {{ (user$ | async).lName }}</h1>
-          <div class='form-group nameEdit' *ngIf='editing'>
+          <h1 *ngIf="!editing">
+            {{ (user$ | async).fName }} {{ (user$ | async).lName }}
+          </h1>
+          <div class="form-group nameEdit" *ngIf="editing">
             <!-- <label for='firstName'>First Name: </label> -->
-            <input type='text' id='firstName' class='form-group' [(ngModel)]="user.fName" value='{{ (user$ | async).fName }}'
-              style='text-align: right' />
+            <input
+              type="text"
+              id="firstName"
+              class="form-group"
+              [(ngModel)]="user.fName"
+              value="{{ (user$ | async).fName }}"
+              style="text-align: right"
+            />
 
             <!-- <label for='lastName'>Surname: </label> -->
-            <input type='text' id='lastName' class='form-group' [(ngModel)]="user.lName" value='{{ (user$ | async).lName }}' />
+            <input
+              type="text"
+              id="lastName"
+              class="form-group"
+              [(ngModel)]="user.lName"
+              value="{{ (user$ | async).lName }}"
+            />
           </div>
         </div>
 
         <div class="jobTitleContainer">
           <h2 *ngIf="!editing">{{ (user$ | async).tagline }}</h2>
-          <div class='form-group tagEdit' *ngIf='editing'>
-            <input type='text' id='tagline' [(ngModel)]="user.tagline" class='form-group' value='{{ (user$ | async).tagline }}'
-              style='text-align: center' />
+          <div class="form-group tagEdit" *ngIf="editing">
+            <input
+              type="text"
+              id="tagline"
+              [(ngModel)]="user.tagline"
+              class="form-group"
+              value="{{ (user$ | async).tagline }}"
+              style="text-align: center"
+            />
           </div>
         </div>
-
 
         <div class="emailContainer">
           <h4>{{ (user$ | async).email }}</h4>
@@ -41,8 +60,16 @@
         <div class="socailConnectionContainer"></div>
 
         <div class="socialConnectionContainer" *ngIf="socialLinks.length > 0">
-          <a *ngFor="let connection of socialLinks" href="{{connection.linkUrl}}" target="_blank">
-            <img src="../../assets/icons/{{connection.name}}1.png" id="{{connection.name}}" alt="{{connection.name}}" />
+          <a
+            *ngFor="let connection of socialLinks"
+            href="{{connection.linkUrl}}"
+            target="_blank"
+          >
+            <img
+              src="../../assets/icons/{{connection.name}}1.png"
+              id="{{connection.name}}"
+              alt="{{connection.name}}"
+            />
           </a>
         </div>
       </div>
@@ -58,26 +85,46 @@
     <div class="profileBody">
       <div class="bodyContentContainer summaryContainer">
         <h1>About Me</h1>
-        <p *ngIf='!editing'>{{ (user$ | async).summary }}</p>
-        <p *ngIf='editing && !summaryEdit' (click)='toggleEditSummary()'>{{ (user$ | async).summary }}</p>
-        <textarea *ngIf='editing && summaryEdit' [(ngModel)]="user.summary" class='form-control' rows='4' autofocus
-          value='{{ (user$ | async).summary}}'></textarea>
+        <p *ngIf="!editing">{{ (user$ | async).summary }}</p>
+        <p *ngIf="editing && !summaryEdit" (click)="toggleEditSummary()">
+          {{ (user$ | async).summary }}
+        </p>
+        <textarea
+          *ngIf="editing && summaryEdit"
+          [(ngModel)]="user.summary"
+          class="form-control"
+          rows="4"
+          autofocus
+          value="{{ (user$ | async).summary}}"
+        ></textarea>
       </div>
 
       <div class="bodyContentContainer">
         <h1>Education</h1>
-        <div *ngIf="educationItems" style='margin-top: 3px'>
-          <education-card *ngFor="let education of educationItems" [EducationItem]="education" [editing]="editing"
-            (educationChangeEmit)="addToEducationList($event)"></education-card>
-          <add-education *ngIf="editing"></add-education>
+        <div *ngIf="educationItems" style="margin-top: 3px">
+          <education-card
+            *ngFor="let education of educationItems"
+            [EducationItem]="education"
+            [editing]="editing"
+            (educationEmit)="addToEducationList($event)"
+          ></education-card>
+          <add-education
+            *ngIf="editing"
+            (educationEmit)="addToEducationList($event)"
+          ></add-education>
         </div>
       </div>
 
       <div class="bodyContentContainer">
         <h1>Skills</h1>
         <div *ngIf="skills" style="margin-top: 3px;">
-          <skill-card *ngFor="let skill of skills" [SkillItem]="skill" [editing]="editing" (deleteEmit)="removeSkill($event)"
-            (skillChangeEmit)="updateSkills($event)">
+          <skill-card
+            *ngFor="let skill of skills"
+            [SkillItem]="skill"
+            [editing]="editing"
+            (deleteEmit)="removeSkill($event)"
+            (skillChangeEmit)="updateSkills($event)"
+          >
           </skill-card>
           <add-card *ngIf="editing"></add-card>
         </div>

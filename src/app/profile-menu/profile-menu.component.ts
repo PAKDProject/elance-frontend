@@ -17,9 +17,9 @@ export class ProfileMenuComponent implements OnInit {
   skills: ISkills[];
   educationItems: IEducationItem[];
   socialLinks: ISocialLink[];
-  user: Partial<IUser> = {}
+  user: Partial<IUser> = {};
 
-  constructor(private _notify: NotificationService, private store: Store) { }
+  constructor(private _notify: NotificationService, private store: Store) {}
 
   ngOnInit() {
     this.user$.subscribe(element => {
@@ -34,29 +34,33 @@ export class ProfileMenuComponent implements OnInit {
         summary: element.summary,
         educationItems: element.educationItems,
         skills: element.skills
-      }
+      };
     });
   }
 
   editing: boolean = false;
   toggleEditing() {
     if (this.editing) {
-      this.store.dispatch(new RequestUpdateUser(this.user))
+      this.store.dispatch(new RequestUpdateUser(this.user));
     }
     this.editing = !this.editing;
-    
-    if(this.editing)
-    { this._notify.showInfo("You are now editing the page","Click on a field to begin editing. NOTE: You cannot change your email.") }
+
+    if (this.editing) {
+      this._notify.showInfo(
+        "You are now editing the page",
+        "Click on a field to begin editing. NOTE: You cannot change your email."
+      );
+    }
   }
 
   removeSkill(rSkill) {
-    const index: number = this.skills.findIndex((skill) => {
-      return skill === rSkill
+    const index: number = this.skills.findIndex(skill => {
+      return skill === rSkill;
     });
-    alert(index)
+    alert(index);
 
     if (index != -1) {
-      this.skills.splice(index, 1)
+      this.skills.splice(index, 1);
     }
   }
 
@@ -71,5 +75,9 @@ export class ProfileMenuComponent implements OnInit {
   summaryEdit: boolean = false;
   toggleEditSummary() {
     this.summaryEdit = !this.summaryEdit;
+  }
+
+  addToEducationList(e: IEducationItem) {
+    console.log("Here you go alan! " + e);
   }
 }
