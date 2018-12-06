@@ -40,6 +40,8 @@ export class JobsState {
 
         this._jobsService.getJobs().subscribe(jobs => {
             this.store.dispatch(new RequestJobsSuccess(jobs))
+        }, err => {
+            this.store.dispatch(new RequestJobsFail("Failed to fetch jobs! " + err.message))
         })
         // this.jobsService.getAllJobs().pipe(tap(jobs => {
         //     console.log(jobs)
@@ -94,6 +96,8 @@ export class JobsState {
             let updatedPayload = payload
             updatedPayload.id = res.job.id
             this.store.dispatch(new AddJobSuccess(updatedPayload))
+        }, err => {
+            this.store.dispatch(new AddJobFail(err))
         })
     }
 

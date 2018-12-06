@@ -116,7 +116,7 @@ export class TempJobStorageService {
   addSampleJobs() {
     this.jobsMaster = [
       {
-        id: 1,
+        id: '1',
         title: 'Software Developer',
         employer: 'Bob Bossman',
         location: 'Dublin',
@@ -125,7 +125,7 @@ export class TempJobStorageService {
         payment: 10000
       },
       {
-        id: 2,
+        id: '2',
         title: 'Frontend Developer',
         employer: 'Susan CEO',
         location: 'Galway',
@@ -134,7 +134,7 @@ export class TempJobStorageService {
         payment: 1000000
       },
       {
-        id: 3,
+        id: '3',
         title: 'Backend Developer',
         employer: 'Eddie Employer',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non eros viverra, fringilla massa rhoncus, dictum nulla. In rhoncus nunc sed ante maximus tincidunt. Praesent ut lectus nisl. Etiam elementum dictum elit at aliquet. Sed vitae vehicula massa, sed luctus velit. Morbi aliquam sodales tempor. Praesent tempus, felis et luctus porttitor, quam lectus elementum nulla, sit amet pretium nisi dolor vel eros. Nulla vestibulum eu velit ac semper. Morbi gravida rhoncus libero, a rhoncus sapien. Morbi non sem a ligula viverra fermentum elementum ac odio. Fusce eget justo eros.',
@@ -142,7 +142,7 @@ export class TempJobStorageService {
         payment: 10750
       },
       {
-        id: 4,
+        id: '4',
         title: 'Carpenter',
         employer: 'Jason Jobgiver',
         location: 'Sligo',
@@ -154,7 +154,7 @@ export class TempJobStorageService {
         progress: 0.3,
       },
       {
-        id: 5,
+        id: '5',
         title: 'Roofer',
         employer: 'John Smith',
         location: 'Cork',
@@ -166,7 +166,7 @@ export class TempJobStorageService {
         progress: 0.5,
       },
       {
-        id: 6,
+        id: '6',
         title: 'Artist',
         employer: 'Jane Doe',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non eros viverra, fringilla massa rhoncus, dictum nulla. In rhoncus nunc sed ante maximus tincidunt. Praesent ut lectus nisl. Etiam elementum dictum elit at aliquet. Sed vitae vehicula massa, sed luctus velit. Morbi aliquam sodales tempor. Praesent tempus, felis et luctus porttitor, quam lectus elementum nulla, sit amet pretium nisi dolor vel eros. Nulla vestibulum eu velit ac semper. Morbi gravida rhoncus libero, a rhoncus sapien. Morbi non sem a ligula viverra fermentum elementum ac odio. Fusce eget justo eros.',

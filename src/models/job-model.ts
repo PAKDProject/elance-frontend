@@ -1,7 +1,7 @@
 import { IUser } from "./user-model";
 
 export interface IJob {
-  id?: number;
+  id?: string;
   title: string;
   // employer: IUser;
   employer: string;
@@ -10,7 +10,6 @@ export interface IJob {
   description: string;
   datePosted: Date;
   payment: number;
-  userId?: string;
   dateAccepted?: Date;
   dateDue?: Date;
   progress?: number;

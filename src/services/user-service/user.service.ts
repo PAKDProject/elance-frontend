@@ -6,6 +6,7 @@ import { catchError, tap, map } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
 import { RequestUserSuccessAction } from 'src/redux/actions/user.actions';
 import { environment } from 'src/environments/environment';
+import { IJob } from 'src/models/job-model';
 
 
 @Injectable({
@@ -72,6 +73,15 @@ export class UserService {
     return this.http.delete<IUser>(`${this.endpoint}/${userId}`).pipe(catchError(this.handleError));
   }
 
+  /**
+   * Applying for a job
+   * @param activeJobs The array of active jobs for the user
+   * @param userId The id of the user taking the job
+   * @param jobId The id of the job being applied for
+   */
+  applyForAJob(activeJobs: IJob[], userId: string, jobId: string): Observable<IUser> {
+    return this.http.put<IUser>(`${this.endpoint}/${userId}/${jobId}`, { activeJobs }).pipe(catchError(this.handleError))
+  }
 
   private handleError(error: HttpErrorResponse) {
 

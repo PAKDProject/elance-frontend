@@ -40,4 +40,3 @@ export class AddJobFail {
     static readonly type = '[Jobs] Add Job Fail'
     constructor(public errorMessage: string) { }
 }
-

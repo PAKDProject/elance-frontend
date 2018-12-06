@@ -1,4 +1,5 @@
 import { ISkills } from "./skill-model";
+import { IJob } from "./job-model";
 
 export interface IUser {
   id: string;
@@ -15,6 +16,7 @@ export interface IUser {
   socialLinks?: ISocialLink[];
   tagline?: string;
   contacts?: IUser[];
+  activeJobs?: IJob[]
 }
 
 export interface ISocialLink {

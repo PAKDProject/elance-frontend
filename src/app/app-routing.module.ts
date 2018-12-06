@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'secret', component: SecretComponent },
   {
     path: 'home', component: ViewComponent, canActivate: [StateGuard], children: [
-      { path: '', redirectTo: 'browse-jobs', pathMatch: 'full' },
+      { path: '', redirectTo: 'user-dashboard', pathMatch: 'full' },
       { path: 'user-dashboard', canActivate: [StateGuard], component: UserDashboardComponent },
       { path: 'browse-jobs', canActivate: [StateGuard], component: BrowseJobsComponent },
       { path: 'messages', canActivate: [StateGuard], component: MessagesComponent },
