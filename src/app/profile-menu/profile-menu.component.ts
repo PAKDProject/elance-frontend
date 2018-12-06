@@ -44,6 +44,9 @@ export class ProfileMenuComponent implements OnInit {
       this.store.dispatch(new RequestUpdateUser(this.user))
     }
     this.editing = !this.editing;
+    
+    if(this.editing)
+    { this._notify.showInfo("You are now editing the page","Click on a field to begin editing. NOTE: You cannot change your email.") }
   }
 
   removeSkill(rSkill) {

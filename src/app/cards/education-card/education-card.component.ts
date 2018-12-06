@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter } from '@angular/core';
 import { IEducationItem } from 'src/models/user-model';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { EducationModalComponent } from 'src/app/modals/education-modal/education-modal.component';
@@ -11,6 +11,7 @@ import { EducationModalComponent } from 'src/app/modals/education-modal/educatio
 export class EducationCardComponent {
   @Input('EducationItem') education: IEducationItem;
   @Input('editing') editing: boolean;
+  emitEducationItem: EventEmitter<IEducationItem> = new EventEmitter<IEducationItem>()
 
   constructor(public dialog: MatDialog) { }
 

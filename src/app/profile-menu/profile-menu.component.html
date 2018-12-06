@@ -59,15 +59,17 @@
       <div class="bodyContentContainer summaryContainer">
         <h1>About Me</h1>
         <p *ngIf='!editing'>{{ (user$ | async).summary }}</p>
-        <textarea *ngIf='editing' rows='4' [(ngModel)]="user.summary" autofocus value='{{ (user$ | async).summary}}'></textarea>
-        <!-- <p *ngIf='editing && !summaryEdit' (click)='toggleEditSummary()'>{{ (user$ | async).summary }}</p>
-        <textarea *ngIf='editing && summaryEdit' class='form-control' rows='4' autofocus value='{{ (user$ | async).summary}}'></textarea> -->
+        <p *ngIf='editing && !summaryEdit' (click)='toggleEditSummary()'>{{ (user$ | async).summary }}</p>
+        <textarea *ngIf='editing && summaryEdit' [(ngModel)]="user.summary" class='form-control' rows='4' autofocus
+          value='{{ (user$ | async).summary}}'></textarea>
       </div>
 
       <div class="bodyContentContainer">
         <h1>Education</h1>
-        <div *ngIf="educationItems">
-          <education-card *ngFor="let education of educationItems" [EducationItem]="education" [editing]="editing"></education-card>
+        <div *ngIf="educationItems" style='margin-top: 3px'>
+          <education-card *ngFor="let education of educationItems" [EducationItem]="education" [editing]="editing"
+            (educationChangeEmit)="addToEducationList($event)"></education-card>
+          <add-education *ngIf="editing"></add-education>
         </div>
       </div>
 
@@ -77,7 +79,7 @@
           <skill-card *ngFor="let skill of skills" [SkillItem]="skill" [editing]="editing" (deleteEmit)="removeSkill($event)"
             (skillChangeEmit)="updateSkills($event)">
           </skill-card>
-          <add-card [message]="'Add skills'" *ngIf="editing"></add-card>
+          <add-card *ngIf="editing"></add-card>
         </div>
       </div>
     </div>

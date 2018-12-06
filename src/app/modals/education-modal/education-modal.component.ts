@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, Input } from '@angular/core';
+import { Component, Inject, OnInit, Input, EventEmitter } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { IEducationItem } from 'src/models/user-model';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -16,6 +16,7 @@ export class EducationModalComponent implements OnInit {
   educationForm: FormGroup;
   educationItem: IEducationItem;
   oldItem: IEducationItem;
+  emitEducation: EventEmitter<IEducationItem> = new EventEmitter<IEducationItem>()
 
   constructor(
     public dialogRef: MatDialogRef<EducationModalComponent>,
@@ -26,7 +27,7 @@ export class EducationModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.data.educationItem) this.educationItem = this.data.education;
+    if (this.data.education) this.educationItem = this.data.education;
 
     this.oldItem = this.data.education;
     this.editing = this.data.editing;
@@ -66,9 +67,7 @@ export class EducationModalComponent implements OnInit {
         () => {
           this.checkDate();
         }
-
       );
-
   }
 
   get degreeTitle() {
@@ -91,7 +90,6 @@ export class EducationModalComponent implements OnInit {
   }
 
   checkDate() {
-
     if (this.educationStartDate.value && this.educationEndDate.value) {
       if (this.educationStartDate.value >= this.educationEndDate.value) {
         this.educationEndDate.setErrors({
@@ -110,9 +108,7 @@ export class EducationModalComponent implements OnInit {
       description: this.educationDescription.value,
       collegeName: this.collegeName.value
     };
-
-
-
+    //HERE I EMIT THE EDUCATION ITEM, Where it ends up? I dont have a notion
+    this.emitEducation.emit(this.educationItem)
   }
-
 }

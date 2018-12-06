@@ -77,6 +77,7 @@ import { JobService } from "src/services/job-service/job.service";
 import { UserService } from "src/services/user-service/user.service";
 import { AddSkillComponent } from "./add-skill/add-skill.component";
 import { NgSelectModule } from "@ng-select/ng-select";
+import { AddEducationComponent } from './cards/add-education/add-education.component';
 
 @NgModule({
   declarations: [
@@ -113,7 +114,8 @@ import { NgSelectModule } from "@ng-select/ng-select";
     CreateJobModalComponent,
     AddCardComponent,
     AddSkillComponent,
-    SkillContainerModalComponent
+    SkillContainerModalComponent,
+    AddEducationComponent
   ],
   imports: [
     BrowserAnimationsModule,

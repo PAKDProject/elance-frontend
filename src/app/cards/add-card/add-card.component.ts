@@ -9,7 +9,6 @@ import { SkillContainerModalComponent } from 'src/app/modals/skill-container-mod
 })
 export class AddCardComponent implements OnInit {
 
-  @Input() message: string;
   constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
