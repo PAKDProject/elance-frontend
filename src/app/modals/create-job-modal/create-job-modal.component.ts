@@ -17,6 +17,7 @@ export class CreateJobModalComponent implements OnInit {
   induvidual: boolean;
   induvidualJobForm: FormGroup;
   newJob: IJob;
+
   constructor(
     private fb: FormBuilder,
     private notificationService: NotificationService,
@@ -26,22 +27,25 @@ export class CreateJobModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+
     this.newJob = {
       title: "",
       employer: "",
       description: "",
       datePosted: new Date(),
       payment: null,
+      remote: false
     };
     this.induvidualJobForm = this.fb.group({
       jobTitle: ["", [Validators.required]],
       employer: ["", [Validators.required]],
       location: [""],
-      remote: [''],
+      remote: [this.newJob.remote],
       dateDue: [""],
       payment: [
         "",
-        [Validators.required, Validators.min(1), Validators.max(1000000)]
+        [Validators.required, Validators.min(0), Validators.max(1000000)]
       ],
       description: ["", [Validators.required]]
     });
@@ -54,6 +58,7 @@ export class CreateJobModalComponent implements OnInit {
       this.newJob.dateDue = data.dateDue;
       this.newJob.payment = data.payment;
       this.newJob.remote = data.remote;
+
     });
   }
 
@@ -83,7 +88,7 @@ export class CreateJobModalComponent implements OnInit {
 
   toggleLocation() {
     if (this.newJob.remote) this.location.disable()
-    if (this.newJob.remote == false) this.location.enable()
+    if (this.newJob.remote === false) this.location.enable()
   }
   submitForm(): void {
     const date = new Date(`${this.dateDue.value}T00:00:00`);
@@ -92,12 +97,7 @@ export class CreateJobModalComponent implements OnInit {
       this.notificationService.showError("An error occured");
     } else {
       this._store.dispatch(new AddJob(this.newJob))
-      this.notificationService.showSuccess(
-        "Job Created",
-        "Your Job can now be applied for"
-      );
       this._dialogRef.close();
-
     }
   }
 }

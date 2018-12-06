@@ -9,14 +9,15 @@ import { EducationModalComponent } from 'src/app/modals/education-modal/educatio
   styleUrls: ['./education-card.component.scss']
 })
 export class EducationCardComponent {
-  @Input('EducationItem') education: IEducationItem
+  @Input('EducationItem') education: IEducationItem;
+  @Input('editing') editing: boolean;
 
   constructor(public dialog: MatDialog) { }
 
   openEduModal(): void {
     const dialogRef = this.dialog.open(EducationModalComponent, {
       maxWidth: '1000px',
-      data: this.education
+      data: { 'education': this.education, 'editing': this.editing }
     })
   }
 }

@@ -1,20 +1,50 @@
+@import '../../../variables.scss';
+
 .modalContainer {
-    .modalHeader {
-        padding: 10px;
+  .modalHeader {
+    padding: 10px;
 
-        .topRow {
-            display: grid;
-            grid-template-columns: 1fr auto;
+    .topRow {
+      display: grid;
+      grid-template-columns: 1fr auto;
 
-            mat-icon {
-                cursor: pointer;
-            }
-        }
-        .timeCollegeRow {
-            display: grid;
-            grid-template-columns: 1fr auto;
-
-            font-size: 20px;
-        }
+      mat-icon {
+        cursor: pointer;
+      }
     }
+
+    .timeCollegeRow {
+      display: grid;
+      grid-template-columns: 1fr auto;
+
+      font-size: 20px;
+    }
+  }
+}
+
+.feedback-invalid {
+  font-size: 0.8em;
+  color: darkred;
+}
+
+
+.primary {
+  background: $primary;
+  color: white;
+}
+
+.primary:hover {
+  color: $primary;
+  background: white;
+  border: 1px solid $primary;
+}
+
+.secondary {
+  color: $primary;
+  background: $secondary;
+}
+
+.secondary:hover {
+  background: $primary;
+  color: white;
 }

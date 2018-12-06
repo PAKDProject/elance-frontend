@@ -106,8 +106,10 @@ export class JobsState {
         const state = getState()
         state.isLoading = false
         state.jobs.push(payload)
-
+        this._notification.showSuccess("Job Created",
+            "Your Job can now be applied for")
         patchState(state)
+
     }
 
     @Action(AddJobFail)

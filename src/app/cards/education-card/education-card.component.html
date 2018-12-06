@@ -5,7 +5,8 @@
         {{education.degreeTitle}}
       </div>
       <div class="modalButton" (click)="openEduModal()">
-        <mat-icon>open_in_new</mat-icon>
+        <mat-icon *ngIf="!editing">open_in_new</mat-icon>
+        <mat-icon *ngIf="editing">edit</mat-icon>
       </div>
     </div>
     <div class="bottomRow">

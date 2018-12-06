@@ -24,7 +24,7 @@ export class SkillCardComponent {
     "Proficient",
     "Expert"
   ];
-  selectedConfidence: string = "No Confidence Level Selected";
+  selectedConfidence: string = "Select a value"
   moreInfo: boolean;
   min: number = 1;
   max: number = 5;

@@ -10,7 +10,7 @@
         </button>
         Or
         <button class="btn secondary" (click)="induvidual = true">
-          Induvidual
+          Individual
         </button>
       </span>
     </mat-dialog-content>
@@ -64,7 +64,7 @@
           <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
               <label for="dateDue"> When should the job be completed </label>
-              <input type="date" id="dateDue" min="2018-11-10" formControlName="dateDue" class="form-control" />
+              <input type="date" id="dateDue" min="2018-12-12" max="2020-12-30" formControlName="dateDue" class="form-control" />
               <div class="feedback" *ngIf="!dateDue.valid && dateDue.touched">
                 Woah that job was finished a bit too soon buddy
               </div>
@@ -81,6 +81,10 @@
               </div>
               <div class="feedback" *ngIf="payment.errors?.min && payment.touched">
                 Don't be cheap
+              </div>
+              <div class="feedback" *ngIf="payment.value === 0">
+                Open Source eh?
+                <!-- Declan....really...this shit again -->
               </div>
               <div class="feedback" *ngIf="payment.errors?.max && payment.touched">
                 Baller!
