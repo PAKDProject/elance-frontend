@@ -37,7 +37,7 @@ export class BrowseJobsComponent implements OnInit {
   constructor(private store: Store) {
     this.isList = false;
     this.searchTerm.valueChanges
-      .pipe(debounceTime(1000))
+      .pipe(debounceTime(50))
       .pipe(distinctUntilChanged())
       .subscribe(
         searchTerm =>
@@ -81,12 +81,12 @@ export class BrowseJobsComponent implements OnInit {
 
   hiddenJobIndex: number;
   hideJob(j: IJob) {
-    if(j) {
+    if (j) {
       console.log('Hiding Job ' + j.title);
 
       this.hiddenJobIndex = this.jobs.indexOf(j);
-      this.jobs.splice(this.jobs.indexOf(j),1);
-      
+      this.jobs.splice(this.jobs.indexOf(j), 1);
+
       this.lastJobHidden = j;
       setTimeout(() => {
         this.lastJobHidden = null;
@@ -97,8 +97,8 @@ export class BrowseJobsComponent implements OnInit {
     }
   }
   undoHide(j: IJob) {
-    if(j) {
-      this.jobs.splice(this.hiddenJobIndex,0,j);
+    if (j) {
+      this.jobs.splice(this.hiddenJobIndex, 0, j);
     }
     else {
       console.log('Job not found')

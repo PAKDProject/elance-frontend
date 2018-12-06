@@ -45,7 +45,7 @@ export class CreateJobModalComponent implements OnInit {
       dateDue: [""],
       payment: [
         "",
-        [Validators.required, Validators.min(1), Validators.max(1000000)]
+        [Validators.required, Validators.min(0), Validators.max(1000000)]
       ],
       description: ["", [Validators.required]]
     });

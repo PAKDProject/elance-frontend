@@ -13,11 +13,14 @@
     <div *ngIf="moreInfo" class="moreInfo">
       <div class="desc">
         <p>Category: {{ skill.category ? skill.category : "no category" }}</p>
-        <p>
+        <p *ngIf="!editing">
           Confidence:
           {{
-          skill.confidenceLevel ? skill.confidenceLevel : selectedConfidence
+          skill.confidenceLevel ? skill.confidenceLevel : "No Confidence Level Selected"
           }}
+        </p>
+        <p *ngIf="editing">
+          Set Confidence to: {{selectedConfidence}}
         </p>
         <div *ngIf="editing">
           <mat-slider [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="tickInterval"

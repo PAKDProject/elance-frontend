@@ -82,6 +82,10 @@
               <div class="feedback" *ngIf="payment.errors?.min && payment.touched">
                 Don't be cheap
               </div>
+              <div class="feedback" *ngIf="payment.value === 0">
+                Open Source eh?
+                <!-- Declan....really...this shit again -->
+              </div>
               <div class="feedback" *ngIf="payment.errors?.max && payment.touched">
                 Baller!
               </div>

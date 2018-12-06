@@ -52,7 +52,7 @@
       <div class="bodyContentContainer">
         <h1>Education</h1>
         <div *ngIf="educationItems">
-          <education-card *ngFor="let education of educationItems" [EducationItem]="education"></education-card>
+          <education-card *ngFor="let education of educationItems" [EducationItem]="education" [editing]="editing"></education-card>
         </div>
       </div>
 
