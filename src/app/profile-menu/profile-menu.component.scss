@@ -4,7 +4,7 @@
   display: grid;
   // grid-template-rows: auto auto;
   // grid-template-columns: 1fr;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr 4fr 1fr;
   grid-template-rows: auto;
 
 
@@ -29,6 +29,7 @@
   .leftCol {
     grid-column: 1;
     grid-row: 1;
+    min-width: 30px;
   }
   .midCol {
     display: grid;
@@ -61,15 +62,42 @@
     }
   
     .nameContainer {
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       justify-self: center;
+      align-self: center; 
   
       h1 {
+        margin-top: 8px;
+        color: black;
         font-family: "Segoe UI";
         font-weight: 500;
-        text-align: center;
         font-size: 40px;
+        line-height: 40px;
+      }
+
+      .nameEdit {
+        margin: 0; padding: 0;
+        display: grid;
+        grid-template-columns: repeat(4,auto);
+        grid-column-gap: 12px;
+
+        overflow: hidden;
+
+        input[type="text"]
+        {
+          color: black;
+          margin: 0; padding: 0;
+          cursor: url('../../assets/cursors/copy.svg'), auto;
+          font-family: "Segoe UI";
+          font-weight: 500;
+          font-size: 40px;
+          line-height: 40px;
+          width: 100%;
+          border: none;
+          margin: none;
+          padding: none;
+          overflow: visible;
+        }
       }
     }
   
@@ -105,7 +133,7 @@
       padding: 0;
       justify-self: center;
   
-      height: 50px;
+      height: 30px;
   
       display: grid;
       grid-template-columns: repeat(4, auto);
@@ -128,6 +156,7 @@
     grid-column: 3;
     grid-row: 1;
 
+    min-width: 50px;
     .editButton {
       display: grid;
       grid-template-columns: repeat(2,auto);
@@ -176,12 +205,36 @@
       }
     }
   }
+  .summaryContainer {
+    h1 {
+
+    }
+    p {
+      line-height: 20px;
+      font-size: 16px;
+    }
+    textarea {
+      font-size: 16px;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      resize: none;
+    }
+  }
 }
 
 @media only screen and (max-width: 768px) {
   .profileBody {
     .bodyContentContainer {
       grid-template-columns: auto;
+    }
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .editButton {
+    div {
+      display: none;
     }
   }
 }

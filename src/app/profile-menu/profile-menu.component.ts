@@ -56,4 +56,9 @@ export class ProfileMenuComponent implements OnInit {
     //Alan- Do Redux plox
     console.log(this.skills);
   }
+
+  summaryEdit: boolean = false;
+  toggleEditSummary() {
+    this.summaryEdit = !this.summaryEdit;
+  }
 }
