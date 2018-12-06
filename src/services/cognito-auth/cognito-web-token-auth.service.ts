@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment.prod';
 export class CognitoWebTokenAuthService {
   url: string
   constructor(private _http: HttpClient) {
-    this.url = environment.backendUrl
+    this.url = environment.backendUrl + '/'
   }
 
   validateTokens(jwt: string[]): Observable<IValidateTokenResponse> {

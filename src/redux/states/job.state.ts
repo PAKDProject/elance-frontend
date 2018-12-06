@@ -38,7 +38,7 @@ export class JobsState {
         state.jobs = []
         patchState(state)
 
-        this.jobsService.getJobs().subscribe(jobs => {
+        this._jobsService.getJobs().subscribe(jobs => {
             this.store.dispatch(new RequestJobsSuccess(jobs))
         })
         // this.jobsService.getAllJobs().pipe(tap(jobs => {
@@ -102,8 +102,10 @@ export class JobsState {
         const state = getState()
         state.isLoading = false
         state.jobs.push(payload)
-
+        this._notification.showSuccess("Job Created",
+            "Your Job can now be applied for")
         patchState(state)
+
     }
 
     @Action(AddJobFail)
