@@ -1,6 +1,6 @@
 import { IUser, IEducationItem, ISocialLink } from 'src/models/user-model'
 import { State, Selector, Action, Store, StateContext } from '@ngxs/store';
-import { RequestUserSuccessAction, RequestUserFailedActions, RequestAddSkillToUser, RequestAddSkillToUserSuccess, RequestAddSkillToUserFail, RequestRemoveSkillFromUser, RequestRemoveSkillFromUserFail, RequestRemoveSkillFromUserSuccess, RequestUpdateSkillForUser, RequestUpdateSkillForUserSuccess, RequestUpdateSkillForUserFail, ApplyForJob, ApplyForJobSuccess, ApplyForJobFail } from '../actions/user.actions';
+import { RequestUserSuccessAction, RequestUserFailedActions, RequestAddSkillToUser, RequestAddSkillToUserSuccess, RequestAddSkillToUserFail, RequestRemoveSkillFromUser, RequestRemoveSkillFromUserFail, RequestRemoveSkillFromUserSuccess, ApplyForJob, ApplyForJobSuccess, ApplyForJobFail, RequestUpdateUser, RequestUpdateUserSuccess, RequestUpdateUserFail } from '../actions/user.actions';
 import { request } from 'http';
 import { TempUserStorageService } from 'src/services/temp-user/temp-user-storage.service';
 import { UserService } from 'src/services/user-service/user.service';
@@ -83,58 +83,32 @@ export class UserState {
         this._notification.showError("An error occured in the state", errorMessage);
     }
 
-    @Action(RequestRemoveSkillFromUser)
-    removeSkillRequest({ getState }: StateContext<UserStateModel>, { skill }: RequestRemoveSkillFromUser) {
-        let user = getState()
-        let existingSkills = user.skills
-        let index = existingSkills.findIndex((skills) => {
-            return skills === skill
-        });
+    @Action(RequestUpdateUser)
+    updateUserRequest({ getState }: StateContext<UserStateModel>, { user }: RequestUpdateUser) {
+        let userState = getState()
+        this._notification.showInfo("Updating user profile...")
 
-        if (index === -1) {
-            this.store.dispatch(new RequestRemoveSkillFromUserFail("Skill doesn't exist!"))
+        userState = {
+            ...user
         }
-        else {
-            existingSkills.splice(index, 1)
-            user.skills = existingSkills
-            this._userService.updateUser({ skills: existingSkills }, user.id).subscribe(res => {
-                this.store.dispatch(new RequestRemoveSkillFromUserSuccess(user))
-            }, err => {
-                this.store.dispatch(new RequestRemoveSkillFromUserFail(err))
-            })
-        }
+        alert(JSON.stringify(user))
+
+        this._userService.updateUser({ user }, userState.id).subscribe(res => {
+            this.store.dispatch(new RequestUpdateUserSuccess(userState))
+        }, err => {
+            this.store.dispatch(new RequestUpdateUserFail(err))
+        })
     }
 
-    @Action(RequestRemoveSkillFromUserSuccess)
-    removeSkillRequestSuccess({ patchState }: StateContext<UserStateModel>, { user }: RequestRemoveSkillFromUserSuccess) {
+    @Action(RequestUpdateUserSuccess)
+    updateUserRequestSuccess({ patchState }: StateContext<UserStateModel>, { user }: RequestUpdateUserSuccess) {
+        this._notification.showSuccess("User updated successfully!")
         patchState(user)
     }
 
-    @Action(RequestRemoveSkillFromUserFail)
-    removeSkillRequestFail({ errorMessage }: RequestAddSkillToUserFail) {
-        this._notification.showError("An error occured in the state", errorMessage);
-    }
-
-    @Action(RequestUpdateSkillForUser)
-    updateSkillRequest({ getState }: StateContext<UserStateModel>, { skill }: RequestUpdateSkillForUser) {
-        let user = getState()
-        let existingSkills = user.skills
-        let index = existingSkills.findIndex((skills) => {
-            return skills === skill
-        });
-
-        if (index === -1) {
-            this.store.dispatch(new RequestUpdateSkillForUserFail("Skill doesn't exist!"))
-        }
-        else {
-            existingSkills[index] = skill
-            user.skills = existingSkills
-            this._userService.updateUser({ skills: existingSkills }, user.id).subscribe(res => {
-                this.store.dispatch(new RequestUpdateSkillForUserSuccess(user))
-            }, err => {
-                this.store.dispatch(new RequestUpdateSkillForUserFail(err))
-            })
-        }
+    @Action(RequestUpdateUserFail)
+    updateUserRequestFail() {
+        this._notification.showError("User did not update!")
     }
 
     @Action(ApplyForJob)

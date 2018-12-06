@@ -105,12 +105,33 @@
       margin: 0;
       padding: 0;
       justify-self: center;
+      width: 100%;
   
       h2 {
         font-family: "Segoe UI";
         font-weight: 250;
         text-align: center;
         font-size: 30px;
+      }
+
+      .tagEdit {
+        width: 100%;
+        margin-bottom: 8px;
+        input[type="text"]
+        {
+          color: black;
+          margin: 0; padding: 0;
+          cursor: url('../../assets/cursors/copy.svg'), auto;
+          font-family: "Segoe UI";
+          font-weight: 250;
+          text-align: center;
+          font-size: 30px;
+          width: 100%;
+          border: none;
+          margin: none;
+          padding: none;
+          overflow: visible;
+        }
       }
     }
   

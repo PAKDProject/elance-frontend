@@ -51,20 +51,20 @@ export class RequestRemoveSkillFromUserFail {
     constructor(public errorMessage: string) { }
 }
 
-export class RequestUpdateSkillForUser {
-    static readonly type = '[User] Request Update Skill For User'
+export class RequestUpdateUser {
+    static readonly type = '[User] Request Update User'
 
-    constructor(public skill: ISkills) { }
+    constructor(public user: Partial<IUser>) { }
 }
 
-export class RequestUpdateSkillForUserSuccess {
-    static readonly type = '[User] Request Update Skill For User Success'
+export class RequestUpdateUserSuccess {
+    static readonly type = '[User] Request Update User Success'
 
     constructor(public user: UserStateModel) { }
 }
 
-export class RequestUpdateSkillForUserFail {
-    static readonly type = '[User] Request Update Skill For User Fail'
+export class RequestUpdateUserFail {
+    static readonly type = '[User] Request Update User Fail'
 
     constructor(public errorMessage: string) { }
 }

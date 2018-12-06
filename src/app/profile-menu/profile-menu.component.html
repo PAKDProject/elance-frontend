@@ -17,16 +17,22 @@
           <h1 *ngIf='!editing'>{{ (user$ | async).fName }} {{ (user$ | async).lName }}</h1>
           <div class='form-group nameEdit' *ngIf='editing'>
             <!-- <label for='firstName'>First Name: </label> -->
-            <input type='text' id='firstName' class='form-group' value='{{ (user$ | async).fName }}' style='text-align: right'/>
+            <input type='text' id='firstName' class='form-group' [(ngModel)]="user.fName" value='{{ (user$ | async).fName }}'
+              style='text-align: right' />
 
             <!-- <label for='lastName'>Surname: </label> -->
-            <input type='text' id='lastName' class='form-group' value='{{ (user$ | async).lName }}'/>
+            <input type='text' id='lastName' class='form-group' [(ngModel)]="user.lName" value='{{ (user$ | async).lName }}' />
           </div>
         </div>
 
         <div class="jobTitleContainer">
-          <h2>{{ (user$ | async).tagline }}</h2>
+          <h2 *ngIf="!editing">{{ (user$ | async).tagline }}</h2>
+          <div class='form-group tagEdit' *ngIf='editing'>
+            <input type='text' id='tagline' [(ngModel)]="user.tagline" class='form-group' value='{{ (user$ | async).tagline }}'
+              style='text-align: center' />
+          </div>
         </div>
+
 
         <div class="emailContainer">
           <h4>{{ (user$ | async).email }}</h4>
@@ -53,7 +59,7 @@
       <div class="bodyContentContainer summaryContainer">
         <h1>About Me</h1>
         <p *ngIf='!editing'>{{ (user$ | async).summary }}</p>
-        <textarea *ngIf='editing' rows='4' autofocus value='{{ (user$ | async).summary}}'></textarea>
+        <textarea *ngIf='editing' rows='4' [(ngModel)]="user.summary" autofocus value='{{ (user$ | async).summary}}'></textarea>
         <!-- <p *ngIf='editing && !summaryEdit' (click)='toggleEditSummary()'>{{ (user$ | async).summary }}</p>
         <textarea *ngIf='editing && summaryEdit' class='form-control' rows='4' autofocus value='{{ (user$ | async).summary}}'></textarea> -->
       </div>

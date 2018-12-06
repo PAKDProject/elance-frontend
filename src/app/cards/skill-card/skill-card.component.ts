@@ -3,7 +3,7 @@ import { ISkills } from "src/models/skill-model";
 import { SkillsModalComponent } from "src/app/modals/skills-modal/skills-modal.component";
 import { MatDialog } from "@angular/material";
 import { Store } from "@ngxs/store";
-import { RequestRemoveSkillFromUser, RequestUpdateSkillForUser } from "src/redux/actions/user.actions";
+import { RequestRemoveSkillFromUser } from "src/redux/actions/user.actions";
 
 @Component({
   selector: "skill-card",
@@ -44,9 +44,7 @@ export class SkillCardComponent {
   }
 
   remove() {
-    this._store.dispatch(new RequestRemoveSkillFromUser(this.skill)).subscribe(() => {
-      this.deleteEmit.emit(this.skill);
-    })
+    this.deleteEmit.emit(this.skill);
   }
 
   toggleMoreInfo() {
@@ -60,9 +58,7 @@ export class SkillCardComponent {
 
   saveConfidenceLevel() {
     this.skill.confidenceLevel = this.selectedConfidence;
-    this._store.dispatch(new RequestUpdateSkillForUser(this.skill)).subscribe(() => {
-      this.skillChangeEmit.emit(this.skill);
-      this.moreInfo = false;
-    })
+    this.skillChangeEmit.emit(this.skill);
+    this.moreInfo = false;
   }
 }
