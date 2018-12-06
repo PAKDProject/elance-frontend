@@ -18,4 +18,5 @@ export class AddEducationComponent implements OnInit {
       maxWidth: '1000px',
       data: { 'education': null, 'editing': true }
     })
+  }
 }
