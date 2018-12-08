@@ -19,7 +19,7 @@ export class ProfileMenuComponent implements OnInit {
   socialLinks: ISocialLink[];
   user: Partial<IUser> = {};
 
-  constructor(private _notify: NotificationService, private store: Store) {}
+  constructor(private _notify: NotificationService, private store: Store) { }
 
   ngOnInit() {
     this.user$.subscribe(element => {
@@ -41,15 +41,16 @@ export class ProfileMenuComponent implements OnInit {
   editing: boolean = false;
   toggleEditing() {
     if (this.editing) {
-      this.store.dispatch(new RequestUpdateUser(this.user));
+      this.store.dispatch(new RequestUpdateUser(this.user)).subscribe(res => {
+        this.editing = !this.editing
+      });
     }
-    this.editing = !this.editing;
-
-    if (this.editing) {
+    else {
       this._notify.showInfo(
         "You are now editing the page",
         "Click on a field to begin editing. NOTE: You cannot change your email."
       );
+      this.editing = !this.editing
     }
   }
 
@@ -77,7 +78,21 @@ export class ProfileMenuComponent implements OnInit {
     this.summaryEdit = !this.summaryEdit;
   }
 
-  addToEducationList(e: IEducationItem) {
-    console.log("Here you go alan! " + e);
+  addToEducationList(e: any) {
+    if (e.old === null) {
+      this.user.educationItems.push(e.new)
+    }
+    else {
+      let index = this.user.educationItems.findIndex((item) => {
+        return item === e.old
+      })
+
+      this.user.educationItems.splice(index, 1)
+      this.user.educationItems.push(e.new)
+    }
+  }
+
+  addToSkills(e: ISkills) {
+    this.user.skills.push(e);
   }
 }

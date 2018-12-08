@@ -91,7 +91,6 @@ export class UserState {
         userState = {
             ...user
         }
-        alert(JSON.stringify(user))
 
         this._userService.updateUser({ user }, userState.id).subscribe(res => {
             this.store.dispatch(new RequestUpdateUserSuccess(userState))
@@ -120,9 +119,6 @@ export class UserState {
             appliedJobs = []
         }
         appliedJobs.push(job)
-        alert(JSON.stringify(appliedJobs))
-        alert(job.title)
-        alert(state.id)
         this._userService.applyForAJob(appliedJobs, state.id, job.id).subscribe(res => {
             this.store.dispatch(new ApplyForJobSuccess(appliedJobs, job.title))
         }, err => {

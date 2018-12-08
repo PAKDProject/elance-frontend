@@ -9,12 +9,12 @@ import { IEducationItem } from "src/models/user-model";
   styleUrls: ["./add-education.component.scss"]
 })
 export class AddEducationComponent implements OnInit {
-  @Output() educationEmit: EventEmitter<IEducationItem> = new EventEmitter<
-    IEducationItem
-  >();
-  constructor(private dialog: MatDialog) {}
+  @Output() educationEmit: EventEmitter<any> = new EventEmitter<
+    any
+    >();
+  constructor(private dialog: MatDialog) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   openEducationModal(): void {
     const dialogRef = this.dialog.open(EducationModalComponent, {
@@ -24,7 +24,7 @@ export class AddEducationComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(data => {
       if (data !== undefined) {
-        this.educationEmit.emit(data);
+        this.educationEmit.emit({ old: null, new: data });
       }
     });
   }

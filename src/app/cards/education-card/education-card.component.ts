@@ -11,11 +11,11 @@ import { EducationModalComponent } from "src/app/modals/education-modal/educatio
 export class EducationCardComponent {
   @Input("EducationItem") education: IEducationItem;
   @Input("editing") editing: boolean;
-  @Output() educationEmit: EventEmitter<IEducationItem> = new EventEmitter<
-    IEducationItem
-  >();
+  @Output() educationEmit: EventEmitter<any> = new EventEmitter<
+    any
+    >();
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) { }
 
   openEduModal(): void {
     const dialogRef = this.dialog.open(EducationModalComponent, {
@@ -25,7 +25,7 @@ export class EducationCardComponent {
 
     dialogRef.afterClosed().subscribe(data => {
       if (data !== undefined) {
-        this.educationEmit.emit(data);
+        this.educationEmit.emit({ old: this.education, new: data });
       }
     });
   }
