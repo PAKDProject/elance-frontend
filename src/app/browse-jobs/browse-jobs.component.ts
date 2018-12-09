@@ -64,6 +64,21 @@ export class BrowseJobsComponent implements OnInit {
 
     this.performFilter();
   }
+  
+  clearFilters() {
+    let prevSearch = (this.searchTerm.value)?(this.searchTerm.value):(null);
+    this.filters = {
+      minPayment: null,
+      maxPayment: null,
+      dateRadio: 'newToOld',
+      searchTerm: prevSearch
+    }
+    this.dateOrderRadio = "newToOld";
+
+    console.log("Filters applied");
+
+    this.performFilter();
+  }
 
   performFilter() {
     console.log("Performing filter");

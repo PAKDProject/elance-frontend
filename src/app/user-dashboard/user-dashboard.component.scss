@@ -11,11 +11,10 @@
     .primary {
       background-color: $primary;
       color: white;
-      width: 20vw;
-      justify-self: end;
-      // margin-right: 24px;
-      border: none;
       border: 1px solid white;
+
+      justify-self: end;
+      border: none;
     }
     .primary:hover {
       color: $primary;
@@ -31,7 +30,6 @@
 
     width: 100%;
     display: grid;
-    // grid-template-columns: repeat(3, auto);
     grid-template-columns: auto 1fr auto;
     min-height: 180px;
 
@@ -65,6 +63,19 @@
         height: 180px;
         margin-bottom: 15px;
         margin-right: 10px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .container-fluid {
+    .header {
+      grid-template-columns: auto;
+      grid-template-rows: repeat(2,auto);
+
+      .primary {
+        justify-self: start;
       }
     }
   }

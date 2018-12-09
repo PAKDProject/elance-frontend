@@ -107,6 +107,8 @@
       grid-template-columns: repeat(4, auto);
 
       .form-group {
+        display: grid;
+        grid-template-rows: repeat(3,auto);
         margin: 5px;
 
         .radio {
@@ -118,6 +120,12 @@
         height: 40px;
         vertical-align: center;
         align-self: center;
+      }
+      
+      .filterButtons {
+        display: grid;
+        grid-template-rows: repeat(2,auto);
+        grid-gap: 5px;
       }
     }
 

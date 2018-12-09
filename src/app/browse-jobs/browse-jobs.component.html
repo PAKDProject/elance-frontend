@@ -59,9 +59,14 @@
           </label>
         </div>
 
-        <button type="submit" class="btn btn-primary" (click)="applyFilters(filterForm)" [disabled]="(isLoading$ | async) === true">
-          Apply Filters
-        </button>
+        <div class="filterButtons">
+          <button type="reset" class="btn btn-secondary" (click)='clearFilters()' [disabled]="(isLoading$ | async) === true">
+            Clear
+          </button>
+          <button type="submit" class="btn btn-primary" (click)="applyFilters(filterForm)" [disabled]="(isLoading$ | async) === true">
+            Apply
+          </button>
+        </div>
       </form>
 
       <!-- Notification that appears when a job is hidden-->
