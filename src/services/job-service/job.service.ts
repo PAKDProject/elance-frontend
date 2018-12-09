@@ -66,7 +66,6 @@ export class JobService {
     this._http.delete(`${this.endpoint}/${jobId}`).pipe(catchError(this.handleError))
   }
 
-
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       this._notification.showError(error.status.toString(), error.error.message)
@@ -78,5 +77,19 @@ export class JobService {
         `body was: ${error.error}`);
     }
     return throwError(error)
+  }
+
+
+
+  //Temp job searching
+  searchJob(searchTerm: string): Observable<IJob[]>{
+    return this._http.get(this.endpoint).pipe(map((res) => {
+      let response = res as { jobs: IJob[] };
+      
+      response.jobs = (response.jobs.filter((j: IJob) =>
+          j.title.toLocaleLowerCase().indexOf(searchTerm.toLocaleLowerCase()) !== -1));
+      
+      return response.jobs;
+    }))
   }
 }

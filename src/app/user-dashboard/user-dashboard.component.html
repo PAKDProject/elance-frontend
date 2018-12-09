@@ -1,9 +1,11 @@
 <div class="main-content">
   <div class="container-fluid">
-    <h2>User Dashboard</h2>
-    <button class="btn primary" (click)="openModal()">
-      <mat-icon>create</mat-icon> Create a job
-    </button>
+    <div class="header">
+      <h2>User Dashboard</h2>
+      <button class="btn primary" (click)="openModal()">
+        <mat-icon>create</mat-icon> Create a job
+      </button>
+    </div>
 
     <h4>Active Jobs</h4>
     <div class="carouselRow" *ngIf="userActiveJobs">

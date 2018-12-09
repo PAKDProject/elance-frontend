@@ -37,12 +37,13 @@ export class BrowseJobsComponent implements OnInit {
   constructor(private store: Store) {
     this.isList = false;
     this.searchTerm.valueChanges
-      .pipe(debounceTime(50))
+      .pipe(debounceTime(1000))
       .pipe(distinctUntilChanged())
       .subscribe(
         searchTerm =>
-          this.store.dispatch(new SearchJobs(searchTerm)) &&
-          this.store.dispatch(new RequestJobs())
+        {
+          this.store.dispatch(new SearchJobs(searchTerm))
+        }
       );
   }
 
@@ -58,20 +59,7 @@ export class BrowseJobsComponent implements OnInit {
     this.isList = !this.isList;
   }
 
-  //Toggles the filter area
-  openFilter() {
-    this.filterToggle = !this.filterToggle;
-  }
-
   refresh() {
-    this.store.dispatch(new RequestJobs());
-  }
-
-  applyFilters(filters: NgForm) {
-    let f = filters.value as filterForm;
-
-    console.log("Dispatching filters");
-    this.store.dispatch(new FilterJobs(f));
     this.store.dispatch(new RequestJobs());
   }
 
@@ -103,6 +91,19 @@ export class BrowseJobsComponent implements OnInit {
     else {
       console.log('Job not found')
     }
+  }
+
+  //Toggles the filter area
+  openFilter() {
+    this.filterToggle = !this.filterToggle;
+  }
+
+  applyFilters(filters: NgForm) {
+    let f = filters.value as filterForm;
+
+    console.log("Dispatching filters");
+    this.store.dispatch(new FilterJobs(f));
+    this.store.dispatch(new RequestJobs());
   }
 }
 

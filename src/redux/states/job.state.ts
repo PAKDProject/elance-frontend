@@ -67,15 +67,19 @@ export class JobsState {
         patchState(state)
     }
 
-    // @Action(SearchJobs)
-    // searchStarted({ getState, patchState }: StateContext<JobsStateModel>, { searchTerm }: SearchJobs) {
-    //     const state = getState()
-    //     state.isLoading = true
-    //     state.jobs = []
-    //     patchState(state)
+    @Action(SearchJobs)
+    searchStarted({ getState, patchState }: StateContext<JobsStateModel>, { searchTerm }: SearchJobs) {
+        const state = getState()
+        state.isLoading = true
+        state.jobs = []
+        patchState(state)
 
-    //     this._jobsService.performSearch(searchTerm)
-    // }
+        this._jobsService.searchJob(searchTerm).subscribe(jobs => {
+            this.store.dispatch(new RequestJobsSuccess(jobs))
+        }, err => {
+            this.store.dispatch(new RequestJobsFail("Failed to fetch jobs! " + err.message))
+        })
+    }
 
     // @Action(FilterJobs)
     // filterStarted({ getState, patchState }: StateContext<JobsStateModel>, { filterForm }: FilterJobs) {
