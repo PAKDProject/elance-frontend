@@ -5,6 +5,8 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { NotificationService } from '../notifications/notification.service';
 import { environment } from 'src/environments/environment';
+import { filterForm } from 'src/app/browse-jobs/browse-jobs.component';
+import { Job } from 'aws-sdk/clients/codepipeline';
 
 @Injectable({
   providedIn: 'root'
@@ -92,4 +94,49 @@ export class JobService {
       return response.jobs;
     }))
   }
+  filterJob(filters: filterForm): Observable<IJob[]> {
+    return this._http.get(this.endpoint).pipe(map((res) => {
+      let response = res as { jobs: IJob[] };
+      console.log("yeet")
+      console.table(filters);
+      console.log(response.jobs);
+
+      //Filtering & searching
+      if(filters.searchTerm) {
+        response.jobs = (response.jobs.filter((j: IJob) =>
+        j.title.toLocaleLowerCase().indexOf(filters.searchTerm.toLocaleLowerCase()) !== -1));
+      }
+      if(filters.minPayment) {
+        response.jobs = (response.jobs.filter((j: IJob) =>
+        j.payment > filters.minPayment));
+      }
+      if(filters.maxPayment) {
+        response.jobs = (response.jobs.filter((j: IJob) =>
+        j.payment < filters.maxPayment));
+      }
+
+      //Sorting by date ascending and descending
+      switch(filters.dateRadio)
+      {
+        case 'newToOld':
+          response.jobs.sort(function (a, b) {
+            var jobA = a.datePosted, jobB = b.datePosted;
+            if (jobA > jobB) return -1;
+            if (jobB > jobA) return 1;
+          })
+          break;
+        case 'oldToNew':
+          response.jobs.sort(function (a, b) {
+            var jobA = a.datePosted, jobB = b.datePosted;
+            if (jobA > jobB) return -1;
+            if (jobB > jobA) return 1;
+          }).reverse();
+          break;
+      }
+
+      console.log(response.jobs);
+        
+      return response.jobs;
+      }));
+    }
 }

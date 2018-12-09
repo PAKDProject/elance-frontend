@@ -1,5 +1,5 @@
 import { State, StateContext, Action, Selector, Store } from "@ngxs/store";
-import { RequestJobsSuccess, RequestJobsFail, RequestJobs, SearchJobs, FilterJobs, AddJob, AddJobSuccess, AddJobFail } from "../actions/job.actions";
+import { RequestJobsSuccess, RequestJobsFail, RequestJobs, FilterJobs, AddJob, AddJobSuccess, AddJobFail } from "../actions/job.actions";
 import { IJob } from "src/models/job-model";
 import { JobService } from "src/services/job-service/job.service";
 import { NotificationService } from "src/services/notifications/notification.service";
@@ -67,29 +67,19 @@ export class JobsState {
         patchState(state)
     }
 
-    @Action(SearchJobs)
-    searchStarted({ getState, patchState }: StateContext<JobsStateModel>, { searchTerm }: SearchJobs) {
+    @Action(FilterJobs)
+    filterStarted({ getState, patchState }: StateContext<JobsStateModel>, { filterForm }: FilterJobs) {
         const state = getState()
         state.isLoading = true
         state.jobs = []
         patchState(state)
 
-        this._jobsService.searchJob(searchTerm).subscribe(jobs => {
+        this._jobsService.filterJob(filterForm).subscribe(jobs => {
             this.store.dispatch(new RequestJobsSuccess(jobs))
         }, err => {
             this.store.dispatch(new RequestJobsFail("Failed to fetch jobs! " + err.message))
         })
     }
-
-    // @Action(FilterJobs)
-    // filterStarted({ getState, patchState }: StateContext<JobsStateModel>, { filterForm }: FilterJobs) {
-    //     const state = getState()
-    //     state.isLoading = true
-    //     state.jobs = []
-    //     patchState(state)
-
-    //     this._jobsService.performFilter(filterForm)
-    // }
 
     @Action(AddJob)
     addNewJob({ getState, patchState }: StateContext<JobsStateModel>, { payload }: AddJob) {
