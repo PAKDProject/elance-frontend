@@ -1,4 +1,5 @@
-[{
+[
+  {
     "skillTitle": "JavaScript",
     "category": "Software"
   },
@@ -33,5 +34,10 @@
   {
     "skillTitle": "Barista",
     "category": "Food"
+  },
+  {
+    "skillTitle": "Free labour",
+    "category": "HLP PLZ",
+    "location": "Declan's office"
   }
 ]

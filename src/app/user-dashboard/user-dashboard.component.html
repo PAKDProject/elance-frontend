@@ -27,13 +27,16 @@
       <mat-icon class="carouselArrow" (click)="moveCarousel('right', 2)">keyboard_arrow_right</mat-icon>
     </div>
     <h4>Contacts</h4>
-    <div class="carouselRow">
+    <div class="carouselRow" *ngIf="1 + 1 == 3">
       <mat-icon class="carouselArrow" (click)="moveCarousel('left', 3)">keyboard_arrow_left</mat-icon>
       <drag-scroll [scrollbar-hidden] #contacts>
         <!-- Temp -->
         <active-job-card drag-scroll-item *ngFor="let job of jobs" [JobInput]="job"></active-job-card>
       </drag-scroll>
       <mat-icon class="carouselArrow" (click)="moveCarousel('right', 3)">keyboard_arrow_right</mat-icon>
+    </div>
+    <div class="carouselRow" *ngIf="true">
+      <h3>You have no contacts!</h3>
     </div>
   </div>
 </div>

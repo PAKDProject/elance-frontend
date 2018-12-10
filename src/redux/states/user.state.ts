@@ -118,6 +118,7 @@ export class UserState {
         if (appliedJobs === undefined) {
             appliedJobs = []
         }
+        job.dateAccepted = new Date()
         appliedJobs.push(job)
         this._userService.applyForAJob(appliedJobs, state.id, job.id).subscribe(res => {
             this.store.dispatch(new ApplyForJobSuccess(appliedJobs, job.title))

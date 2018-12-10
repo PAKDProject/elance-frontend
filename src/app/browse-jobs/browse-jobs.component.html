@@ -9,7 +9,7 @@
         <mat-icon>refresh</mat-icon>
       </div>
     </div>
-    <div class="mb-2" *ngIf="(skillsCount$ | async) < 3">
+    <div class="mb-2" *ngIf="(skillsCount$ | async) < 3 && this.showSkillsForm == true">
       <app-add-skill (dismissFormEmit)="dismissForm($event)"></app-add-skill>
     </div>
     <div style="display: grid">
@@ -66,10 +66,10 @@
 
       <!-- Notification that appears when a job is hidden-->
       <div class="hiddenNotification" *ngIf="lastJobHidden != null">
-          <div>The job {{lastJobHidden.title}} has been hidden</div>
-          <button (click)='undoHide(lastJobHidden)' class="btn btn-primary btn-sm">Undo</button>
+        <div>The job {{lastJobHidden.title}} has been hidden</div>
+        <button (click)='undoHide(lastJobHidden)' class="btn btn-primary btn-sm">Undo</button>
       </div>
-      
+
       <!-- Loading Spinner for when loading jobs -->
       <div class="spinner" *ngIf="(isLoading$ | async) === true">
         <mat-spinner color=""></mat-spinner>

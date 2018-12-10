@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { MatDialogRef } from "@angular/material";
+import { NotificationService } from "src/services/notifications/notification.service";
 
 @Component({
   selector: "app-upload-image-modal",
@@ -10,7 +11,7 @@ export class UploadImageModalComponent {
   isHovering: boolean;
   hoveringMessage: string = "Drag in profile image";
   filePath: string = "";
-  constructor(public dialogRef: MatDialogRef<UploadImageModalComponent>) {}
+  constructor(public dialogRef: MatDialogRef<UploadImageModalComponent>, private _notify: NotificationService) { }
 
   onClick(): void {
     this.dialogRef.close();
@@ -31,10 +32,14 @@ export class UploadImageModalComponent {
         this.hoveringMessage = `Uploading ${event[0].name}`;
         const reader = new FileReader();
         reader.onload = e => {
+          console.log(e)
           this.filePath = reader.result.toString();
         };
         reader.readAsDataURL(event[0]);
       }
+    }
+    else {
+      this._notify.showInfo("You can only upload one file!")
     }
   }
 }
