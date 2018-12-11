@@ -1,7 +1,6 @@
 import { IUser, IEducationItem, ISocialLink } from 'src/models/user-model'
 import { State, Selector, Action, Store, StateContext } from '@ngxs/store';
-import { RequestUserSuccessAction, RequestUserFailedActions, RequestAddSkillToUser, RequestAddSkillToUserSuccess, RequestAddSkillToUserFail, RequestRemoveSkillFromUser, RequestRemoveSkillFromUserFail, RequestRemoveSkillFromUserSuccess, ApplyForJob, ApplyForJobSuccess, ApplyForJobFail, RequestUpdateUser, RequestUpdateUserSuccess, RequestUpdateUserFail } from '../actions/user.actions';
-import { request } from 'http';
+import { RequestUserSuccessAction, RequestUserFailedActions, RequestAddSkillToUser, ApplyForJob, ApplyForJobSuccess, ApplyForJobFail, RequestUpdateUser, RequestUpdateUserSuccess, RequestUpdateUserFail } from '../actions/user.actions';
 import { TempUserStorageService } from 'src/services/temp-user/temp-user-storage.service';
 import { UserService } from 'src/services/user-service/user.service';
 import { ISkills } from 'src/models/skill-model';
@@ -59,41 +58,13 @@ export class UserState {
         patchState({})
     }
 
-    @Action(RequestAddSkillToUser)
-    addSkillRequest({ getState }: StateContext<UserStateModel>, { skills }: RequestAddSkillToUser) {
-        let user = getState()
-        let existingSkills = user.skills
-        existingSkills.push(...skills)
-        user.skills = existingSkills
-        this._userService.updateUser({ skills: existingSkills }, user.id).subscribe(res => {
-            this.store.dispatch(new RequestAddSkillToUserSuccess(user))
-        }, err => {
-            this.store.dispatch(new RequestAddSkillToUserFail(err.message))
-        })
-    }
-
-    @Action(RequestAddSkillToUserSuccess)
-    addSkillRequestSuccess({ patchState }: StateContext<UserStateModel>, { user }: RequestAddSkillToUserSuccess) {
-        patchState(user)
-        this._notification.showSuccess("Skills added!", "We will now find you more suitable jobs")
-    }
-
-    @Action(RequestAddSkillToUserFail)
-    addNewJobFail({ getState, patchState }: StateContext<UserStateModel>, { errorMessage }: RequestAddSkillToUserFail) {
-        this._notification.showError("An error occured in the state", errorMessage);
-    }
-
     @Action(RequestUpdateUser)
     updateUserRequest({ getState }: StateContext<UserStateModel>, { user }: RequestUpdateUser) {
         let userState = getState()
         this._notification.showInfo("Updating user profile...")
 
-        userState = {
-            ...user
-        }
-
-        this._userService.updateUser({ user }, userState.id).subscribe(res => {
-            this.store.dispatch(new RequestUpdateUserSuccess(userState))
+        this._userService.updateUser({ ...user }, userState.id).subscribe(res => {
+            this.store.dispatch(new RequestUpdateUserSuccess(user))
         }, err => {
             this.store.dispatch(new RequestUpdateUserFail(err))
         })
@@ -110,10 +81,18 @@ export class UserState {
         this._notification.showError("User did not update!")
     }
 
+    @Action(RequestAddSkillToUser)
+    addSkillToUser({ getState }: StateContext<UserStateModel>, { skills }: RequestAddSkillToUser) {
+        const state = getState()
+        let existingSkills = state.skills
+        existingSkills.push(...skills)
+        this.store.dispatch(new RequestUpdateUser({ skills: existingSkills }))
+    }
+
     @Action(ApplyForJob)
     applyForJobRequest({ getState }: StateContext<UserStateModel>, { job }: ApplyForJob) {
         const state = getState()
-        this._notification.showInfo("Applying for " + job.title + "")
+        //this._notification.showInfo("Applying for " + job.title + "")
         let appliedJobs = state.activeJobs
         if (appliedJobs === undefined) {
             appliedJobs = []
@@ -128,14 +107,14 @@ export class UserState {
     }
 
     @Action(ApplyForJobSuccess)
-    ApplyForJobSuccess({ patchState }: StateContext<UserStateModel>, { jobs, title }: ApplyForJobSuccess) {
-        this._notification.showSuccess(`You have applied for ${title} successfully!`)
+    applyForJobSuccess({ patchState }: StateContext<UserStateModel>, { jobs, title }: ApplyForJobSuccess) {
+        //        this._notification.showSuccess(`You have applied for ${title} successfully!`)
         patchState({ activeJobs: jobs })
         this.store.dispatch(new RequestJobs())
     }
 
     @Action(ApplyForJobFail)
-    ApplyForJobFail() {
-        this._notification.showError("Failed to apply for the job!")
+    applyForJobFail() {
+        // this._notification.showError("Failed to apply for the job!")
     }
 }

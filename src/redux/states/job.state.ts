@@ -56,6 +56,7 @@ export class JobsState {
         const state = getState()
         state.isLoading = false
         state.jobs = payload
+        this._notification.showSuccess("New jobs are now available for applying!")
         patchState(state)
     }
 

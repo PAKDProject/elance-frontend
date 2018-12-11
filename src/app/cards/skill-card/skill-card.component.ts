@@ -3,7 +3,6 @@ import { ISkills } from "src/models/skill-model";
 import { SkillsModalComponent } from "src/app/modals/skills-modal/skills-modal.component";
 import { MatDialog } from "@angular/material";
 import { Store } from "@ngxs/store";
-import { RequestRemoveSkillFromUser } from "src/redux/actions/user.actions";
 
 @Component({
   selector: "skill-card",

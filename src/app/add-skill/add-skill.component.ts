@@ -16,6 +16,7 @@ export class AddSkillComponent implements OnInit {
   skillForm: FormGroup;
   skills: ISkills[];
   skillsLoading: boolean;
+  @Output() emitSkills: EventEmitter<ISkills[]> = new EventEmitter<ISkills[]>();
 
   selectedSkills: ISkills[] = [];
   addCustomSkill = term => ({
@@ -55,6 +56,7 @@ export class AddSkillComponent implements OnInit {
 
   addSkills() {
     this.dismissFormEmit.emit(true);
+    this.emitSkills.emit(this.selectedSkills)
   }
 
   dismissForm() {
