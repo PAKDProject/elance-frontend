@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { SkillContainerModalComponent } from 'src/app/modals/skill-container-modal/skill-container-modal.component';
+import { ISkills } from 'src/models/skill-model';
 
 @Component({
   selector: 'add-card',
@@ -9,14 +10,20 @@ import { SkillContainerModalComponent } from 'src/app/modals/skill-container-mod
 })
 export class AddCardComponent implements OnInit {
 
+  @Output() skillEmit: EventEmitter<ISkills[]> = new EventEmitter<ISkills[]>();
   constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
   }
 
   openSkillModal(): void {
-    this.dialog.open(SkillContainerModalComponent, {
+    const dialaogRef = this.dialog.open(SkillContainerModalComponent, {
       maxWidth: '1000px',
+    })
+    dialaogRef.afterClosed().subscribe(yeet => {
+      if (yeet != null) {
+        this.skillEmit.emit(yeet as ISkills[]);
+      }
     })
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
+import { ISkills } from 'src/models/skill-model';
 
 @Component({
   selector: 'app-skill-container-modal',
@@ -23,4 +24,7 @@ export class SkillContainerModalComponent implements OnInit {
     }
   }
 
+  addSkills(e: ISkills[]) {
+    this.dialogRef.close(e);
+  }
 }

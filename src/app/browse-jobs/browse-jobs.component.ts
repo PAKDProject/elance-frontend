@@ -7,6 +7,8 @@ import { Observable } from "rxjs";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { RequestJobs, FilterJobs } from "src/redux/actions/job.actions";
 import { FormControl, NgForm } from "@angular/forms";
+import { RequestUpdateUser, RequestAddSkillToUser } from "src/redux/actions/user.actions";
+import { ISkills } from "src/models/skill-model";
 @Component({
   selector: "app-browse-jobs",
   templateUrl: "./browse-jobs.component.html",
@@ -42,22 +44,21 @@ export class BrowseJobsComponent implements OnInit {
       dateRadio: 'newToOld',
       searchTerm: null
     }
-    
+
     this.searchTerm.valueChanges
       .pipe(debounceTime(1000))
       .pipe(distinctUntilChanged())
       .subscribe(
-        searchTerm =>
-        {
+        searchTerm => {
           this.filters.searchTerm = searchTerm;
-          console.log("Searching for "+ searchTerm)
+          console.log("Searching for " + searchTerm)
           this.performFilter();
         }
       );
   }
 
   applyFilters(filters: NgForm) {
-    let prevSearch = (this.searchTerm.value)?(this.searchTerm.value):(null);
+    let prevSearch = (this.searchTerm.value) ? (this.searchTerm.value) : (null);
     this.filters = filters.value as filterForm;
     this.filters.searchTerm = prevSearch
     console.log("Filters applied");
@@ -104,6 +105,10 @@ export class BrowseJobsComponent implements OnInit {
 
   dismissForm(e: boolean) {
     if (e === true) this.showSkillsForm = false;
+  }
+
+  addSkill(e: ISkills[]) {
+    this.store.dispatch(new RequestAddSkillToUser(e))
   }
 
   hiddenJobIndex: number;

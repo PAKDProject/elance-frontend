@@ -8,7 +8,7 @@
 
   <div class="middleRow">
     <div class="jobDescription">
-        {{job.description}}
+      {{job.description}}
     </div>
     <div class="modalButton" (click)='openJobModal()'>
       <mat-icon>open_in_new</mat-icon>
@@ -18,9 +18,9 @@
   <div class="bottomRow">
     <div class="jobPayment">
       <mat-icon>euro_symbol</mat-icon>
-      {{job.payment | number: '.0'}}
+      {{job.payment | currency:'EUR':'symbol':'1.2-2'}}
     </div>
-    
+
     <div class="jobDueDate">
       <mat-icon>access_time</mat-icon>
       {{job.datePosted | date: 'dd/MM/yyyy'}}

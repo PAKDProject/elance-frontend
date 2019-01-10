@@ -21,6 +21,8 @@ export class InactiveJobModalComponent {
   }
 
   apply(): void {
-    this._store.dispatch(new ApplyForJob(this.data))
+    this._store.dispatch(new ApplyForJob(this.data)).subscribe(yeet => {
+      this.dialogRef.close()
+    })
   }
 }

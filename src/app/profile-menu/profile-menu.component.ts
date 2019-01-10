@@ -78,8 +78,11 @@ export class ProfileMenuComponent implements OnInit {
     this.summaryEdit = !this.summaryEdit;
   }
 
-  addToEducationList(e: any) {
-    if (e.old === null) {
+  addToEducationList(e: { old: IEducationItem, new: IEducationItem }) {
+    if (this.educationIsNotNull(e.new)) {
+      return
+    }
+    else if (e.old === null) {
       this.user.educationItems.push(e.new)
     }
     else {
@@ -87,12 +90,20 @@ export class ProfileMenuComponent implements OnInit {
         return item === e.old
       })
 
-      this.user.educationItems.splice(index, 1)
-      this.user.educationItems.push(e.new)
+      this.user.educationItems[index] = e.new
     }
   }
 
-  addToSkills(e: ISkills) {
-    this.user.skills.push(e);
+  addToSkills(e: ISkills[]) {
+    this.user.skills.push(...e);
+  }
+
+  educationIsNotNull(e: IEducationItem): boolean {
+    let isNotNull: boolean = true
+    Object.getOwnPropertyNames(e).forEach(prop => {
+      if (e[prop] !== null)
+        isNotNull = false
+    })
+    return isNotNull
   }
 }
