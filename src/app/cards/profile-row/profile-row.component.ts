@@ -12,65 +12,151 @@ import { IProfileCard } from 'src/models/profile-card';
 export class ProfileRowComponent implements OnInit {
   @Input() card: IProfileCard;
   @Input() editing: boolean;
+  @Input() arrayIndex;
 
-  @Output() titleChangeEmit: EventEmitter<string> = new EventEmitter<string>();
-  @Output() summaryChangeEmit: EventEmitter<string> = new EventEmitter<string>();
+  @Output() actionEmit: EventEmitter<any> = new EventEmitter<any>();
 
-  @Output() skillAddEmit: EventEmitter<ISkills> = new EventEmitter<ISkills>();
-  @Output() skillDeleteEmit: EventEmitter<ISkills> = new EventEmitter<ISkills>();
-  @Output() skillChangeEmit: EventEmitter<ISkills> = new EventEmitter<ISkills>();
-
-  @Output() eduAddEmit: EventEmitter<any> = new EventEmitter<any>();
-  @Output() eduDeleteEmit: EventEmitter<any> = new EventEmitter<any>();
-  @Output() eduChangeEmit: EventEmitter<any> = new EventEmitter<any>();
-
-  title: FormControl = new FormControl();
   summary: FormControl = new FormControl();
 
+  title: FormControl = new FormControl();
+  customSummary: FormControl = new FormControl();
+
   constructor() {
-    this.title.valueChanges
-    .pipe(debounceTime(500))
-    .pipe(distinctUntilChanged())
-    .subscribe(
-      title => {
-        this.titleChangeEmit.emit(title);
-      }
-    );
     this.summary.valueChanges
     .pipe(debounceTime(500))
     .pipe(distinctUntilChanged())
     .subscribe(
       summary => {
-        this.summaryChangeEmit.emit(summary);
+        this.updateSummary(summary);
+      }
+    );
+
+    this.title.valueChanges
+    .pipe(debounceTime(1000))
+    .pipe(distinctUntilChanged())
+    .subscribe(
+      title => {
+        this.updateTitle(title);
+      }
+    );
+    this.customSummary.valueChanges
+    .pipe(debounceTime(1000))
+    .pipe(distinctUntilChanged())
+    .subscribe(
+      summary => {
+        this.updateCustomSummary(summary)
       }
     );
   }
 
   ngOnInit() { }
 
-  //Title Editing (custom cards)
+  //Toggle Editing
   titleEdit: boolean = false;
   toggleEditTitle() {
     if(this.card.type == 'custom')
     { this.titleEdit = !this.titleEdit; }
   }
-
-  //Summary editing
   summaryEdit: boolean = false;
   toggleEditSummary() { this.summaryEdit = !this.summaryEdit; }
 
+  //Summary editing
+  updateSummary(s: string) {
+    this.actionEmit.emit(
+      {
+        type: 'bioChange',
+        content: s
+      }
+    );
+  }
+
   //Skill editing
-  addSkill(s) { this.skillAddEmit.emit(s); }
+  addSkill(s) {
+    // this.skillAddEmit.emit(s);
+    this.actionEmit.emit(
+      {
+        type: 'addSkill',
+        content: s
+      }
+    );
+  }
 
-  removeSkill(s) { this.skillDeleteEmit.emit(s); }
+  removeSkill(s) {
+    // this.skillDeleteEmit.emit(s);
+    this.actionEmit.emit(
+      {
+        type: 'removeSkill',
+        content: s
+      }
+    )
+  }
 
-  changeSkill(s) { this.skillChangeEmit.emit(s); }
+  changeSkill(s) {
+    // this.skillChangeEmit.emit(s);
+    this.actionEmit.emit(
+      {
+        type: 'changeSkill',
+        content: s
+      }
+    )
+  }
 
   //Education editing
-  addEdu(e) { this.eduAddEmit.emit(e); }
+  addEdu(e) {
+    // this.eduAddEmit.emit(e);
+    this.actionEmit.emit(
+      {
+        type: 'addEducation',
+        content: e
+      }
+    )
+  }
 
-  removeEdu(e) { this.eduDeleteEmit.emit(e); }
+  removeEdu(e) {
+    // this.eduDeleteEmit.emit(e);
+    this.actionEmit.emit(
+      {
+        type: 'removeEducation',
+        content: e
+      }
+    )
+  }
 
-  changeEdu(e) { this.eduChangeEmit.emit(e); }
+  changeEdu(e) {
+    // this.eduChangeEmit.emit(e);
+    this.actionEmit.emit(
+      {
+        type: 'changeEducation',
+        content: e
+      }
+    )
+  }
+
+  //Custom card editing
+  updateTitle(t) {
+    this.actionEmit.emit(
+      {
+        type: 'cTitleChange',
+        content: 
+        {
+          newTitle: t,
+          indexInArray: this.arrayIndex
+        }
+      }
+    )
+  }
+
+  updateCustomSummary(s) {
+    this.actionEmit.emit(
+      {
+        type: 'cSummaryChange',
+        content: 
+        {
+          newSummary: s,
+          indexInArray: this.arrayIndex
+        }
+      }
+    )
+  }
 
 }

@@ -58,11 +58,8 @@
 
     <div class="profileBody">
       <div *ngIf='editing' cdkDropList (cdkDropListDropped)="drop($event)">
-        <div *ngFor='let card of profileCards' class="draggableContainer" cdkDrag>
-          <profile-row [card]='card' [editing]='editing' cdkDrag
-            (summaryChangeEmit)='updateSummary($event)'
-            (skillAddEmit)='addSkill($event)' (skillChangeEmit)='updateSkill($event)' (skillDeleteEmit)='removeSkill($event)'
-            (eduAddEmit)='addEducation($event)' (eduEditEmit)='addEducation($event)' (eduDeleteEmit)='removeEducation($event)'>
+        <div *ngFor='let card of profileCards; index as i' class="draggableContainer" cdkDrag>
+          <profile-row [card]='card' [arrayIndex]='i' [editing]='editing' cdkDrag (actionEmit)='rowAction($event)'>
           </profile-row>
 
           <div class="handleContainer" cdkDragHandle>

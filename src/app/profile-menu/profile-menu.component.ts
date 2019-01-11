@@ -37,8 +37,9 @@ export class ProfileMenuComponent implements OnInit {
         educationItems: element.educationItems,
         skills: element.skills
       };
+    });
 
-      this.profileCards = 
+    this.profileCards = 
       [
         {
           title: "About Me",
@@ -61,7 +62,6 @@ export class ProfileMenuComponent implements OnInit {
           content: "<h1> Yeet </h1>"
         }
       ]
-    });
   }
 
   //Draggable components
@@ -69,6 +69,42 @@ export class ProfileMenuComponent implements OnInit {
     moveItemInArray(this.profileCards, event.previousIndex, event.currentIndex);
   }
 
+  //Row actions
+  rowAction(e) {
+    switch(e.type)
+    {
+      case 'bioChange':
+        this.updateSummary(e.content);
+        break;
+      case 'addSkill':
+        this.addSkill(e.content)
+        break;
+      case 'removeSkill':
+        this.removeSkill(e.content);
+        break;
+      case 'changeSkill':
+        this.changeSkill(e.content);
+        break;
+      case 'addEducation':
+        this.addEducation(e.content);
+        break;
+      case 'removeEducation':
+        this.addEducation(e.content);
+        break;
+      case 'changeEducation':
+        this.addEducation(e.content);
+        break;
+      case 'cTitleChange':
+        this.changeCustomCardTitle(e.content);
+        break;
+      case 'cSummaryChange':
+        this.changeCustomCardSummary(e.content);
+        break;
+      case 'removeCustom':
+        this.removeCustomCard(e.content);
+        break;
+    }
+  }
   //Editing (general)
   editing: boolean = false;
   toggleEditing() {
@@ -88,8 +124,9 @@ export class ProfileMenuComponent implements OnInit {
 
   
   //Summary editing
-  updateSummary(s) { 
-    console.log("Updating summary")
+  updateSummary(s) {
+    console.log("Updating bio")
+    console.log(s)
     this.user.summary = s;
   }
 
@@ -98,7 +135,7 @@ export class ProfileMenuComponent implements OnInit {
     console.log("Adding skill " + aSkill[0].skillTitle )
     this.user.skills.push(...aSkill);
   }
-  updateSkill(updatedSkill: ISkills) {
+  changeSkill(updatedSkill: ISkills) {
     console.log("Updating skill " + updatedSkill.skillTitle)
     this.skills.forEach(skill => {
       if (skill.skillTitle === updatedSkill.skillTitle) {
@@ -153,6 +190,33 @@ export class ProfileMenuComponent implements OnInit {
     
     if (index != -1) {
       this.educationItems.splice(index, 1);
+    }
+  }
+
+  //Custom cards editing
+  changeCustomCardTitle(e: {newTitle: string, indexInArray: number}) {
+    console.log("Updating title of card at index " + e.indexInArray + " to " + e.newTitle);
+    this.profileCards[e.indexInArray].title = e.newTitle
+  }
+
+  changeCustomCardSummary(e: {newSummary: string, indexInArray: number}) {
+    console.log("Updating text of card at index " + e.indexInArray + " to " + e.newSummary);
+    this.profileCards[e.indexInArray].content = e.newSummary
+  }
+
+  removeCustomCard(e) {
+    console.log("removing custom card " + e.title)
+    const index: number = this.profileCards.findIndex(card => {
+      return card === 
+      {
+        title: e.title,
+        type: "custom",
+        summary: e.summary
+      };
+    });
+    
+    if (index != -1) {
+      this.profileCards.splice(index, 1);
     }
   }
 }

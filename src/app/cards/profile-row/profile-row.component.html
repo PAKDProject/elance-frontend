@@ -42,7 +42,7 @@
     <p *ngIf="editing && !summaryEdit" (click)="toggleEditSummary()">
       {{card.content}}
     </p>
-    <textarea *ngIf="editing && summaryEdit" [formControl]='summary' class="form-control" rows="4" autofocus
+    <textarea *ngIf="editing && summaryEdit" [formControl]='customSummary' class="form-control" rows="4" autofocus
               value="{{card.content}}"></textarea>
   </div>
 
