@@ -1,6 +1,9 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 
+//Ngx-Markdown
+import { MarkdownModule } from 'ngx-markdown';
+
 //Angular Bootstrap
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
@@ -144,7 +147,8 @@ import { ProfileRowComponent } from './cards/profile-row/profile-row.component';
       newestOnTop: true,
       autoDismiss: true,
       easeTime: 300
-    })
+    }),
+    MarkdownModule.forRoot()
   ],
   providers: [
     TempUserStorageService,

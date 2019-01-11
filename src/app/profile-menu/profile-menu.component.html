@@ -56,48 +56,17 @@
       </div>
     </div>
 
-    <!-- <div class="profileBody">
-      <div class="bodyContentContainer summaryContainer">
-        <h1>About Me</h1>
-        <p *ngIf="!editing">{{ (user$ | async).summary }}</p>
-        <p *ngIf="editing && !summaryEdit" (click)="toggleEditSummary()">
-          {{ (user$ | async).summary }}
-        </p>
-        <textarea *ngIf="editing && summaryEdit" [(ngModel)]="user.summary" class="form-control" rows="4" autofocus
-          value="{{ (user$ | async).summary}}"></textarea>
-      </div>
-
-      <div class="bodyContentContainer">
-        <h1>Education</h1>
-        <div *ngIf="educationItems" style="margin-top: 3px">
-          <education-card *ngFor="let education of educationItems" [EducationItem]="education" [editing]="editing"
-            (educationEmit)="addToEducationList($event)"></education-card>
-          <add-education *ngIf="editing" (educationEmit)="addToEducationList($event)"></add-education>
-        </div>
-      </div>
-
-      <div class="bodyContentContainer">
-        <h1>Skills</h1>
-        <div *ngIf="skills" style="margin-top: 3px;">
-          <skill-card *ngFor="let skill of skills" [SkillItem]="skill" [editing]="editing" (deleteEmit)="removeSkill($event)"
-            (skillChangeEmit)="updateSkills($event)">
-          </skill-card>
-          <add-card *ngIf="editing" (skillEmit)="addToSkills($event)"></add-card>
-        </div>
-      </div>
-    </div> -->
-
     <div class="profileBody">
       <div *ngIf='editing' cdkDropList (cdkDropListDropped)="drop($event)">
-        <div *ngFor='let bRow of bodyRows' class="draggableContainer" cdkDrag>
-          <profile-row [title]='bRow' [content]='getBodyRowContent(bRow)' [editing]='editing' cdkDrag
+        <div *ngFor='let card of profileCards' class="draggableContainer" cdkDrag>
+          <profile-row [card]='card' [editing]='editing' cdkDrag
             (summaryChangeEmit)='updateSummary($event)'
             (skillAddEmit)='addSkill($event)' (skillChangeEmit)='updateSkill($event)' (skillDeleteEmit)='removeSkill($event)'
             (eduAddEmit)='addEducation($event)' (eduEditEmit)='addEducation($event)' (eduDeleteEmit)='removeEducation($event)'>
           </profile-row>
 
-          <div class="handleContainer">
-            <div class="dragHandle" cdkDragHandle>
+          <div class="handleContainer" cdkDragHandle>
+            <div class="dragHandle">
               <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
                 <path d="M0 0h24v24H0z" fill="none"></path>
@@ -108,8 +77,8 @@
       </div>
 
       <div *ngIf='!editing'>
-        <div  *ngFor='let bRow of bodyRows' class="nonDraggableContainer">
-          <profile-row [title]='bRow' [content]='getBodyRowContent(bRow)' [editing]='false'></profile-row>
+        <div *ngFor='let card of profileCards' class="nonDraggableContainer">
+          <profile-row [card]='card' [editing]='false'></profile-row>
         </div>
       </div>
     </div>

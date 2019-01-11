@@ -19,7 +19,7 @@ export class ProfileMenuComponent implements OnInit {
   educationItems: IEducationItem[];
   socialLinks: ISocialLink[];
   user: Partial<IUser> = {};
-  bodyRows = ["About Me", "Education", "Skills"]
+  profileCards;
 
   constructor(private _notify: NotificationService, private store: Store) { }
 
@@ -37,24 +37,36 @@ export class ProfileMenuComponent implements OnInit {
         educationItems: element.educationItems,
         skills: element.skills
       };
+
+      this.profileCards = 
+      [
+        {
+          title: "About Me",
+          type: "bio",
+          content: this.user.summary
+        },
+        {
+          title: "Education",
+          type: "edu",
+          content: this.user.educationItems
+        },
+        {
+          title: "Skills",
+          type: "skills",
+          content: this.user.skills
+        },
+        {
+          title: "Yeet",
+          type: "custom",
+          content: "<h1> Yeet </h1>"
+        }
+      ]
     });
   }
 
   //Draggable components
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.bodyRows, event.previousIndex, event.currentIndex);
-  }
-
-  getBodyRowContent(title: string) {
-    switch(title)
-    {
-      case "About Me":
-        return this.user.summary;
-      case "Education":
-        return this.user.educationItems;
-      case "Skills":
-        return this.user.skills;
-    }
+    moveItemInArray(this.profileCards, event.previousIndex, event.currentIndex);
   }
 
   //Editing (general)

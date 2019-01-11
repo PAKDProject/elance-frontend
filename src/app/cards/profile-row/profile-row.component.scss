@@ -1,17 +1,8 @@
 @import '../../../variables.scss';
 .bodyContentContainer {
     display: grid;
-    // grid-template-columns: 200px auto;
     grid-template-rows: auto auto;
-
-    // border-bottom: 2px gray solid;
-    // padding-bottom: 10px;
-
-    // border: 1px $accent solid;
-    // border-radius: 5px;
-
     padding-bottom: 10px;
-
     background: #eaeaea;
 
     .topRow {
@@ -35,6 +26,8 @@
     }
 
     div {
+        padding: 5px;
+        
         skill-card, add-card {
             height: 20px;
         }

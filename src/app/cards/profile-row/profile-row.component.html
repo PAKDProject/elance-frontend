@@ -1,31 +1,49 @@
 <div class="bodyContentContainer">
   <div class="topRow">
-      <h1>{{title}}</h1>    
+    <h1 *ngIf='!editing'>{{card.title}}</h1>
+    <h1 *ngIf="editing && !titleEdit" (click)="toggleEditTitle()">
+        {{card.title}}
+    </h1>
+    <input *ngIf="(editing && titleEdit)" [formControl]='title' class="form-control" value="{{card.title}}"/>
   </div>
   
-  <div *ngIf='title == "About Me"'>
-    <p *ngIf="!editing">{{content}}</p>
+  <!-- Bio Card -->
+  <div *ngIf='card.type == "bio"'>
+    <p *ngIf="!editing">{{card.content}}</p>
     <p *ngIf="editing && !summaryEdit" (click)="toggleEditSummary()">
-      {{content}}
+      {{card.content}}
     </p>
     <textarea *ngIf="editing && summaryEdit" [formControl]='summary' class="form-control" rows="4" autofocus
-              value="{{content}}"></textarea>
+              value="{{card.content}}"></textarea>
   </div>
 
-  <div *ngIf='title == "Education"'>
+  <!-- Education Card -->
+  <div *ngIf='card.type == "edu"'>
     <div style="margin-top: 3px">
-      <education-card *ngFor="let education of content" [EducationItem]="education" [editing]="editing"
+      <education-card *ngFor="let education of card.content" [EducationItem]="education" [editing]="editing"
                       (educationEmit)="addEdu($event)"></education-card>
       <add-education *ngIf="editing" (educationEmit)="addEdu($event)"></add-education>
     </div>
   </div>
 
-  <div *ngIf='title == "Skills"'>
+  <!-- Skills Card -->
+  <div *ngIf='card.type == "skills"'>
     <div style="margin-top: 3px;">
-      <skill-card *ngFor="let skill of content" [SkillItem]="skill" [editing]="editing" (deleteEmit)="removeSkill($event)"
+      <skill-card *ngFor="let skill of card.content" [SkillItem]="skill" [editing]="editing" (deleteEmit)="removeSkill($event)"
                   (skillChangeEmit)="changeSkill($event)">
       </skill-card>
       <add-card *ngIf="editing" (skillEmit)="addSkill($event)"></add-card>
     </div>
   </div>
+  
+  <!-- Custom (Markdown) Card -->
+  <div *ngIf='card.type == "custom"'>
+    <markdown *ngIf='!editing' ngPreserveWhitespaces> {{card.content}} </markdown>
+    <p *ngIf="editing && !summaryEdit" (click)="toggleEditSummary()">
+      {{card.content}}
+    </p>
+    <textarea *ngIf="editing && summaryEdit" [formControl]='summary' class="form-control" rows="4" autofocus
+              value="{{card.content}}"></textarea>
+  </div>
+
 </div>
