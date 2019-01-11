@@ -6,6 +6,7 @@ import { UserState } from "src/redux/states/user.state";
 import { ISkills } from "src/models/skill-model";
 import { NotificationService } from "src/services/notifications/notification.service";
 import { RequestUpdateUser } from "src/redux/actions/user.actions";
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: "app-profile-menu",
@@ -18,6 +19,7 @@ export class ProfileMenuComponent implements OnInit {
   educationItems: IEducationItem[];
   socialLinks: ISocialLink[];
   user: Partial<IUser> = {};
+  bodyRows = ["About Me", "Education", "Skills"]
 
   constructor(private _notify: NotificationService, private store: Store) { }
 
@@ -38,6 +40,24 @@ export class ProfileMenuComponent implements OnInit {
     });
   }
 
+  //Draggable components
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.bodyRows, event.previousIndex, event.currentIndex);
+  }
+
+  getBodyRowContent(title: string) {
+    switch(title)
+    {
+      case "About Me":
+        return this.user.summary;
+      case "Education":
+        return this.user.educationItems;
+      case "Skills":
+        return this.user.skills;
+    }
+  }
+
+  //Editing (general)
   editing: boolean = false;
   toggleEditing() {
     if (this.editing) {
@@ -54,18 +74,20 @@ export class ProfileMenuComponent implements OnInit {
     }
   }
 
-  removeSkill(rSkill) {
-    const index: number = this.skills.findIndex(skill => {
-      return skill === rSkill;
-    });
-    alert(index);
-
-    if (index != -1) {
-      this.skills.splice(index, 1);
-    }
+  
+  //Summary editing
+  updateSummary(s) { 
+    console.log("Updating summary")
+    this.user.summary = s;
   }
 
-  updateSkills(updatedSkill: ISkills) {
+  //Skill editing
+  addSkill(aSkill: ISkills[]) {
+    console.log("Adding skill " + aSkill[0].skillTitle )
+    this.user.skills.push(...aSkill);
+  }
+  updateSkill(updatedSkill: ISkills) {
+    console.log("Updating skill " + updatedSkill.skillTitle)
     this.skills.forEach(skill => {
       if (skill.skillTitle === updatedSkill.skillTitle) {
         skill = updatedSkill;
@@ -73,19 +95,28 @@ export class ProfileMenuComponent implements OnInit {
     });
   }
 
-  summaryEdit: boolean = false;
-  toggleEditSummary() {
-    this.summaryEdit = !this.summaryEdit;
+  removeSkill(rSkill: ISkills) {
+    console.log("Removing skill " + rSkill.skillTitle)
+    const index: number = this.skills.findIndex(skill => {
+      return skill === rSkill;
+    });
+
+    if (index != -1) {
+      this.skills.splice(index, 1);
+    }
   }
 
-  addToEducationList(e: { old: IEducationItem, new: IEducationItem }) {
+  //Education editing
+  addEducation(e: { old: IEducationItem, new: IEducationItem }) {
     if (this.educationIsNotNull(e.new)) {
       return
     }
     else if (e.old === null) {
+      console.log("Adding education " + e.new.degreeTitle)
       this.user.educationItems.push(e.new)
     }
     else {
+      console.log("Updating education " + e.old.degreeTitle)
       let index = this.user.educationItems.findIndex((item) => {
         return item === e.old
       })
@@ -93,11 +124,6 @@ export class ProfileMenuComponent implements OnInit {
       this.user.educationItems[index] = e.new
     }
   }
-
-  addToSkills(e: ISkills[]) {
-    this.user.skills.push(...e);
-  }
-
   educationIsNotNull(e: IEducationItem): boolean {
     let isNotNull: boolean = true
     Object.getOwnPropertyNames(e).forEach(prop => {
@@ -105,5 +131,17 @@ export class ProfileMenuComponent implements OnInit {
         isNotNull = false
     })
     return isNotNull
+  }
+
+  removeEducation(rEdu: IEducationItem) {
+    console.log("removing education " + rEdu.degreeTitle)
+    const index: number = this.educationItems.findIndex(eduItem => {
+      return eduItem === rEdu;
+    });
+    alert(index);
+
+    if (index != -1) {
+      this.educationItems.splice(index, 1);
+    }
   }
 }

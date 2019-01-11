@@ -78,6 +78,7 @@ import { UserService } from "src/services/user-service/user.service";
 import { AddSkillComponent } from "./add-skill/add-skill.component";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { AddEducationComponent } from './cards/add-education/add-education.component';
+import { ProfileRowComponent } from './cards/profile-row/profile-row.component';
 
 @NgModule({
   declarations: [
@@ -115,7 +116,8 @@ import { AddEducationComponent } from './cards/add-education/add-education.compo
     AddCardComponent,
     AddSkillComponent,
     SkillContainerModalComponent,
-    AddEducationComponent
+    AddEducationComponent,
+    ProfileRowComponent
   ],
   imports: [
     BrowserAnimationsModule,

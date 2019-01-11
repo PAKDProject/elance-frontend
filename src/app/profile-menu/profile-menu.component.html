@@ -56,7 +56,7 @@
       </div>
     </div>
 
-    <div class="profileBody">
+    <!-- <div class="profileBody">
       <div class="bodyContentContainer summaryContainer">
         <h1>About Me</h1>
         <p *ngIf="!editing">{{ (user$ | async).summary }}</p>
@@ -84,6 +84,29 @@
           </skill-card>
           <add-card *ngIf="editing" (skillEmit)="addToSkills($event)"></add-card>
         </div>
+      </div>
+    </div> -->
+
+    <div class="profileBody">
+      <div *ngIf='editing' cdkDropList (cdkDropListDropped)="drop($event)">
+        <div *ngFor='let bRow of bodyRows' class="draggableContainer" cdkDrag>
+          <profile-row [title]='bRow' [content]='getBodyRowContent(bRow)' [editing]='editing' cdkDrag
+            (summaryChangeEmit)='updateSummary($event)'
+            (skillAddEmit)='addSkill($event)' (skillChangeEmit)='updateSkills($event)' (skillDeleteEmit)='removeSkill($event)'
+            (eduAddEmit)='addEducation($event)' (eduEditEmit)='addEducation($event)' (eduDeleteEmit)='removeEducation($event)'>
+          </profile-row>
+
+          <div cdkDragHandle>
+            <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+              <path d="M0 0h24v24H0z" fill="none"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf='!editing'>
+        <profile-row *ngFor='let bRow of bodyRows' [title]='bRow' [content]='getBodyRowContent(bRow)' [editing]='false'></profile-row>
       </div>
     </div>
   </div>

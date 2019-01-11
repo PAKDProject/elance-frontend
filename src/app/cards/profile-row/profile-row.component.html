@@ -1,0 +1,29 @@
+<div class="bodyContentContainer">
+  <h1>{{title}}</h1>
+
+  <div *ngIf='title == "About Me"'>
+    <p *ngIf="!editing">{{content}}</p>
+    <p *ngIf="editing && !summaryEdit" (click)="toggleEditSummary()">
+      {{content}}
+    </p>
+    <textarea *ngIf="editing && summaryEdit" [formControl]='summary' class="form-control" rows="4" autofocus
+              value="{{content}}"></textarea>
+  </div>
+
+  <div *ngIf='title == "Education"'>
+    <div style="margin-top: 3px">
+      <education-card *ngFor="let education of content" [EducationItem]="education" [editing]="editing"
+                      (educationEmit)="addEdu($event)"></education-card>
+      <add-education *ngIf="editing" (educationEmit)="addEdu($event)"></add-education>
+    </div>
+  </div>
+
+  <div *ngIf='title == "Skills"'>
+    <div style="margin-top: 3px;">
+      <skill-card *ngFor="let skill of content" [SkillItem]="skill" [editing]="editing" (deleteEmit)="removeSkill($event)"
+                  (skillChangeEmit)="changeSkill($event)">
+      </skill-card>
+      <add-card *ngIf="editing" (skillEmit)="addSkill($event)"></add-card>
+    </div>
+  </div>
+</div>

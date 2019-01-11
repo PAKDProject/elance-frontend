@@ -15,9 +15,10 @@ import {
   MatTooltipModule,
   MatDialogModule,
   MatInputModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
 } from "@angular/material";
 
+import { DragDropModule } from "@angular/cdk/drag-drop";
 @NgModule({
   imports: [
     BrowserModule,
@@ -33,7 +34,8 @@ import {
     MatTooltipModule,
     MatDialogModule,
     MatProgressSpinnerModule,
-    MatSliderModule
+    MatSliderModule,
+    DragDropModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -49,7 +51,8 @@ import {
     MatTooltipModule,
     MatDialogModule,
     MatProgressSpinnerModule,
-    MatSliderModule
+    MatSliderModule,
+    DragDropModule
   ]
 })
 export class AngularMaterialModule {}
