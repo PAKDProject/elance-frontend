@@ -108,29 +108,29 @@ export class ProfileMenuComponent implements OnInit {
 
   //Education editing
   addEducation(e: { old: IEducationItem, new: IEducationItem }) {
-    if (this.educationIsNotNull(e.new)) {
-      return
+    if(e != null)
+    {
+      //If old is null but new isnt, add education
+      if (e.old === null && e.new != null) {
+        console.log("Adding education " + e.new.degreeTitle)
+        this.user.educationItems.push(e.new)
+      }
+      //If old and new aren't null, update
+      else if (e.old != null && e.new != null) {
+        console.log("Updating education " + e.old.degreeTitle)
+        let index = this.user.educationItems.findIndex((item) => {
+          return item === e.old
+        })
+  
+        this.user.educationItems[index] = e.new
+      }
+      //If old isn't null and new is, delete
+      else if (e.old != null && e.new == null)
+      {
+        console.log("Removing education " + e.old.degreeTitle)
+        this.removeEducation(e.old); 
+      }
     }
-    else if (e.old === null) {
-      console.log("Adding education " + e.new.degreeTitle)
-      this.user.educationItems.push(e.new)
-    }
-    else {
-      console.log("Updating education " + e.old.degreeTitle)
-      let index = this.user.educationItems.findIndex((item) => {
-        return item === e.old
-      })
-
-      this.user.educationItems[index] = e.new
-    }
-  }
-  educationIsNotNull(e: IEducationItem): boolean {
-    let isNotNull: boolean = true
-    Object.getOwnPropertyNames(e).forEach(prop => {
-      if (e[prop] !== null)
-        isNotNull = false
-    })
-    return isNotNull
   }
 
   removeEducation(rEdu: IEducationItem) {
@@ -138,8 +138,7 @@ export class ProfileMenuComponent implements OnInit {
     const index: number = this.educationItems.findIndex(eduItem => {
       return eduItem === rEdu;
     });
-    alert(index);
-
+    
     if (index != -1) {
       this.educationItems.splice(index, 1);
     }

@@ -16,12 +16,22 @@
 </div>
 
 <div class="container" *ngIf="editing">
-  <h2 mat-dialog-title class="text-center" *ngIf="educationItem !== null">
-    Edit Education
-  </h2>
-  <h2 mat-dialog-title class="text-center" *ngIf="educationItem === null">
-    Add Education
-  </h2>
+  <div class="titleBar">
+    <div></div>
+
+    <div>
+      <h2 mat-dialog-title class="text-center" *ngIf="oldItem != null">
+        Edit Education
+      </h2>
+      <h2 mat-dialog-title class="text-center" *ngIf="oldItem == null">
+        Add Education
+      </h2>
+    </div>
+  
+    <div class="deleteButton" *ngIf='oldItem != null'>
+      <mat-icon (click)='removeEducation()'>delete</mat-icon>
+    </div>
+  </div>
 
   <form [formGroup]="educationForm" (ngSubmit)="addEducation()">
     <div class="row">

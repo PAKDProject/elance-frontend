@@ -85,6 +85,7 @@ export class EducationModalComponent implements OnInit {
       }
     }
   }
+
   //Retrieve education from form, check if start date is before end date and then add to array
   addEducation() {
     this.educationItem = {
@@ -96,6 +97,15 @@ export class EducationModalComponent implements OnInit {
       collegeName: this.collegeName.value
     };
     //HERE I EMIT THE EDUCATION ITEM, Where it ends up? I dont have a notion
-    this.dialogRef.close(this.educationItem);
+    if(this.oldItem != null)
+    { this.dialogRef.close({ old: this.oldItem, new: this.educationItem }) }
+    else
+    { this.dialogRef.close({ old: null, new: this.educationItem })}
+  }
+
+  //Remove education
+  removeEducation() {
+    console.log("Remove clicked");
+    this.dialogRef.close({ old: this.oldItem, new: null });
   }
 }

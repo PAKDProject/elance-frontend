@@ -48,3 +48,18 @@
   background: $primary;
   color: white;
 }
+
+.container {
+  .titleBar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+
+    .deleteButton {
+      justify-self: right;
+
+      mat-icon:hover {
+        color:red;
+      }
+    }
+  }
+}

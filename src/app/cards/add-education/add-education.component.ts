@@ -24,7 +24,7 @@ export class AddEducationComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(data => {
       if (data !== undefined) {
-        this.educationEmit.emit({ old: null, new: data });
+        this.educationEmit.emit(data);
       }
     });
   }

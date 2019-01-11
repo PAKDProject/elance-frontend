@@ -25,7 +25,7 @@ export class EducationCardComponent {
 
     dialogRef.afterClosed().subscribe(data => {
       if (data !== undefined) {
-        this.educationEmit.emit({ old: this.education, new: data });
+        this.educationEmit.emit(data);
       }
     });
   }
