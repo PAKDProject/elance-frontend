@@ -1,6 +1,8 @@
 <div class="bodyContentContainer">
-  <h1>{{title}}</h1>
-
+  <div class="topRow">
+      <h1>{{title}}</h1>    
+  </div>
+  
   <div *ngIf='title == "About Me"'>
     <p *ngIf="!editing">{{content}}</p>
     <p *ngIf="editing && !summaryEdit" (click)="toggleEditSummary()">

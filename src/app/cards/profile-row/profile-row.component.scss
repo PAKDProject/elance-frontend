@@ -1,20 +1,37 @@
+@import '../../../variables.scss';
 .bodyContentContainer {
-border-bottom: 2px gray solid;
-padding-bottom: 10px;
+    display: grid;
+    // grid-template-columns: 200px auto;
+    grid-template-rows: auto auto;
 
-display: grid;
-grid-template-columns: 200px auto;
-    p {
-    white-space: pre-wrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    // border-bottom: 2px gray solid;
+    // padding-bottom: 10px;
+
+    // border: 1px $accent solid;
+    // border-radius: 5px;
+
+    padding-bottom: 10px;
+
+    background: #eaeaea;
+
+    .topRow {
+        background: $accent;
+        padding: 5px;
+        
+        h1 {
+            color: white;
+            justify-self: left;
+            font-size: 25px;
+            // padding-right: 20px;
+            white-space: nowrap;
+        }
     }
 
-    h1 {
-    justify-self: center;
-    font-size: 40px;
-    padding-right: 20px;
-    white-space: nowrap;
+    p {
+        padding: 5px;
+        white-space: pre-wrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     div {
@@ -22,23 +39,18 @@ grid-template-columns: 200px auto;
             height: 20px;
         }
     }
+}
 
-    div {
-        education-card, add-education {
-        height: 20px;
-        }
-    }
-}
-.summaryContainer {
-    p {
-    line-height: 20px;
-    font-size: 16px;
-    }
-    textarea {
-    font-size: 16px;
-    line-height: 20px;
-    border: 0;
-    margin: 0;
-    padding: 0;
-    }
-}
+// .summaryContainer {
+//     p {
+//     line-height: 20px;
+//     font-size: 16px;
+//     }
+//     textarea {
+//     font-size: 16px;
+//     line-height: 20px;
+//     border: 0;
+//     margin: 0;
+//     padding: 0;
+//     }
+// }

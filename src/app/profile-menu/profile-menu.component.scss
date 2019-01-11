@@ -200,57 +200,42 @@
   display: grid;
   grid-template-rows: auto;
 
-  // .bodyContentContainer {
-  //   border-bottom: 2px gray solid;
-  //   padding-bottom: 10px;
+  .draggableContainer {
+    margin: 10px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
 
-  //   display: grid;
-  //   grid-template-columns: 200px auto;
+    .handleContainer {
+      background: $accent;
+      display: grid;
+      height: 100%;
+      padding: 5px;
 
-    // p {
-    //   white-space: pre-wrap;
-    //   overflow: hidden;
-    //   text-overflow: ellipsis;
-    // }
-
-    // h1 {
-    //   justify-self: center;
-    //   font-size: 40px;
-    //   padding-right: 20px;
-    //   white-space: nowrap;
-    // }
-
-    // div {
-    //   skill-card, add-card {
-    //     height: 20px;
-    //   }
-    // }
-
-    // div {
-    //   education-card, add-education {
-    //     height: 20px;
-    //   }
-    // }
+      .dragHandle {
+        color: white;
+        justify-self: center;
+        align-self: center;
+      }
+    }
   }
-  // .summaryContainer {
-  //   p {
-  //     line-height: 20px;
-  //     font-size: 16px;
-  //   }
-  //   textarea {
-  //     font-size: 16px;
-  //     line-height: 20px;
-  //     border: 0;
-  //     margin: 0;
-  //     padding: 0;
-  //   }
-  // }
-// }
+
+  .nonDraggableContainer {
+    margin: 10px;
+    width: 100%;
+  }
+}
 
 @media only screen and (max-width: 768px) {
   .profileBody {
     .bodyContentContainer {
-      grid-template-columns: auto;
+      grid-template-columns: 1fr auto;
+      grid-column-gap: 100px;
+
+      .dragHandle {
+        justify-self: center;
+        align-self: center;
+      }
     }
   }
 }
