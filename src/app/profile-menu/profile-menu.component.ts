@@ -205,4 +205,14 @@ export class ProfileMenuComponent implements OnInit {
     console.log("removing custom card at index " + index)
     this.profileCards.splice(index, 1);
   }
+
+  addCustomCard() {
+    this.profileCards.push(
+      {
+        title: "Click to edit title",
+        type: "custom",
+        content: "Add your content here. This card supports markdown."
+      }
+    )
+  }
 }

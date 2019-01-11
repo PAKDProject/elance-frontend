@@ -219,6 +219,21 @@
     }
   }
 
+  .addCardRow{
+    display: grid;
+    grid-template-columns: 1fr auto;
+
+    .addCardButton {
+      margin-top: 10px;
+      grid-column: 2;
+      display: grid;
+      grid-template-columns: auto auto;
+      justify-self: end;
+      padding: 5px;
+      background: $accent;
+      color: white;
+    }
+  }
   .nonDraggableContainer {
     margin-top: 10px;
     width: 100%;
