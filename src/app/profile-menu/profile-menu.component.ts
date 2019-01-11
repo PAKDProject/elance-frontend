@@ -100,9 +100,6 @@ export class ProfileMenuComponent implements OnInit {
       case 'cSummaryChange':
         this.changeCustomCardSummary(e.content);
         break;
-      case 'removeCustom':
-        this.removeCustomCard(e.content);
-        break;
     }
   }
   //Editing (general)
@@ -204,19 +201,8 @@ export class ProfileMenuComponent implements OnInit {
     this.profileCards[e.indexInArray].content = e.newSummary
   }
 
-  removeCustomCard(e) {
-    console.log("removing custom card " + e.title)
-    const index: number = this.profileCards.findIndex(card => {
-      return card === 
-      {
-        title: e.title,
-        type: "custom",
-        summary: e.summary
-      };
-    });
-    
-    if (index != -1) {
-      this.profileCards.splice(index, 1);
-    }
+  removeCustomCard(index) {
+    console.log("removing custom card at index " + index)
+    this.profileCards.splice(index, 1);
   }
 }
