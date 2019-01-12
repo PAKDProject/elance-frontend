@@ -7,6 +7,7 @@ import { NotificationService } from '../notifications/notification.service';
 import { environment } from 'src/environments/environment';
 import { filterForm } from 'src/app/browse-jobs/browse-jobs.component';
 import { Job } from 'aws-sdk/clients/codepipeline';
+import { IUser } from 'src/models/user-model';
 
 @Injectable({
   providedIn: 'root'
@@ -67,6 +68,7 @@ export class JobService {
   deleteJob(jobId: string) {
     this._http.delete(`${this.endpoint}/${jobId}`).pipe(catchError(this.handleError))
   }
+
 
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

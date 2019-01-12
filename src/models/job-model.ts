@@ -13,4 +13,7 @@ export interface IJob {
   dateAccepted?: Date;
   dateDue?: Date;
   progress?: number;
+
+  //New Field
+  applicants?: IUser[];
 }
