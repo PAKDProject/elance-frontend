@@ -207,12 +207,20 @@ export class ProfileMenuComponent implements OnInit {
   }
 
   addCustomCard() {
-    this.profileCards.push(
-      {
-        title: "Click to edit title",
-        type: "custom",
-        content: "Add your content here. This card supports markdown."
-      }
-    )
+    if(this.profileCards.length < 8)
+    {
+      this.profileCards.push(
+        {
+          title: "Click to edit title",
+          type: "custom",
+          content: "Add your content here. This card supports markdown."
+        }
+      )
+      console.log(this.profileCards.length);
+    }
+    else
+    {
+      this._notify.showError("Card limit reached","You have reached the maximum amount of cards. Please remove or edit an existing card.")
+    }
   }
 }
