@@ -14,5 +14,5 @@ export interface IJob {
   dateDue?: Date;
   progress?: number;
   //New field
-  applicants: string[];
+  applicants?: string[];
 }
