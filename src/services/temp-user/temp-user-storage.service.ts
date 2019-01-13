@@ -88,7 +88,27 @@ export class TempUserStorageService {
         }
       ],
       tagline: 'Software Developer',
-      contacts: []
+      contacts: [],
+      profileCards: 
+      [
+        {
+          title: "About Me",
+          type: "bio"
+        },
+        {
+          title: "Education",
+          type: "edu"
+        },
+        {
+          title: "Skills",
+          type: "skills"
+        },
+        {
+          title: "Custom Card 1",
+          type: "custom",
+          content: "<h1> 18 naked cowboys in the showers at Ram Ranch </h1>"
+        }
+      ]
     }
 
     return of(this.user)

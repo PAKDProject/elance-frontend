@@ -1,4 +1,4 @@
-<div class="bodyContentContainer">
+<div class="bodyContentContainer" *ngIf='!((card.content == null || card.content.length < 1) && !editing)'>
   <div class="topRow">
     <h1 *ngIf='!editing'>{{card.title}}</h1>
     <h1 *ngIf="editing && !titleEdit" (click)="toggleEditTitle()">

@@ -28,6 +28,7 @@ export class ProfileMenuComponent implements OnInit {
       this.skills = element.skills;
       this.educationItems = element.educationItems;
       this.socialLinks = element.socialLinks;
+      this.profileCards = element.profileCards;
 
       this.user = {
         fName: element.fName,
@@ -37,31 +38,23 @@ export class ProfileMenuComponent implements OnInit {
         educationItems: element.educationItems,
         skills: element.skills
       };
-    });
 
-    this.profileCards = 
-      [
+      //Assign content to preset cards
+      this.profileCards.forEach(c => {
+        switch(c.type)
         {
-          title: "About Me",
-          type: "bio",
-          content: this.user.summary
-        },
-        {
-          title: "Education",
-          type: "edu",
-          content: this.user.educationItems
-        },
-        {
-          title: "Skills",
-          type: "skills",
-          content: this.user.skills
-        },
-        {
-          title: "Yeet",
-          type: "custom",
-          content: "<h1> Yeet </h1>"
+          case "bio":
+            c.content = element.summary
+            break;
+          case "edu":
+            c.content = this.educationItems
+            break;
+          case "skills":
+            c.content = this.skills
+            break;
         }
-      ]
+      });
+    });
   }
 
   //Draggable components
@@ -216,7 +209,7 @@ export class ProfileMenuComponent implements OnInit {
           content: "Add your content here. This card supports markdown."
         }
       )
-      console.log(this.profileCards.length);
+      console.table(this.profileCards);
     }
     else
     {

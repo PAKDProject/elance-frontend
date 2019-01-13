@@ -16,7 +16,8 @@ export interface IUser {
   socialLinks?: ISocialLink[];
   tagline?: string;
   contacts?: IUser[];
-  activeJobs?: IJob[]
+  activeJobs?: IJob[];
+  profileCards?: IProfileCard[];
 }
 
 export interface ISocialLink {
@@ -39,3 +40,10 @@ export interface ISkills {
   // An idea to be discussed. 1-10 on progress bar or something
   // levelOfConfidence?: number;
 }
+
+interface IProfileCard {
+    title: string,
+    type: string,
+    content?: string | ISkills[] | IEducationItem[]
+}
+

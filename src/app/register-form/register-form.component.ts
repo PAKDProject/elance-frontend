@@ -192,12 +192,33 @@ export class RegisterFormComponent implements OnInit {
       if (this.user.fName && this.user.lName) {
         // this.userServiceTemp.setUser(this.user);
         // this.user.summary = RegisterFormComponent.stupidify(this.user.summary); NEVER TOUCH THIS EVER AGAIN
+        this.setDefaultProfileCards();
         this.userService.createUser(this.user);
         this.store.dispatch(new RequestUserSuccessAction(this.user));
         this.router.navigate(["home/user-profile"]);
       }
     }
   }
+
+  //Set default profile cards
+  setDefaultProfileCards() {
+    this.user.profileCards = 
+    [
+      {
+        title: "About Me",
+        type: "bio"
+      },
+      {
+        title: "Education",
+        type: "edu"
+      },
+      {
+        title: "Skills",
+        type: "skills"
+      }
+    ]
+  }
+
   //Get social media links and set them
   checkSocials() {
     const facebook = this.facebook.value;
