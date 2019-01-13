@@ -7,6 +7,7 @@ import { NotificationService } from '../notifications/notification.service';
 import { environment } from 'src/environments/environment';
 import { filterForm } from 'src/app/browse-jobs/browse-jobs.component';
 import { Job } from 'aws-sdk/clients/codepipeline';
+import { IUser } from 'src/models/user-model';
 
 @Injectable({
   providedIn: 'root'
@@ -57,7 +58,7 @@ export class JobService {
    * @param job IJob Object
    */
   updateJob(job: IJob) {
-    this._http.put(`${this.endpoint}/${job.id}`, JSON.stringify(job), this.httpOptions).pipe(catchError(this.handleError))
+    return this._http.put(`${this.endpoint}/${job.id}`, JSON.stringify(job), this.httpOptions).pipe(catchError(this.handleError))
   }
 
   /**
@@ -67,6 +68,7 @@ export class JobService {
   deleteJob(jobId: string) {
     this._http.delete(`${this.endpoint}/${jobId}`).pipe(catchError(this.handleError))
   }
+
 
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -84,13 +86,13 @@ export class JobService {
 
 
   //Temp job searching
-  searchJob(searchTerm: string): Observable<IJob[]>{
+  searchJob(searchTerm: string): Observable<IJob[]> {
     return this._http.get(this.endpoint).pipe(map((res) => {
       let response = res as { jobs: IJob[] };
-      
+
       response.jobs = (response.jobs.filter((j: IJob) =>
-          j.title.toLocaleLowerCase().indexOf(searchTerm.toLocaleLowerCase()) !== -1));
-      
+        j.title.toLocaleLowerCase().indexOf(searchTerm.toLocaleLowerCase()) !== -1));
+
       return response.jobs;
     }))
   }
@@ -102,22 +104,21 @@ export class JobService {
       console.log(response.jobs);
 
       //Filtering & searching
-      if(filters.searchTerm) {
+      if (filters.searchTerm) {
         response.jobs = (response.jobs.filter((j: IJob) =>
-        j.title.toLocaleLowerCase().indexOf(filters.searchTerm.toLocaleLowerCase()) !== -1));
+          j.title.toLocaleLowerCase().indexOf(filters.searchTerm.toLocaleLowerCase()) !== -1));
       }
-      if(filters.minPayment) {
+      if (filters.minPayment) {
         response.jobs = (response.jobs.filter((j: IJob) =>
-        j.payment > filters.minPayment));
+          j.payment > filters.minPayment));
       }
-      if(filters.maxPayment) {
+      if (filters.maxPayment) {
         response.jobs = (response.jobs.filter((j: IJob) =>
-        j.payment < filters.maxPayment));
+          j.payment < filters.maxPayment));
       }
 
       //Sorting by date ascending and descending
-      switch(filters.dateRadio)
-      {
+      switch (filters.dateRadio) {
         case 'newToOld':
           response.jobs.sort(function (a, b) {
             var jobA = a.datePosted, jobB = b.datePosted;
@@ -135,8 +136,8 @@ export class JobService {
       }
 
       console.log(response.jobs);
-        
+
       return response.jobs;
-      }));
-    }
+    }));
+  }
 }
