@@ -1,5 +1,5 @@
 import { State, StateContext, Action, Selector, Store } from "@ngxs/store";
-import { RequestJobsSuccess, RequestJobsFail, RequestJobs, FilterJobs, AddJob, AddJobSuccess, AddJobFail } from "../actions/job.actions";
+import { RequestJobsSuccess, RequestJobsFail, RequestJobs, FilterJobs, AddJob, AddJobSuccess, AddJobFail, ApplyForJobSuccess, ApplyForJob, ApplyForJobFail } from "../actions/job.actions";
 import { IJob } from "src/models/job-model";
 import { JobService } from "src/services/job-service/job.service";
 import { NotificationService } from "src/services/notifications/notification.service";
@@ -109,6 +109,35 @@ export class JobsState {
 
     @Action(AddJobFail)
     addNewJobFail({ getState, patchState }: StateContext<JobsStateModel>, message: string) {
+        const state = getState()
+        state.isLoading = false
+
+        this._notification.showError("An error occured in the state", message);
+        patchState(state)
+    }
+
+    @Action(ApplyForJob)
+    applyForJob({ getState }: StateContext<JobsStateModel>, { jobID, userID }: ApplyForJob) {
+        const state = getState();
+        state.isLoading = true;
+        const updatedJob = state.jobs.filter(job => job.id === jobID)[0];
+        updatedJob.applicants.push(userID);
+        this._jobsService.updateJob(updatedJob).subscribe((res: { job: IJob }) => {
+            const updatedJob = res.job;
+            this.store.dispatch(new ApplyForJobSuccess(updatedJob));
+        });
+    }
+
+    @Action(ApplyForJobSuccess)
+    applyForJobSuccess({ getState, patchState }: StateContext<JobsStateModel>, { payload }: ApplyForJobSuccess) {
+        const state = getState();
+        state.isLoading = false;
+        state.jobs.filter(job => job.id === payload.id)[0] = payload;
+        patchState(state);
+    }
+
+    @Action(ApplyForJobFail)
+    applyForJobFail({ getState, patchState }: StateContext<JobsStateModel>, message: string) {
         const state = getState()
         state.isLoading = false
 

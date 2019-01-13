@@ -35,3 +35,16 @@ export class AddJobFail {
     static readonly type = '[Jobs] Add Job Fail'
     constructor(public errorMessage: string) { }
 }
+
+export class ApplyForJob {
+    static readonly type = '[Jobs] Apply For Job';
+    constructor(public jobID: string, public userID: string) { }
+}
+export class ApplyForJobSuccess {
+    static readonly type = '[Jobs] Apply For Job Success';
+    constructor(public payload: IJob) { }
+}
+export class ApplyForJobFail {
+    static readonly type = '[Jobs] Apply For Job Fail';
+    constructor(public errorMessage: string) { }
+}
