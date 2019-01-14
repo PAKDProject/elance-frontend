@@ -8,6 +8,9 @@ import { MatDialog } from "@angular/material";
 import { CreateJobModalComponent } from "../modals/create-job-modal/create-job-modal.component";
 import { DragScrollComponent } from 'ngx-drag-scroll/lib';
 import { UserState } from 'src/redux/states/user.state';
+import { HttpClient } from '@angular/common/http';
+import { UserProfileModalComponent } from '../modals/user-profile-modal/user-profile-modal.component';
+import { IUser } from 'src/models/user-model';
 
 @Component({
   selector: "app-user-dashboard",
@@ -59,7 +62,7 @@ export class UserDashboardComponent implements OnInit {
   @Select(UserState.getActiveJobs)
   activeJobs$: Observable<IJob[]>
 
-  constructor(private store: Store, private dialog: MatDialog) { }
+  constructor(private store: Store, private dialog: MatDialog, private _http: HttpClient) { }
 
   ngOnInit() {
     this.store.dispatch(new RequestJobs());
@@ -75,5 +78,14 @@ export class UserDashboardComponent implements OnInit {
 
   openModal(): void {
     this.dialog.open(CreateJobModalComponent);
+  }
+
+  testViewProfileYeet() {
+    this._http.get("http://localhost:3000/users/sad34324-d73fsadas-DAB4GSUS-b801-42069LOL").subscribe((res) => {
+      let response = res as { user: IUser }
+      this.dialog.open(UserProfileModalComponent, {
+        data: response.user
+      })
+    })
   }
 }

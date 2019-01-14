@@ -82,6 +82,7 @@ import { AddSkillComponent } from "./add-skill/add-skill.component";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { AddEducationComponent } from './cards/add-education/add-education.component';
 import { ProfileRowComponent } from './cards/profile-row/profile-row.component';
+import { UserProfileModalComponent } from './modals/user-profile-modal/user-profile-modal.component';
 
 @NgModule({
   declarations: [
@@ -120,7 +121,8 @@ import { ProfileRowComponent } from './cards/profile-row/profile-row.component';
     AddSkillComponent,
     SkillContainerModalComponent,
     AddEducationComponent,
-    ProfileRowComponent
+    ProfileRowComponent,
+    UserProfileModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -170,7 +172,8 @@ import { ProfileRowComponent } from './cards/profile-row/profile-row.component';
     ActiveJobModalComponent,
     UploadImageModalComponent,
     CreateJobModalComponent,
-    SkillContainerModalComponent
+    SkillContainerModalComponent,
+    UserProfileModalComponent
   ]
 })
 export class AppModule { }
