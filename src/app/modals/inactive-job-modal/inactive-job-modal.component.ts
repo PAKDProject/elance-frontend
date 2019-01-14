@@ -33,7 +33,7 @@ export class InactiveJobModalComponent implements OnInit {
     //Check if user posted the job
     this.user$.subscribe(u => {
       this.userID = u.id;
-      if (u.id === this.data.employer) {
+      if (u.id === this.data.employerID) {
         this.isEmployer = true;
       }
     });

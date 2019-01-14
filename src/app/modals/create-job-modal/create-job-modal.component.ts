@@ -33,7 +33,8 @@ export class CreateJobModalComponent implements OnInit {
   ngOnInit() {
     this.newJob = {
       title: "",
-      employer: "",
+      employerName: "",
+      employerID: "",
       description: "",
       datePosted: new Date(),
       payment: null,
@@ -54,7 +55,7 @@ export class CreateJobModalComponent implements OnInit {
 
     this.induvidualJobForm.valueChanges.subscribe(data => {
       this.newJob.title = data.jobTitle;
-      this.newJob.employer = data.employer;
+      this.newJob.employerName = data.employer;
       this.newJob.description = data.description;
       this.newJob.location = data.location;
       this.newJob.dateDue = data.dateDue;
@@ -98,7 +99,7 @@ export class CreateJobModalComponent implements OnInit {
       this.notificationService.showError("An error occured");
     } else {
       this.user$.subscribe(res => {
-        this.newJob.employer = res.id;
+        this.newJob.employerID = res.id;
       });
       this._store.dispatch(new AddJob(this.newJob));
       this._dialogRef.close();

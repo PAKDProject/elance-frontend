@@ -4,7 +4,8 @@ export interface IJob {
   id?: string;
   title: string;
   // employer: IUser;
-  employer: string;
+  employerName: string;
+  employerID: string;
   location?: string;
   remote?: boolean;
   description: string;

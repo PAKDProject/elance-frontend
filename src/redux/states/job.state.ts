@@ -170,15 +170,24 @@ export class JobsState {
   ) {
     const state = getState();
     state.isLoading = true;
-    let updatedJob = state.jobs.filter(job => job.id === jobID)[0];
-    if (updatedJob.applicants === undefined) {
-      updatedJob.applicants = [];
+    let job = state.jobs.filter(job => job.id === jobID)[0];
+    if (job.applicants === undefined) {
+      job.applicants = [];
     }
-    updatedJob.applicants.push(userID);
-    this._jobsService.updateJob(updatedJob).subscribe((res: { job: IJob }) => {
-      const updatedJob = res.job;
-      this.store.dispatch(new ApplyForJobSuccess(updatedJob));
-    });
+    job.applicants.push(userID);
+
+    const applicantIDs = {
+      applicants: job.applicants
+    };
+    this._jobsService
+      .updateJob(applicantIDs, job.id)
+      .subscribe((res: { job: IJob }) => {
+        const updatedJob = res.job;
+        this.store.dispatch(new ApplyForJobSuccess(updatedJob));
+      }),
+      err => {
+        this.store.dispatch(new ApplyForJobFail(err.message));
+      };
   }
 
   @Action(ApplyForJobSuccess)
