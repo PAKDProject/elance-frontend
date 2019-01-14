@@ -4,9 +4,12 @@ import { IJob } from "src/models/job-model";
 import { NotificationService } from "src/services/notifications/notification.service";
 import { UserService } from "src/services/user-service/user.service";
 import { JobService } from "src/services/job-service/job.service";
-import { Store } from "@ngxs/store";
+import { Store, Select } from "@ngxs/store";
 import { AddJob } from "src/redux/actions/job.actions";
 import { MatDialogRef } from "@angular/material";
+import { UserState } from "src/redux/states/user.state";
+import { Observable } from "rxjs";
+import { IUser } from "src/models/user-model";
 
 @Component({
   selector: "app-create-job-modal",
@@ -14,6 +17,7 @@ import { MatDialogRef } from "@angular/material";
   styleUrls: ["./create-job-modal.component.scss"]
 })
 export class CreateJobModalComponent implements OnInit {
+  @Select(UserState.getUser) user$: Observable<IUser>;
   induvidual: boolean;
   induvidualJobForm: FormGroup;
   newJob: IJob;
@@ -24,11 +28,9 @@ export class CreateJobModalComponent implements OnInit {
     private _jobService: JobService,
     private _store: Store,
     private _dialogRef: MatDialogRef<CreateJobModalComponent>
-  ) { }
+  ) {}
 
   ngOnInit() {
-
-
     this.newJob = {
       title: "",
       employer: "",
@@ -58,7 +60,6 @@ export class CreateJobModalComponent implements OnInit {
       this.newJob.dateDue = data.dateDue;
       this.newJob.payment = data.payment;
       this.newJob.remote = data.remote;
-
     });
   }
 
@@ -87,8 +88,8 @@ export class CreateJobModalComponent implements OnInit {
   //#endregion
 
   toggleLocation() {
-    if (this.newJob.remote) this.location.disable()
-    if (this.newJob.remote === false) this.location.enable()
+    if (this.newJob.remote) this.location.disable();
+    if (this.newJob.remote === false) this.location.enable();
   }
   submitForm(): void {
     const date = new Date(`${this.dateDue.value}T00:00:00`);
@@ -96,7 +97,10 @@ export class CreateJobModalComponent implements OnInit {
       this.dateDue.setErrors({ invalid: true });
       this.notificationService.showError("An error occured");
     } else {
-      this._store.dispatch(new AddJob(this.newJob))
+      this.user$.subscribe(res => {
+        this.newJob.employer = res.id;
+      });
+      this._store.dispatch(new AddJob(this.newJob));
       this._dialogRef.close();
     }
   }

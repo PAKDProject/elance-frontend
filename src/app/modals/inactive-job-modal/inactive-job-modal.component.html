@@ -28,7 +28,9 @@
       *ngIf="isEmployer"
     >
       Show Applicants
-      <span class="badge badge-light badge-pill">{{ applicants.length }}</span>
+      <span class="badge badge-light badge-pill" *ngIf="applicants">{{
+        applicants.length
+      }}</span>
     </button>
     <!-- <button mat-button style="width: 80; height: 40; justify-self: end; background: #12896e; color: white;">Apply</button> -->
     <!-- class="btn btn-block primary" -->

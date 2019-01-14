@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { IJob } from "src/models/job-model";
 import { Store, Select } from "@ngxs/store";
-import { ApplyForJob } from "src/redux/actions/user.actions";
+import { ApplyForJob } from "src/redux/actions/job.actions";
 import { IUser } from "src/models/user-model";
 import { UserState } from "src/redux/states/user.state";
 import { Observable } from "rxjs";
@@ -29,9 +29,10 @@ export class InactiveJobModalComponent implements OnInit {
 
   ngOnInit(): void {
     //Extract applicants from Job object
-    this.applicants = this.data.applicants;
+    //this.applicants = this.data.applicants;
     //Check if user posted the job
     this.user$.subscribe(u => {
+      this.userID = u.id;
       if (u.id === this.data.employer) {
         this.isEmployer = true;
       }
@@ -43,9 +44,11 @@ export class InactiveJobModalComponent implements OnInit {
   }
 
   apply(): void {
-    this._store.dispatch(new ApplyForJob(this.data)).subscribe(yeet => {
-      this.dialogRef.close();
-    });
+    this._store
+      .dispatch(new ApplyForJob(this.data.id, this.userID))
+      .subscribe(res => {
+        this.dialogRef.close();
+      });
   }
 
   //If you are employer and there are applicants show the applicants screen
