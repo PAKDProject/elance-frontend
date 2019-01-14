@@ -34,7 +34,7 @@ export class JobsState {
     private _jobsService: JobService,
     private store: Store,
     private _notification: NotificationService
-  ) {}
+  ) { }
 
   @Selector()
   static getJobs(state: JobsStateModel) {
@@ -197,19 +197,20 @@ export class JobsState {
   ) {
     const state = getState();
     state.isLoading = false;
-    state.jobs.filter(job => job.id === payload.id)[0] = payload;
-    patchState(state);
+    let jobs = state.jobs
+    jobs.filter(job => job.id === payload.id)[0] = payload;
+    patchState({ jobs });
   }
 
   @Action(ApplyForJobFail)
   applyForJobFail(
     { getState, patchState }: StateContext<JobsStateModel>,
-    message: string
+    { errorMessage }: ApplyForJobFail
   ) {
     const state = getState();
     state.isLoading = false;
 
-    this._notification.showError("An error occured in the state", message);
+    this._notification.showError("An error occured in the state", errorMessage);
     patchState(state);
   }
 }
