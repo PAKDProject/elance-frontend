@@ -176,11 +176,12 @@ export class JobsState {
     }
     job.applicants.push(userID);
 
-    const applicantIDs = {
-      applicants: job.applicants
-    };
+    let partialJob;
+    job.applicants.forEach(e => {
+      partialJob.applicantIds.push(e);
+    });
     this._jobsService
-      .updateJob(applicantIDs, job.id)
+      .updateJob(partialJob, job.id)
       .subscribe((res: { job: IJob }) => {
         const updatedJob = res.job;
         this.store.dispatch(new ApplyForJobSuccess(updatedJob));
