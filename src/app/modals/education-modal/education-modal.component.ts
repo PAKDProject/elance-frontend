@@ -30,22 +30,39 @@ export class EducationModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.editing = this.data.editing;
-    if (this.data.education) this.educationItem = this.data.education;
-    else this.educationItem = {};
-
+    if (this.data.education)
+    { 
+      this.oldItem = this.data.education;
+      this.educationItem = this.data.education;
+    }
+    else
+    {
+      this.educationItem = {};
+    }
     this.oldItem = this.data.education;
+
     //Education form
     if (this.editing) {
       this.educationForm = this._fb.group({
         degreeTitle: [this.educationItem.degreeTitle, [Validators.required]],
         educationStartDate: [
           this.educationItem.startYear,
-          [Validators.min(1900), Validators.max(new Date().getFullYear())]
+          [Validators.min(1900), Validators.max((new Date()).getFullYear())]
         ],
         educationEndDate: [this.educationItem.endYear],
         collegeName: [this.educationItem.collegeName],
         finalGrade: [this.educationItem.grade],
         educationDescription: [this.educationItem.description]
+      });
+    }
+    else {
+      this.educationForm = this._fb.group({
+        degreeTitle: "",
+        educationStartDate: [,[Validators.min(1900), Validators.max((new Date()).getFullYear())]],
+        educationEndDate: (new Date()).getFullYear() ,
+        collegeName: "",
+        finalGrade: "",
+        educationDescription: ""
       });
     }
 
