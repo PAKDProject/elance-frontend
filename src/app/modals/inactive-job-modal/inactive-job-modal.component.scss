@@ -41,7 +41,10 @@
 }
 
 //Style for list of applicants
-
+.list_head {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+}
 small {
   color: $primary;
   text-decoration: underline;
@@ -72,7 +75,7 @@ small {
 
 .buttons {
   align-self: center;
-  justify-self: left;
+  justify-self: center;
   margin: 0;
   display: inline;
 }
@@ -81,18 +84,33 @@ small {
   text-decoration: underline;
   font-size: 0.7em;
 }
-
+h1 {
+  color: $primary;
+}
+#back {
+  float: left;
+}
+#close {
+  justify-self: right;
+}
 .accept {
   background-color: $primary;
   color: white;
   padding-left: 20px;
   padding-right: 20px;
+  margin-right: 10px;
 }
 .reject {
   padding-left: 20px;
   padding-right: 20px;
 }
-
+#pill {
+  margin-left: 10px;
+  color: $primary;
+}
+mat-icon {
+  cursor: pointer;
+}
 @media only screen and (max-width: 650px) {
   #box {
     width: 100%;

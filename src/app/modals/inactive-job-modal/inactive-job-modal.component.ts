@@ -20,6 +20,7 @@ export class InactiveJobModalComponent implements OnInit {
   userID: string;
   isEmployer: boolean = false;
   applicantsVisible: boolean = false;
+  applicantIDs: string[];
 
   constructor(
     public dialogRef: MatDialogRef<InactiveJobModalComponent>,
@@ -37,7 +38,9 @@ export class InactiveJobModalComponent implements OnInit {
         this.isEmployer = true;
       }
     });
-    console.log(this.data.applicants);
+    this.applicantIDs = this.data.applicants as Array<string>;
+
+    console.log(this.applicantIDs);
   }
 
   onNoClick(): void {
@@ -54,8 +57,7 @@ export class InactiveJobModalComponent implements OnInit {
 
   //If you are employer and there are applicants show the applicants screen
   showApplicants() {
-    console.log(this.data.applicants);
-    if (this.isEmployer && this.data.applicants) {
+    if (!this.isEmployer && this.data.applicants) {
       this._userService.batchGetUsers(this.data.applicants).subscribe(res => {
         this.applicants = res;
         this.applicantsVisible = true;

@@ -5,7 +5,7 @@
       <mat-icon (click)="onNoClick()">close</mat-icon>
     </div>
     <div class="infoRow">
-      <div>Employer: {{ data.employer }}</div>
+      <div>Employer: {{ data.employerName }}</div>
       <div>Payment: {{ data.payment | currency: "EUR":"symbol":"1.2-2" }}</div>
     </div>
     <div class="infoRow">
@@ -19,17 +19,17 @@
   <div class="modalBody">{{ data.description }}</div>
   <div class="modalBottom">
     <button style="background: gray" (click)="onNoClick()">Cancel</button>
-    <button style="background: #12896e;" (click)="apply()" *ngIf="!isEmployer">
+    <button style="background: #12896e;" (click)="apply()" *ngIf="isEmployer">
       Apply
     </button>
     <button
       style="background: #12896e;"
       (click)="showApplicants()"
-      *ngIf="isEmployer"
+      *ngIf="!isEmployer"
     >
       Show Applicants
-      <span class="badge badge-light badge-pill" *ngIf="applicants">{{
-        applicants.length
+      <span class="badge badge-light" id="pill">{{
+        data.applicants ? data.applicants.length : 0
       }}</span>
     </button>
     <!-- <button mat-button style="width: 80; height: 40; justify-self: end; background: #12896e; color: white;">Apply</button> -->
@@ -39,10 +39,10 @@
 
 <div class="modalContainer" *ngIf="applicantsVisible">
   <div class="modalHeader">
-    <div class="topRow">
-      <mat-icon (click)="returnToJob()">arrow_back</mat-icon>
-      <h1>Applicants for {{ data.title }}</h1>
-      <mat-icon (click)="onNoClick()">close</mat-icon>
+    <div class="list_head">
+      <mat-icon (click)="returnToJob()" id="back">arrow_back</mat-icon>
+      <h1 class="text-center">Applicants for {{ data.title }}</h1>
+      <mat-icon (click)="onNoClick()" id="close">close</mat-icon>
     </div>
     <div class="list-group list-group-flush">
       <li
@@ -50,10 +50,11 @@
         *ngFor="let user of applicants"
       >
         <div class="img-container">
-          <img src="{{ user.avatarUrl }}" class="image" />
+          <img src="../../../assets//images/default_user.png" class="image" />
+          <img src="{{ user.avatarUrl }}" class="image" *ngIf="1 == 2" />
         </div>
         <p class="name">
-          {{ user.fName + user.lName }}
+          {{ user.fName + " " + user.lName }}
           <a class="profile" href="#">(View Profile)</a>
         </p>
         <div class="buttons">
