@@ -1,155 +1,7 @@
 @import '../../../variables.scss';
-mat-dialog-content {
-  overflow: scroll;
-  overflow-x: hidden;
-  margin: 0;
-  padding: 0;
-  padding-right: 25px;
-
-  .profileHeader {
-    display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    grid-template-rows: auto;
-  
-    width: 100%;
-    padding-bottom: 30px;
-  
-    .bg-ImgContainer {
-      grid-column-start: 1;
-      grid-column-end: 4;
-      grid-row: 1;
-      align-self: start;
-  
-      img {
-        width: 100%;
-        min-width: 250px;
-        height: 150px;
-      }
-    }
-    .leftCol {
-      grid-column: 1;
-      grid-row: 1;
-      min-width: 30px;
-    }
-    .midCol {
-      display: grid;
-      grid-column: 2;
-      grid-row: 1;
-      .profilePictureContainer {  
-        border: 4px $accent solid;
-        border-radius: 50%;
-        justify-self: center;
-        align-self: center;
-        overflow: hidden;
-    
-        margin-top: 10px;
-        width: 150px;
-        background: white;
-    
-        img {
-          width: 100%;
-          height: 100%;
-    
-          max-width: 200px;
-        }
-      }
-    
-      .nameContainer {
-        margin: 0; padding: 0;
-        justify-self: center;
-        align-self: center; 
-    
-        h1 {
-          margin-top: 8px;
-          color: black;
-          font-family: "Segoe UI";
-          font-weight: 500;
-          font-size: 40px;
-          line-height: 40px;
-        }
-      }
-    
-      .jobTitleContainer {
-        margin: 0;
-        padding: 0;
-        justify-self: center;
-        width: 100%;
-    
-        h2 {
-          font-family: "Segoe UI";
-          font-weight: 250;
-          text-align: center;
-          font-size: 30px;
-        }
-      }
-    
-      .emailContainer {
-        margin: 0;
-        padding: 0;
-        justify-self: center;
-    
-        h4 {
-          font-family: "Segoe UI";
-          font-weight: 200;
-          text-align: center;
-          font-size: 22px;
-          font-style: italic;
-        }
-      }
-    
-      .socialConnectionContainer {
-        margin: 0;
-        padding: 0;
-        justify-self: center;
-    
-        height: 30px;
-    
-        display: grid;
-        grid-template-columns: repeat(4, auto);
-    
-        a {
-          display: block;
-    
-          img {
-            width: 100%;
-            height: 100%;
-            margin: 5px;
-            max-width: 50px;
-            max-height: 50px;
-          }
-        }
-      }
-    }
-    .rightCol {
-      display: grid;
-      grid-column: 3;
-      grid-row: 1;
-  
-      min-width: 50px;
-    }
-  }
-  
-  .profileBody {
-    display: grid;
-    grid-template-rows: auto;
-    }
-    .nonDraggableContainer {
-      margin-top: 10px;
-      width: 100%;
-    }
-  
-  @media only screen and (max-width: 768px) {
-    .profileBody {
-      .bodyContentContainer {
-        grid-template-columns: 1fr auto;
-        grid-column-gap: 100px;
-      }
-    }
-  }
-}
-
 ::-webkit-scrollbar {
   width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-thumb {
   background: $primary;
@@ -160,5 +12,160 @@ mat-dialog-content {
   background: darken($primary, 5)
 }
 ::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0px rgba(0,0,0,0); 
+  border-radius: 10px;
   background: #f1f1f1; 
+}
+
+mat-dialog-content {
+  overflow: scroll;
+  // overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  padding-right: 25px;
+
+  .pageContainer {
+    min-width: 350px;
+
+    .profileHeader {
+      display: grid;
+      grid-template-columns: 1fr 4fr 1fr;
+      grid-template-rows: auto;
+    
+      width: 100%;
+      padding-bottom: 30px;
+    
+      .bg-ImgContainer {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        grid-row: 1;
+        align-self: start;
+    
+        img {
+          width: 100%;
+          min-width: 250px;
+          height: 150px;
+        }
+      }
+      .leftCol {
+        grid-column: 1;
+        grid-row: 1;
+        min-width: 30px;
+      }
+      .midCol {
+        display: grid;
+        grid-column: 2;
+        grid-row: 1;
+        .profilePictureContainer {  
+          border: 4px $accent solid;
+          border-radius: 50%;
+          justify-self: center;
+          align-self: center;
+          overflow: hidden;
+      
+          margin-top: 10px;
+          width: 150px;
+          background: white;
+      
+          img {
+            width: 100%;
+            height: 100%;
+      
+            max-width: 200px;
+          }
+        }
+      
+        .nameContainer {
+          margin: 0; padding: 0;
+          justify-self: center;
+          align-self: center; 
+      
+          h1 {
+            margin-top: 8px;
+            color: black;
+            font-family: "Segoe UI";
+            font-weight: 500;
+            font-size: 40px;
+            line-height: 40px;
+          }
+        }
+      
+        .jobTitleContainer {
+          margin: 0;
+          padding: 0;
+          justify-self: center;
+          width: 100%;
+      
+          h2 {
+            font-family: "Segoe UI";
+            font-weight: 250;
+            text-align: center;
+            font-size: 30px;
+          }
+        }
+      
+        .emailContainer {
+          margin: 0;
+          padding: 0;
+          justify-self: center;
+      
+          h4 {
+            font-family: "Segoe UI";
+            font-weight: 200;
+            text-align: center;
+            font-size: 22px;
+            font-style: italic;
+          }
+        }
+      
+        .socialConnectionContainer {
+          margin: 0;
+          padding: 0;
+          justify-self: center;
+      
+          height: 30px;
+      
+          display: grid;
+          grid-template-columns: repeat(4, auto);
+      
+          a {
+            display: block;
+      
+            img {
+              width: 100%;
+              height: 100%;
+              margin: 5px;
+              max-width: 50px;
+              max-height: 50px;
+            }
+          }
+        }
+      }
+      .rightCol {
+        display: grid;
+        grid-column: 3;
+        grid-row: 1;
+    
+        min-width: 50px;
+      }
+    }
+    
+    .profileBody {
+      display: grid;
+      grid-template-rows: auto;
+      }
+      .nonDraggableContainer {
+        margin-top: 10px;
+        width: 100%;
+      }
+    
+    @media only screen and (max-width: 768px) {
+      .profileBody {
+        .bodyContentContainer {
+          grid-template-columns: 1fr auto;
+          grid-column-gap: 100px;
+        }
+      }
+    }
+  }
 }
