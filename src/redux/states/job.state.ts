@@ -176,16 +176,16 @@ export class JobsState {
     }
     job.applicants.push(userID);
 
-    let partialJob: Partial<IJob> = {
-      applicants: job.applicants
-    };
+    // let partialJob: Partial<IJob> = {
+    //   applicants: job.applicants
+    // };
 
-    job.applicants.forEach(e => {
-      partialJob.applicants.push(e);
-    });
+    // job.applicants.forEach(e => {
+    //   partialJob.applicants.push(e);
+    // });
 
     this._jobsService
-      .updateJob(partialJob, job.id)
+      .updateApplicants(job.applicants, job.id)
       .subscribe((res: { job: IJob }) => {
         const updatedJob = res.job;
         this.store.dispatch(new ApplyForJobSuccess(updatedJob));

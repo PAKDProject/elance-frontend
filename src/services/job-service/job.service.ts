@@ -74,6 +74,22 @@ export class JobService {
       .pipe(catchError(this.handleError));
   }
 
+  updateApplicants(applicantIds: string[], jobId: string) {
+    const partial: Partial<IJob> = {
+      applicants: []
+    };
+    applicantIds.forEach(a => {
+      partial.applicants.push(a);
+    });
+    return this._http
+      .put(
+        `${this.endpoint}/${jobId}`,
+        JSON.stringify(partial),
+        this.httpOptions
+      )
+      .pipe(catchError(this.handleError));
+  }
+
   /**
    * Delete a job
    * @param jobId string
@@ -181,15 +197,14 @@ export class JobService {
   batchGetJobs(jobIDs: string[]): Observable<IJob[]> {
     let jobs: IJob[] = [];
 
-    if(jobIDs != null && jobIDs.length > 0)
-    {
+    if (jobIDs != null && jobIDs.length > 0) {
       jobIDs.forEach(async jobID => {
         await this.getJobById(jobID).subscribe(j => {
           jobs.push(j);
         });
       });
     }
-    
+
     return of(jobs);
   }
 }
