@@ -5,7 +5,7 @@ import {
   HttpHeaders
 } from "@angular/common/http";
 import { IUser } from "src/models/user-model";
-import { Observable, throwError } from "rxjs";
+import { Observable, throwError, of } from "rxjs";
 import { catchError, tap, map } from "rxjs/operators";
 import { Store } from "@ngxs/store";
 import { RequestUserSuccessAction } from "src/redux/actions/user.actions";
@@ -101,13 +101,14 @@ export class UserService {
   }
 
   batchGetUsers(applicantIds: string[]): Observable<IUser[]> {
-    return this.http
-      .post<IUser[]>(
-        `${this.endpoint}/batch`,
-        JSON.stringify(applicantIds),
-        this.httpOptions
-      )
-      .pipe(catchError(this.handleError));
+    return this.http.post(`${this.endpoint}/batch`, JSON.stringify(applicantIds), this.httpOptions)
+                    .pipe(
+                      map(res => {
+        let response = res as { users: IUser[] };
+        return response.users;
+      }),
+      catchError(this.handleError)
+    );
   }
 
   private handleError(error: HttpErrorResponse) {

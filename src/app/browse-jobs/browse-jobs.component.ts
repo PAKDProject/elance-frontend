@@ -83,7 +83,6 @@ export class BrowseJobsComponent implements OnInit {
 
   performFilter() {
     console.log("Performing filter");
-    console.table(this.filters);
     this.store.dispatch(new FilterJobs(this.filters));
   }
 
