@@ -7,6 +7,7 @@ import { IUser } from "src/models/user-model";
 import { UserState } from "src/redux/states/user.state";
 import { Observable } from "rxjs";
 import { NotificationService } from "src/services/notifications/notification.service";
+import { UserService } from "src/services/user-service/user.service";
 
 @Component({
   selector: "inactive-job-modal",
@@ -24,12 +25,11 @@ export class InactiveJobModalComponent implements OnInit {
     public dialogRef: MatDialogRef<InactiveJobModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IJob,
     private _store: Store,
-    private _notification: NotificationService
+    private _notification: NotificationService,
+    private _userService: UserService
   ) {}
 
   ngOnInit(): void {
-    //Extract applicants from Job object
-    //this.applicants = this.data.applicants;
     //Check if user posted the job
     this.user$.subscribe(u => {
       this.userID = u.id;
@@ -37,6 +37,7 @@ export class InactiveJobModalComponent implements OnInit {
         this.isEmployer = true;
       }
     });
+    console.log(this.data.applicants);
   }
 
   onNoClick(): void {
@@ -53,8 +54,12 @@ export class InactiveJobModalComponent implements OnInit {
 
   //If you are employer and there are applicants show the applicants screen
   showApplicants() {
-    if (this.isEmployer && this.applicants.length > 0) {
-      this.applicantsVisible = true;
+    console.log(this.data.applicants);
+    if (this.isEmployer && this.data.applicants) {
+      this._userService.batchGetUsers(this.data.applicants).subscribe(res => {
+        this.applicants = res;
+        this.applicantsVisible = true;
+      });
     } else {
       this._notification.showError(
         "No applicants found",

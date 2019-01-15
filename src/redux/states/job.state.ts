@@ -34,7 +34,7 @@ export class JobsState {
     private _jobsService: JobService,
     private store: Store,
     private _notification: NotificationService
-  ) { }
+  ) {}
 
   @Selector()
   static getJobs(state: JobsStateModel) {
@@ -176,10 +176,14 @@ export class JobsState {
     }
     job.applicants.push(userID);
 
-    let partialJob;
+    let partialJob: Partial<IJob> = {
+      applicants: job.applicants
+    };
+
     job.applicants.forEach(e => {
-      partialJob.applicantIds.push(e);
+      partialJob.applicants.push(e);
     });
+
     this._jobsService
       .updateJob(partialJob, job.id)
       .subscribe((res: { job: IJob }) => {
@@ -198,7 +202,7 @@ export class JobsState {
   ) {
     const state = getState();
     state.isLoading = false;
-    let jobs = state.jobs
+    let jobs = state.jobs;
     jobs.filter(job => job.id === payload.id)[0] = payload;
     patchState({ jobs });
   }
