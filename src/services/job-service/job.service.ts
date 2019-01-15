@@ -10,8 +10,6 @@ import { map, catchError } from "rxjs/operators";
 import { NotificationService } from "../notifications/notification.service";
 import { environment } from "src/environments/environment";
 import { filterForm } from "src/app/browse-jobs/browse-jobs.component";
-import { Job } from "aws-sdk/clients/codepipeline";
-import { IUser } from "src/models/user-model";
 
 @Injectable({
   providedIn: "root"
@@ -179,17 +177,14 @@ export class JobService {
 
   //Batch get jobs
   batchGetJobs(jobIDs: string[]): Observable<IJob[]> {
-    let jobs: IJob[] = [];
-
-    if(jobIDs != null && jobIDs.length > 0)
-    {
-      jobIDs.forEach(async jobID => {
-        await this.getJobById(jobID).subscribe(j => {
-          jobs.push(j);
-        });
-      });
-    }
-    
-    return of(jobs);
+    return this._http.post(`${this.endpoint}/batch`, JSON.stringify(jobIDs), this.httpOptions)
+                    .pipe(
+                      map(res => {
+                          let response = res as { jobs: IJob[] };
+                          console.log(response.jobs)
+                          return response.jobs;
+      }),
+      catchError(this.handleError)
+    );
   }
 }
