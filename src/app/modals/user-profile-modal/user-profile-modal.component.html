@@ -26,10 +26,10 @@
 
       <div class="socailConnectionContainer"></div>
 
-      <div *ngIf="this.data">
+      <div *ngIf="this.data.socialLinks">
         <div class="socialConnectionContainer" *ngIf="this.data.socialLinks.length > 0">
-          <a *ngFor="let connection of this.data.socialLinks" href="{{connection.linkUrl}}" target="_blank">
-            <img src="../../assets/icons/{{connection.name}}1.png" id="{{connection.name}}" alt="{{connection.name}}" />
+          <a *ngFor="let connection of this.data.socialLinks" href="{{connection.link}}" target="_blank">
+            <img src="../../assets/icons/{{connection.title}}1.png" id="{{connection.title}}" alt="{{connection.title}}" />
           </a>
         </div>
       </div>

@@ -6,7 +6,7 @@ import { UserState } from "src/redux/states/user.state";
 import { ISkills } from "src/models/skill-model";
 import { NotificationService } from "src/services/notifications/notification.service";
 import { RequestUpdateUser, RequestJobHistory } from "src/redux/actions/user.actions";
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { IProfileCard } from "src/models/profile-card";
 import { IJob } from "src/models/job-model";
 
@@ -18,7 +18,7 @@ import { IJob } from "src/models/job-model";
 export class ProfileMenuComponent implements OnInit {
   @Select(UserState.getUser)
   user$: Observable<IUser>;
-  
+
   @Select(UserState.getJobHistory)
   jobHistory$: Observable<IJob[]>;
 
@@ -32,9 +32,6 @@ export class ProfileMenuComponent implements OnInit {
   constructor(private _notify: NotificationService, private store: Store) { }
 
   ngOnInit() {
-    //Get job history
-    this.store.dispatch(new RequestJobHistory(this.user.jobHistory));
-
     this.user$.subscribe(element => {
       this.skills = element.skills;
       this.educationItems = element.educationItems;
@@ -52,11 +49,10 @@ export class ProfileMenuComponent implements OnInit {
       };
 
       this.jobHistory$.subscribe(j => this.jobHistory = j);
-      
+
       //Assign content to preset cards
       this.profileCards.forEach(c => {
-        switch(c.type)
-        {
+        switch (c.type) {
           case "bio":
             c.content = element.summary
             break;
@@ -81,8 +77,7 @@ export class ProfileMenuComponent implements OnInit {
 
   //Row actions
   rowAction(e) {
-    switch(e.type)
-    {
+    switch (e.type) {
       case 'bioChange':
         this.updateSummary(e.content);
         break;
@@ -129,7 +124,7 @@ export class ProfileMenuComponent implements OnInit {
     }
   }
 
-  
+
   //Summary editing
   updateSummary(s) {
     console.log("Updating bio")
@@ -139,7 +134,7 @@ export class ProfileMenuComponent implements OnInit {
 
   //Skill editing
   addSkill(aSkill: ISkills[]) {
-    console.log("Adding skill " + aSkill[0].skillTitle )
+    console.log("Adding skill " + aSkill[0].skillTitle)
     this.user.skills.push(...aSkill);
   }
   changeSkill(updatedSkill: ISkills) {
@@ -164,8 +159,7 @@ export class ProfileMenuComponent implements OnInit {
 
   //Education editing
   addEducation(e: { old: IEducationItem, new: IEducationItem }) {
-    if(e != null)
-    {
+    if (e != null) {
       //If old is null but new isnt, add education
       if (e.old === null && e.new != null) {
         console.log("Adding education " + e.new.degreeTitle)
@@ -177,14 +171,13 @@ export class ProfileMenuComponent implements OnInit {
         let index = this.user.educationItems.findIndex((item) => {
           return item === e.old
         })
-  
+
         this.user.educationItems[index] = e.new
       }
       //If old isn't null and new is, delete
-      else if (e.old != null && e.new == null)
-      {
+      else if (e.old != null && e.new == null) {
         console.log("Removing education " + e.old.degreeTitle)
-        this.removeEducation(e.old); 
+        this.removeEducation(e.old);
       }
     }
   }
@@ -194,19 +187,19 @@ export class ProfileMenuComponent implements OnInit {
     const index: number = this.educationItems.findIndex(eduItem => {
       return eduItem === rEdu;
     });
-    
+
     if (index != -1) {
       this.educationItems.splice(index, 1);
     }
   }
 
   //Custom cards editing
-  changeCustomCardTitle(e: {newTitle: string, indexInArray: number}) {
+  changeCustomCardTitle(e: { newTitle: string, indexInArray: number }) {
     console.log("Updating title of card at index " + e.indexInArray + " to " + e.newTitle);
     this.profileCards[e.indexInArray].title = e.newTitle
   }
 
-  changeCustomCardSummary(e: {newSummary: string, indexInArray: number}) {
+  changeCustomCardSummary(e: { newSummary: string, indexInArray: number }) {
     console.log("Updating text of card at index " + e.indexInArray + " to " + e.newSummary);
     this.profileCards[e.indexInArray].content = e.newSummary
   }
@@ -217,8 +210,7 @@ export class ProfileMenuComponent implements OnInit {
   }
 
   addCustomCard() {
-    if(this.profileCards.length < 8)
-    {
+    if (this.profileCards.length < 8) {
       this.profileCards.push(
         {
           title: "Click to edit title",
@@ -228,9 +220,8 @@ export class ProfileMenuComponent implements OnInit {
       )
       console.table(this.profileCards);
     }
-    else
-    {
-      this._notify.showError("Card limit reached","You have reached the maximum amount of cards. Please remove or edit an existing card.")
+    else {
+      this._notify.showError("Card limit reached", "You have reached the maximum amount of cards. Please remove or edit an existing card.")
     }
   }
 }

@@ -22,15 +22,11 @@
     <button style="background: #12896e;" (click)="apply()" *ngIf="isEmployer">
       Apply
     </button>
-    <button
-      style="background: #12896e;"
-      (click)="showApplicants()"
-      *ngIf="!isEmployer"
-    >
+    <button style="background: #12896e;" (click)="showApplicants()" *ngIf="!isEmployer">
       Show Applicants
       <span class="badge badge-light" id="pill">{{
         data.applicants ? data.applicants.length : 0
-      }}</span>
+        }}</span>
     </button>
     <!-- <button mat-button style="width: 80; height: 40; justify-self: end; background: #12896e; color: white;">Apply</button> -->
     <!-- class="btn btn-block primary" -->
@@ -45,26 +41,20 @@
       <mat-icon (click)="onNoClick()" id="close">close</mat-icon>
     </div>
     <div class="list-group list-group-flush">
-      <li
-        class="list-group-item grid-container"
-        *ngFor="let user of applicants"
-      >
+      <li class="list-group-item grid-container" *ngFor="let user of applicants">
         <div class="img-container">
           <img src="../../../assets//images/default_user.png" class="image" />
           <img src="{{ user.avatarUrl }}" class="image" *ngIf="1 == 2" />
         </div>
         <p class="name">
           {{ user.fName + " " + user.lName }}
-          <a class="profile" href="#">(View Profile)</a>
+          <a class="profile" (click)="viewProfile(user.id)" id="viewProfileAnchor">(View Profile)</a>
         </p>
         <div class="buttons">
           <button class="accept btn btn-sm" (click)="selectUser(user.id)">
             <i class="fas fa-check"></i>Accept
           </button>
-          <button
-            class="reject btn btn-danger btn-sm"
-            (click)="dismissUser(user.id)"
-          >
+          <button class="reject btn btn-danger btn-sm" (click)="dismissUser(user.id)">
             <i class="fas fa-times"> </i> <span class="dismiss">Dismiss</span>
           </button>
         </div>

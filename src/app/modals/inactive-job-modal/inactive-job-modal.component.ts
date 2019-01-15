@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from "@angular/core";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from "@angular/material";
 import { IJob } from "src/models/job-model";
 import { Store, Select } from "@ngxs/store";
 import { ApplyForJob } from "src/redux/actions/job.actions";
@@ -8,6 +8,7 @@ import { UserState } from "src/redux/states/user.state";
 import { Observable } from "rxjs";
 import { NotificationService } from "src/services/notifications/notification.service";
 import { UserService } from "src/services/user-service/user.service";
+import { UserProfileModalComponent } from "../user-profile-modal/user-profile-modal.component";
 
 @Component({
   selector: "inactive-job-modal",
@@ -27,8 +28,9 @@ export class InactiveJobModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: IJob,
     private _store: Store,
     private _notification: NotificationService,
-    private _userService: UserService
-  ) {}
+    private _userService: UserService,
+    public _viewProfileDialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     //Check if user posted the job
@@ -82,5 +84,13 @@ export class InactiveJobModalComponent implements OnInit {
 
   dismissUser(id: string) {
     //Redux call here
+  }
+
+  viewProfile(id: string) {
+    this._userService.getUserByID(id).subscribe(user => {
+      this._viewProfileDialog.open(UserProfileModalComponent, {
+        data: user
+      })
+    })
   }
 }

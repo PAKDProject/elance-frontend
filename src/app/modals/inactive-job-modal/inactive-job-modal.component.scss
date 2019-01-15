@@ -15,6 +15,11 @@
       mat-icon {
         cursor: pointer;
       }
+      
+      #viewProfileAnchor {
+        text-decoration: $primary;
+        text-decoration-style: solid;
+      }
     }
     .infoRow {
       display: grid;

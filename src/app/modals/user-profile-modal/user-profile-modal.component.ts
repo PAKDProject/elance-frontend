@@ -19,6 +19,7 @@ export class UserProfileModalComponent implements OnInit {
   }
 
   ngOnInit() {
+    alert(JSON.stringify(this.data.socialLinks))
     this.profileCards = this.data.profileCards
     this.profileCards.forEach(c => {
       switch (c.type) {

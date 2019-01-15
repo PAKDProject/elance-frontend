@@ -53,7 +53,7 @@ export class UserState {
     private _userService: UserService,
     private _notification: NotificationService,
     private _jobService: JobService
-  ) {}
+  ) { }
 
   @Selector()
   static getUser(state: UserStateModel) {
@@ -76,6 +76,7 @@ export class UserState {
     { payload }: RequestUserSuccessAction
   ) {
     patchState(payload);
+    this.store.dispatch(new RequestJobHistory(payload.jobHistory));
   }
 
   @Action(RequestUserFailedActions)
@@ -157,14 +158,14 @@ export class UserState {
   // applyForJobFail() {
   //     // this._notification.showError("Failed to apply for the job!")
   // }
-  
+
   @Selector()
   static getJobHistory(state: UserStateModel) {
     return state.jobHistoryJobs;
   }
 
   @Action(RequestJobHistory)
-  requestJobHistory({ getState }: StateContext<UserStateModel>,) {
+  requestJobHistory({ getState }: StateContext<UserStateModel>, ) {
     let userState = getState();
 
     this._jobService.batchGetJobs(userState.jobHistory).subscribe(
@@ -176,15 +177,15 @@ export class UserState {
       }
     );
   }
-  
+
   @Action(RequestJobHistorySuccess)
   requestJobHistorySuccess(
     { patchState }: StateContext<UserStateModel>,
     { payload }: RequestJobHistorySuccess
   ) {
 
-    let userState: Partial<UserStateModel> = 
-    { jobHistoryJobs: payload }
+    let userState: Partial<UserStateModel> =
+      { jobHistoryJobs: payload }
     patchState(userState);
   }
 
