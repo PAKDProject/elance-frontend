@@ -19,7 +19,6 @@ export class UserProfileModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    alert(JSON.stringify(this.data.socialLinks))
     this.profileCards = this.data.profileCards
     this.profileCards.forEach(c => {
       switch (c.type) {
@@ -31,6 +30,9 @@ export class UserProfileModalComponent implements OnInit {
           break;
         case "skills":
           c.content = this.data.skills
+          break;
+        case "jobs":
+          c.content = this.data.jobHistory
           break;
       }
     });

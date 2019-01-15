@@ -1,3 +1,7 @@
+<div class="profileHeader">
+  <!-- leave this space for any extra buttons we might use later on-->
+  <mat-icon (click)='onNoClick()'>close</mat-icon>
+</div>
 <mat-dialog-content class="top-modal">
   <div class="profileHeader">
     <div class="bg-ImgContainer">
@@ -24,16 +28,18 @@
         <h4>{{ this.data.email }}</h4>
       </div>
 
-      <div class="socailConnectionContainer"></div>
+      <div class="socailConnectionContainer">
 
-      <div *ngIf="this.data.socialLinks">
-        <div class="socialConnectionContainer" *ngIf="this.data.socialLinks.length > 0">
-          <a *ngFor="let connection of this.data.socialLinks" href="{{connection.link}}" target="_blank">
-            <img src="../../assets/icons/{{connection.title}}1.png" id="{{connection.title}}" alt="{{connection.title}}" />
-          </a>
-        </div>
+      </div>
+
+      <!--<div *ngIf="this.data.socialLinks">-->
+      <div class="socialConnectionContainer" *ngIf="this.data.socialLinks.length > 0">
+        <a *ngFor="let connection of this.data.socialLinks" href="http://{{connection.link}}" target="_blank">
+          <img src="../../assets/icons/{{connection.title}}1.png" id="{{connection.title}}" alt="{{connection.title}}" />
+        </a>
       </div>
     </div>
+    <!--</div>-->
   </div>
 
   <div class="profileBody" *ngIf="this.data.profileCards">

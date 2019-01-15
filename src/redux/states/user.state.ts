@@ -76,7 +76,10 @@ export class UserState {
     { payload }: RequestUserSuccessAction
   ) {
     patchState(payload);
-    this.store.dispatch(new RequestJobHistory(payload.jobHistory));
+
+    if (payload.jobHistory != undefined) {
+      this.store.dispatch(new RequestJobHistory(payload.jobHistory));
+    }
   }
 
   @Action(RequestUserFailedActions)
