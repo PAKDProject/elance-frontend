@@ -104,11 +104,20 @@ export class TempUserStorageService {
           type: "skills"
         },
         {
+          title: "Job History",
+          type: "jobs"
+        },
+        {
           title: "Custom Card 1",
           type: "custom",
-          content: "<h1> 18 naked cowboys in the showers at Ram Ranch </h1>"
+          content: "Custom card body with <h1>MARKDOWN</h1>"
         }
-      ]
+      ],
+      jobHistory: [
+        "6ad5192f-5e77-4520-9965-e6c37a33f120",
+        "2538f969-5db1-4f45-9751-ac5795121444",
+        "8df54914-75ef-44b0-b994-3d2a3b6f125e"
+       ]
     }
 
     return of(this.user)

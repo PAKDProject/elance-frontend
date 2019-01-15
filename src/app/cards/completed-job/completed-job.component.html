@@ -1,0 +1,18 @@
+<div class="inlineContainer">
+  <div class="cardContainer">
+    <div class="topRow">
+      <div class="jobTitle">{{job.title}}</div>
+      <div class="jobEmployer">{{job.employer}}</div>
+      <div class="modalButton" (click)='openJobModal()'>
+        <mat-icon>open_in_new</mat-icon>
+      </div>
+    </div>
+
+    <div class="bottomRow">
+      <div class="durationContainer">
+        <mat-icon>access_time</mat-icon>
+        <div class="yearContainer">{{job.dateAccepted | date }} - {{job.dateCompleted | date }}</div>
+      </div>
+    </div>
+  </div>
+</div>

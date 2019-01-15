@@ -5,8 +5,10 @@ import { Select, Store } from "@ngxs/store";
 import { UserState } from "src/redux/states/user.state";
 import { ISkills } from "src/models/skill-model";
 import { NotificationService } from "src/services/notifications/notification.service";
-import { RequestUpdateUser } from "src/redux/actions/user.actions";
+import { RequestUpdateUser, RequestJobHistory } from "src/redux/actions/user.actions";
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { IProfileCard } from "src/models/profile-card";
+import { IJob } from "src/models/job-model";
 
 @Component({
   selector: "app-profile-menu",
@@ -14,16 +16,25 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
   styleUrls: ["./profile-menu.component.scss"]
 })
 export class ProfileMenuComponent implements OnInit {
-  @Select(UserState.getUser) user$: Observable<IUser>;
+  @Select(UserState.getUser)
+  user$: Observable<IUser>;
+  
+  @Select(UserState.getJobHistory)
+  jobHistory$: Observable<IJob[]>;
+
   skills: ISkills[];
   educationItems: IEducationItem[];
   socialLinks: ISocialLink[];
   user: Partial<IUser> = {};
-  profileCards;
+  profileCards: IProfileCard[];
+  jobHistory: IJob[] = [];
 
   constructor(private _notify: NotificationService, private store: Store) { }
 
   ngOnInit() {
+    //Get job history
+    this.store.dispatch(new RequestJobHistory(this.user.jobHistory));
+
     this.user$.subscribe(element => {
       this.skills = element.skills;
       this.educationItems = element.educationItems;
@@ -36,9 +47,12 @@ export class ProfileMenuComponent implements OnInit {
         tagline: element.tagline,
         summary: element.summary,
         educationItems: element.educationItems,
-        skills: element.skills
+        skills: element.skills,
+        jobHistory: element.jobHistory
       };
 
+      this.jobHistory$.subscribe(j => this.jobHistory = j);
+      
       //Assign content to preset cards
       this.profileCards.forEach(c => {
         switch(c.type)
@@ -51,6 +65,9 @@ export class ProfileMenuComponent implements OnInit {
             break;
           case "skills":
             c.content = this.skills
+            break;
+          case "jobs":
+            c.content = this.jobHistory
             break;
         }
       });

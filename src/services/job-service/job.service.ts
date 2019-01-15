@@ -5,7 +5,7 @@ import {
   HttpErrorResponse
 } from "@angular/common/http";
 import { IJob } from "src/models/job-model";
-import { Observable, throwError } from "rxjs";
+import { Observable, throwError, of } from "rxjs";
 import { map, catchError } from "rxjs/operators";
 import { NotificationService } from "../notifications/notification.service";
 import { environment } from "src/environments/environment";
@@ -175,5 +175,21 @@ export class JobService {
         return response.jobs;
       })
     );
+  }
+
+  //Batch get jobs
+  batchGetJobs(jobIDs: string[]): Observable<IJob[]> {
+    let jobs: IJob[] = [];
+
+    if(jobIDs != null && jobIDs.length > 0)
+    {
+      jobIDs.forEach(async jobID => {
+        await this.getJobById(jobID).subscribe(j => {
+          jobs.push(j);
+        });
+      });
+    }
+    
+    return of(jobs);
   }
 }

@@ -18,6 +18,7 @@ export interface IUser {
   contacts?: IUser[];
   activeJobs?: IJob[];
   profileCards?: IProfileCard[];
+  jobHistory?: string[];
 }
 
 export interface ISocialLink {

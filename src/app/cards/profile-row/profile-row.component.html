@@ -36,6 +36,13 @@
     </div>
   </div>
   
+  <!-- Job History Card -->
+  <div *ngIf='card.type == "jobs"'>
+      <div style="margin-top: 3px;">
+        <completed-job-card *ngFor="let job of card.content" [JobInput]="job" (deleteEmit)="removeSkill($event)"></completed-job-card>
+      </div>
+    </div>
+
   <!-- Custom (Markdown) Card -->
   <div *ngIf='card.type == "custom"'>
     <markdown *ngIf='!editing' ngPreserveWhitespaces> {{card.content}} </markdown>

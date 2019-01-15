@@ -1,0 +1,85 @@
+@import "../../../variables.scss";
+.inlineContainer {
+    display: inline-block;
+
+    .cardContainer {
+        display: grid;
+        grid-template-rows: repeat(2, auto);
+        margin: 5px;
+        color: $accent;
+        background: #cbcbcb;
+        box-shadow: 3px 4px 6px rgba(0, 0, 0, 0.2);
+        min-height: 80px;
+
+        .topRow {
+            padding: 5px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            font-weight: 500;
+            display: grid;
+            grid-template-areas: "title button"
+                                "employer button";
+            grid-template-columns: 1fr auto;
+        
+            .jobTitle {
+                grid-area: title;
+            }
+        
+            .jobEmployer {
+                grid-area: employer;
+            }
+
+            .modalButton {
+                grid-area: button;
+                margin-left: 10px;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background: $accent;
+                color: white;
+                cursor: pointer;
+
+                mat-icon {
+                    height: 100%;
+                    width: 100%;
+                    line-height: 30px;
+                    font-size: 22px;
+                    vertical-align: middle;
+                    text-align: center;
+                }
+            }
+
+            .modalButton:hover {
+                color: $accent;
+                background: white;
+                border: 1px solid $accent;
+            }
+        }
+
+        .bottomRow {
+            padding: 5px;
+            display: grid;
+            grid-template-columns: auto auto;
+            color: white;
+            background: $primary;
+
+            .durationContainer {
+                display: grid;
+                grid-template-columns: auto auto;
+                grid-column-gap: 5px;
+                margin-right: 10px;
+                justify-self: left;
+
+                mat-icon {
+                    align-self: center;
+                    height: 100%;
+                }
+
+                .yearContainer {
+                    height: 100%;
+                    vertical-align: center;
+                }
+            }
+        }
+    }
+}

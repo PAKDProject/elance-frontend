@@ -83,6 +83,7 @@ import { NgSelectModule } from "@ng-select/ng-select";
 import { AddEducationComponent } from './cards/add-education/add-education.component';
 import { ProfileRowComponent } from './cards/profile-row/profile-row.component';
 import { UserProfileModalComponent } from './modals/user-profile-modal/user-profile-modal.component';
+import { CompletedJobComponent } from './cards/completed-job/completed-job.component';
 
 @NgModule({
   declarations: [
@@ -122,7 +123,8 @@ import { UserProfileModalComponent } from './modals/user-profile-modal/user-prof
     SkillContainerModalComponent,
     AddEducationComponent,
     ProfileRowComponent,
-    UserProfileModalComponent
+    UserProfileModalComponent,
+    CompletedJobComponent
   ],
   imports: [
     BrowserAnimationsModule,

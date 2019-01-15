@@ -9,7 +9,10 @@ import {
   ApplyForJobFail,
   RequestUpdateUser,
   RequestUpdateUserSuccess,
-  RequestUpdateUserFail
+  RequestUpdateUserFail,
+  RequestJobHistory,
+  RequestJobHistorySuccess,
+  RequestJobHistoryFail
 } from "../actions/user.actions";
 import { TempUserStorageService } from "src/services/temp-user/temp-user-storage.service";
 import { UserService } from "src/services/user-service/user.service";
@@ -17,6 +20,7 @@ import { ISkills } from "src/models/skill-model";
 import { NotificationService } from "src/services/notifications/notification.service";
 import { IJob } from "src/models/job-model";
 import { RequestJobs } from "../actions/job.actions";
+import { JobService } from "src/services/job-service/job.service";
 
 export class UserStateModel {
   id?: string;
@@ -34,6 +38,8 @@ export class UserStateModel {
   tagline?: string;
   contacts?: IUser[];
   activeJobs?: IJob[];
+  jobHistory?: string[];
+  jobHistoryJobs?: IJob[];
 }
 
 @State({
@@ -45,7 +51,8 @@ export class UserState {
     private userService: TempUserStorageService,
     private store: Store,
     private _userService: UserService,
-    private _notification: NotificationService
+    private _notification: NotificationService,
+    private _jobService: JobService
   ) {}
 
   @Selector()
@@ -150,4 +157,39 @@ export class UserState {
   // applyForJobFail() {
   //     // this._notification.showError("Failed to apply for the job!")
   // }
+  
+  @Selector()
+  static getJobHistory(state: UserStateModel) {
+    return state.jobHistoryJobs;
+  }
+
+  @Action(RequestJobHistory)
+  requestJobHistory({ getState }: StateContext<UserStateModel>,) {
+    let userState = getState();
+
+    this._jobService.batchGetJobs(userState.jobHistory).subscribe(
+      res => {
+        this.store.dispatch(new RequestJobHistorySuccess(res));
+      },
+      err => {
+        this.store.dispatch(new RequestJobHistoryFail(err));
+      }
+    );
+  }
+  
+  @Action(RequestJobHistorySuccess)
+  requestJobHistorySuccess(
+    { patchState }: StateContext<UserStateModel>,
+    { payload }: RequestJobHistorySuccess
+  ) {
+
+    let userState: Partial<UserStateModel> = 
+    { jobHistoryJobs: payload }
+    patchState(userState);
+  }
+
+  @Action(RequestJobHistoryFail)
+  requestJobHistoryFail({ errorMessage }: RequestJobHistoryFail) {
+    this._notification.showError("Error getting job history", errorMessage);
+  }
 }
