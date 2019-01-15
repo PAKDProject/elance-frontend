@@ -19,10 +19,10 @@
   <div class="modalBody">{{ data.description }}</div>
   <div class="modalBottom">
     <button style="background: gray" (click)="onNoClick()">Cancel</button>
-    <button style="background: #12896e;" (click)="apply()" *ngIf="isEmployer">
+    <button style="background: #12896e;" (click)="apply()" *ngIf="!isEmployer">
       Apply
     </button>
-    <button style="background: #12896e;" (click)="showApplicants()" *ngIf="!isEmployer">
+    <button style="background: #12896e;" (click)="showApplicants()" *ngIf="isEmployer">
       Show Applicants
       <span class="badge badge-light" id="pill">{{
         data.applicants ? data.applicants.length : 0

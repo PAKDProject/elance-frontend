@@ -72,6 +72,22 @@ export class JobService {
       .pipe(catchError(this.handleError));
   }
 
+  updateApplicants(applicantIds: string[], jobId: string) {
+    const partial: Partial<IJob> = {
+      applicants: []
+    };
+    applicantIds.forEach(a => {
+      partial.applicants.push(a);
+    });
+    return this._http
+      .put(
+        `${this.endpoint}/${jobId}`,
+        JSON.stringify(partial),
+        this.httpOptions
+      )
+      .pipe(catchError(this.handleError));
+  }
+
   /**
    * Delete a job
    * @param jobId string
@@ -177,14 +193,15 @@ export class JobService {
 
   //Batch get jobs
   batchGetJobs(jobIDs: string[]): Observable<IJob[]> {
-    return this._http.post(`${this.endpoint}/batch`, JSON.stringify(jobIDs), this.httpOptions)
-                    .pipe(
-                      map(res => {
-                          let response = res as { jobs: IJob[] };
-                          console.log(response.jobs)
-                          return response.jobs;
-      }),
-      catchError(this.handleError)
-    );
+    return this._http
+      .post(`${this.endpoint}/batch`, JSON.stringify(jobIDs), this.httpOptions)
+      .pipe(
+        map(res => {
+          let response = res as { jobs: IJob[] };
+          console.log(response.jobs);
+          return response.jobs;
+        }),
+        catchError(this.handleError)
+      );
   }
 }

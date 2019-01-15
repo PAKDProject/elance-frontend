@@ -101,14 +101,20 @@ export class UserService {
   }
 
   batchGetUsers(applicantIds: string[]): Observable<IUser[]> {
-    return this.http.post(`${this.endpoint}/batch`, JSON.stringify(applicantIds), this.httpOptions)
-                    .pipe(
-                      map(res => {
-        let response = res as { users: IUser[] };
-        return response.users;
-      }),
-      catchError(this.handleError)
-    );
+    console.log(applicantIds);
+    return this.http
+      .post(
+        `${this.endpoint}/batch`,
+        JSON.stringify(applicantIds),
+        this.httpOptions
+      )
+      .pipe(
+        map(res => {
+          let response = res as { users: IUser[] };
+          return response.users;
+        }),
+        catchError(this.handleError)
+      );
   }
 
   private handleError(error: HttpErrorResponse) {
