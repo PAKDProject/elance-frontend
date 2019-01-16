@@ -48,3 +48,16 @@ export class ApplyForJobFail {
     static readonly type = '[Jobs] Apply For Job Fail';
     constructor(public errorMessage: string) { }
 }
+
+export class AcceptApplicant {
+    static readonly type = '[Jobs] Accept Applicant'
+    constructor(public jobID: string, public userID: string) { }
+}
+export class AcceptApplicantSuccess {
+    static readonly type = '[Jobs] Accept Applicant Success'
+    constructor(public job: IJob) { }
+}
+export class AcceptApplicantFail {
+    static readonly type = '[Jobs] Accept Applicant Fail'
+    constructor(public errorMessage: string) { }
+}

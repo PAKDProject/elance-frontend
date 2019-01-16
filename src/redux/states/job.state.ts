@@ -1,4 +1,4 @@
-import { State, StateContext, Action, Selector, Store } from "@ngxs/store";
+import { State, StateContext, Selector, Store, Action } from "@ngxs/store";
 import {
   RequestJobsSuccess,
   RequestJobsFail,
@@ -9,7 +9,10 @@ import {
   AddJobFail,
   ApplyForJobSuccess,
   ApplyForJob,
-  ApplyForJobFail
+  ApplyForJobFail,
+  AcceptApplicant,
+  AcceptApplicantSuccess,
+  AcceptApplicantFail
 } from "../actions/job.actions";
 import { IJob } from "src/models/job-model";
 import { JobService } from "src/services/job-service/job.service";
@@ -34,7 +37,7 @@ export class JobsState {
     private _jobsService: JobService,
     private store: Store,
     private _notification: NotificationService
-  ) {}
+  ) { }
 
   @Selector()
   static getJobs(state: JobsStateModel) {
@@ -176,13 +179,6 @@ export class JobsState {
     }
     job.applicants.push(userID);
 
-    // let partialJob: Partial<IJob> = {
-    //   applicants: job.applicants
-    // };
-
-    // job.applicants.forEach(e => {
-    //   partialJob.applicants.push(e);
-    // });
 
     this._jobsService
       .updateApplicants(job.applicants, job.id)
@@ -218,4 +214,55 @@ export class JobsState {
     this._notification.showError("An error occured in the state", errorMessage);
     patchState(state);
   }
-}
+
+  //Redux to accept an applicant to a job
+  @Action(AcceptApplicant)
+  acceptApplicant({ getState }: StateContext<JobsStateModel>, { jobID, userID }: AcceptApplicant) {
+    //get current state
+    const state = getState();
+    state.isLoading = true;
+
+    //find the relevant job from state
+    let job = state.jobs.filter(job => job.id === jobID)[0];
+
+    //Check if the job existed
+    if (job !== undefined) {
+      job.chosenApplicantId = userID;
+      //Make a partial job to update
+      const partial: Partial<IJob> = {
+        chosenApplicantId: userID
+      }
+      //Update the job
+      this._jobsService.updateJob(partial, jobID).subscribe((res: { job: IJob }) => {
+        const updatedJob = res.job;
+        this.store.dispatch(new AcceptApplicantSuccess(updatedJob));
+      }),
+        err => {
+          this.store.dispatch(new AcceptApplicantFail(err.message));
+        };
+    }
+  }
+
+  @Action(AcceptApplicantSuccess)
+  acceptApplicantSuccess({ getState, patchState }: StateContext<JobsStateModel>, { job }: AcceptApplicantSuccess) {
+    const state = getState();
+    state.isLoading = false;
+
+    //If update in db went succesfully replace old job with new one in state
+    let jobs = state.jobs;
+    jobs.filter(job => job.id === job.id)[0] = job;
+    patchState({ jobs });
+  }
+
+  @Action(AcceptApplicantFail)
+  acceptApplicatnFail({ getState, patchState }: StateContext<JobsStateModel>, { errorMessage }: AcceptApplicantFail) {
+    const state = getState();
+    state.isLoading = false;
+
+    this._notification.showError("An error occured in the state", errorMessage);
+    patchState(state);
+  }
+
+}//end of file
+
+

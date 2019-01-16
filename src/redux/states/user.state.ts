@@ -4,15 +4,16 @@ import {
   RequestUserSuccessAction,
   RequestUserFailedActions,
   RequestAddSkillToUser,
-  ApplyForJob,
-  ApplyForJobSuccess,
-  ApplyForJobFail,
+
   RequestUpdateUser,
   RequestUpdateUserSuccess,
   RequestUpdateUserFail,
   RequestJobHistory,
   RequestJobHistorySuccess,
-  RequestJobHistoryFail
+  RequestJobHistoryFail,
+  UserApplyForJob,
+  UserApplyForJobSuccess,
+  UserApplyForJobFail
 } from "../actions/user.actions";
 import { TempUserStorageService } from "src/services/temp-user/temp-user-storage.service";
 import { UserService } from "src/services/user-service/user.service";
@@ -40,6 +41,7 @@ export class UserStateModel {
   activeJobs?: IJob[];
   jobHistory?: string[];
   jobHistoryJobs?: IJob[];
+  appliedJobs?: string[];
 }
 
 @State({
@@ -131,6 +133,38 @@ export class UserState {
     let existingSkills = state.skills;
     existingSkills.push(...skills);
     this.store.dispatch(new RequestUpdateUser({ skills: existingSkills }));
+  }
+
+  @Action(UserApplyForJob)
+  ApplyForJob({ getState }: StateContext<UserStateModel>, { jobId }: UserApplyForJob) {
+    const state = getState();
+
+    let partial: Partial<IUser> = {
+      appliedJobs: state.appliedJobs
+    }
+    partial.appliedJobs.push(jobId);
+    this._userService.updateUser(partial, state.id).subscribe((res) => {
+      let updated = res;
+      this.store.dispatch(new UserApplyForJobSuccess(updated))
+    }),
+      err => {
+        this.store.dispatch(new UserApplyForJobFail(err.message))
+      }
+  }
+
+  @Action(UserApplyForJobSuccess)
+  ApplyForJobSuccess({ getState, patchState }: StateContext<UserStateModel>, { user }: UserApplyForJobSuccess) {
+    patchState(user);
+
+  }
+
+  @Action(UserApplyForJobFail)
+  ApplyForJobFail({ getState, patchState }: StateContext<UserStateModel>, { errorMessage }: UserApplyForJobFail) {
+    const state = getState();
+
+    this._notification.showError("Error occured in the state", errorMessage);
+
+    patchState(state);
   }
 
   // @Action(ApplyForJob)

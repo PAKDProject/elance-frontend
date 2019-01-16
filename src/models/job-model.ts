@@ -13,8 +13,9 @@ export interface IJob {
   payment: number;
   dateAccepted?: Date;
   dateDue?: Date;
-  dateCompleted? : Date;
+  dateCompleted?: Date;
   progress?: number;
   //New field
   applicants?: string[];
+  chosenApplicantId?: string;
 }

@@ -39,20 +39,20 @@ export class RequestUpdateUserFail {
     constructor(public errorMessage: string) { }
 }
 
-export class ApplyForJob {
-    static readonly type = '[Jobs] Apply For Job'
+export class UserApplyForJob {
+    static readonly type = '[User] Apply For Job'
 
-    constructor(public job: IJob) { }
+    constructor(public jobId: string) { }
 }
 
-export class ApplyForJobSuccess {
-    static readonly type = '[Jobs] Apply For Job'
+export class UserApplyForJobSuccess {
+    static readonly type = '[User] Apply For Job Success'
 
-    constructor(public jobs: IJob[], public title: string) { }
+    constructor(public user: IUser) { }
 }
 
-export class ApplyForJobFail {
-    static readonly type = '[Jobs] Apply For Job'
+export class UserApplyForJobFail {
+    static readonly type = '[User] Apply For Job Fail'
 
     constructor(public errorMessage: string) { }
 }

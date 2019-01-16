@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from "@angular/material";
 import { IJob } from "src/models/job-model";
 import { Store, Select } from "@ngxs/store";
-import { ApplyForJob } from "src/redux/actions/job.actions";
+import { ApplyForJob, AcceptApplicant } from "src/redux/actions/job.actions";
 import { IUser } from "src/models/user-model";
 import { UserState } from "src/redux/states/user.state";
 import { Observable } from "rxjs";
@@ -59,7 +59,7 @@ export class InactiveJobModalComponent implements OnInit {
 
   //If you are employer and there are applicants show the applicants screen
   showApplicants() {
-    if (!this.isEmployer && this.data.applicants) {
+    if (this.isEmployer && this.data.applicants) {
       this._userService.batchGetUsers(this.data.applicants).subscribe(res => {
         this.applicants = res;
         this.applicantsVisible = true;
@@ -78,12 +78,16 @@ export class InactiveJobModalComponent implements OnInit {
   }
 
   //TODO
-  selectUser(id: string) {
+  selectUser(userId: string) {
     //Redux call here
+    this._store.dispatch(new AcceptApplicant(this.data.id, userId)).subscribe((res) => {
+      console.log("Applicant was correctly added")
+    })
   }
 
   dismissUser(id: string) {
     //Redux call here
+    this.applicants = this.applicants.filter(applicant => applicant.id !== id);
   }
 
   viewProfile(id: string) {

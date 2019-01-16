@@ -23,7 +23,7 @@ export class UserService {
     })
   };
 
-  constructor(private http: HttpClient, private _store: Store) {}
+  constructor(private http: HttpClient, private _store: Store) { }
   /**
    * Returns all users in collection
    */
@@ -65,7 +65,7 @@ export class UserService {
    * @param updatedUser Type : any
    * @param userId Type: string
    */
-  updateUser(updatedUser: any, userId: string): Observable<IUser> {
+  updateUser(updatedUser: Partial<IUser>, userId: string): Observable<IUser> {
     return this.http
       .put<IUser>(
         `${this.endpoint}/${userId}`,
@@ -123,7 +123,7 @@ export class UserService {
     } else {
       console.error(
         `Backend returned code ${error.status}, ` +
-          `body was: ${error.error.message}`
+        `body was: ${error.error.message}`
       );
     }
     return throwError(error);
