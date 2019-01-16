@@ -1,40 +1,35 @@
-<div class="profileHeader">
-  <!-- leave this space for any extra buttons we might use later on-->
-  <mat-icon (click)='onNoClick()'>close</mat-icon>
-</div>
 <mat-dialog-content class="top-modal">
+    <!-- <div class="profileHeader"> -->
+        <!-- leave this space for any extra buttons we might use later on-->
+        <!-- <mat-icon (click)='onNoClick()'>close</mat-icon> -->
+    <!-- </div> -->
   <div class="pageContainer">
     <div class="profileHeader">
       <div class="bg-ImgContainer">
         <img src="../../assets/images/profile-background.png" />
       </div>
+      <div class="leftCol"></div>
+        <div class="midCol">
+          <div class="profilePictureContainer">
+            <!-- <img src="../../assets/images/stock-steve.jpg" /> -->
+            <img src="../../assets/images/default_user.png" />
+          </div>
 
-      <div class="profileBody" *ngIf="this.data.profileCards">
-        <div *ngFor='let card of this.profileCards' class="nonDraggableContainer">
-          <profile-row [card]='card' [editing]='false'></profile-row>
-          <div class="leftCol"></div>
-          <div class="midCol">
-            <div class="profilePictureContainer">
-              <!-- <img src="../../assets/images/stock-steve.jpg" /> -->
-              <img src="../../assets/images/default_user.png" />
-            </div>
+          <div class="nameContainer">
+            <h1>
+              {{ this.data.fName }} {{ this.data.lName }}
+            </h1>
+          </div>
 
-            <div class="nameContainer">
-              <h1>
-                {{ this.data.fName }} {{ this.data.lName }}
-              </h1>
-            </div>
+          <div class="jobTitleContainer">
+            <h2>{{ this.data.tagline }}</h2>
+          </div>
 
-            <div class="jobTitleContainer">
-              <h2>{{ this.data.tagline }}</h2>
-            </div>
+          <div class="emailContainer">
+            <h4>{{ this.data.email }}</h4>
+          </div>
 
-            <div class="emailContainer">
-              <h4>{{ this.data.email }}</h4>
-            </div>
-
-            <div class="socailConnectionContainer"></div>
-
+          <div class="socialConnectionContainer">
             <div *ngIf="this.data.socialLinks">
               <div class="socialConnectionContainer" *ngIf="this.data.socialLinks.length > 0">
                 <a *ngFor="let connection of this.data.socialLinks" href="http://{{connection.link}}" target="_blank">
@@ -43,12 +38,14 @@
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="profileBody" *ngIf="this.data.profileCards">
-          <div *ngFor='let card of this.profileCards' class="nonDraggableContainer">
-            <profile-row [card]='card' [editing]='false'></profile-row>
-          </div>
-        </div>
       </div>
+      <div class="rightCol"></div>
+    </div>
+
+    <div class="profileBody" *ngIf="this.data.profileCards">
+      <div *ngFor='let card of this.profileCards' class="nonDraggableContainer">
+        <profile-row [card]='card' [editing]='false'></profile-row>
+      </div>
+    </div>
+  </div>
 </mat-dialog-content>

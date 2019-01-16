@@ -158,14 +158,5 @@ mat-dialog-content {
         margin-top: 10px;
         width: 100%;
       }
-    
-    @media only screen and (max-width: 768px) {
-      .profileBody {
-        .bodyContentContainer {
-          grid-template-columns: 1fr auto;
-          grid-column-gap: 100px;
-        }
-      }
-    }
   }
 }
