@@ -174,18 +174,4 @@ export class JobService {
       })
     );
   }
-
-  //Batch get jobs
-  batchGetJobs(jobIDs: string[]): Observable<IJob[]> {
-    return this._http
-      .post(`${this.endpoint}/batch`, JSON.stringify(jobIDs), this.httpOptions)
-      .pipe(
-        map(res => {
-          let response = res as { jobs: IJob[] };
-          console.log(response.jobs);
-          return response.jobs;
-        }),
-        catchError(this.handleError)
-      );
-  }
 }
