@@ -22,7 +22,6 @@ export class InactiveJobModalComponent implements OnInit {
   applicantsVisible: boolean = false;
   userID: string;
   isEmployer: boolean = false;
-  applicantsVisible: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<InactiveJobModalComponent>,
@@ -55,11 +54,6 @@ export class InactiveJobModalComponent implements OnInit {
         this.dialogRef.close();
       });
     });
-    // this._store
-    //   .dispatch(new ApplyForJob(this.data.id, this.userID)
-    //   .subscribe(res => {
-    //     this.dialogRef.close();
-    //   }));
   }
 
   //If you are employer and there are applicants show the applicants screen
@@ -67,10 +61,6 @@ export class InactiveJobModalComponent implements OnInit {
     if (this.isEmployer && this.data.applicants.length > 0) {
       this.applicants = this.data.applicants;
       this.applicantsVisible = true;
-      // this._userService.batchGetUsers(this.data.applicants).subscribe(res => {
-      //   this.applicants = res;
-      //   this.applicantsVisible = true;
-      // });
     } else {
       this._notification.showError(
         "No applicants found",
@@ -85,25 +75,23 @@ export class InactiveJobModalComponent implements OnInit {
   }
 
 
-  selectUser(userId: string) {
+  selectUser(user: IUser) {
     //Redux- Accept a freelancer
-    this._store.dispatch(new AcceptApplicant(this.data.id, userId)).subscribe((res) => {
-      this._notification.showSuccess(`You chose ${this.applicants.filter(u => u.id === userId)[0].fName} to do your job!`, "Let's hope he's competent.........if not we accept no liability.")
+    this._store.dispatch(new AcceptApplicant(this.data.id, user)).subscribe(() => {
+      this._notification.showSuccess(`You chose ${user.fName} to do your job!`, "Let's hope he's competent...if not we accept no liability.")
       this.dialogRef.close();
     })
   }
 
   //Temporarily filter out the applicants you don't want
-  dismissUser(id: string) {
-    this.data.applicants = this.data.applicants.filter(applicant => applicant !== id)
-    this.applicants = this.applicants.filter(applicant => applicant.id !== id);
+  dismissUser(user: IUser) {
+    this.data.applicants = this.data.applicants.filter(applicant => applicant !== user);
+    this.applicants = this.applicants.filter(applicant => applicant !== user);
   }
 
-  viewProfile(id: string) {
-    this._userService.getUserByID(id).subscribe(user => {
-      this._viewProfileDialog.open(UserProfileModalComponent, {
-        data: user
-      })
-    })
+  viewProfile(user: IUser) {
+    this._viewProfileDialog.open(UserProfileModalComponent, {
+      data: user
+    });
   }
 }

@@ -42,7 +42,7 @@ export class RequestUpdateUserFail {
 export class UserApplyForJob {
     static readonly type = '[User] Apply For Job'
 
-    constructor(public jobId: string) { }
+    constructor(public job: IJob) { }
 }
 
 export class UserApplyForJobSuccess {
@@ -54,20 +54,5 @@ export class UserApplyForJobSuccess {
 export class UserApplyForJobFail {
     static readonly type = '[User] Apply For Job Fail'
 
-    constructor(public errorMessage: string) { }
-}
-
-export class RequestJobHistory {
-    static readonly type = '[Jobs] Request Job History'
-    constructor(public jobIDs: string[]) { }
-}
-
-export class RequestJobHistorySuccess {
-    static readonly type = '[Jobs] Request Job History Success';
-    constructor(public payload: IJob[]) { }
-}
-
-export class RequestJobHistoryFail {
-    static readonly type = '[Jobs] Request Job History Fail';
     constructor(public errorMessage: string) { }
 }

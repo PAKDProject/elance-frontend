@@ -76,22 +76,6 @@ export class UserService {
   }
 
   /**
-   * Add a new job application to the appliedJobs array and update the user
-   * @param jobApplications string[]
-   * @param userId string
-   */
-  updateJobApplications(jobApplications: string[], userId: string): Observable<IUser> {
-    const partial: Partial<IUser> = {
-      appliedJobs: []
-    }
-    jobApplications.forEach(a => {
-      partial.appliedJobs.push(a)
-    })
-
-    return this.http.put<IUser>(`${this.endpoint}/${userId}`, JSON.stringify(partial), this.httpOptions).pipe(catchError(this.handleError));
-
-  }
-  /**
    * Delete a user by their userId
    * @param userId Type : string
    */
@@ -99,39 +83,6 @@ export class UserService {
     return this.http
       .delete<IUser>(`${this.endpoint}/${userId}`)
       .pipe(catchError(this.handleError));
-  }
-
-  /**
-   * Applying for a job
-   * @param activeJobs The array of active jobs for the user
-   * @param userId The id of the user taking the job
-   * @param jobId The id of the job being applied for
-   */
-  applyForAJob(
-    activeJobs: IJob[],
-    userId: string,
-    jobId: string
-  ): Observable<IUser> {
-    return this.http
-      .put<IUser>(`${this.endpoint}/${userId}/${jobId}`, { activeJobs })
-      .pipe(catchError(this.handleError));
-  }
-
-  batchGetUsers(applicantIds: string[]): Observable<IUser[]> {
-    console.log(applicantIds);
-    return this.http
-      .post(
-        `${this.endpoint}/batch`,
-        JSON.stringify(applicantIds),
-        this.httpOptions
-      )
-      .pipe(
-        map(res => {
-          let response = res as { users: IUser[] };
-          return response.users;
-        }),
-        catchError(this.handleError)
-      );
   }
 
   private handleError(error: HttpErrorResponse) {

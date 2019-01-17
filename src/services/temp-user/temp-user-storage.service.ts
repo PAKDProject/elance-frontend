@@ -115,9 +115,18 @@ export class TempUserStorageService {
         }
       ],
       jobHistory: [
-        "6ad5192f-5e77-4520-9965-e6c37a33f120",
-        "2538f969-5db1-4f45-9751-ac5795121444",
-        "8df54914-75ef-44b0-b994-3d2a3b6f125e"
+        {
+          id: "0a7d3ef1-00da-4bb9-9d10-61695207f8ca",
+          entity: "job",
+          title: "Product Engineer",
+          employerID: "d813c1eb-d73f-482f-b801-9519b664e706",
+          employerName: "Wordware",
+          description: "Nulla justo. Aliquam quis turpis eget elit sodales scelerisque.",
+          datePosted: new Date(2, 2, 2018),
+          dateAccepted: new Date(1, 2, 2018),
+          payment: 5629,
+          progress: 100
+      }
        ]
     };
 

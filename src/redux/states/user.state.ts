@@ -8,9 +8,9 @@ import {
   RequestUpdateUser,
   RequestUpdateUserSuccess,
   RequestUpdateUserFail,
-  RequestJobHistory,
-  RequestJobHistorySuccess,
-  RequestJobHistoryFail,
+  // RequestJobHistory,
+  // RequestJobHistorySuccess,
+  // RequestJobHistoryFail,
   UserApplyForJob,
   UserApplyForJobSuccess,
   UserApplyForJobFail
@@ -39,9 +39,9 @@ export class UserStateModel {
   tagline?: string;
   contacts?: IUser[];
   activeJobs?: IJob[];
-  jobHistory?: string[];
+  jobHistory?: IJob[];
   jobHistoryJobs?: IJob[];
-  appliedJobs?: string[];
+  appliedJobs?: IJob[];
 }
 
 @State({
@@ -79,9 +79,9 @@ export class UserState {
   ) {
     patchState(payload);
 
-    if (payload.jobHistory != undefined) {
-      this.store.dispatch(new RequestJobHistory(payload.jobHistory));
-    }
+    // if (payload.jobHistory !== undefined) {
+    //   this.store.dispatch(new RequestJobHistory(payload.jobHistory));
+    // }
   }
 
   @Action(RequestUserFailedActions)
@@ -136,17 +136,21 @@ export class UserState {
   }
 
   @Action(UserApplyForJob)
-  ApplyForJob({ getState }: StateContext<UserStateModel>, { jobId }: UserApplyForJob) {
+  ApplyForJob({ getState }: StateContext<UserStateModel>, { job }: UserApplyForJob) {
     //Get user from state
     const state = getState();
 
     //If never applied for a job initialize array
     if (state.appliedJobs === undefined) state.appliedJobs = []
     //Push new job to the array
-    state.appliedJobs.push(jobId)
+    state.appliedJobs.push(job)
 
-    //Pass the array to the user servive to update the user
-    this._userService.updateJobApplications(state.appliedJobs, state.id).subscribe((res) => {
+    const partial: Partial<IUser> = {
+      appliedJobs: state.appliedJobs
+    }
+
+    //Pass the array to the user service to update the user
+    this._userService.updateUser(partial, state.id).subscribe((res) => {
       let updated = res;
       this.store.dispatch(new UserApplyForJobSuccess(updated))
     }),
@@ -199,38 +203,38 @@ export class UserState {
   //     // this._notification.showError("Failed to apply for the job!")
   // }
 
-  @Selector()
-  static getJobHistory(state: UserStateModel) {
-    return state.jobHistoryJobs;
-  }
+//   @Selector()
+//   static getJobHistory(state: UserStateModel) {
+//     return state.jobHistoryJobs;
+//   }
 
-  @Action(RequestJobHistory)
-  requestJobHistory({ getState }: StateContext<UserStateModel>, ) {
-    let userState = getState();
+//   @Action(RequestJobHistory)
+//   requestJobHistory({ getState }: StateContext<UserStateModel>, ) {
+//     let userState = getState();
 
-    this._jobService.batchGetJobs(userState.jobHistory).subscribe(
-      res => {
-        this.store.dispatch(new RequestJobHistorySuccess(res));
-      },
-      err => {
-        this.store.dispatch(new RequestJobHistoryFail(err));
-      }
-    );
-  }
+//     this._jobService.batchGetJobs(userState.jobHistory).subscribe(
+//       res => {
+//         this.store.dispatch(new RequestJobHistorySuccess(res));
+//       },
+//       err => {
+//         this.store.dispatch(new RequestJobHistoryFail(err));
+//       }
+//     );
+//   }
 
-  @Action(RequestJobHistorySuccess)
-  requestJobHistorySuccess(
-    { patchState }: StateContext<UserStateModel>,
-    { payload }: RequestJobHistorySuccess
-  ) {
+//   @Action(RequestJobHistorySuccess)
+//   requestJobHistorySuccess(
+//     { patchState }: StateContext<UserStateModel>,
+//     { payload }: RequestJobHistorySuccess
+//   ) {
 
-    let userState: Partial<UserStateModel> =
-      { jobHistoryJobs: payload }
-    patchState(userState);
-  }
+//     let userState: Partial<UserStateModel> =
+//       { jobHistoryJobs: payload }
+//     patchState(userState);
+//   }
 
-  @Action(RequestJobHistoryFail)
-  requestJobHistoryFail({ errorMessage }: RequestJobHistoryFail) {
-    this._notification.showError("Error getting job history", errorMessage);
-  }
+//   @Action(RequestJobHistoryFail)
+//   requestJobHistoryFail({ errorMessage }: RequestJobHistoryFail) {
+//     this._notification.showError("Error getting job history", errorMessage);
+//   }
 }

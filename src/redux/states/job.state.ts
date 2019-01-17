@@ -18,8 +18,9 @@ import { IJob } from "src/models/job-model";
 import { JobService } from "src/services/job-service/job.service";
 import { NotificationService } from "src/services/notifications/notification.service";
 import { TempJobStorageService } from "src/services/temp-job/temp-job-storage.service";
+import { UserApplyForJob } from '../actions/user.actions';
+import { UserService } from 'src/services/user-service/user.service';
 import { IUser } from 'src/models/user-model';
-import { UserApplyForJob } from "../actions/user.actions";
 
 export class JobsStateModel {
   jobs: IJob[];
@@ -37,6 +38,7 @@ export class JobsState {
   constructor(
     private jobsService: TempJobStorageService,
     private _jobsService: JobService,
+    private _userService: UserService,
     private store: Store,
     private _notification: NotificationService
   ) { }
@@ -181,13 +183,14 @@ export class JobsState {
     };
     if (job.applicants !== undefined) {
       if (!job.applicants.includes(user)) {
+        job.applicants.forEach(j => {
+          partialJob.applicants.push(j);
+        });
         partialJob.applicants.push(user);
       }
     } else {
       partialJob.applicants.push(user);
     }
-
-
     this._jobsService
       .updateJob(partialJob, job.id)
       .subscribe((res: { job: IJob }) => {
@@ -209,7 +212,7 @@ export class JobsState {
     let jobs = state.jobs;
     jobs.filter(job => job.id === payload.id)[0] = payload;
     this._notification.showSuccess(`Woohoo you applied for ${payload.title}`, "We wish you the best of luck with your application!")
-    this.store.dispatch(new UserApplyForJob(payload.id))
+    //this.store.dispatch(new UserApplyForJob(payload))
     patchState({ jobs });
   }
 
@@ -227,29 +230,52 @@ export class JobsState {
 
   //Redux to accept an applicant to a job
   @Action(AcceptApplicant)
-  acceptApplicant({ getState }: StateContext<JobsStateModel>, { jobID, userID }: AcceptApplicant) {
-    //get current state
+  acceptApplicant({ getState }: StateContext<JobsStateModel>, { jobID, user }: AcceptApplicant) {
+    // get current state
     const state = getState();
     state.isLoading = true;
 
-    //find the relevant job from state
+    // find the relevant job from state
     let job = state.jobs.filter(job => job.id === jobID)[0];
 
-    //Check if the job existed
+    // Check if the job existed
     if (job !== undefined) {
-      job.chosenApplicantId = userID;
-      //Make a partial job to update
-      const partial: Partial<IJob> = {
-        chosenApplicantId: userID
+      job.chosenApplicant = user;
+      // Make a partial job to update
+      const partialJob: Partial<IJob> = {
+        chosenApplicant: user
       }
       //Update the job
-      this._jobsService.updateJob(partial, jobID).subscribe((res: { job: IJob }) => {
+      this._jobsService.updateJob(partialJob, jobID).subscribe((res: { job: IJob }) => {
         const updatedJob = res.job;
         this.store.dispatch(new AcceptApplicantSuccess(updatedJob));
       }),
         err => {
           this.store.dispatch(new AcceptApplicantFail(err.message));
         };
+
+      //Update the user's active jobs
+      // const partialUser: Partial<IUser> = {
+      //   activeJobs: []
+      // }
+
+      // if (user.activeJobs !== undefined) {
+      //   if (!user.activeJobs.includes(job)) {
+      //     partialUser.activeJobs.push(job);
+      //   }
+      // } else {
+      //   partialUser.activeJobs.push(job);
+      // }
+
+      // this._userService
+      // .updateUser(partialUser, user.id)
+      // .subscribe((res: { user: IUser }) => {
+      //   const updatedUser = res.user;
+      //   this.store.dispatch(new ApplyForJobSuccess(updatedUser));
+      // }),
+      // err => {
+      //   this.store.dispatch(new ApplyForJobFail(err.message));
+      // };
     }
   }
 

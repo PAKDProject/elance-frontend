@@ -5,7 +5,7 @@ import { Select, Store } from "@ngxs/store";
 import { UserState } from "src/redux/states/user.state";
 import { ISkills } from "src/models/skill-model";
 import { NotificationService } from "src/services/notifications/notification.service";
-import { RequestUpdateUser, RequestJobHistory } from "src/redux/actions/user.actions";
+import { RequestUpdateUser } from "src/redux/actions/user.actions";
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { IProfileCard } from "src/models/profile-card";
 import { IJob } from "src/models/job-model";
@@ -19,15 +19,15 @@ export class ProfileMenuComponent implements OnInit {
   @Select(UserState.getUser)
   user$: Observable<IUser>;
 
-  @Select(UserState.getJobHistory)
-  jobHistory$: Observable<IJob[]>;
+  //@Select(UserState.getJobHistory)
+  //jobHistory$: Observable<IJob[]>;
 
   skills: ISkills[];
   educationItems: IEducationItem[];
   socialLinks: ISocialLink[];
   user: Partial<IUser> = {};
   profileCards: IProfileCard[];
-  jobHistory: IJob[] = [];
+  jobHistory: IJob[];
 
   constructor(private _notify: NotificationService, private store: Store) { }
 
@@ -37,6 +37,7 @@ export class ProfileMenuComponent implements OnInit {
       this.educationItems = element.educationItems;
       this.socialLinks = element.socialLinks;
       this.profileCards = element.profileCards;
+      this.jobHistory = element.jobHistory;
 
       this.user = {
         fName: element.fName,
@@ -48,7 +49,7 @@ export class ProfileMenuComponent implements OnInit {
         jobHistory: element.jobHistory
       };
 
-      this.jobHistory$.subscribe(j => this.jobHistory = j);
+      //this.jobHistory$.subscribe(j => this.jobHistory = j);
 
       //Assign content to preset cards
       this.profileCards.forEach(c => {

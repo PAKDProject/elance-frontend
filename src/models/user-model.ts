@@ -19,8 +19,8 @@ export interface IUser {
   contacts?: IUser[];
   activeJobs?: IJob[];
   profileCards?: IProfileCard[];
-  jobHistory?: string[];
-  appliedJobs?: string[];
+  jobHistory?: IJob[];
+  appliedJobs?: IJob[];
 }
 
 export interface ISocialLink {
@@ -45,8 +45,8 @@ export interface ISkills {
 }
 
 interface IProfileCard {
-  title: string,
-  type: string,
-  content?: string | ISkills[] | IEducationItem[]
+  title: string;
+  type: string;
+  content?: string | ISkills[] | IEducationItem[];
 }
 

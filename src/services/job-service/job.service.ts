@@ -72,23 +72,6 @@ export class JobService {
       .pipe(catchError(this.handleError));
   }
 
-  // updateApplicants(applicantIds: string[], jobId: string) {
-  //   const partial: Partial<IJob> = {
-  //     applicants: []
-  //   };
-  //   applicantIds.forEach(a => {
-  //     partial.applicants.push(a);
-  //   });
-  //   console.log(JSON.stringify(partial));
-  //   return this._http
-  //     .put(
-  //       `${this.endpoint}/${jobId}`,
-  //       JSON.stringify(partial),
-  //       this.httpOptions
-  //     )
-  //     .pipe(catchError(this.handleError));
-  // }
-
   /**
    * Delete a job
    * @param jobId string

@@ -52,7 +52,7 @@ export class ApplyForJobFail {
 
 export class AcceptApplicant {
     static readonly type = '[Jobs] Accept Applicant'
-    constructor(public jobID: string, public userID: string) { }
+    constructor(public jobID: string, public user: IUser) { }
 }
 export class AcceptApplicantSuccess {
     static readonly type = '[Jobs] Accept Applicant Success'

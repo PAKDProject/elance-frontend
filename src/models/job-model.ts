@@ -2,6 +2,7 @@ import { IUser } from "./user-model";
 
 export interface IJob {
   id?: string;
+  entity?: string;
   title: string;
   // employer: IUser;
   employerName: string;
@@ -17,4 +18,5 @@ export interface IJob {
   progress?: number;
   //New field
   applicants?: IUser[];
+  chosenApplicant?: IUser;
 }

@@ -48,13 +48,13 @@
         </div>
         <p class="name">
           {{ user.fName + " " + user.lName | titlecase }}
-          <a class="profile" (click)="viewProfile(user.id)" id="viewProfileAnchor">(View Profile)</a>
+          <a class="profile" (click)="viewProfile(user)" id="viewProfileAnchor">(View Profile)</a>
         </p>
         <div class="buttons">
-          <button class="accept btn btn-sm" (click)="selectUser(user.id)">
+          <button class="accept btn btn-sm" (click)="selectUser(user)">
             <i class="fas fa-check"></i>Accept
           </button>
-          <button class="reject btn btn-danger btn-sm" (click)="dismissUser(user.id)">
+          <button class="reject btn btn-danger btn-sm" (click)="dismissUser(user)">
             <i class="fas fa-times"> </i> <span class="dismiss">Dismiss</span>
           </button>
         </div>
