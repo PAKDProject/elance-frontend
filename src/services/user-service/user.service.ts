@@ -74,6 +74,23 @@ export class UserService {
       )
       .pipe(catchError(this.handleError));
   }
+
+  /**
+   * Add a new job application to the appliedJobs array and update the user
+   * @param jobApplications string[]
+   * @param userId string
+   */
+  updateJobApplications(jobApplications: string[], userId: string): Observable<IUser> {
+    const partial: Partial<IUser> = {
+      appliedJobs: []
+    }
+    jobApplications.forEach(a => {
+      partial.appliedJobs.push(a)
+    })
+
+    return this.http.put<IUser>(`${this.endpoint}/${userId}`, JSON.stringify(partial), this.httpOptions).pipe(catchError(this.handleError));
+
+  }
   /**
    * Delete a user by their userId
    * @param userId Type : string

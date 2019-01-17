@@ -18,10 +18,10 @@ import { UserProfileModalComponent } from "../user-profile-modal/user-profile-mo
 export class InactiveJobModalComponent implements OnInit {
   @Select(UserState.getUser) user$: Observable<IUser>;
   applicants: IUser[];
+  applicantIDs: string[];
+  applicantsVisible: boolean = false;
   userID: string;
   isEmployer: boolean = false;
-  applicantsVisible: boolean = false;
-  applicantIDs: string[];
 
   constructor(
     public dialogRef: MatDialogRef<InactiveJobModalComponent>,
@@ -33,22 +33,23 @@ export class InactiveJobModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //Check if user posted the job
+    //Check if user posted the job and save their user id
     this.user$.subscribe(u => {
       this.userID = u.id;
       if (u.id === this.data.employerID) {
         this.isEmployer = true;
       }
     });
+    //Extract the applicant IDs --Dont think we need this part actually
     this.applicantIDs = this.data.applicants as Array<string>;
-
-    console.log(this.applicantIDs);
   }
 
+  //Close modal
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  //Apply for the current job
   apply(): void {
     this._store
       .dispatch(new ApplyForJob(this.data.id, this.userID))
@@ -59,7 +60,7 @@ export class InactiveJobModalComponent implements OnInit {
 
   //If you are employer and there are applicants show the applicants screen
   showApplicants() {
-    if (this.isEmployer && this.data.applicants) {
+    if (this.isEmployer && this.data.applicants && this.data.applicants.length !== 0) {
       this._userService.batchGetUsers(this.data.applicants).subscribe(res => {
         this.applicants = res;
         this.applicantsVisible = true;
@@ -77,16 +78,18 @@ export class InactiveJobModalComponent implements OnInit {
     this.applicantsVisible = false;
   }
 
-  //TODO
+
   selectUser(userId: string) {
-    //Redux call here
+    //Redux- Accept a freelancer
     this._store.dispatch(new AcceptApplicant(this.data.id, userId)).subscribe((res) => {
-      console.log("Applicant was correctly added")
+      this._notification.showSuccess(`You chose ${this.applicants.filter(u => u.id === userId)[0].fName} to do your job!`, "Let's hope he's competent.........if not we accept no liability.")
+      this.dialogRef.close();
     })
   }
 
+  //Temporarily filter out the applicants you don't want
   dismissUser(id: string) {
-    //Redux call here
+    this.data.applicants = this.data.applicants.filter(applicant => applicant !== id)
     this.applicants = this.applicants.filter(applicant => applicant.id !== id);
   }
 

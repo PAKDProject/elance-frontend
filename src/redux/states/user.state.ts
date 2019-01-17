@@ -137,13 +137,16 @@ export class UserState {
 
   @Action(UserApplyForJob)
   ApplyForJob({ getState }: StateContext<UserStateModel>, { jobId }: UserApplyForJob) {
+    //Get user from state
     const state = getState();
 
-    let partial: Partial<IUser> = {
-      appliedJobs: state.appliedJobs
-    }
-    partial.appliedJobs.push(jobId);
-    this._userService.updateUser(partial, state.id).subscribe((res) => {
+    //If never applied for a job initialize array
+    if (state.appliedJobs === undefined) state.appliedJobs = []
+    //Push new job to the array
+    state.appliedJobs.push(jobId)
+
+    //Pass the array to the user servive to update the user
+    this._userService.updateJobApplications(state.appliedJobs, state.id).subscribe((res) => {
       let updated = res;
       this.store.dispatch(new UserApplyForJobSuccess(updated))
     }),
@@ -152,10 +155,10 @@ export class UserState {
       }
   }
 
+  //If user updated in the database then patch state with the new returned user object
   @Action(UserApplyForJobSuccess)
-  ApplyForJobSuccess({ getState, patchState }: StateContext<UserStateModel>, { user }: UserApplyForJobSuccess) {
+  ApplyForJobSuccess({ patchState }: StateContext<UserStateModel>, { user }: UserApplyForJobSuccess) {
     patchState(user);
-
   }
 
   @Action(UserApplyForJobFail)

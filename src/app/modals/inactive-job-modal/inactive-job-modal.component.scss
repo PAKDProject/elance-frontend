@@ -15,12 +15,13 @@
       mat-icon {
         cursor: pointer;
       }
-      
+
       #viewProfileAnchor {
         text-decoration: $primary;
         text-decoration-style: solid;
       }
     }
+
     .infoRow {
       display: grid;
       grid-template-columns: 1fr auto;
@@ -29,10 +30,12 @@
       font-size: 20px;
     }
   }
+
   .modalBottom {
     margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+
     button {
       border-radius: 5px;
       border: 0px;
@@ -50,23 +53,28 @@
   display: grid;
   grid-template-columns: 1fr auto 1fr;
 }
+
 small {
   color: $primary;
   text-decoration: underline;
 }
+
 .grid-container {
   display: inline-grid;
   grid-template-columns: 1fr 4fr 2fr;
 }
+
 .img-container {
   align-self: center;
   justify-self: center;
 }
+
 .image {
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
+
 .name {
   font-size: 1.3em;
   font-weight: 700;
@@ -74,6 +82,7 @@ small {
   justify-self: left;
   margin: 0;
 }
+
 .dismiss {
   display: none;
 }
@@ -84,20 +93,25 @@ small {
   margin: 0;
   display: inline;
 }
-.profile {
-  color: $primary;
+
+#viewProfileAnchor {
+  color: $primary !important;
   text-decoration: underline;
   font-size: 0.7em;
 }
+
 h1 {
   color: $primary;
 }
+
 #back {
   float: left;
 }
+
 #close {
   justify-self: right;
 }
+
 .accept {
   background-color: $primary;
   color: white;
@@ -105,28 +119,35 @@ h1 {
   padding-right: 20px;
   margin-right: 10px;
 }
+
 .reject {
   padding-left: 20px;
   padding-right: 20px;
 }
+
 #pill {
   margin-left: 10px;
   color: $primary;
 }
+
 mat-icon {
   cursor: pointer;
 }
+
 @media only screen and (max-width: 650px) {
   #box {
     width: 100%;
     margin: 0;
   }
+
   .grid-container {
     display: block;
   }
+
   .buttons {
     width: 100%;
   }
+
   .img-container {
     width: 100%;
     text-align: center;
@@ -136,14 +157,17 @@ mat-icon {
     width: 100%;
     text-align: center;
   }
+
   .accept {
     width: 49%;
     float: left;
   }
+
   .reject {
     width: 49%;
     float: right;
   }
+
   .dismiss {
     display: inline;
   }

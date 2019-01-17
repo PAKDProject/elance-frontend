@@ -18,6 +18,7 @@ import { IJob } from "src/models/job-model";
 import { JobService } from "src/services/job-service/job.service";
 import { NotificationService } from "src/services/notifications/notification.service";
 import { TempJobStorageService } from "src/services/temp-job/temp-job-storage.service";
+import { UserApplyForJob } from "../actions/user.actions";
 
 export class JobsStateModel {
   jobs: IJob[];
@@ -200,6 +201,8 @@ export class JobsState {
     state.isLoading = false;
     let jobs = state.jobs;
     jobs.filter(job => job.id === payload.id)[0] = payload;
+    this._notification.showSuccess(`Woohoo you applied for ${payload.title}`, "We wish you the best of luck with your application!")
+    this.store.dispatch(new UserApplyForJob(payload.id))
     patchState({ jobs });
   }
 

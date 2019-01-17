@@ -25,7 +25,7 @@ export class JobService {
   constructor(
     private _http: HttpClient,
     private _notification: NotificationService
-  ) {}
+  ) { }
 
   /**
    * Get all jobs
@@ -165,7 +165,7 @@ export class JobService {
         //Sorting by date ascending and descending
         switch (filters.dateRadio) {
           case "newToOld":
-            response.jobs.sort(function(a, b) {
+            response.jobs.sort(function (a, b) {
               var jobA = a.datePosted,
                 jobB = b.datePosted;
               if (jobA > jobB) return -1;
@@ -174,7 +174,7 @@ export class JobService {
             break;
           case "oldToNew":
             response.jobs
-              .sort(function(a, b) {
+              .sort(function (a, b) {
                 var jobA = a.datePosted,
                   jobB = b.datePosted;
                 if (jobA > jobB) return -1;

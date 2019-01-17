@@ -47,7 +47,7 @@
           <img src="{{ user.avatarUrl }}" class="image" *ngIf="1 == 2" />
         </div>
         <p class="name">
-          {{ user.fName + " " + user.lName }}
+          {{ user.fName + " " + user.lName | titlecase }}
           <a class="profile" (click)="viewProfile(user.id)" id="viewProfileAnchor">(View Profile)</a>
         </p>
         <div class="buttons">
