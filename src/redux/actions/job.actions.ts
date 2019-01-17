@@ -1,5 +1,6 @@
 import { IJob } from "src/models/job-model";
 import { filterForm } from "src/app/browse-jobs/browse-jobs.component";
+import { IUser } from 'src/models/user-model';
 
 export class RequestJobs {
     static readonly type = '[Jobs] Request'
@@ -38,7 +39,7 @@ export class AddJobFail {
 
 export class ApplyForJob {
     static readonly type = '[Jobs] Apply For Job';
-    constructor(public jobID: string, public userID: string) { }
+    constructor(public jobID: string, public user: IUser) { }
 }
 export class ApplyForJobSuccess {
     static readonly type = '[Jobs] Apply For Job Success';

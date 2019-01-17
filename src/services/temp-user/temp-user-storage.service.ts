@@ -19,12 +19,13 @@ export class TempUserStorageService {
 
   getTestUser(): Observable<IUser> {
     this.user = {
-      id: '1',
+      id: 'sad34324-d73fsadas-DAB4GSUS-b801-42069LOL',
+      entity: 'user',
       email: 'johnsmith418@email.com',
       fName: 'John',
       lName: 'Smith',
       dob: new Date(19 / 1 / 1999),
-      summary: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non eros viverra, fringilla massa rhoncus, dictum nulla. In rhoncus nunc sed ante maximus tincidunt. Praesent ut lectus nisl. Etiam elementum dictum elit at aliquet. Sed vitae vehicula massa, sed luctus velit. Morbi aliquam sodales tempor. Praesent tempus, felis et luctus porttitor, quam lectus elementum nulla, sit amet pretium nisi dolor vel eros. Nulla vestibulum eu velit ac semper. Morbi gravida rhoncus libero, a rhoncus sapien. Morbi non sem a ligula viverra fermentum elementum ac odio. Fusce eget justo eros.',
+      summary: 'loltest.',
       educationItems: [
         {
           degreeTitle: 'BSc Hons in Computing',
@@ -67,8 +68,8 @@ export class TempUserStorageService {
 
         }
       ],
-      avatarUrl: '',
-      backgroundUrl: '',
+      avatarUrl: 'www.facebook/killian',
+      backgroundUrl: 'www.facebook/killian',
       socialLinks: [
         {
           name: 'github',
@@ -89,7 +90,7 @@ export class TempUserStorageService {
       ],
       tagline: 'Software Developer',
       contacts: [],
-      profileCards: 
+      profileCards:
       [
         {
           title: "About Me",
@@ -118,7 +119,7 @@ export class TempUserStorageService {
         "2538f969-5db1-4f45-9751-ac5795121444",
         "8df54914-75ef-44b0-b994-3d2a3b6f125e"
        ]
-    }
+    };
 
     return of(this.user)
   }

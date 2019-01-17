@@ -22,6 +22,7 @@ export class InactiveJobModalComponent implements OnInit {
   applicantsVisible: boolean = false;
   userID: string;
   isEmployer: boolean = false;
+  applicantsVisible: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<InactiveJobModalComponent>,
@@ -33,15 +34,13 @@ export class InactiveJobModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //Check if user posted the job and save their user id
+    // Check if user posted the job
     this.user$.subscribe(u => {
       this.userID = u.id;
       if (u.id === this.data.employerID) {
         this.isEmployer = true;
       }
     });
-    //Extract the applicant IDs --Dont think we need this part actually
-    this.applicantIDs = this.data.applicants as Array<string>;
   }
 
   //Close modal
@@ -51,20 +50,27 @@ export class InactiveJobModalComponent implements OnInit {
 
   //Apply for the current job
   apply(): void {
-    this._store
-      .dispatch(new ApplyForJob(this.data.id, this.userID))
-      .subscribe(res => {
+    this.user$.subscribe(user => {
+      this._store.dispatch(new ApplyForJob(this.data.id, user)).subscribe(() => {
         this.dialogRef.close();
       });
+    });
+    // this._store
+    //   .dispatch(new ApplyForJob(this.data.id, this.userID)
+    //   .subscribe(res => {
+    //     this.dialogRef.close();
+    //   }));
   }
 
   //If you are employer and there are applicants show the applicants screen
   showApplicants() {
-    if (this.isEmployer && this.data.applicants && this.data.applicants.length !== 0) {
-      this._userService.batchGetUsers(this.data.applicants).subscribe(res => {
-        this.applicants = res;
-        this.applicantsVisible = true;
-      });
+    if (this.isEmployer && this.data.applicants.length > 0) {
+      this.applicants = this.data.applicants;
+      this.applicantsVisible = true;
+      // this._userService.batchGetUsers(this.data.applicants).subscribe(res => {
+      //   this.applicants = res;
+      //   this.applicantsVisible = true;
+      // });
     } else {
       this._notification.showError(
         "No applicants found",

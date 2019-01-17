@@ -18,6 +18,7 @@ import { IJob } from "src/models/job-model";
 import { JobService } from "src/services/job-service/job.service";
 import { NotificationService } from "src/services/notifications/notification.service";
 import { TempJobStorageService } from "src/services/temp-job/temp-job-storage.service";
+import { IUser } from 'src/models/user-model';
 import { UserApplyForJob } from "../actions/user.actions";
 
 export class JobsStateModel {
@@ -170,19 +171,25 @@ export class JobsState {
   @Action(ApplyForJob)
   applyForJob(
     { getState }: StateContext<JobsStateModel>,
-    { jobID, userID }: ApplyForJob
+    { jobID, user }: ApplyForJob
   ) {
     const state = getState();
     state.isLoading = true;
-    let job = state.jobs.filter(job => job.id === jobID)[0];
-    if (job.applicants === undefined) {
-      job.applicants = [];
+    const job = state.jobs.filter(j => j.id === jobID)[0];
+    let partialJob: Partial<IJob> = {
+      applicants: []
+    };
+    if (job.applicants !== undefined) {
+      if (!job.applicants.includes(user)) {
+        partialJob.applicants.push(user);
+      }
+    } else {
+      partialJob.applicants.push(user);
     }
-    job.applicants.push(userID);
 
 
     this._jobsService
-      .updateApplicants(job.applicants, job.id)
+      .updateJob(partialJob, job.id)
       .subscribe((res: { job: IJob }) => {
         const updatedJob = res.job;
         this.store.dispatch(new ApplyForJobSuccess(updatedJob));

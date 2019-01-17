@@ -16,6 +16,5 @@ export interface IJob {
   dateCompleted?: Date;
   progress?: number;
   //New field
-  applicants?: string[];
-  chosenApplicantId?: string;
+  applicants?: IUser[];
 }

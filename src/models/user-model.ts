@@ -3,6 +3,7 @@ import { IJob } from "./job-model";
 
 export interface IUser {
   id: string;
+  entity?: string;
   email: string;
   fName?: string;
   lName?: string;
