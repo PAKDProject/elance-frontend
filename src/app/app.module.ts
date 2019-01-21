@@ -84,6 +84,8 @@ import { AddEducationComponent } from './cards/add-education/add-education.compo
 import { ProfileRowComponent } from './cards/profile-row/profile-row.component';
 import { UserProfileModalComponent } from './modals/user-profile-modal/user-profile-modal.component';
 import { CompletedJobComponent } from './cards/completed-job/completed-job.component';
+import { OrganisationService } from "src/services/organisation-service/organisation.service";
+import { CreateOrganisationModalComponent } from './modals/create-organisation-modal/create-organisation-modal.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +126,8 @@ import { CompletedJobComponent } from './cards/completed-job/completed-job.compo
     AddEducationComponent,
     ProfileRowComponent,
     UserProfileModalComponent,
-    CompletedJobComponent
+    CompletedJobComponent,
+    CreateOrganisationModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -164,7 +167,8 @@ import { CompletedJobComponent } from './cards/completed-job/completed-job.compo
       provide: HTTP_INTERCEPTORS,
       useClass: HttpinterceptorService,
       multi: true
-    }
+    },
+    OrganisationService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -175,7 +179,8 @@ import { CompletedJobComponent } from './cards/completed-job/completed-job.compo
     UploadImageModalComponent,
     CreateJobModalComponent,
     SkillContainerModalComponent,
-    UserProfileModalComponent
+    UserProfileModalComponent,
+    CreateOrganisationModalComponent
   ]
 })
 export class AppModule { }
