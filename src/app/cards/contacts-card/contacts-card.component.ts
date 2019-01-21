@@ -10,6 +10,7 @@ export class ContactsCardComponent implements OnInit {
   // @Input('contactsInput') contacts: IUser;
   @Input('contactsInput') contacts = [ 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 ];
   maxContacts = 5;
+  ready: boolean = true;
 
   constructor() { }
 
@@ -25,7 +26,10 @@ export class ContactsCardComponent implements OnInit {
 
   }
 
-  showMore() {
-    this.maxContacts += 5;
+  showMore() { this.maxContacts += 5; }
+  showLess() {
+    this.ready = false;
+    this.maxContacts = 5;
+    this.ready = true;
   }
 }

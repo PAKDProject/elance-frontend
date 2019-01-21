@@ -1,4 +1,4 @@
-<div class="cardContainer">
+<div class="cardContainer" *ngIf='contacts && ready'>
     <div class="topRow">
       <h1>Contacts</h1>
     </div>
@@ -14,5 +14,6 @@
         </div>
       </div>
       <button *ngIf='(i == contacts.length - 1) && (maxContacts != contacts.length)' (click)='showMore()' class='btn btn-primary'>Show More</button>
+      <button *ngIf='(i == contacts.length -1) && (maxContacts >= contacts.length)' (click)='showLess()' class='btn btn-primary'>Show Less</button>
     </div>
   </div>
