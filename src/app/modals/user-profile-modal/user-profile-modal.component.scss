@@ -17,6 +17,17 @@
   background: #f1f1f1; 
 }
 
+.modalHeader {
+  display: grid;
+
+  .closeIcon {
+    justify-self: right;
+    padding-bottom: 20px;
+    cursor: pointer;
+    // padding-right: 20px;
+  }
+}
+
 mat-dialog-content {
   overflow: scroll;
   // overflow-x: hidden;

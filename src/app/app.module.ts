@@ -84,6 +84,7 @@ import { AddEducationComponent } from './cards/add-education/add-education.compo
 import { ProfileRowComponent } from './cards/profile-row/profile-row.component';
 import { UserProfileModalComponent } from './modals/user-profile-modal/user-profile-modal.component';
 import { CompletedJobComponent } from './cards/completed-job/completed-job.component';
+import { ContactsCardComponent } from './cards/contacts-card/contacts-card.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +125,8 @@ import { CompletedJobComponent } from './cards/completed-job/completed-job.compo
     AddEducationComponent,
     ProfileRowComponent,
     UserProfileModalComponent,
-    CompletedJobComponent
+    CompletedJobComponent,
+    ContactsCardComponent
   ],
   imports: [
     BrowserAnimationsModule,

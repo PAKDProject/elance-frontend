@@ -1,82 +1,16 @@
-@import "../../variables.scss";
-
-.container-fluid {
-  display: grid;
-  grid-template-rows: repeat(7, auto);
-
-  .header {
+// .container-fluid {
+.pageContainer {
     display: grid;
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "header contacts"
+                         "active contacts"
+                         "posted contacts";
 
-    .primary {
-      background-color: $primary;
-      color: white;
-      border: 1px solid white;
-
-      justify-self: end;
-      border: none;
-    }
-    .primary:hover {
-      color: $primary;
-      background-color: white;
-      border: 1px solid $primary;
-    }
-  }
-
-  .carouselRow {
-    // border: 1px $accent solid;
-    // border-radius: 5px;
-    // background: gainsboro;
-
-    width: 100%;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    min-height: 180px;
-
-    .carouselArrow {
-      margin: 5px;
-      background: white;
-      border-radius: 50%;
-      border: darkgray solid 2px;
-      font-size: 20px;
-      vertical-align: middle;
-      align-self: center;
-      cursor: pointer;
-    }
-    .carouselArrow:hover {
-      color: $primary;
-      background: $accent;
-    }
-
-    h3 {
-      grid-column: 2;
-      text-align: center;
-      align-self: center;
-    }
-
-    drag-scroll {
-      height: 100%;
-      overflow: hidden;
-      active-job-card, inactive-job-card {
-        width: 25%;
-        min-width: 200px;
-        height: 180px;
-        margin-bottom: 15px;
-        margin-right: 10px;
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 500px) {
-  .container-fluid {
     .header {
-      grid-template-columns: auto;
-      grid-template-rows: repeat(2,auto);
-
-      .primary {
-        justify-self: start;
-      }
+        grid-area: header;
     }
-  }
+
+    .contactsList {
+        grid-area: contacts;
+    }
 }

@@ -44,6 +44,7 @@
       height: 40px;
       justify-self: center;
       align-self: end;
+      cursor: pointer;
     }
   }
 }
@@ -81,6 +82,10 @@ small {
   align-self: center;
   justify-self: left;
   margin: 0;
+
+  a {
+    cursor: pointer;
+  }
 }
 
 .dismiss {
@@ -88,6 +93,7 @@ small {
 }
 
 .buttons {
+  cursor: pointer;
   align-self: center;
   justify-self: center;
   margin: 0;
