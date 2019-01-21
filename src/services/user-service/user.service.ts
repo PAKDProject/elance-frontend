@@ -1,9 +1,5 @@
 import { Injectable } from "@angular/core";
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders
-} from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { IUser } from "src/models/user-model";
 import { Observable, throwError, of } from "rxjs";
 import { catchError, tap, map } from "rxjs/operators";
@@ -49,7 +45,6 @@ export class UserService {
       catchError(this.handleError)
     );
   }
-
   /**
    * Create a new user. Returns the created object
    * @param user Type : IUser
@@ -74,7 +69,6 @@ export class UserService {
       )
       .pipe(catchError(this.handleError));
   }
-
   /**
    * Delete a user by their userId
    * @param userId Type : string
@@ -84,6 +78,7 @@ export class UserService {
       .delete<IUser>(`${this.endpoint}/${userId}`)
       .pipe(catchError(this.handleError));
   }
+
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

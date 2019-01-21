@@ -85,6 +85,8 @@ import { ProfileRowComponent } from './cards/profile-row/profile-row.component';
 import { UserProfileModalComponent } from './modals/user-profile-modal/user-profile-modal.component';
 import { CompletedJobComponent } from './cards/completed-job/completed-job.component';
 import { ContactsCardComponent } from './cards/contacts-card/contacts-card.component';
+import { OrganisationService } from "src/services/organisation-service/organisation.service";
+import { CreateOrganisationModalComponent } from './modals/create-organisation-modal/create-organisation-modal.component';
 
 @NgModule({
   declarations: [
@@ -126,7 +128,8 @@ import { ContactsCardComponent } from './cards/contacts-card/contacts-card.compo
     ProfileRowComponent,
     UserProfileModalComponent,
     CompletedJobComponent,
-    ContactsCardComponent
+    ContactsCardComponent,
+    CreateOrganisationModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -166,7 +169,8 @@ import { ContactsCardComponent } from './cards/contacts-card/contacts-card.compo
       provide: HTTP_INTERCEPTORS,
       useClass: HttpinterceptorService,
       multi: true
-    }
+    },
+    OrganisationService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -177,7 +181,8 @@ import { ContactsCardComponent } from './cards/contacts-card/contacts-card.compo
     UploadImageModalComponent,
     CreateJobModalComponent,
     SkillContainerModalComponent,
-    UserProfileModalComponent
+    UserProfileModalComponent,
+    CreateOrganisationModalComponent
   ]
 })
 export class AppModule { }
