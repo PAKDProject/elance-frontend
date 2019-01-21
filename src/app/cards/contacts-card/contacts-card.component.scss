@@ -21,7 +21,7 @@
     
     .contactsList {
         display: grid;
-        
+
         .contactRow{
             display: grid;
             grid-template-areas: "pic name message"
@@ -86,7 +86,6 @@
             width: 90%;
             height: 40px;
             justify-self: center;
-            // align-self: end;
             cursor: pointer;
         }
     }
