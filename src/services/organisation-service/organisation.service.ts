@@ -16,7 +16,7 @@ export class OrganisationService {
   //Http options for post and put requests
   httpOptions = {
     headers: new HttpHeaders({
-      "Content-type": "application/json"
+      "Content-Type": "application/json"
     })
   };
 
@@ -40,7 +40,7 @@ export class OrganisationService {
 
   createOrganisation(organisation: IOrganisation): Observable<IOrganisation> {
     return this._http.post(this.endpoint, JSON.stringify(organisation), this.httpOptions).
-      pipe(map(res  => {
+      pipe(map(res => {
         let response = res as { org: IOrganisation };
         return response.org;
       }),

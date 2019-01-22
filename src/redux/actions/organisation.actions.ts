@@ -3,7 +3,8 @@ import { IOrganisation } from "src/models/organisation-model";
 //#region Create organisation
 export class CreateOrganisation {
   static readonly type = '[Orgs] Create Organisation'
-  constructor(public payload: IOrganisation) { }
+  constructor(public payload: IOrganisation) {
+  }
 }
 export class CreateOrganisationSuccess {
   static readonly type = '[Orgs] Create Organisation Success'

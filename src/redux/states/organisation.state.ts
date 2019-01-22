@@ -25,7 +25,7 @@ export class OrgsState {
 
   //#region Create Organisation
   @Action(CreateOrganisation)
-  createOrg({ payload }: CreateOrganisation) {
+  createOrg({ getState }: StateContext<OrgsStateModel>, { payload }: CreateOrganisation) {
     this._orgService.createOrganisation(payload).subscribe(res => {
       this._store.dispatch(new CreateOrganisationSuccess(res));
     }),

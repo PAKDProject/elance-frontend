@@ -34,7 +34,7 @@ export class CreateOrganisationModalComponent implements OnInit {
     this.organisation = {
       organisationName: "",
       organisationEmail: "",
-      adminUser: this.user,
+      //adminUser: this.user,
     };
 
     //Set up reactive form fields
@@ -79,7 +79,7 @@ export class CreateOrganisationModalComponent implements OnInit {
 
   //Check is admin user was added. If so create org and close modal
   createOrganisation() {
-    if (this.organisation.adminUser !== undefined) {
+    if (1 === 1) {
       this._store.dispatch(new CreateOrganisation(this.organisation));
       this._dialogRef.close();
     }
