@@ -7,6 +7,7 @@ import { IUser } from 'src/models/user-model';
 import { FormGroup, Form, FormBuilder, Validators } from '@angular/forms';
 import { IOrganisation } from 'src/models/organisation-model';
 import { UploadImageModalComponent } from '../upload-image-modal/upload-image-modal.component';
+import { CreateOrganisation } from 'src/redux/actions/organisation.actions';
 
 @Component({
   selector: 'app-create-organisation-modal',
@@ -28,6 +29,7 @@ export class CreateOrganisationModalComponent implements OnInit {
     this.user$.subscribe(u => {
       this.user = u;
     });
+
     //Initialize the new organisation object and assign admin user
     this.organisation = {
       organisationName: "",
@@ -75,8 +77,13 @@ export class CreateOrganisationModalComponent implements OnInit {
     this._dialogRef.close();
   }
 
+  //Check is admin user was added. If so create org and close modal
   createOrganisation() {
-    console.log(this.organisation)
+    if (this.organisation.adminUser !== undefined) {
+      this._store.dispatch(new CreateOrganisation(this.organisation));
+      this._dialogRef.close();
+    }
+
   }
 
   //Open modal for Uploading logo image
