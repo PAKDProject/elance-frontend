@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { MatDialogRef } from "@angular/material";
+import { Component, Inject } from "@angular/core";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { NotificationService } from "src/services/notifications/notification.service";
 import { FileuploadService } from "src/services/fileUpload-service/fileupload.service";
 
@@ -11,10 +11,13 @@ import { FileuploadService } from "src/services/fileUpload-service/fileupload.se
 export class UploadImageModalComponent {
   isLoading: boolean = false
   isHovering: boolean;
-  hoveringMessage: string = "Drag in profile image";
+  hoveringMessage: string = "Drag in your image";
   filePath: string = "";
-  formData: FormData = new FormData()
-  constructor(public dialogRef: MatDialogRef<UploadImageModalComponent>, private _notify: NotificationService, private _fUpload: FileuploadService) { }
+  formData: FormData = new FormData();
+
+  //The url that will be given to the image once uploaded
+  fileUrl: string;
+  constructor(public dialogRef: MatDialogRef<UploadImageModalComponent>, private _notify: NotificationService, private _fUpload: FileuploadService, @Inject(MAT_DIALOG_DATA) public data: string) { }
 
   onClick(): void {
     if (!this.isLoading) {
@@ -27,7 +30,7 @@ export class UploadImageModalComponent {
     if (event === true) {
       this.hoveringMessage = "Drop your image now";
     } else {
-      this.hoveringMessage = "Drag in profile image";
+      this.hoveringMessage = "Drag in your image";
     }
   }
 
@@ -46,4 +49,9 @@ export class UploadImageModalComponent {
       this._notify.showInfo("You can only upload one file!")
     }
   }
+
+  uploadComplete() {
+    this.dialogRef.close({ url: this.fileUrl });
+  }
+
 }

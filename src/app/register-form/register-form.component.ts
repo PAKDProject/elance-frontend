@@ -202,21 +202,21 @@ export class RegisterFormComponent implements OnInit {
 
   //Set default profile cards
   setDefaultProfileCards() {
-    this.user.profileCards = 
-    [
-      {
-        title: "About Me",
-        type: "bio"
-      },
-      {
-        title: "Education",
-        type: "edu"
-      },
-      {
-        title: "Skills",
-        type: "skills"
-      }
-    ]
+    this.user.profileCards =
+      [
+        {
+          title: "About Me",
+          type: "bio"
+        },
+        {
+          title: "Education",
+          type: "edu"
+        },
+        {
+          title: "Skills",
+          type: "skills"
+        }
+      ]
   }
 
   //Get social media links and set them
@@ -271,7 +271,8 @@ export class RegisterFormComponent implements OnInit {
   openUploadModal(): void {
     this.dialog.open(UploadImageModalComponent, {
       maxWidth: "1000px",
-      panelClass: "modalStyle"
+      panelClass: "modalStyle",
+      data: "profile"
     });
   }
 

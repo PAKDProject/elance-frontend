@@ -7,6 +7,7 @@
 
 .modalContainer {
   display: grid;
+
   h2 {
     font-size: 1.8em;
     text-align: center;
@@ -37,10 +38,11 @@
   .file-icon mat-icon {
     align-self: baseline !important;
   }
+
   #image {
     width: 150px;
     height: 150px;
-    border-radius: 50%;
+    //border-radius: 50%;
   }
 }
 
@@ -51,6 +53,7 @@
   background: white;
   border: 1px solid $primary;
 }
+
 .upload {
   width: 48%;
   margin-left: 2%;

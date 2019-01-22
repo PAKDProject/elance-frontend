@@ -1,6 +1,65 @@
+@import '../../../variables.scss';
+
 .container {
   width: 70vw;
   height: auto;
 
+  h2 {
+    text-align: center;
+  }
 
+  small {
+    display: block;
+
+    a {
+      color: $primary;
+    }
+  }
+
+  label {
+    font-size: 1em;
+    color: $primary;
+    font-style: italic;
+  }
+
+  .feedback {
+    color: darkred;
+    font-size: 0.8em;
+  }
+
+  /deep/ .mat-vertical-stepper-header .mat-step-icon {
+    background-color: $primary !important;
+  }
+
+
+  button {
+    width: 100%;
+    border: none;
+  }
+
+
+  .back,
+  .upload {
+    background-color: $secondary;
+    color: $primary;
+    border: 1px solid white;
+  }
+
+  .back:hover,
+  .upload:hover {
+    background-color: white;
+    border: 1px solid $primary;
+  }
+
+  .next {
+    background-color: $primary;
+    color: white;
+    border: 1px solid white;
+  }
+
+  .next:hover {
+    color: $primary;
+    background-color: white;
+    border: 1px solid $primary;
+  }
 }

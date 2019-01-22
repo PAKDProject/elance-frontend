@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatDialog } from '@angular/material';
 import { Store, Select } from '@ngxs/store';
 import { UserState } from 'src/redux/states/user.state';
 import { Observable } from 'rxjs';
 import { IUser } from 'src/models/user-model';
 import { FormGroup, Form, FormBuilder, Validators } from '@angular/forms';
 import { IOrganisation } from 'src/models/organisation-model';
+import { UploadImageModalComponent } from '../upload-image-modal/upload-image-modal.component';
 
 @Component({
   selector: 'app-create-organisation-modal',
@@ -18,7 +19,8 @@ export class CreateOrganisationModalComponent implements OnInit {
   organisationForm: FormGroup;
   organisation: IOrganisation;
   user: IUser;
-  constructor(private _dialogRef: MatDialogRef<CreateOrganisationModalComponent>, private _store: Store, private _fb: FormBuilder) { }
+  orgName: string = "";
+  constructor(private _dialogRef: MatDialogRef<CreateOrganisationModalComponent>, private _dialog: MatDialog, private _store: Store, private _fb: FormBuilder) { }
 
 
   ngOnInit() {
@@ -49,6 +51,7 @@ export class CreateOrganisationModalComponent implements OnInit {
       this.organisation.websiteUrl = data.websiteUrl;
       this.organisation.tagline = data.tagline;
       this.organisation.logoUrl = data.logoUrl;
+      this.orgName = data.organisationName;
     });
   }// end of init
 
@@ -59,11 +62,35 @@ export class CreateOrganisationModalComponent implements OnInit {
   get organisationEmail() {
     return this.organisationForm.get("organisationEmail");
   }
+  get websiteUrl() {
+    return this.organisationForm.get("websiteUrl")
+  }
+  get tagline() {
+    return this.organisationForm.get("tagline");
+  }
   //#endregion
 
   //Close modal
   onNoClick() {
     this._dialogRef.close();
+  }
+
+  createOrganisation() {
+    console.log(this.organisation)
+  }
+
+  //Open modal for Uploading logo image
+  openUploadModal() {
+    const dialogRef = this._dialog.open(UploadImageModalComponent, {
+      data: "logo"
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (data !== undefined) {
+        this.organisation.logoUrl = data;
+      }
+    })
+
   }
 
 
