@@ -13,7 +13,7 @@ import { IJob } from "src/models/job-model";
 })
 export class UserService {
   endpoint: string = `${environment.backendUrl}/users`;
-  csEndpoint = 'search-elance-test-m7pgoqhpokama34awnudxnpc3a.eu-west-1.cloudsearch.amazonaws.com/2013-01-01/search?q=';
+  esEndpoint = 'https://search-elance-doc-domain-nb654npbg5hpm6e5lmwpx6obhy.eu-west-1.es.amazonaws.com/users/_search';
   httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json"
@@ -80,13 +80,16 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
-  searchUsers(search: string): Observable<IUser[]> {
-    if (search.indexOf(' ') >= 0) {
-      search = search.replace(' ', '+');
-    }
-    return this.http.get<IUser[]>(`${this.csEndpoint}` + search + '&return=fname,lname');
+  searchUsers(search: string): Observable<object> {
+    const query = {
+      query: {
+        prefix: {
+          fName: search,
+        }
+      }
+    };
+    return this.http.post(`${this.esEndpoint}`, JSON.stringify(query), this.httpOptions);
   }
-
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
