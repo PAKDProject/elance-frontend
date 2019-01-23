@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { Store, Select } from '@ngxs/store';
 import { UserState } from 'src/redux/states/user.state';
@@ -12,7 +12,8 @@ import { CreateOrganisation } from 'src/redux/actions/organisation.actions';
 @Component({
   selector: 'app-create-organisation-modal',
   templateUrl: './create-organisation-modal.component.html',
-  styleUrls: ['./create-organisation-modal.component.scss']
+  styleUrls: ['./create-organisation-modal.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CreateOrganisationModalComponent implements OnInit {
 
@@ -32,24 +33,24 @@ export class CreateOrganisationModalComponent implements OnInit {
 
     //Initialize the new organisation object and assign admin user
     this.organisation = {
-      organisationName: "",
-      organisationEmail: "",
-      //adminUser: this.user,
+      orgName: "",
+      email: "",
+      adminUser: this.user,
     };
 
     //Set up reactive form fields
     this.organisationForm = this._fb.group({
-      organisationName: [this.organisation.organisationName, [Validators.required]],
-      organisationEmail: [this.organisation.organisationEmail, [Validators.required, Validators.email]],
+      organisationName: [this.organisation.orgName, [Validators.required]],
+      organisationEmail: [this.organisation.email, [Validators.required, Validators.email]],
       tagline: [this.organisation.tagline],
       websiteUrl: [this.organisation.websiteUrl],
-      logoUrl: [""]
+      logoUrl: [this.organisation.logoUrl]
     });
 
     //Get values from form
     this.organisationForm.valueChanges.subscribe(data => {
-      this.organisation.organisationName = data.organisationName;
-      this.organisation.organisationEmail = data.organisationEmail;
+      this.organisation.orgName = data.organisationName;
+      this.organisation.email = data.organisationEmail;
       this.organisation.websiteUrl = data.websiteUrl;
       this.organisation.tagline = data.tagline;
       this.organisation.logoUrl = data.logoUrl;
@@ -79,7 +80,10 @@ export class CreateOrganisationModalComponent implements OnInit {
 
   //Check is admin user was added. If so create org and close modal
   createOrganisation() {
-    if (1 === 1) {
+    if (this.organisation.logoUrl === null) {
+      this.organisation.logoUrl = "filler";
+    }
+    if (this.organisation.adminUser !== undefined) {
       this._store.dispatch(new CreateOrganisation(this.organisation));
       this._dialogRef.close();
     }

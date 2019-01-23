@@ -13,7 +13,8 @@ import {
   // RequestJobHistoryFail,
   UserApplyForJob,
   UserApplyForJobSuccess,
-  UserApplyForJobFail
+  UserApplyForJobFail,
+  RequestAddOrgToUser
 } from "../actions/user.actions";
 import { TempUserStorageService } from "src/services/temp-user/temp-user-storage.service";
 import { UserService } from "src/services/user-service/user.service";
@@ -22,10 +23,14 @@ import { NotificationService } from "src/services/notifications/notification.ser
 import { IJob } from "src/models/job-model";
 import { RequestJobs } from "../actions/job.actions";
 import { JobService } from "src/services/job-service/job.service";
+import { IProfileCard } from "src/models/profile-card";
+import { IOrganisation } from "src/models/organisation-model";
+import { SetOrganisations } from "../actions/organisation.actions";
 
 export class UserStateModel {
-  id?: string;
-  email?: string;
+  id: string;
+  entity?: string;
+  email: string;
   fName?: string;
   lName?: string;
   dob?: Date;
@@ -39,9 +44,10 @@ export class UserStateModel {
   tagline?: string;
   contacts?: IUser[];
   activeJobs?: IJob[];
+  profileCards?: IProfileCard[];
   jobHistory?: IJob[];
-  jobHistoryJobs?: IJob[];
   appliedJobs?: IJob[];
+  organisations?: IOrganisation[];
 }
 
 @State({
@@ -73,12 +79,12 @@ export class UserState {
   }
 
   @Action(RequestUserSuccessAction)
-  requestSuccessful(
-    { getState, patchState }: StateContext<UserStateModel>,
-    { payload }: RequestUserSuccessAction
-  ) {
+  requestSuccessful({ getState, patchState }: StateContext<UserStateModel>, { payload }: RequestUserSuccessAction) {
     patchState(payload);
 
+    if (payload.organisations !== undefined) {
+      this.store.dispatch(new SetOrganisations(payload.organisations));
+    }
     // if (payload.jobHistory !== undefined) {
     //   this.store.dispatch(new RequestJobHistory(payload.jobHistory));
     // }
@@ -133,6 +139,16 @@ export class UserState {
     let existingSkills = state.skills;
     existingSkills.push(...skills);
     this.store.dispatch(new RequestUpdateUser({ skills: existingSkills }));
+  }
+
+  @Action(RequestAddOrgToUser)
+  addOrgToUser({ getState }: StateContext<UserStateModel>, { payload }: RequestAddOrgToUser) {
+    const state = getState();
+    let existingOrgs: IOrganisation[] = [];
+    existingOrgs.push(...state.organisations);
+    existingOrgs.push(payload);
+
+    this.store.dispatch(new RequestUpdateUser({ organisations: existingOrgs }));
   }
 
   @Action(UserApplyForJob)

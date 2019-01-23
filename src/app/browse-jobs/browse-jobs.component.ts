@@ -65,9 +65,9 @@ export class BrowseJobsComponent implements OnInit {
 
     this.performFilter();
   }
-  
+
   clearFilters() {
-    let prevSearch = (this.searchTerm.value)?(this.searchTerm.value):(null);
+    let prevSearch = (this.searchTerm.value) ? (this.searchTerm.value) : (null);
     this.filters = {
       minPayment: null,
       maxPayment: null,
@@ -87,7 +87,7 @@ export class BrowseJobsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.store.dispatch(new RequestJobs());
+    this.store.dispatch(new RequestJobs());
     this.jobs$.subscribe(jobs => {
       this.jobs = jobs
     })

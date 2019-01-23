@@ -41,6 +41,7 @@ export class OrganisationService {
   createOrganisation(organisation: IOrganisation): Observable<IOrganisation> {
     return this._http.post(this.endpoint, JSON.stringify(organisation), this.httpOptions).
       pipe(map(res => {
+        console.log(res);
         let response = res as { org: IOrganisation };
         return response.org;
       }),

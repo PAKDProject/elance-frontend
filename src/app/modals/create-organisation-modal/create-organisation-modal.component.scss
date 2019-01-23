@@ -1,10 +1,29 @@
 @import '../../../variables.scss';
 
+.mat-dialog-container {
+  padding: 0px !important;
+}
+
 .container {
   width: 70vw;
   height: auto;
+  overflow-y: hidden;
+
+  #header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+
+  mat-icon {
+    cursor: pointer;
+  }
+
 
   h2 {
+    margin: 15px;
+    font-style: italic;
+    color: $primary;
     text-align: center;
   }
 
@@ -37,6 +56,10 @@
     border: none;
   }
 
+  #editor {
+    margin-top: 10px;
+    padding: 5px;
+  }
 
   .back,
   .upload {
@@ -61,5 +84,15 @@
     color: $primary;
     background-color: white;
     border: 1px solid $primary;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .container {
+    width: 100% !important;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 80vh;
   }
 }

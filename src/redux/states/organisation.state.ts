@@ -1,8 +1,12 @@
 import { IOrganisation } from "src/models/organisation-model";
-import { State, Selector, Action, Store, StateContext } from "@ngxs/store";
-import { CreateOrganisation, CreateOrganisationSuccess, CreateOrganisationFail } from "../actions/organisation.actions";
+import { State, Selector, Action, Store, Select, StateContext } from "@ngxs/store";
+import { CreateOrganisation, CreateOrganisationSuccess, CreateOrganisationFail, SetOrganisations } from "../actions/organisation.actions";
 import { OrganisationService } from "src/services/organisation-service/organisation.service";
 import { NotificationService } from "src/services/notifications/notification.service";
+import { UserState, UserStateModel } from "./user.state";
+import { Observable } from "rxjs";
+import { IUser } from "src/models/user-model";
+import { RequestAddOrgToUser } from "../actions/user.actions";
 
 
 export class OrgsStateModel {
@@ -20,7 +24,19 @@ export class OrgsState {
 
   @Selector()
   static getOrgs(state: OrgsStateModel) {
-    return state;
+    return state.orgs;
+  }
+
+  //Sets organisations at the start of app running
+  //Receives array of organisations and appends them to array
+  @Action(SetOrganisations)
+  setOrganisations({ getState, patchState }: StateContext<OrgsStateModel>, { payload }: SetOrganisations) {
+    const state = getState();
+
+    let newState = state.orgs;
+    newState.push(...payload);
+
+    patchState({ orgs: newState });
   }
 
   //#region Create Organisation
@@ -36,14 +52,16 @@ export class OrgsState {
   @Action(CreateOrganisationSuccess)
   createOrgSuccess({ getState, patchState }: StateContext<OrgsStateModel>, { payload }: CreateOrganisationSuccess) {
     const state = getState();
-
-    let newStateOrgs = state.orgs;
-    newStateOrgs.push(payload);
-    patchState({ orgs: newStateOrgs });
+    state.orgs.push(payload);
+    this._store.dispatch(new RequestAddOrgToUser(payload));
+    this._notification.showSuccess(`You've created ${payload.orgName}`, "You can now start posting jobs and adding members!")
+    patchState(state);
   }
   @Action(CreateOrganisationFail)
   createOrgFail({ errorMessage }: CreateOrganisationFail) {
     this._notification.showError("An error occured!", errorMessage);
   }
   //#endregion
+
+
 }

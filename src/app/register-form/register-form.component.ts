@@ -63,6 +63,7 @@ export class RegisterFormComponent implements OnInit {
       this.user.fName = user.fName;
       this.user.lName = user.lName;
       this.user.id = user.id;
+      this.user.organisations = user.organisations;
     });
     //About you form
     this.aboutYouForm = this.fb.group({

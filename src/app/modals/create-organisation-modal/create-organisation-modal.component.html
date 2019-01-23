@@ -1,5 +1,10 @@
 <div class="container">
-  <h2 mat-dialog-title>Create an Organisation</h2>
+  <div id="header">
+    <h2 mat-dialog-title>Create an Organisation</h2>
+    <div id="closeIcon">
+      <mat-icon (click)="onNoClick()">close</mat-icon>
+    </div>
+  </div>
 
   <mat-dialog-content>
     <div>
@@ -43,13 +48,16 @@
                   <small>Hint: This field supports markdown. <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
                       target="_blank">(More Info)</a></small>
                   <textarea id="orgTagline" class="form-control" rows="4" formControlName="tagline"></textarea>
-                  <markdown [data]="tagline.value" ngPreserveWhitespaces></markdown>
+                  <div id="editor" *ngIf="tagline.value">
+                    <label>Markdown Preview</label>
+                    <markdown [data]="tagline.value" ngPreserveWhitespaces></markdown>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col">
-                <button class="btn back" matStepperPrevious>Back</button>
+                <button class="btn back" (click)="onNoClick()">Cancel</button>
               </div>
               <div class="col">
                 <button class="btn next" matStepperNext>Next</button>

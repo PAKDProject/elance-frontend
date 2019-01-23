@@ -2,6 +2,7 @@ import { IUser } from "src/models/user-model";
 import { ISkills } from "src/models/skill-model";
 import { UserStateModel } from "../states/user.state";
 import { IJob } from "src/models/job-model";
+import { IOrganisation } from "src/models/organisation-model";
 
 export class RequestUserSuccessAction {
     static readonly type = '[User] Request Success'
@@ -19,6 +20,12 @@ export class RequestAddSkillToUser {
     static readonly type = '[User] Request Add Skill To User'
 
     constructor(public skills: ISkills[]) { }
+}
+
+export class RequestAddOrgToUser {
+    static readonly type = "[User] Request Add Organisation to User";
+
+    constructor(public payload: IOrganisation) { }
 }
 
 export class RequestUpdateUser {
@@ -56,3 +63,4 @@ export class UserApplyForJobFail {
 
     constructor(public errorMessage: string) { }
 }
+
