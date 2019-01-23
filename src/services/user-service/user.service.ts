@@ -13,6 +13,7 @@ import { IJob } from "src/models/job-model";
 })
 export class UserService {
   endpoint: string = `${environment.backendUrl}/users`;
+  csEndpoint = 'search-elance-test-m7pgoqhpokama34awnudxnpc3a.eu-west-1.cloudsearch.amazonaws.com/2013-01-01/search?q=';
   httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json"
@@ -77,6 +78,13 @@ export class UserService {
     return this.http
       .delete<IUser>(`${this.endpoint}/${userId}`)
       .pipe(catchError(this.handleError));
+  }
+
+  searchUsers(search: string): Observable<IUser[]> {
+    if (search.indexOf(' ') >= 0) {
+      search = search.replace(' ', '+');
+    }
+    return this.http.get<IUser[]>(`${this.csEndpoint}` + search + '&return=fname,lname');
   }
 
 
