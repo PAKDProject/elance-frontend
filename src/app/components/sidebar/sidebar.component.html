@@ -31,9 +31,13 @@
     </div> -->
 
   <!-- User Search -->
-  <form #userSearch="ngForm" (ngSubmit)="searchUsers(userSearch.value)" id="searchBtn">
-    <input type="text" style="background-color:green" name="search" id="search" [(ngModel)]="search" />
-    <button id="btn">sERcH uZrS</button>
+  <form #userSearch="ngForm" class="form-inline" (ngSubmit)="searchUsers(userSearch.value)" id="searchBtn">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Search users..." name="search" id="search" [(ngModel)]="search" />
+      <button class="btn btn-sm" style="background: #24896e; color: white; align-self: center;">
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
   </form>
 
   <!-- Actual Navigation Buttons -->

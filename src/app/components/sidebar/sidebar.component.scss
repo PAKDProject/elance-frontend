@@ -1,9 +1,12 @@
 .sidebar-wrapper {
-  transform: rotate(180deg);
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: auto 1fr auto;
   padding-bottom: 0;
+
+  #searchBtn {
+    justify-self: center
+  }
 
   .userInfoPanel {
     display: grid;
@@ -64,14 +67,4 @@
       }
     }
   }
-}
-
-#searchBtn {
-  transform: rotate(180deg);
-  text-align: center;
-  align-self: center;
-}
-
-#search:active {
-  background: pink !important;
 }
