@@ -1,15 +1,15 @@
 <div class="logo">
-    <a class="simple-text">
-        <div class="logo-img">
-            <img src="../../../assets/images/elance-logo-small.png" />
-        </div>
-        E-Lance
-    </a>
+  <a class="simple-text">
+    <div class="logo-img">
+      <img src="../../../assets/images/elance-logo-small.png" />
+    </div>
+    E-Lance
+  </a>
 </div>
 <div class="sidebar-wrapper">
 
-    <!-- Notifications in mobile menu -->
-    <!-- <div *ngIf="isMobileMenu()" style="border: 2px solid red;">
+  <!-- Notifications in mobile menu -->
+  <!-- <div *ngIf="isMobileMenu()" style="border: 2px solid red;">
         <ul class="nav navbar-nav nav-mobile-menu"> 
             <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -30,36 +30,36 @@
         </ul>
     </div> -->
 
-    <!-- User Search -->
-    <form #userSearch = "ngForm" (ngSubmit)="searchUsers(userSearch.value)">
-        <input type="text" style="background-color:green" name="search" id="search" [(ngModel)]="search"/>
-        <button>sERcH uZrS</button>
-    </form>
+  <!-- User Search -->
+  <form #userSearch="ngForm" (ngSubmit)="searchUsers(userSearch.value)" id="searchBtn">
+    <input type="text" style="background-color:green" name="search" id="search" [(ngModel)]="search" />
+    <button id="btn">sERcH uZrS</button>
+  </form>
 
-    <!-- Actual Navigation Buttons -->
-    <ul class="nav">
-        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
-            <a class="nav-link" [routerLink]="[menuItem.path]">
-                <i class="material-icons">{{menuItem.icon}}</i>
-                <p>{{menuItem.title}}</p>
-            </a>
-        </li>
-    </ul>
+  <!-- Actual Navigation Buttons -->
+  <ul class="nav">
+    <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+      <a class="nav-link" [routerLink]="[menuItem.path]">
+        <i class="material-icons">{{menuItem.icon}}</i>
+        <p>{{menuItem.title}}</p>
+      </a>
+    </li>
+  </ul>
 
-    <!-- User profile options -->
-    <div class="userInfoPanel">
-        <div class="profilePic">
-            <!-- <img src="../../../assets/images/stock-steve.jpg" /> -->
-            <img src="../../../assets/images/default_user.png" />
-        </div>
-        <div class="topRow">
-            <div>
-                {{(user$ | async).fName}} {{(user$ | async).lName}}
-            </div>
-        </div>
-        <div class="bottomRow">
-            <!-- <i class="fas fa-cog"></i> -->
-            <i class="fas fa-sign-out-alt" (click)="logOut()"></i>
-        </div>
+  <!-- User profile options -->
+  <div class="userInfoPanel">
+    <div class="profilePic">
+      <!-- <img src="../../../assets/images/stock-steve.jpg" /> -->
+      <img src="../../../assets/images/default_user.png" />
     </div>
+    <div class="topRow">
+      <div>
+        {{(user$ | async).fName}} {{(user$ | async).lName}}
+      </div>
+    </div>
+    <div class="bottomRow">
+      <!-- <i class="fas fa-cog"></i> -->
+      <i class="fas fa-sign-out-alt" (click)="logOut()"></i>
+    </div>
+  </div>
 </div>
