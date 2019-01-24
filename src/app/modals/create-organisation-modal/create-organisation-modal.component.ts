@@ -20,7 +20,7 @@ export class CreateOrganisationModalComponent implements OnInit {
   @Select(UserState.getUser) user$: Observable<IUser>;
   organisationForm: FormGroup;
   organisation: IOrganisation;
-  user: IUser;
+  partialUser: Partial<IUser>;
   orgName: string = "";
   constructor(private _dialogRef: MatDialogRef<CreateOrganisationModalComponent>, private _dialog: MatDialog, private _store: Store, private _fb: FormBuilder) { }
 
@@ -28,14 +28,18 @@ export class CreateOrganisationModalComponent implements OnInit {
   ngOnInit() {
     //Get the current user from state for later use
     this.user$.subscribe(u => {
-      this.user = u;
+      this.partialUser = {
+        id: u.id,
+        entity: u.entity,
+        email: u.email
+      }
     });
 
     //Initialize the new organisation object and assign admin user
     this.organisation = {
       orgName: "",
       email: "",
-      adminUser: this.user,
+      adminUser: this.partialUser
     };
 
     //Set up reactive form fields

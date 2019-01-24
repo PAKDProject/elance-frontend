@@ -9,7 +9,7 @@ export interface IOrganisation {
   logoUrl?: string;
   email: string;
   websiteUrl?: string;
-  adminUser?: IUser;
+  adminUser?: Partial<IUser>;
   jobsPosted?: IJob[];
   activeJobs?: IJob[];
   members?: IUser[];

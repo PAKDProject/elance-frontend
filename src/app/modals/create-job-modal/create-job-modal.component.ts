@@ -28,7 +28,7 @@ export class CreateJobModalComponent implements OnInit {
     private _jobService: JobService,
     private _store: Store,
     private _dialogRef: MatDialogRef<CreateJobModalComponent>
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.newJob = {
@@ -41,7 +41,7 @@ export class CreateJobModalComponent implements OnInit {
       remote: false
     };
     this.induvidualJobForm = this.fb.group({
-      jobTitle: ["", [Validators.required]],
+      jobTitle: ["", [Validators.required, Validators.maxLength(30)]],
       employer: ["", [Validators.required]],
       location: [""],
       remote: [this.newJob.remote],

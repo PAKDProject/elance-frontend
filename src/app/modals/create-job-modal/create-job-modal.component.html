@@ -20,18 +20,18 @@
     <mat-dialog-content>
       <form [formGroup]="induvidualJobForm">
         <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
               <label for="jobTitle"> What kind of job will it be </label>
-              <input type="text" id="jobTitle" formControlName="jobTitle" placeholder="Angular 90 Project" class="form-control" />
+              <input type="text" id="jobTitle" formControlName="jobTitle" placeholder="Angular 90 Project" class="form-control"
+                maxlength=30 />
+              <small id="char_count">{{jobTitle.value.length}}/30</small>
               <div class="feedback" *ngIf="!jobTitle.valid && jobTitle.touched">
                 Please enter a title for Freelancers to see
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
               <label for="employer">
                 What name should be attatched to the job
@@ -43,6 +43,7 @@
             </div>
           </div>
         </div>
+
         <div class="row">
           <div class="col">
             <div class="form-group">
@@ -50,7 +51,7 @@
                 Where are you located or
                 <div class="form-check ml-1" style="display: inline-block">
                   <input type="checkbox" id="remote" formControlName="remote" class="form-check-input" (change)="toggleLocation()">
-                  <label for="remote" class="form-check-label">
+                  <label for="remote" class="form-check-label" style="color: black;">
                     Remote
                   </label>
                 </div>
