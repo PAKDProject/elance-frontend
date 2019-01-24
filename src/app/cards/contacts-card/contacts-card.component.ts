@@ -15,6 +15,7 @@ export class ContactsCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.contacts = this.contacts.splice(0,8);
     this.maxContacts = 5;
   }
 
@@ -26,7 +27,7 @@ export class ContactsCardComponent implements OnInit {
 
   }
 
-  showMore() { this.maxContacts += 5; }
+  showMore() { this.maxContacts += 3; }
   showLess() {
     this.ready = false;
     this.maxContacts = 5;

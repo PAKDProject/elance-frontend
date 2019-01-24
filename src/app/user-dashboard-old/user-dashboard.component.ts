@@ -21,11 +21,55 @@ export class UserDashboardComponent implements OnInit {
 
   jobs: IJob[];
   userActiveJobs: IJob[]
-
+  contacts:IUser[] = [
+    {
+      id: "sampleId",
+      email: 'testEmail',
+      fName: "John",
+      lName: "Smith",
+      tagline: "Software Developer"
+    },
+    {
+      id: "sampleId",
+      email: 'testEmail',
+      fName: "John",
+      lName: "Smith",
+      tagline: "Software Developer"
+    },
+    {
+      id: "sampleId",
+      email: 'testEmail',
+      fName: "John",
+      lName: "Smith",
+      tagline: "Software Developer"
+    },
+    {
+      id: "sampleId",
+      email: 'testEmail',
+      fName: "John",
+      lName: "Smith",
+      tagline: "Software Developer"
+    },
+    {
+      id: "sampleId",
+      email: 'testEmail',
+      fName: "John",
+      lName: "Smith",
+      tagline: "Software Developer"
+    },
+    {
+      id: "sampleId",
+      email: 'testEmail',
+      fName: "John",
+      lName: "Smith",
+      tagline: "Software Developer"
+    }
+  ]
+  
   //Carousels
   @ViewChild('activeJobs', { read: DragScrollComponent }) activeCarousel: DragScrollComponent;
   @ViewChild('inactiveJobs', { read: DragScrollComponent }) inactiveCarousel: DragScrollComponent;
-  @ViewChild('contacts', { read: DragScrollComponent }) contactsCarousel: DragScrollComponent;
+  @ViewChild('contactsScroll', { read: DragScrollComponent }) contactsCarousel: DragScrollComponent;
 
   moveCarousel(direction: string, carousel: number) {
     if (direction == 'left') {

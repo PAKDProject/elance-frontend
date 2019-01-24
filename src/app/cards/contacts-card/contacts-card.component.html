@@ -2,18 +2,26 @@
     <div class="topRow">
       <h1>Contacts</h1>
     </div>
-    <div class='contactsList' *ngFor='let contact of contacts; let i = index'>
-      <div *ngIf='i<maxContacts' class="contactRow">
-        <div (click)='openProfile()' class='profilePic'>
-          <img src='../../../assets/images/default_user.png'/>
+    <div class='cardContent'>
+      <div class='contactsList'>
+        <!-- <div *ngIf='i<maxContacts' class="contactRow"> -->
+        <div *ngFor='let contact of contacts; let i = index' class='contactRow'>
+          <div (click)='openProfile()' class='profilePic'>
+            <img src='../../../assets/images/default_user.png'/>
+          </div>
+          <div (click)='openProfile()' class='name'>{{i+1}}. Juan Smith</div>
+          <div class='tagline'>Ey essay issa me Juan.</div>
+          <div class='messageIcon'>
+            <mat-icon (click)='openMessenger()'>message</mat-icon>
+          </div>
         </div>
-        <div (click)='openProfile()' class='name'>{{i+1}}. John Smith</div>
-        <div class='tagline'>Yeet. Its a me a johno.</div>
-        <div class='messageIcon'>
-          <mat-icon (click)='openMessenger()'>message</mat-icon>
-        </div>
+        <!-- <div *ngIf='(i == contacts.length - 1)' class='moreButton'>
+          <button *ngIf='(maxContacts != contacts.length)' (click)='showMore()' class='btn btn-primary'>Show More</button>
+          <button *ngIf='(maxContacts >= contacts.length)' (click)='showLess()' class='btn btn-primary'>Show Less</button>
+        </div> -->
       </div>
-      <button *ngIf='(i == contacts.length - 1) && (maxContacts != contacts.length)' (click)='showMore()' class='btn btn-primary'>Show More</button>
-      <button *ngIf='(i == contacts.length -1) && (maxContacts >= contacts.length)' (click)='showLess()' class='btn btn-primary'>Show Less</button>
+      <div class='moreButton'>
+        <button *ngIf='(maxContacts != contacts.length)' (click)='showMore()' class='btn btn-primary'>Show More</button>
+      </div>
     </div>
   </div>

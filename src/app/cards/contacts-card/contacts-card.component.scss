@@ -1,11 +1,11 @@
 @import '../../../variables.scss';
 .cardContainer {
     display: grid;
-    grid-template-rows: auto auto;
-    margin: 10px;
+    grid-template-rows: auto 1fr;
     padding-bottom: 10px;
     background: #eaeaea;
-
+    overflow: hidden;
+    
     .topRow {
         background: $accent;
         padding: 5px;
@@ -19,74 +19,82 @@
         }
     }
     
-    .contactsList {
+    .cardContent {
         display: grid;
-
-        .contactRow{
-            display: grid;
-            grid-template-areas: "pic name message"
-                                 "pic tagline message";
-            grid-template-columns: auto 1fr auto;
-            grid-column-gap: 20px;
-            border: 1px transparent solid;
-            padding: 10px;
-
-            .profilePic {
-                grid-area: pic;
-                width: 60px;
-                height: 60px;
-                overflow: hidden;
-                border-radius: 50%;
-                border: 2px solid darkgray;
-                justify-self: center;
-                align-self: center;
+        grid-template-rows: 1fr auto;
+        overflow: hidden;
+        .contactsList {
+            .contactRow{
+                display: grid;
+                grid-template-areas: "pic name message"
+                                     "pic tagline message";
+                grid-template-columns: auto 1fr auto;
+                grid-column-gap: 20px;
+                border: 1px transparent solid;
+                padding: 10px;
     
-                img {
-                    width: 100%;
+                .profilePic {
+                    grid-area: pic;
+                    width: 60px;
+                    height: 60px;
+                    overflow: hidden;
+                    border-radius: 50%;
+                    border: 2px solid darkgray;
+                    justify-self: center;
+                    align-self: center;
+        
+                    img {
+                        width: 100%;
+                    }
                 }
-            }
-            
-            .name {
-                grid-area: name;
-                align-self: center;
-                font-size: 16px;
-                font-weight: 600;
-            }
-        
-            .tagline {
-                grid-area: tagline;
-                align-self: flex-start;
-                font-weight: 12px;
-                font-style: italic;
-            }
-        
-            .messageIcon {
-                grid-area: message;
-                align-self: center;
-                padding-right: 20px;
                 
-                mat-icon {
-                    cursor: pointer;
-                    font-size: 30px;
+                .name {
+                    grid-area: name;
+                    align-self: center;
+                    font-size: 16px;
+                    font-weight: 600;
                 }
-                mat-icon:hover {
-                    color: $primary
+            
+                .tagline {
+                    grid-area: tagline;
+                    align-self: flex-start;
+                    font-weight: 12px;
+                    font-style: italic;
+                }
+            
+                .messageIcon {
+                    grid-area: message;
+                    align-self: center;
+                    padding-right: 20px;
+                    
+                    mat-icon {
+                        cursor: pointer;
+                        font-size: 30px;
+                    }
+                    mat-icon:hover {
+                        color: $primary
+                    }
                 }
             }
+            .contactRow:hover {
+                border: 1px $accent solid;
+            }
         }
-        .contactRow:hover {
-            border: 1px $accent solid;
-        }
-
-        button {
-            background: #12896e;
-            border-radius: 5px;
-            border: 0px;
-            color: white;
-            width: 90%;
-            height: 40px;
+        .moreButton {
             justify-self: center;
-            cursor: pointer;
+            align-self: flex-end;
+            margin-top: 10px;
+            width: 90%;
+            
+            button {
+                width: 100%;
+                background: #12896e;
+                border-radius: 5px;
+                border: 0px;
+                color: white;
+                height: 40px;
+                cursor: pointer;
+            }
         }
     }
 }
