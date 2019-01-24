@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { IJob } from 'src/models/job-model';
 import { RequestJobs } from 'src/redux/actions/job.actions';
 import { DragScrollComponent } from 'ngx-drag-scroll/lib';
+import { MatDialog } from '@angular/material';
+import { CreateJobModalComponent } from '../modals/create-job-modal/create-job-modal.component';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -18,7 +20,7 @@ export class UserDashboardComponent implements OnInit {
   jobs$: Observable<IJob[]>;
   jobs: IJob[];
 
-  constructor(private store: Store) { }
+  constructor(private dialog: MatDialog, private store: Store) { }
 
   @ViewChild('activeJobs', { read: DragScrollComponent }) activeCarousel: DragScrollComponent;
   @ViewChild('inactiveJobs', { read: DragScrollComponent }) inactiveCarousel: DragScrollComponent;
@@ -53,5 +55,11 @@ export class UserDashboardComponent implements OnInit {
       }
     }
   }
+
+
+  openModal(): void {
+    this.dialog.open(CreateJobModalComponent);
+  }
+
 
 }

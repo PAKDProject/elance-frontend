@@ -1,30 +1,19 @@
 <div class="modalContainer">
-  <h2 mat-dialog-title>Choose your profile image</h2>
+  <h2 mat-dialog-title>Choose your {{data}} image</h2>
 
   <mat-dialog-content>
     <hr />
-    <div
-      class="modalBody"
-      dropZone
-      (hovered)="toggleHover($event)"
-      (dropped)="startUpload($event)"
-      [class.hovering]="isHovering"
-    >
+    <div class="modalBody" dropZone (hovered)="toggleHover($event)" (dropped)="startUpload($event)" [class.hovering]="isHovering">
       <img *ngIf="filePath !== ''" id="image" [src]="filePath" />
       <h2 mat-dialog-title>{{ hoveringMessage }}</h2>
       <div class="file">
         <label class="file-label">
-          <input
-            class="file-input"
-            accept="image/*"
-            type="file"
-            style="display: none;"
-            #upload
-            (change)="startUpload($event.target.files)"
-          />
+          <input class="file-input" accept="image/*" type="file" style="display: none;" #upload (change)="startUpload($event.target.files)" />
 
           <span class="file-cta">
-            <span class="file-icon"> <mat-icon>publish</mat-icon> </span>
+            <span class="file-icon">
+              <mat-icon>publish</mat-icon>
+            </span>
             <span class="file-label"> or choose a file… </span>
           </span>
         </label>

@@ -4,12 +4,14 @@ import { IJob } from "./job-model";
 export interface IOrganisation {
   id?: string;
   entity?: string;
-  organisationName: string;
+  orgName: string;
   tagline?: string;
   logoUrl?: string;
-  organisationEmail: string;
+  email: string;
   websiteUrl?: string;
-  adminUser: IUser;
+  adminUser?: Partial<IUser>;
   jobsPosted?: IJob[];
+  activeJobs?: IJob[];
   members?: IUser[];
+  contacts?: IUser[];
 }

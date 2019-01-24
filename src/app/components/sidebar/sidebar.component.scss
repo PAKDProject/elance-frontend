@@ -1,63 +1,71 @@
 .sidebar-wrapper {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto 1fr auto;
+  padding-bottom: 0;
+
+  #searchBtn {
+    margin-top: 10px;
+    justify-self: center
+  }
+
+  .userInfoPanel {
     display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: 1fr auto;
-    padding-bottom: 0;
+    grid-template-areas: 'pic top'
+      'pic bot';
+    grid-template-columns: auto 1fr;
+    margin: 10px;
 
-    .userInfoPanel {
-        display: grid;
-        grid-template-areas: 'pic top'
-                             'pic bot';
-        grid-template-columns: auto 1fr;
-        margin: 10px;
-    
-        .profilePic {
-            grid-area: pic;
-            margin-right: 10px;
-            width: 50px;
-            height: 50px;
-            overflow: hidden;
-            border-radius: 50%;
-            border: 2px solid darkgray;
-            justify-self: center;
-            align-self: center;
-    
-            img {
-                width: 100%;
-            }
-        }
-        .topRow {
-            align-self: center;
-            grid-area: top;
-    
-            div {
-                font-weight: 400;
-                font-size: 16px;
-            }
-        }
-        .bottomRow {
-            align-self: center;
-            grid-area: bot;
+    .profilePic {
+      grid-area: pic;
+      margin-right: 10px;
+      width: 50px;
+      height: 50px;
+      overflow: hidden;
+      border-radius: 50%;
+      border: 2px solid darkgray;
+      justify-self: center;
+      align-self: center;
 
-            display: grid;
-            grid-template-columns: auto auto 1fr;
-
-            button {
-                padding: 2px;
-            }
-
-            i {
-                border: 1px darkgray solid;
-                border-radius: 5px;
-                padding: 2px;
-                margin: 2px;
-                cursor: pointer;
-            }
-            .fa-sign-out-alt:hover {
-                //    background: #d9534f;
-                background: #cc0000;
-                color: white;
-            }
-        }
+      img {
+        width: 100%;
+      }
     }
+
+    .topRow {
+      align-self: center;
+      grid-area: top;
+
+      div {
+        font-weight: 400;
+        font-size: 16px;
+      }
+    }
+
+    .bottomRow {
+      align-self: center;
+      grid-area: bot;
+
+      display: grid;
+      grid-template-columns: auto auto 1fr;
+
+      button {
+        padding: 2px;
+      }
+
+      i {
+        border: 1px darkgray solid;
+        border-radius: 5px;
+        padding: 2px;
+        margin: 2px;
+        cursor: pointer;
+      }
+
+      .fa-sign-out-alt:hover {
+        //    background: #d9534f;
+        background: #cc0000;
+        color: white;
+      }
+    }
+  }
 }

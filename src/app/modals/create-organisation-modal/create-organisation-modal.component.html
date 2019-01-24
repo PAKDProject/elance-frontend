@@ -1,41 +1,103 @@
 <div class="container">
-  <h2 mat-dialog-title>Create an Organisation</h2>
+  <div id="header">
+    <h2 mat-dialog-title id="title">Create an Organisation</h2>
+    <div id="closeIcon">
+      <mat-icon (click)="onNoClick()">close</mat-icon>
+    </div>
+  </div>
 
   <mat-dialog-content>
-    <form [formGroup]="organisationForm">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label for="orgName">
-              Name your Organisation
-            </label>
-            <input type="text" id="orgName" placeholder="Great Software Inc." formControlName="organisationName" class="form-control">
-            <div class="feedback" *ngIf="organisationName.touched && !organisationName.valid">
-              You must name your organisation.
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="orgEmail">
-              Email for your organisation
-            </label>
-            <input type="email" id="orgEmail" placeholder="admin@greatsoftwareinc.com" formControlName="organisationEmail"
-              class="form-control">
-            <div class="feedback" *ngIf="organisationEmail.touched && !organisationEmail.valid">
-              You must provide a valid email for your organisation. This is so your members can contact you!
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="orgTagline">Describe your organisation</label>
-                <small>Hint: This field supports markdown. <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
-                    target="_blank">(More Info)</a></small>
-                <textarea id="orgTagline" class="form-control" rows="4" form-control-name="tagline"></textarea>
+    <div>
+      <form [formGroup]="organisationForm">
+
+        <mat-vertical-stepper>
+
+          <mat-step [stepControl]="organisationForm">
+            <ng-template matStepLabel><b>Basic Info</b></ng-template>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="orgName">
+                    Name your Organisation
+                  </label>
+                  <input type="text" id="orgName" placeholder="Great Software Inc." formControlName="organisationName"
+                    class="form-control">
+                  <div class="feedback" *ngIf="organisationName.touched && !organisationName.valid">
+                    You must name your organisation.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="orgEmail">
+                    Email for your organisation
+                  </label>
+                  <input type="email" id="orgEmail" placeholder="admin@greatsoftwareinc.com" formControlName="organisationEmail"
+                    class="form-control">
+                  <div class="feedback" *ngIf="organisationEmail.touched && !organisationEmail.valid">
+                    You must provide a valid email for your organisation. This is so your members can contact you!
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </form>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="orgTagline">Describe your organisation</label>
+                  <small>Hint: This field supports markdown. <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
+                      target="_blank">(More Info)</a></small>
+                  <textarea id="orgTagline" class="form-control" rows="4" formControlName="tagline"></textarea>
+                  <div id="editor" *ngIf="tagline.value">
+                    <label>Markdown Preview</label>
+                    <markdown [data]="tagline.value" ngPreserveWhitespaces></markdown>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <button class="btn back" (click)="onNoClick()">Cancel</button>
+              </div>
+              <div class="col">
+                <button class="btn next" matStepperNext>Next</button>
+              </div>
+            </div>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel><b>Media</b></ng-template>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="websiteUrl">
+                    Have a Website? Link it here
+                  </label>
+                  <input type="url" class="form-control" id="websiteUrl" formControlName="websiteUrl" placeholder="greatsoftwareinc.com">
+                </div>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-lg-4 col-md-4 col-sm-12">
+                <button class="btn upload mt-3 mb-3" (click)="openUploadModal()">
+                  Upload Logo Image
+                </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <button class="btn back" matStepperPrevious>Back</button>
+              </div>
+              <div class="col">
+                <button class="btn next" matStepperNext [disabled]="!organisationForm.valid" (click)="createOrganisation()">Create
+                  {{orgName !== ""? orgName : "Organisation"}}</button>
+              </div>
+            </div>
+          </mat-step>
+        </mat-vertical-stepper>
+      </form>
+
+    </div>
   </mat-dialog-content>
 </div>

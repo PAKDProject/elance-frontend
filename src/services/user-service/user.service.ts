@@ -79,6 +79,16 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
+  searchUsers(search: string): Observable<any> {
+    const query = {
+      query: {
+        prefix: {
+          fName: search,
+        }
+      }
+    };
+    return this.http.post(`${this.endpoint}/search`, JSON.stringify(query), this.httpOptions);
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

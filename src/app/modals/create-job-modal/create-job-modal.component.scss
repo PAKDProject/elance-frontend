@@ -5,6 +5,8 @@
   height: auto;
 
   h2 {
+    font-style: italic;
+    color: $primary;
     text-align: center;
   }
 
@@ -16,6 +18,16 @@
 .secondary:hover {
   background: $primary;
   color: white;
+}
+
+#char_count {
+  float: right;
+}
+
+label {
+  font-size: 1em;
+  color: $primary;
+  font-style: italic;
 }
 
 #inputGroupPrepend {

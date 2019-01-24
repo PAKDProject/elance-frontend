@@ -1,5 +1,6 @@
 import { ISkills } from "./skill-model";
 import { IJob } from "./job-model";
+import { IOrganisation } from "./organisation-model";
 
 export interface IUser {
   id: string;
@@ -21,6 +22,7 @@ export interface IUser {
   profileCards?: IProfileCard[];
   jobHistory?: IJob[];
   appliedJobs?: IJob[];
+  organisations?: IOrganisation[];
 }
 
 export interface ISocialLink {

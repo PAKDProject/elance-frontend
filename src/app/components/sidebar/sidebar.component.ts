@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { IUser } from 'src/models/user-model';
 import { CognitoWebTokenAuthService } from 'src/services/cognito-auth/cognito-web-token-auth.service';
 import { NotificationService } from 'src/services/notifications/notification.service';
+import { UserService } from 'src/services/user-service/user.service';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -29,11 +30,13 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
     @Select(UserState.getUser) user$: Observable<IUser>
     menuItems: any[];
-    userFName: string
+    userFName: string;
+    search: string;
 
     constructor(
         private _auth: CognitoWebTokenAuthService,
-        private _notifier: NotificationService
+        private _notifier: NotificationService,
+        private _userService: UserService
     ) { }
 
     ngOnInit() {
@@ -58,4 +61,10 @@ export class SidebarComponent implements OnInit {
             this._notifier.showError("Failed to logout!")
         })
     }
+
+    searchUsers() {
+        this._userService.searchUsers(this.search).subscribe((data) => {
+          console.log(data);
+        });
+      }
 }

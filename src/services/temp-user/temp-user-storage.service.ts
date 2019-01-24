@@ -52,6 +52,19 @@ export class TempUserStorageService {
           description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non eros viverra, fringilla massa rhoncus, dictum nulla. In rhoncus nunc sed ante maximus tincidunt. Praesent ut lectus nisl. Etiam elementum dictum elit at aliquet. Sed vitae vehicula massa, sed luctus velit. Morbi aliquam sodales tempor. Praesent tempus, felis et luctus porttitor, quam lectus elementum nulla, sit amet pretium nisi dolor vel eros. Nulla vestibulum eu velit ac semper. Morbi gravida rhoncus libero, a rhoncus sapien. Morbi non sem a ligula viverra fermentum elementum ac odio. Fusce eget justo eros.'
         }
       ],
+      organisations: [
+        {
+          orgName: "Facebook",
+          email: "zuck@facebook.com",
+          tagline: "### This is Facebook ",
+          websiteUrl: "facebook.com",
+          adminUser: {
+            id: 'sad34324-d73fsadas-DAB4GSUS-b801-42069LOL',
+            entity: 'user',
+            email: 'johnsmith418@email.com',
+          }
+        }
+      ],
       skills: [
         {
           skillTitle: 'C#',
@@ -91,29 +104,29 @@ export class TempUserStorageService {
       tagline: 'Software Developer',
       contacts: [],
       profileCards:
-      [
-        {
-          title: "About Me",
-          type: "bio"
-        },
-        {
-          title: "Education",
-          type: "edu"
-        },
-        {
-          title: "Skills",
-          type: "skills"
-        },
-        {
-          title: "Job History",
-          type: "jobs"
-        },
-        {
-          title: "Custom Card 1",
-          type: "custom",
-          content: "Custom card body with <h1>MARKDOWN</h1>"
-        }
-      ],
+        [
+          {
+            title: "About Me",
+            type: "bio"
+          },
+          {
+            title: "Education",
+            type: "edu"
+          },
+          {
+            title: "Skills",
+            type: "skills"
+          },
+          {
+            title: "Job History",
+            type: "jobs"
+          },
+          {
+            title: "Custom Card 1",
+            type: "custom",
+            content: "Custom card body with <h1>MARKDOWN</h1>"
+          }
+        ],
       jobHistory: [
         {
           id: "0a7d3ef1-00da-4bb9-9d10-61695207f8ca",
@@ -126,8 +139,8 @@ export class TempUserStorageService {
           dateAccepted: new Date(1, 2, 2018),
           payment: 5629,
           progress: 100
-      }
-       ]
+        }
+      ]
     };
 
     return of(this.user)

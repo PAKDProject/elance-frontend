@@ -63,6 +63,7 @@ export class RegisterFormComponent implements OnInit {
       this.user.fName = user.fName;
       this.user.lName = user.lName;
       this.user.id = user.id;
+      this.user.organisations = user.organisations;
     });
     //About you form
     this.aboutYouForm = this.fb.group({
@@ -202,21 +203,21 @@ export class RegisterFormComponent implements OnInit {
 
   //Set default profile cards
   setDefaultProfileCards() {
-    this.user.profileCards = 
-    [
-      {
-        title: "About Me",
-        type: "bio"
-      },
-      {
-        title: "Education",
-        type: "edu"
-      },
-      {
-        title: "Skills",
-        type: "skills"
-      }
-    ]
+    this.user.profileCards =
+      [
+        {
+          title: "About Me",
+          type: "bio"
+        },
+        {
+          title: "Education",
+          type: "edu"
+        },
+        {
+          title: "Skills",
+          type: "skills"
+        }
+      ]
   }
 
   //Get social media links and set them
@@ -271,7 +272,8 @@ export class RegisterFormComponent implements OnInit {
   openUploadModal(): void {
     this.dialog.open(UploadImageModalComponent, {
       maxWidth: "1000px",
-      panelClass: "modalStyle"
+      panelClass: "modalStyle",
+      data: "profile"
     });
   }
 
