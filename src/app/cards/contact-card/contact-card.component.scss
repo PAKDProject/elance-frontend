@@ -1,0 +1,35 @@
+@import '../../../variables.scss';
+.cardContainer {
+    display: grid;
+    grid-row-gap: 5px;
+    padding: 10px;
+    justify-items: center;
+    align-items: center;
+    border: 2px darkgray solid;
+    border-radius: 10px;
+    margin: 10px;
+    background: #eaeaea;
+
+    .profilePic {
+        border-radius: 50%;
+        border: 2px darkgray solid;
+        background: white;
+        img {
+            height: 80px;
+            width: 80px;
+        }
+    }
+
+    .name {
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .tagline {
+        font-style: italic;
+    }
+
+    button {
+        background: $primary;
+    }
+}

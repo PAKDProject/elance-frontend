@@ -55,7 +55,6 @@ import { SkillContainerModalComponent } from './modals/skill-container-modal/ski
 // Page Components
 import { AppComponent } from "./app.component";
 import { SidenavComponent } from "./sidenav/sidenav.component";
-import { UserDashboardComponent } from "./user-dashboard/user-dashboard.component";
 import { BrowseJobsComponent } from "./browse-jobs/browse-jobs.component";
 import { MenuIconComponent } from "./icons/menu-icon/menu-icon.component";
 import { PostJobComponent } from "./post-job/post-job.component";
@@ -87,7 +86,13 @@ import { CompletedJobComponent } from './cards/completed-job/completed-job.compo
 import { ContactsCardComponent } from './cards/contacts-card/contacts-card.component';
 import { OrganisationService } from "src/services/organisation-service/organisation.service";
 import { CreateOrganisationModalComponent } from './modals/create-organisation-modal/create-organisation-modal.component';
+import { ContactCardComponent } from './cards/contact-card/contact-card.component';
 
+import { UserDashboardComponent } from "./user-dashboard/user-dashboard.component";
+import { ActiveComponent } from './organization-dashboard/active/active.component';
+import { PostedComponent } from './organization-dashboard/posted/posted.component';
+import { ContactsComponent } from './organization-dashboard/contacts/contacts.component';
+import { AppliedComponent } from './organization-dashboard/applied/applied.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -129,7 +134,12 @@ import { CreateOrganisationModalComponent } from './modals/create-organisation-m
     UserProfileModalComponent,
     CompletedJobComponent,
     ContactsCardComponent,
-    CreateOrganisationModalComponent
+    CreateOrganisationModalComponent,
+    ContactCardComponent,
+    ActiveComponent,
+    PostedComponent,
+    ContactsComponent,
+    AppliedComponent
   ],
   imports: [
     BrowserAnimationsModule,

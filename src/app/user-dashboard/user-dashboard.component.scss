@@ -1,16 +1,167 @@
-// .container-fluid {
+@import '../../variables.scss';
 .pageContainer {
     display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-areas: "header contacts"
-                         "active contacts"
-                         "posted contacts";
-
+    grid-template-rows: auto 1fr;;
+    
     .header {
-        grid-area: header;
+        h2 {
+            margin: 0px;
+        }
     }
+    .pageBody {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        // grid-template-rows: repeat(3,auto);
+        grid-template-rows: repeat(auto-fit, auto);
+        grid-auto-flow: dense;
+        align-items: flex-start;
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
+        grid-template-areas: "active contacts"
+                              "applied contacts"
+                              "posted contacts";
 
-    .contactsList {
-        grid-area: contacts;
+        .activeJobs {
+            grid-area: active;
+        }
+
+        .postedJobs {
+            grid-area: posted;
+        }
+        
+        .appliedJobs {
+            grid-area: applied;
+        }
+
+        contacts-card {
+            grid-area: contacts;
+        }
+
+        .cardContainer {
+            display: grid;
+            grid-template-rows: auto auto;
+            background: #eaeaea;
+
+            .topRow {
+                background: $accent;
+                padding: 5px;
+
+                h1 {
+                    padding-left: 10px;
+                    color: white;
+                    justify-self: left;
+                    font-size: 25px;
+                    white-space: nowrap;
+                }
+            }
+            
+            .cardContent {
+                display: grid;
+                grid-template-columns: repeat(4,auto);
+                
+                .jobCardContainer {
+                    max-height: 200px;
+                    margin: 5px;
+                    padding: 10px;
+                    border: 1px darkgray solid;
+                    border-radius: 5px;
+                    background: lightgray;
+                    display: grid;
+                    justify-items: center;
+                    grid-row-gap: 5px;
+
+                    h2 {
+                        font-size: 20px;
+                        margin-bottom: 0px;
+                        text-align: center;
+                    }
+
+                    .employerRow {
+                        display: grid;
+                        grid-template-columns: repeat(2,auto);
+                        grid-column-gap: 5px;
+                        align-items: center;
+                        justify-items: center;
+
+                        font-style: italic;
+                        text-align: center;
+
+                        .imgContainer {
+                            display: grid;
+                            align-items: center;
+                            justify-items: center;
+                            border: 1px darkgray solid;
+                            border-radius: 50%;
+                            overflow: hidden;
+                            background: white;
+                            width: 20px;
+                            height: 20px;
+
+                            img {
+                                // height: 20px;
+                                width: 100%;
+                            }
+                        }
+                    }
+
+                    .date {
+                        text-align: center;
+                    }
+
+                    button {
+                        background: $primary;
+                        width: 90%;
+                        padding: 5px;
+                        border: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .pageContainer {
+        .pageBody {
+            grid-template-areas: "active"
+                                 "applied"
+                                 "posted"
+                                 "contacts";
+        }
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .pageContainer {
+        .pageBody {
+            .cardContainer {
+                .cardContent {
+                    grid-template-columns: repeat(3,auto);
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .pageContainer {
+        .pageBody {
+            .cardContainer {
+                .cardContent {
+                    grid-template-columns: repeat(2,auto);
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 450px) {
+    .pageContainer {
+        .pageBody {
+            .cardContainer {
+                .cardContent {
+                    grid-template-columns: auto;
+                }
+            }
+        }
     }
 }

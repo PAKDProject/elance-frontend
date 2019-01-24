@@ -1,7 +1,31 @@
-<div class="main-content">
+<!-- <div class="main-content">
   <div class="centerContainer">
     <h2>Organization Dashboard</h2>
     <h2>You have not created any organizations</h2>
     <button class="btn btn-lg" (click)="openDialog()">Open Modal</button>
+  </div>
+</div> -->
+<div class='navTabsContainer'>
+  <div class="header">
+
+    <div class='imgContainer'>
+      <img src='../../assets/images/default_user.png'/>
+    </div>
+    <h2>E-Lance</h2>
+    <p>E-Lance is a group project for our PRJ300 module. It is a job site which is aimed at freelance workers and employers who wish to hire freelancers.
+      E-Lance is a group project for our PRJ300 module. It is a job site which is aimed at freelance workers and employers who wish to hire freelancers.</p>
+  </div>
+  <div class='navTabs'>
+    <div matRipple [matRippleCentered]='true' class='tab' *ngFor='let tab of menuItems' (click)='setPage(tab.path)' [class.activeRoute]='selectedPage == tab.path'>
+      <div class='title'>{{tab.title}}</div>
+  </div>
+</div>
+</div>
+<div class="main-content">
+  <div class="container-fluid">
+    <dashboard-active-jobs *ngIf='selectedPage=="active"'></dashboard-active-jobs>
+    <dashboard-applied-jobs *ngIf='selectedPage=="applied"'></dashboard-applied-jobs>
+    <dashboard-posted-jobs *ngIf='selectedPage=="posted"'></dashboard-posted-jobs>
+    <dashboard-contacts *ngIf='selectedPage=="contacts"'></dashboard-contacts>
   </div>
 </div>

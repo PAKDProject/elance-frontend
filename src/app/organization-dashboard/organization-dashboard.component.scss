@@ -1,24 +1,104 @@
 @import "../../variables.scss";
 
-.main-content {
-  background: url('../../assets/images/organizationBackground.png') no-repeat !important;
-  height: 100vh;
-  width: 100%;
-  display: grid;
-  .centerContainer {
-    display: grid;
-    justify-self: center;
-    align-self: center;
+// .main-content {
+//   background: url('../../assets/images/organizationBackground.png') no-repeat !important;
+//   height: 100vh;
+//   width: 100%;
+//   display: grid;
+//   .centerContainer {
+//     display: grid;
+//     justify-self: center;
+//     align-self: center;
     
-    color: white;
+//     color: white;
 
-    h2 {
-      justify-self: center;
+//     h2 {
+//       justify-self: center;
+//     }
+//     button {
+//       color: white;
+//       background: $primary;
+//       opacity: 100;
+//     }
+//   }
+// }
+@import '../../variables.scss';
+.navTabsContainer {
+    background: $secondary;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    .header {
+        padding: 20px;
+        font-size: 18px;
+        font-weight: 500;
+        margin-top: 5px; margin-bottom: 5px;
+        justify-self: center;
+        align-self: center;
+        display: grid;
+        grid-column-gap: 10px;
+        grid-template-columns: auto 1fr;
+        grid-template-areas: 'logo name'
+                             'logo bio';
+
+        .imgContainer {
+            justify-self: center;
+            grid-area: logo;
+            border: 2px darkgray solid;
+            border-radius: 50%;
+
+            img {
+                width: 100px;
+                height: 100px;
+                // height: auto;
+            }
+        }
+        h2 {
+            grid-area: name;
+        }
+        p {
+            grid-area: bio;
+        }
     }
-    button {
-      color: white;
-      background: $primary;
-      opacity: 100;
+
+    .navTabs {
+        display: grid;
+        grid-template-columns: repeat(4, auto);
+
+        .tab {
+            height: 50px;
+            width: 100%;
+            display: grid;
+            background: $secondary;
+            padding: 10px;
+            border: 1px solid darken($secondary,5);
+            
+            .title {
+                justify-self: center;
+                align-self: center;
+                font-size: 16px;
+                font-weight: 500;
+            }
+        }
+        .activeRoute {
+            background: $primary;
+            color: white;
+        }
     }
-  }
+}
+@media only screen and (max-width: 990px) {
+    .navTabsContainer {
+        padding-top: 80px;
+        .navTabs {
+            grid-template-columns: repeat(2, minmax(300px,auto));
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .navTabsContainer {
+        padding-top: 80px;
+        .navTabs {
+            grid-template-columns: auto;
+        }
+    }
 }

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
-import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { BrowseJobsComponent } from './browse-jobs/browse-jobs.component';
 import { MessagesComponent } from './messages/messages.component';
 import { OrganizationDashboardComponent } from './organization-dashboard/organization-dashboard.component';
@@ -18,6 +17,8 @@ import { ViewComponent } from './view/view.component';
 import { GridComponent } from './browse-jobs/grid/grid.component';
 import { ListComponent } from './browse-jobs/list/list.component';
 import { SecretComponent } from 'src/assets/secret/secret.component';
+
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
