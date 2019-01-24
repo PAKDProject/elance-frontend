@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { FeatureToggling } from '../../services/feature-toggle/feature-toggling.component';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/services/user-service/user.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -13,7 +14,7 @@ export class SidenavComponent extends FeatureToggling implements OnDestroy, OnIn
 
   private _mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private router: Router, private _route: ActivatedRoute) {
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private router: Router, private _route: ActivatedRoute, private _userService: UserService) {
     super()
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();

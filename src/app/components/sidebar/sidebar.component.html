@@ -30,6 +30,12 @@
         </ul>
     </div> -->
 
+    <!-- User Search -->
+    <form #userSearch = "ngForm" (ngSubmit)="searchUsers(userSearch.value)">
+        <input type="text" style="background-color:green" name="search" id="search" [(ngModel)]="search"/>
+        <button>sERcH uZrS</button>
+    </form>
+
     <!-- Actual Navigation Buttons -->
     <ul class="nav">
         <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">

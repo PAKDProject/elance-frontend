@@ -13,7 +13,6 @@ import { IJob } from "src/models/job-model";
 })
 export class UserService {
   endpoint: string = `${environment.backendUrl}/users`;
-  esEndpoint = 'https://search-elance-doc-domain-nb654npbg5hpm6e5lmwpx6obhy.eu-west-1.es.amazonaws.com/users/_search';
   httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json"
@@ -80,7 +79,7 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
-  searchUsers(search: string): Observable<object> {
+  searchUsers(search: string): Observable<any> {
     const query = {
       query: {
         prefix: {
@@ -88,7 +87,7 @@ export class UserService {
         }
       }
     };
-    return this.http.post(`${this.esEndpoint}`, JSON.stringify(query), this.httpOptions);
+    return this.http.post(`${this.endpoint}/search`, JSON.stringify(query), this.httpOptions);
   }
 
   private handleError(error: HttpErrorResponse) {
