@@ -92,7 +92,7 @@ import { UserDashboardComponent } from "./user-dashboard/user-dashboard.componen
 import { ActiveComponent } from './organization-dashboard/active/active.component';
 import { PostedComponent } from './organization-dashboard/posted/posted.component';
 import { ContactsComponent } from './organization-dashboard/contacts/contacts.component';
-import { AppliedComponent } from './organization-dashboard/applied/applied.component';
+import { MembersComponent } from './organization-dashboard/members/members.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -139,7 +139,7 @@ import { AppliedComponent } from './organization-dashboard/applied/applied.compo
     ActiveComponent,
     PostedComponent,
     ContactsComponent,
-    AppliedComponent
+    MembersComponent
   ],
   imports: [
     BrowserAnimationsModule,

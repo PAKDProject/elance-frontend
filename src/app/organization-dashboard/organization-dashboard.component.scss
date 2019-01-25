@@ -22,41 +22,79 @@
 //     }
 //   }
 // }
+
 @import '../../variables.scss';
 .navTabsContainer {
     background: $secondary;
     display: grid;
     grid-template-rows: auto 1fr;
+
     .header {
-        padding: 20px;
-        font-size: 18px;
-        font-weight: 500;
-        margin-top: 5px; margin-bottom: 5px;
-        justify-self: center;
-        align-self: center;
         display: grid;
-        grid-column-gap: 10px;
-        grid-template-columns: auto 1fr;
-        grid-template-areas: 'logo name'
-                             'logo bio';
+        grid-template-columns: 50px auto 50px;
+        height: 100%;
 
-        .imgContainer {
+        .midCol {
+            display: grid;
+            grid-column-gap: 20px;
+            grid-template-columns: auto 1fr;
+            grid-template-areas: 'logo name'
+                                 'logo bio'
+                                 'none actionBar';
+                         
+            font-size: 18px;
+            font-weight: 500;
             justify-self: center;
-            grid-area: logo;
-            border: 2px darkgray solid;
-            border-radius: 50%;
+            align-self: center; 
 
-            img {
-                width: 100px;
-                height: 100px;
-                // height: auto;
+            .imgContainer {
+                justify-self: center;
+                align-self: center; 
+                grid-area: logo;
+                border: 2px darkgray solid;
+                border-radius: 50%;
+                background: white;
+    
+                img {
+                    justify-self: center;
+                    align-self: center;
+                    width: 100px;
+                    height: 100px;
+                    // height: auto;
+                }
+            }
+            h2 {
+                grid-area: name;
+            }
+    
+            p {
+                grid-area: bio;
+            }
+    
+            .actionMenu {
+                grid-area: actionBar;
+                display: grid;
+                grid-template-columns: repeat(2,1fr);
+                grid-column-gap: 10px;
+                justify-self: center;
+                align-self: flex-start;
+                button {
+                    background: $primary;
+                    border: none;
+                }
             }
         }
-        h2 {
-            grid-area: name;
-        }
-        p {
-            grid-area: bio;
+
+        .rightCol {
+            .editButton {
+                align-self: flex-start;
+                grid-area: edit;
+                cursor: pointer;
+                margin: 10px;
+            }
+            .editButton:hover {
+                color: white;
+            }
         }
     }
 

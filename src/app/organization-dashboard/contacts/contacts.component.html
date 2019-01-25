@@ -1,3 +1,14 @@
-<p>
-  contacts works!
-</p>
+<div *ngIf='(contacts.length > 0)' class="gridContainer">
+  <contact-card *ngFor='let contact of contacts' [ContactInput]='contact'></contact-card>
+</div>
+<div *ngIf='!(contacts.length > 0)' class="listContainer">
+  <div class="noneFound">
+      <div class="centerContainer">
+          <div class='imgContainer'>
+              <i class="far fa-frown"></i>
+          </div>
+          <h2>No posted jobs found</h2>
+          <div>temp</div>
+      </div>
+  </div>
+</div>

@@ -1,12 +1,12 @@
-<div *ngIf='(jobs.length > 0)' class='pageContainer'>
+<div *ngIf='(members.length > 0)' class='pageContainer'>
     <div class='header'>
-        <button class='btn btn-primary btn-sm'>Post A Job</button>
+        <button class='btn btn-primary btn-sm'>Add members</button>
     </div>
     <div class="gridContainer">
-    <active-job-card *ngFor='let job of jobs' [JobInput]='job'></active-job-card>
+        <contact-card *ngFor='let member of members' [ContactInput]='member'></contact-card>
     </div>
 </div>
-<div *ngIf='!(jobs.length > 0)' class="listContainer">
+<div *ngIf='!(members.length > 0)' class="listContainer">
     <div class="noJobsFound">
         <div class="centerContainer">
             <div class='imgContainer'>

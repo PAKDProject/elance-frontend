@@ -16,12 +16,12 @@
   </div>
 
   <div class="bottomRow">
+    <div class="progressBar">
+      <ngb-progressbar [value]='(job.progress)? (job.progress):(0)' [striped]='true' [showValue]='true'></ngb-progressbar>
+    </div>
     <div class="jobDueDate">
       <mat-icon>access_time</mat-icon>
       {{job.datePosted | date: 'dd/MM/yyyy'}}
-    </div>
-    <div class="progressBar">
-      <ngb-progressbar [value]='(job.progress)? (job.progress):(0)' [striped]='true' [showValue]='true'></ngb-progressbar>
     </div>
   </div>
 </div>

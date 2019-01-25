@@ -16,6 +16,7 @@ import { RequestJobs } from 'src/redux/actions/job.actions';
 })
 export class OrganizationDashboardComponent implements OnInit {
 
+  isAdmin = true;
   constructor(private _dialog: MatDialog, private store: Store) { }
   
   menuItems = [
@@ -24,16 +25,16 @@ export class OrganizationDashboardComponent implements OnInit {
         title: 'Active Jobs'
     },
     { 
-        path: 'applied', 
-        title: 'Applied Jobs'
-    },
-    { 
         path: 'posted', 
         title: 'Posted Jobs'
     },
     { 
         path: 'contacts', 
-        title: 'My Contacts'
+        title: 'Contacts'
+    },
+    { 
+        path: 'members', 
+        title: 'Members'
     }
   ];;
   selectedPage: string = 'active';
@@ -101,6 +102,8 @@ export class OrganizationDashboardComponent implements OnInit {
     this.activeJobs$.subscribe(jobs => {
       this.userActiveJobs = jobs
     })
+
+    this.contacts = this.contacts.concat(this.contacts);
   }
 
   setPage(page: string) {

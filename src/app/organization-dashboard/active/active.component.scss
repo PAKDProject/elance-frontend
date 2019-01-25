@@ -1,12 +1,25 @@
-.gridContainer {
-    display: grid;
-    // grid-template-columns: repeat(4,1fr);
-    grid-template-columns: repeat(4,1fr);
-    grid-gap: 20px;
+@import '../../../variables.scss';
+.pageContainer {
+    .header {
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        grid-gap: 20px;
 
-    inactive-job-card {
-        height: 250px;
-        margin-bottom: 10px;
+        button {
+            grid-column: 4;
+            background: $primary;
+            border: none;
+            padding: 10px 40px;
+        }
+    }
+    .gridContainer {
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        grid-gap: 20px;
+        
+        active-job-card {
+            height: 200px;
+        }
     }
 }
 

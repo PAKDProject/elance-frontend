@@ -70,31 +70,27 @@
         }
     }
     .bottomRow {
-        padding: 2px;
+        padding: 5px;
         display: grid;
-        margin-bottom: 20px;
-        grid-template-rows: auto auto;
+        grid-template-columns: 1fr auto;
+        grid-column-gap: 5px;
         border-top: 2px #E3E3E3 solid;
         width: 90%;
-        min-height: 50px;
         justify-self: center;
+        align-items: center;
+        min-height: 40px;       
 
         .jobDueDate {
-            margin: 0; padding: 0;
             text-align: right;
-            justify-self: right;
-            align-self: center;
-            font-size: 16px;
-            vertical-align: middle;
-            height: 100%;
 
             mat-icon {
-                display: inline-block;
                 font-size: 20px;
-                line-height: 100%;
                 vertical-align: middle;
-                height: 100%;
             }
+        }
+
+        .progressBar {
+            width: 100%;
         }
     }
 }

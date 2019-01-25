@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { IUser } from 'src/models/user-model';
 
 @Component({
   selector: 'dashboard-contacts',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contacts.component.scss']
 })
 export class ContactsComponent implements OnInit {
+  @Input('ContactsIn') contacts: IUser[];
 
   constructor() { }
 

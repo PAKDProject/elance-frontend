@@ -7,13 +7,30 @@
 </div> -->
 <div class='navTabsContainer'>
   <div class="header">
+    <div class='leftCol'>
 
-    <div class='imgContainer'>
-      <img src='../../assets/images/default_user.png'/>
     </div>
-    <h2>E-Lance</h2>
-    <p>E-Lance is a group project for our PRJ300 module. It is a job site which is aimed at freelance workers and employers who wish to hire freelancers.
-      E-Lance is a group project for our PRJ300 module. It is a job site which is aimed at freelance workers and employers who wish to hire freelancers.</p>
+
+    <div class='midCol'>
+      <div class='imgContainer'>
+        <!-- <img src='../../assets/images/default_user.png'/> -->
+        <img src='../../assets/images/elance-logo-small.png'/>
+      </div>
+      <h2>E-Lance</h2>
+      <p>E-Lance is a group project for our PRJ300 module. It is a job site which is aimed at freelance workers and employers who wish to hire freelancers.
+        E-Lance is a group project for our PRJ300 module. It is a job site which is aimed at freelance workers and employers who wish to hire freelancers.</p>
+      <!-- <div class='actionMenu'>
+        <button class='btn btn-primary btn-sm'>Post A Job</button>
+        <button *ngIf='isAdmin' class='btn btn-primary btn-sm'>Add Members</button>
+      </div> -->
+    </div>
+
+    <div class='rightCol'>
+      <div class='editButton'>
+        <mat-icon>edit</mat-icon>
+      </div>
+    </div>
+
   </div>
   <div class='navTabs'>
     <div matRipple [matRippleCentered]='true' class='tab' *ngFor='let tab of menuItems' (click)='setPage(tab.path)' [class.activeRoute]='selectedPage == tab.path'>
@@ -23,9 +40,9 @@
 </div>
 <div class="main-content">
   <div class="container-fluid">
-    <dashboard-active-jobs *ngIf='selectedPage=="active"'></dashboard-active-jobs>
-    <dashboard-applied-jobs *ngIf='selectedPage=="applied"'></dashboard-applied-jobs>
-    <dashboard-posted-jobs *ngIf='selectedPage=="posted"'></dashboard-posted-jobs>
-    <dashboard-contacts *ngIf='selectedPage=="contacts"'></dashboard-contacts>
+    <dashboard-active-jobs *ngIf='selectedPage=="active"' [JobsIn]='jobs'></dashboard-active-jobs>
+    <dashboard-posted-jobs *ngIf='selectedPage=="posted"' [JobsIn]='jobs'></dashboard-posted-jobs>
+    <dashboard-contacts *ngIf='selectedPage=="contacts"' [ContactsIn]='contacts'></dashboard-contacts>
+    <dashboard-members *ngIf='selectedPage=="members"' [MembersIn]='contacts'></dashboard-members>
   </div>
 </div>

@@ -16,7 +16,7 @@ export class ContactsCardComponent implements OnInit {
 
   ngOnInit() {
     this.contacts = this.contacts.splice(0,8);
-    this.maxContacts = 5;
+    this.maxContacts = 8;
   }
 
   openProfile() {

@@ -4,7 +4,6 @@
     </div>
     <div class='cardContent'>
       <div class='contactsList'>
-        <!-- <div *ngIf='i<maxContacts' class="contactRow"> -->
         <div *ngFor='let contact of contacts; let i = index' class='contactRow'>
           <div (click)='openProfile()' class='profilePic'>
             <img src='../../../assets/images/default_user.png'/>
