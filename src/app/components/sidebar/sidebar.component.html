@@ -31,22 +31,26 @@
     </div> -->
 
   <!-- User Search -->
-  <div>
-    <form #userSearch="ngForm" class="form-inline" (ngSubmit)="searchUsers(userSearch.value)" id="searchBtn">
-      <div class="form-group">
-        <input type="text" [matMenuTriggerFor]="menu" class="form-control" placeholder="Search users..." name="search"
-          id="search" [(ngModel)]="search" />
-        <button class="btn btn-sm" style="background: #24896e; color: white; align-self: center;">
+  <div id="search">
+    <form class="form-inline" id="searchBtn" [matMenuTriggerFor]="menu">
+      <div class="form-group" id="search_fields">
+        <input type="text" class="form-control" autocomplete="off" placeholder="Search users..." name="search" id="search_field"
+          #search />
+        <button class="btn btn-sm" style="background: #24896e; color: white; align-self: center;" (click)="showResults(search.value)">
           <mat-icon>search</mat-icon>
         </button>
       </div>
     </form>
-    <mat-menu #menu="matMenu" xPosition="before">
-      <div class="gridContainer">
-        <img src="../../../assets/images/default_user.png" width="30px">
-        <p>Jeff Bezos</p>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false" xPosition="before">
+      <div *ngFor="let user of results; let i = index;">
+        <div class="user_grid">
+          <div class="user_image">
+            <img src="../../../assets//images/default_user.png">
+          </div>
+          <p class="user_name">{{user.fName +' ' +user.lName | titlecase}}</p>
+        </div>
+        <hr *ngIf="i !== results.length-1" />
       </div>
-      <hr />
     </mat-menu>
   </div>
   <!-- Actual Navigation Buttons -->

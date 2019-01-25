@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Select } from '@ngxs/store';
 import { UserState } from 'src/redux/states/user.state';
 import { Observable } from 'rxjs';
@@ -6,6 +6,7 @@ import { IUser } from 'src/models/user-model';
 import { CognitoWebTokenAuthService } from 'src/services/cognito-auth/cognito-web-token-auth.service';
 import { NotificationService } from 'src/services/notifications/notification.service';
 import { UserService } from 'src/services/user-service/user.service';
+import { MatMenuTrigger } from '@angular/material';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -30,9 +31,11 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
     @Select(UserState.getUser) user$: Observable<IUser>
+    @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
     menuItems: any[];
     userFName: string;
     search: string;
+    results: IUser[];
 
     constructor(
         private _auth: CognitoWebTokenAuthService,
@@ -44,7 +47,9 @@ export class SidebarComponent implements OnInit {
         this.menuItems = ROUTES.filter(menuItem => menuItem);
         this.user$.subscribe(res => {
             this.userFName = res.fName;
+
         })
+
 
     }
     isMobileMenu() {
@@ -67,5 +72,15 @@ export class SidebarComponent implements OnInit {
         this._userService.searchUsers(this.search).subscribe((data) => {
             console.log(data);
         });
+    }
+
+    showResults(searchTerm: string) {
+        //Killian - hook up the search here and pop the results into the results variable plz
+        this._userService.getAllUsers().subscribe(res => {
+            this.results = res;
+            this.results = this.results.filter(res => res.fName.includes(searchTerm))
+            this.trigger.openMenu();
+        })
+
     }
 }
