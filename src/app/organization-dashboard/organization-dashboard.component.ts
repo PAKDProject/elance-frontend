@@ -105,7 +105,7 @@ export class OrganizationDashboardComponent implements OnInit {
     this.store.dispatch(new RequestJobs());
 
     this.jobs$.subscribe(jobs => {
-      this.jobs = jobs
+      this.jobs = jobs.splice(0,7)
     })
 
     this.activeJobs$.subscribe(jobs => {

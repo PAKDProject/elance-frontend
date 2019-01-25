@@ -343,6 +343,8 @@
         
                 p {
                     grid-area: bio;
+                    max-height: 200px;
+                    overflow: auto;
                 }
         
                 .actionMenu {
@@ -377,6 +379,8 @@
                     align-self: center;
                     font-size: 16px;
                     font-weight: 500;
+                    word-wrap: none;
+                    white-space: nowrap;
                 }
             }
             .activeRoute {
@@ -388,19 +392,23 @@
 }
 
 @media only screen and (max-width: 990px) {
-    .navTabsContainer {
-        padding-top: 80px;
-        .navTabs {
-            grid-template-columns: repeat(2, minmax(300px,auto));
+    .mainPage {
+        .navTabsContainer {
+            padding-top: 80px;
+            .navTabs {
+                grid-template-columns: repeat(2, minmax(300px,auto));
+            }
         }
     }
 }
 
 @media only screen and (max-width: 600px) {
-    .navTabsContainer {
-        padding-top: 80px;
-        .navTabs {
-            grid-template-columns: auto;
+    .mainPage {
+        .navTabsContainer {
+            padding-top: 80px;
+            .navTabs {
+                grid-template-columns: auto;
+            }
         }
     }
 }
