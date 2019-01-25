@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Select } from '@ngxs/store';
 import { UserState } from 'src/redux/states/user.state';
 import { Observable } from 'rxjs';
@@ -25,7 +25,8 @@ export const ROUTES: RouteInfo[] = [
 @Component({
     selector: 'app-sidebar',
     templateUrl: './sidebar.component.html',
-    styleUrls: ['./sidebar.component.scss']
+    styleUrls: ['./sidebar.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class SidebarComponent implements OnInit {
     @Select(UserState.getUser) user$: Observable<IUser>
@@ -64,7 +65,7 @@ export class SidebarComponent implements OnInit {
 
     searchUsers() {
         this._userService.searchUsers(this.search).subscribe((data) => {
-          console.log(data);
+            console.log(data);
         });
-      }
+    }
 }
