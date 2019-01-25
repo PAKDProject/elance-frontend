@@ -1,128 +1,392 @@
-@import "../../variables.scss";
-
-// .main-content {
-//   background: url('../../assets/images/organizationBackground.png') no-repeat !important;
-//   height: 100vh;
-//   width: 100%;
-//   display: grid;
-//   .centerContainer {
-//     display: grid;
-//     justify-self: center;
-//     align-self: center;
-    
-//     color: white;
-
-//     h2 {
-//       justify-self: center;
-//     }
-//     button {
-//       color: white;
-//       background: $primary;
-//       opacity: 100;
-//     }
-//   }
-// }
-
 @import '../../variables.scss';
-.navTabsContainer {
-    background: $secondary;
+.selectPage {
+    padding-top: 100px;
+    background: url('../../assets/images/organizationBackground.png') no-repeat !important;
+    background-repeat: no-repeat;
+    background-size: contain;
+    min-height: 90vh;
+    width: 100%;
     display: grid;
-    grid-template-rows: auto 1fr;
 
-    .header {
+    .centerContainer {
         display: grid;
-        grid-template-columns: 50px auto 50px;
-        height: 100%;
-
-        .midCol {
+        grid-template-rows: auto auto auto auto auto 300px;
+        justify-self: center;
+        align-self: center;
+        justify-items: center;
+        grid-row-gap: 5px;
+        color: white;
+        
+        h1, p {
+            text-align: center;
+            margin: 0; padding: 0;
+        }
+        .orgListOuter {
+            margin: 20px 0px;
             display: grid;
-            grid-column-gap: 20px;
-            grid-template-columns: auto 1fr;
-            grid-template-areas: 'logo name'
-                                 'logo bio'
-                                 'none actionBar';
-                         
-            font-size: 18px;
-            font-weight: 500;
-            justify-self: center;
-            align-self: center; 
+            grid-template-columns: minmax(50px,auto) minmax(400px,1fr) minmax(50px,100px);
 
-            .imgContainer {
-                justify-self: center;
-                align-self: center; 
-                grid-area: logo;
-                border: 2px darkgray solid;
-                border-radius: 50%;
-                background: white;
+            .orgList {
+                grid-column: 2;
+                border-radius: 5px;
+                display: flex;
+                padding-bottom: 10px;
+                overflow: auto;
+                overflow-y: hidden;
     
-                img {
-                    justify-self: center;
-                    align-self: center;
-                    width: 100px;
-                    height: 100px;
-                    // height: auto;
+                .orgCard {
+                    margin: 5px 10px;
+                    display: grid;
+                    grid-template-areas: 'mid';
+                    justify-items: center;
+                    align-items: center;
+                    font-size: 28px;
+                    background: $cardBack;
+                    color: black;
+                    padding: 20px;
+                    border: 2px darkgray solid;
+                    border-radius: 5px;
+                    cursor: pointer;
+    
+                    h3 {
+                        grid-area: mid;
+                        color: $primary;
+                        font-weight: 700;
+                        opacity: 0;
+                    }
+    
+                    .logo {
+                        grid-area: mid;
+                        width: 120px;
+                        height: 120px;
+                        grid-area: mid;
+                        display: grid;
+                        justify-items: center;
+                        align-items: center;
+                        img {
+                            width: 100%; height: 100%;
+                        }
+                    }
+    
+                    .selectButton {
+                        margin-left: 10px;
+                        display: grid;
+                        align-items: center;
+                        justify-items: center;
+                        border: 2px $primary solid;
+                        border-radius: 50%;
+                        background: $primary;
+                        color: white;
+                        padding: 2px;
+                        cursor: pointer;
+    
+                        mat-icon {
+    
+                        }
+                    }
+    
+                    .selectButton:hover {
+                        background: white;
+                        color: $primary;
+    
+                        mat-icon {
+    
+                        }
+                    }
+                }
+                .orgCard:hover {
+                    border: 2px $primary solid;
+    
+                    .logo {
+                        opacity: 0.1;
+                        // border: 2px $primary solid;
+                    }
+    
+                    h3 {
+                        opacity: 1;
+                    }
                 }
             }
-            h2 {
-                grid-area: name;
-            }
-    
-            p {
-                grid-area: bio;
-            }
-    
-            .actionMenu {
-                grid-area: actionBar;
+            .addOrg {
+                grid-column: 3;
                 display: grid;
-                grid-template-columns: repeat(2,1fr);
-                grid-column-gap: 10px;
-                justify-self: center;
-                align-self: flex-start;
-                button {
-                    background: $primary;
-                    border: none;
+                border: 2px $primary solid;
+                background: $primary;
+                color: white;
+                border-radius: 50%;
+                align-self: center;
+                width: 50px;
+                height: 50px;
+                margin: 25px;
+                cursor: pointer;
+
+                mat-icon {
+                    text-align: center;
+                    vertical-align: middle;
+                    font-size: 26px;
+                    justify-self: center;
+                    align-self: center;
+                    margin: 0;
+                    padding: 0;
+                    line-height: auto;
+                }
+            }
+            .addOrg:hover {
+                background: white;
+                color: $primary;
+            }
+        }
+
+        .openInvites {
+            display: grid;
+            grid-template-columns: repeat(2,auto);
+            grid-column-gap: 5px;
+            justify-items: center;
+            align-items: center;
+            border: 2px $primary solid;
+            // border-radius: 50%;
+            border-radius: 10px;
+            background: $primary;
+            color: white;
+            // width: 26px;
+            height: 26px;
+            font-size: 20px;
+            padding: 0 10px;
+            margin-bottom: 10px;
+
+            p {
+                font-size: 14px;
+                margin: 0; padding: 0;
+            }
+        }
+        .openInvites:hover {
+            background: white;
+            color: $primary
+        }
+
+        .invites {
+            display: grid;
+            justify-items: center;
+            // padding-right: 10px;
+            border-radius: 5px;
+            overflow: auto;
+
+            .inviteList {
+                display: grid;
+                grid-row-gap: 5px;
+                // border: 2px darkgray solid;
+                // border-radius: 5px;
+                // background: #eaeaea;
+
+                .inviteCard {
+                    display: grid;
+                    min-width: 400px;
+                    grid-template-columns: auto 1fr auto;
+                    grid-column-gap: 10px;
+                    align-items: center;
+                    justify-items: center;
+                    background: $cardBack;
+                    color: black;
+                    padding: 5px 20px;
+                    border: 1px darkgray solid;
+                    justify-self: center;
+    
+                    // margin: 6px;
+                    border-radius: 5px;
+    
+                    .logo {
+                        border: 2px darkgray solid;
+                        border-radius: 50%;
+                        background: white;
+                        width: 36px;
+                        height: 36px;
+                        overflow: hidden;
+                        display: grid;
+                        justify-items: center;
+                        align-items: center;
+                        img {
+                            width: 100%; height: 100%;
+                        }
+                    }
+    
+                    h3 {
+                        justify-self: left;
+                        font-size: 24px;
+                        font-weight: 400;
+                        font-style: raleway; 
+                        // font-style: montserrat;
+                    }
+
+                    .actionButtons {
+                        display: grid;
+                        grid-template-columns: repeat(2,1fr);
+                        grid-column-gap: 5px;
+                        margin-left: 10px;
+                        align-items: center;
+                        justify-items: center;
+
+                        button {
+                            margin: 0; padding: 0;
+                            // border-radius: 50%;
+                            background: $primary;
+                            color: white;
+                            min-width: 50px;
+                            height: 26px;
+                            // padding: 2px;
+                            // cursor: pointer;
+                        }
+                        .accept {
+                            border: 2px $primary solid;
+                            background: $primary;
+                        }
+                        .accept:hover {
+                            background: white;
+                            color: $primary;
+                        }
+                        .deny {
+                            border: 2px red solid;
+                            background: red;
+                        }
+                        .deny:hover {
+                            background: white;
+                            color: red;
+                        }
+                    }
+                    .selectButton {
+    
+                        mat-icon {
+    
+                        }
+                    }
+    
+                    .selectButton:hover {
+                        background: white;
+                        color: $primary;
+    
+                        mat-icon {
+    
+                        }
+                    }   
                 }
             }
         }
 
-        .rightCol {
-            .editButton {
-                align-self: flex-start;
-                grid-area: edit;
-                cursor: pointer;
-                margin: 10px;
+        button {
+            border: 2px $primary solid;
+            background: $primary;
+            color: white;
+            // opacity: 100;
+            width: 60%;
+        }
+        button:hover {
+            background: white;
+            color: $primary;
+        }
+    }
+}
+
+.mainPage {
+    .navTabsContainer {
+        background: $secondary;
+        display: grid;
+        grid-template-rows: auto 1fr;
+    
+        .header {
+            display: grid;
+            grid-template-columns: 50px auto 50px;
+            height: 100%;
+    
+            .leftCol, .rightCol {
+                .actionButton {
+                    align-self: flex-start;
+                    grid-area: edit;
+                    cursor: pointer;
+                    margin: 10px;
+                }
+                .actionButton:hover {
+                    color: $primary;
+                }
             }
-            .editButton:hover {
+
+            .midCol {
+                display: grid;
+                grid-column-gap: 20px;
+                grid-template-columns: auto 1fr;
+                grid-template-areas: 'logo name'
+                                     'logo bio'
+                                     'none actionBar';
+                             
+                font-size: 18px;
+                font-weight: 500;
+                justify-self: center;
+                align-self: center; 
+    
+                .imgContainer {
+                    justify-self: center;
+                    align-self: center; 
+                    grid-area: logo;
+                    border: 2px darkgray solid;
+                    border-radius: 50%;
+                    background: white;
+        
+                    img {
+                        justify-self: center;
+                        align-self: center;
+                        width: 100px;
+                        height: 100px;
+                        // height: auto;
+                    }
+                }
+                h2 {
+                    grid-area: name;
+                }
+        
+                p {
+                    grid-area: bio;
+                }
+        
+                .actionMenu {
+                    grid-area: actionBar;
+                    display: grid;
+                    grid-template-columns: repeat(2,1fr);
+                    grid-column-gap: 10px;
+                    justify-self: center;
+                    align-self: flex-start;
+                    button {
+                        background: $primary;
+                        border: none;
+                    }
+                }
+            }
+        }
+    
+        .navTabs {
+            display: grid;
+            grid-template-columns: repeat(4, auto);
+    
+            .tab {
+                height: 50px;
+                width: 100%;
+                display: grid;
+                background: $secondary;
+                padding: 10px;
+                border: 1px solid darken($secondary,5);
+                
+                .title {
+                    justify-self: center;
+                    align-self: center;
+                    font-size: 16px;
+                    font-weight: 500;
+                }
+            }
+            .activeRoute {
+                background: $primary;
                 color: white;
             }
         }
     }
-
-    .navTabs {
-        display: grid;
-        grid-template-columns: repeat(4, auto);
-
-        .tab {
-            height: 50px;
-            width: 100%;
-            display: grid;
-            background: $secondary;
-            padding: 10px;
-            border: 1px solid darken($secondary,5);
-            
-            .title {
-                justify-self: center;
-                align-self: center;
-                font-size: 16px;
-                font-weight: 500;
-            }
-        }
-        .activeRoute {
-            background: $primary;
-            color: white;
-        }
-    }
 }
+
 @media only screen and (max-width: 990px) {
     .navTabsContainer {
         padding-top: 80px;

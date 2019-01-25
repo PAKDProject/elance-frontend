@@ -1,48 +1,92 @@
-<!-- <div class="main-content">
+<!--Shows if no org picked-->
+<div class="selectPage" *ngIf='org == null'>
   <div class="centerContainer">
-    <h2>Organization Dashboard</h2>
-    <h2>You have not created any organizations</h2>
-    <button class="btn btn-lg" (click)="openDialog()">Open Modal</button>
-  </div>
-</div> -->
-<div class='navTabsContainer'>
-  <div class="header">
-    <div class='leftCol'>
-
-    </div>
-
-    <div class='midCol'>
-      <div class='imgContainer'>
-        <!-- <img src='../../assets/images/default_user.png'/> -->
-        <img src='../../assets/images/elance-logo-small.png'/>
+    <h1>{{(user.organisations.length < 0)?('You are not a member of any organizations'):('Please select an organization')}}</h1>
+    <p>{{(user.organisations.length < 0)?('Click the button below to create one or check here for invites'):('')}}</p>
+    
+    <div class='orgListOuter'>
+      <div *ngIf='(user.organisations.length > 0)' class='orgList'>
+        <div class='orgCard' *ngFor='let o of testInc' (click)='openDashboard(o)'>
+          <div class='logo'>
+            <img src='../../../assets/images/elance-logo-small.png' alt='logo'/>
+            <!-- <img src='o.logoUrl' alt='logo'/> -->
+          </div>
+          <h3>E-Lance</h3>
+        </div>
       </div>
-      <h2>E-Lance</h2>
-      <p>E-Lance is a group project for our PRJ300 module. It is a job site which is aimed at freelance workers and employers who wish to hire freelancers.
-        E-Lance is a group project for our PRJ300 module. It is a job site which is aimed at freelance workers and employers who wish to hire freelancers.</p>
-      <!-- <div class='actionMenu'>
-        <button class='btn btn-primary btn-sm'>Post A Job</button>
-        <button *ngIf='isAdmin' class='btn btn-primary btn-sm'>Add Members</button>
-      </div> -->
-    </div>
-
-    <div class='rightCol'>
-      <div class='editButton'>
-        <mat-icon>edit</mat-icon>
+      <div class='addOrg' (click)='openCreate()'>
+        <mat-icon>add</mat-icon>
       </div>
     </div>
+    
+    <p *ngIf='true'>You have new invites</p>
+    <div class='openInvites' (click)='toggleInvites()'>
+      <p>{{invitesOpen?'Close':'Open'}}</p><mat-icon>{{invitesOpen?'keyboard_arrow_up':'keyboard_arrow_down'}}</mat-icon> 
+    </div>
+    <div class='invites' *ngIf='invitesOpen'>
+      <div class='inviteList'>
+        <div class='inviteCard' *ngFor='let invite of testInc'>
+          <div class='logo'>
+            <img src='../../../assets/images/elance-logo-small.png' alt='logo'/>
+          </div>
+          <h3>E-Lance</h3>
+          <div class='actionButtons'>
+            <button class='accept btn btn-sm'>
+              <mat-icon>done</mat-icon>
+            </button>
+            <button class='deny btn btn-sm'>
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
-  <div class='navTabs'>
-    <div matRipple [matRippleCentered]='true' class='tab' *ngFor='let tab of menuItems' (click)='setPage(tab.path)' [class.activeRoute]='selectedPage == tab.path'>
-      <div class='title'>{{tab.title}}</div>
+</div>
+
+<!--Shows if org is picked-->
+<div class='mainPage' *ngIf='org != null'>
+  <div class='navTabsContainer'>
+    <div class="header">
+      <div class='leftCol'>
+        <div class='actionButton' (click)='goBack()'>
+          <mat-icon>arrow_back</mat-icon>
+        </div>
+      </div>
+  
+      <div class='midCol'>
+        <div class='imgContainer'>
+          <img src='../../../assets/images/default_user.png'/>
+        </div>
+        <h2>E-Lance</h2>
+        <p>E-Lance is a group project for our PRJ300 module. It is a job site which is aimed at freelance workers and employers who wish to hire freelancers.
+          E-Lance is a group project for our PRJ300 module. It is a job site which is aimed at freelance workers and employers who wish to hire freelancers.</p>
+        <!-- <div class='actionMenu'>
+          <button class='btn btn-primary btn-sm'>Post A Job</button>
+          <button *ngIf='isAdmin' class='btn btn-primary btn-sm'>Add Members</button>
+        </div> -->
+      </div>
+  
+      <div class='rightCol'>
+        <div class='actionButton' (click)='toggleEditing()'>
+          <mat-icon>edit</mat-icon>
+        </div>
+      </div>
+  
+    </div>
+    <div class='navTabs'>
+      <div matRipple [matRippleCentered]='true' class='tab' *ngFor='let tab of menuItems' (click)='setPage(tab.path)' [class.activeRoute]='selectedPage == tab.path'>
+        <div class='title'>{{tab.title}}</div>
+    </div>
   </div>
-</div>
-</div>
-<div class="main-content">
-  <div class="container-fluid">
-    <dashboard-active-jobs *ngIf='selectedPage=="active"' [JobsIn]='jobs'></dashboard-active-jobs>
-    <dashboard-posted-jobs *ngIf='selectedPage=="posted"' [JobsIn]='jobs'></dashboard-posted-jobs>
-    <dashboard-contacts *ngIf='selectedPage=="contacts"' [ContactsIn]='contacts'></dashboard-contacts>
-    <dashboard-members *ngIf='selectedPage=="members"' [MembersIn]='contacts'></dashboard-members>
+  </div>
+  <div class="main-content">
+    <div class="container-fluid">
+      <dashboard-active-jobs *ngIf='selectedPage=="active"' [JobsIn]='jobs'></dashboard-active-jobs>
+      <dashboard-posted-jobs *ngIf='selectedPage=="posted"' [JobsIn]='jobs'></dashboard-posted-jobs>
+      <dashboard-contacts *ngIf='selectedPage=="contacts"' [ContactsIn]='contacts'></dashboard-contacts>
+      <dashboard-members *ngIf='selectedPage=="members"' [MembersIn]='contacts'></dashboard-members>
+    </div>
   </div>
 </div>

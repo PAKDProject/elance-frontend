@@ -58,21 +58,26 @@
             width: 30px;
             height: 30px;
             border-radius: 50%;
+            border: 2px $accent solid;
             background: $accent;
             color: white;
             cursor: pointer;
             align-self: center;
+            display: grid;
 
             mat-icon {
-                height: 100%; width: 100%;
-                line-height: 30px;
                 font-size: 22px;
-                vertical-align: middle;
                 text-align: center;
+                justify-self: center;
+                align-self: center;
             }
             mat-icon:hover {
-                color: $primary;
+                color: $accent;
             }
+        }
+        .modalButton:hover {
+            background: white;
+            color: $accent;
         }
     }
     .bottomRow {
