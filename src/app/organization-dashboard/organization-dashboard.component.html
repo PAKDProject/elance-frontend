@@ -59,9 +59,15 @@
         <div class='imgContainer'>
           <img src='../../../assets/images/default_user.png'/>
         </div>
-        <h2>E-Lance</h2>
-        <p>E-Lance is a group project for our PRJ300 module. It is a job site which is aimed at freelance workers and employers who wish to hire freelancers.
-          E-Lance is a group project for our PRJ300 module. It is a job site which is aimed at freelance workers and employers who wish to hire freelancers.</p>
+        <div class='title'>
+            <h2 *ngIf='!editing || !editingTitle' (click)='startEditingTitle()'>E-Lance</h2>
+            <input *ngIf='editing && editingTitle' type='text' value='temp'/>
+        </div>
+        <div class='description'>
+          <p *ngIf='!editing || !editingBio' (click)='startEditingBio()'>E-Lance is a group project for our PRJ300 module. It is a job site which is aimed at freelance workers and employers who wish to hire freelancers.
+              E-Lance is a group project for our PRJ300 module. It is a job site which is aimed at freelance workers and employers who wish to hire freelancers.</p>
+          <textarea *ngIf='editing && editingBio' value='temp'></textarea>
+        </div>
         <!-- <div class='actionMenu'>
           <button class='btn btn-primary btn-sm'>Post A Job</button>
           <button *ngIf='isAdmin' class='btn btn-primary btn-sm'>Add Members</button>
@@ -70,7 +76,8 @@
   
       <div class='rightCol'>
         <div class='actionButton' (click)='toggleEditing()'>
-          <mat-icon>edit</mat-icon>
+          <div>{{ !editing ? "Edit" : "Stop Editing" }}</div>
+          <mat-icon>{{ !editing ? "edit" : "close" }}</mat-icon>
         </div>
       </div>
   
@@ -86,7 +93,7 @@
       <dashboard-active-jobs *ngIf='selectedPage=="active"' [JobsIn]='jobs'></dashboard-active-jobs>
       <dashboard-posted-jobs *ngIf='selectedPage=="posted"' [JobsIn]='jobs'></dashboard-posted-jobs>
       <dashboard-contacts *ngIf='selectedPage=="contacts"' [ContactsIn]='contacts'></dashboard-contacts>
-      <dashboard-members *ngIf='selectedPage=="members"' [MembersIn]='contacts'></dashboard-members>
+      <dashboard-members *ngIf='selectedPage=="members"' [MembersIn]='contacts' [EditingIn]='editing'></dashboard-members>
     </div>
   </div>
 </div>

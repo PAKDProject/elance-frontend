@@ -131,8 +131,27 @@ export class OrganizationDashboardComponent implements OnInit {
 
   openDashboard(o: IOrganisation) { this.org = o; }
 
-  editing: boolean = false;
-  toggleEditing() { this.editing = true }
-
   goBack() { this.org = null }
+  
+  editing: boolean = false;
+  editingTitle: boolean = false;
+  editingBio: boolean = false;
+  toggleEditing() { 
+    if(this.editing)
+    {
+      this.editingTitle = false
+      this.editingBio = false
+    }
+
+    this.editing = !this.editing
+   }
+
+  startEditingTitle() {
+    if(this.editing)
+    { this.editingTitle = true }
+  }
+  startEditingBio() { 
+    if(this.editing)
+    { this.editingBio = true }
+  }
 }

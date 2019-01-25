@@ -1,6 +1,6 @@
 <div *ngIf='(members.length > 0)' class='pageContainer'>
     <div class='header'>
-        <button class='btn btn-primary btn-sm'>Add members</button>
+        <button *ngIf='editing' class='btn btn-primary btn-sm'>Add members</button>
     </div>
     <div class="gridContainer">
         <contact-card *ngFor='let member of members' [ContactInput]='member'></contact-card>

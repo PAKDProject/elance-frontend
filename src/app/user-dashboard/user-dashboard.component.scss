@@ -102,10 +102,15 @@
                                 width: 100%;
                             }
                         }
+
+                        div {
+                            white-space: nowrap;
+                        }
                     }
 
                     .date {
                         text-align: center;
+                        white-space: nowrap;
                     }
 
                     button {
@@ -125,7 +130,7 @@
     }
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1400px) {
     .pageContainer {
         .pageBody {
             grid-template-areas: "active"

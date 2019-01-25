@@ -10,7 +10,7 @@
 
     .centerContainer {
         display: grid;
-        grid-template-rows: auto auto auto auto auto 300px;
+        grid-template-rows: repeat(5,auto) 300px;
         justify-self: center;
         align-self: center;
         justify-items: center;
@@ -24,7 +24,7 @@
         .orgListOuter {
             margin: 20px 0px;
             display: grid;
-            grid-template-columns: minmax(50px,auto) minmax(400px,1fr) minmax(50px,100px);
+            grid-template-columns: minmax(50px,auto) minmax(200px,1fr) minmax(50px,100px);
 
             .orgList {
                 grid-column: 2;
@@ -293,15 +293,18 @@
     
         .header {
             display: grid;
-            grid-template-columns: 50px auto 50px;
+            grid-template-columns: 50px auto minmax(50px,150px);
             height: 100%;
     
             .leftCol, .rightCol {
                 .actionButton {
+                    display: grid;
+                    grid-template-columns: repeat(2,auto);
+                    grid-column-gap: 5px;
                     align-self: flex-start;
-                    grid-area: edit;
                     cursor: pointer;
                     margin: 10px;
+                    text-align: right;
                 }
                 .actionButton:hover {
                     color: $primary;
@@ -320,7 +323,9 @@
                 font-weight: 500;
                 justify-self: center;
                 align-self: center; 
-    
+                width: 100%;
+                height: 100%;
+
                 .imgContainer {
                     justify-self: center;
                     align-self: center; 
@@ -337,14 +342,23 @@
                         // height: auto;
                     }
                 }
-                h2 {
+                .title {
                     grid-area: name;
+
+                    h2, input {
+                        width: 100%;
+                        margin-bottom: 0px;
+                    }
                 }
         
-                p {
+                .description {
                     grid-area: bio;
                     max-height: 200px;
                     overflow: auto;
+
+                    textarea, p { 
+                        width: 100%;
+                    }
                 }
         
                 .actionMenu {

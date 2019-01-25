@@ -8,6 +8,7 @@ import { IUser } from 'src/models/user-model';
 })
 export class MembersComponent implements OnInit {
   @Input('MembersIn') members: IUser[];
+  @Input('EditingIn') editing: boolean;
 
   constructor() { }
 
