@@ -1,19 +1,31 @@
-import { Component, Inject } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { NotificationService } from "src/services/notifications/notification.service";
 import { FileuploadService } from "src/services/fileUpload-service/fileupload.service";
+import { toBase64String } from "@angular/compiler/src/output/source_map";
+import { Select } from "@ngxs/store";
+import { UserState } from "src/redux/states/user.state";
+import { Observable } from "rxjs";
+import { IUser } from "src/models/user-model";
 
 @Component({
   selector: "app-upload-image-modal",
   templateUrl: "./upload-image-modal.component.html",
   styleUrls: ["./upload-image-modal.component.scss"]
 })
-export class UploadImageModalComponent {
+export class UploadImageModalComponent implements OnInit {
+  ngOnInit(): void {
+    this.user$.subscribe(data => {
+      this.userID = data.id;
+    })
+  }
+  @Select(UserState.getUser) user$: Observable<IUser>;
   isLoading: boolean = false
   isHovering: boolean;
   hoveringMessage: string = "Drag in your image";
   filePath: string = "";
   formData: FormData = new FormData();
+  userID: string;
 
   //The url that will be given to the image once uploaded
   fileUrl: string;
@@ -38,11 +50,18 @@ export class UploadImageModalComponent {
     if (event.length === 1) {
       if (event[0].type.startsWith("image/")) {
         this.hoveringMessage = `Uploading ${event[0].name}`;
+
+
         const reader = new FileReader();
         reader.onload = e => {
           this.filePath = reader.result.toString();
+          const base64String = btoa(reader.result.toString());
+          this._fUpload.sendImage(base64String, this.userID).subscribe(res => {
+            console.log(res);
+          })
+          // console.log(btoa(reader.result.toString()))
         };
-        reader.readAsDataURL(event[0]);
+        reader.readAsBinaryString(event[0]);
       }
     }
     else {
