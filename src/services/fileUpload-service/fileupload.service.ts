@@ -18,7 +18,9 @@ export class FileuploadService {
       "image": base64Image
     }
     return this._http.post(this.endpoint, JSON.stringify(image), {
-      headers: new HttpHeaders().set('Content-Type', "application/json")
+      headers: new HttpHeaders().set('Content-Type', "application/json"),
+      reportProgress: true,
+      observe: 'events'
     })
   }
 }
