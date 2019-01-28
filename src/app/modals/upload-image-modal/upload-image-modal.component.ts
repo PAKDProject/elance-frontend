@@ -7,6 +7,7 @@ import { Select } from "@ngxs/store";
 import { UserState } from "src/redux/states/user.state";
 import { Observable } from "rxjs";
 import { IUser } from "src/models/user-model";
+import { HttpEvent, HttpEventType } from "@angular/common/http";
 
 @Component({
   selector: "app-upload-image-modal",
@@ -20,6 +21,7 @@ export class UploadImageModalComponent implements OnInit {
     })
   }
   @Select(UserState.getUser) user$: Observable<IUser>;
+  uploadedPercentage = 0;
   isLoading: boolean = false
   isHovering: boolean;
   hoveringMessage: string = "Drag in your image";
@@ -56,8 +58,23 @@ export class UploadImageModalComponent implements OnInit {
         reader.onload = e => {
           this.filePath = reader.result.toString();
           const base64String = btoa(reader.result.toString());
-          this._fUpload.sendImage(base64String, this.userID).subscribe(res => {
-            console.log(res);
+          this._fUpload.sendImage(base64String, this.userID).subscribe((event: HttpEvent<any>) => {
+
+            switch (event.type) {
+              case HttpEventType.Sent:
+                console.log('Upload Started');
+                break;
+              case HttpEventType.Response:
+                console.log('Upload Complete');
+                break;
+              case 1:
+                if (Math.round(this.uploadedPercentage) !== Math.round(event['loaded'] / event['total'] * 100)) {
+                  this.uploadedPercentage = event['loaded'] / event['total'] * 100;
+                  console.log(this.uploadedPercentage)
+                }
+                break;
+
+            }
           })
           // console.log(btoa(reader.result.toString()))
         };
