@@ -35,7 +35,7 @@ export class SidebarComponent implements OnInit {
     menuItems: any[];
     userFName: string;
     search: string;
-    results: IUser[];
+    results: IUser[] = [];
 
     constructor(
         private _auth: CognitoWebTokenAuthService,
@@ -68,19 +68,12 @@ export class SidebarComponent implements OnInit {
         })
     }
 
-    searchUsers() {
-        this._userService.searchUsers(this.search).subscribe((data) => {
-            console.log(data);
-        });
-    }
-
     showResults(searchTerm: string) {
-        //Killian - hook up the search here and pop the results into the results variable plz
-        this._userService.getAllUsers().subscribe(res => {
-            this.results = res;
-            this.results = this.results.filter(res => res.fName.includes(searchTerm))
+        this._userService.searchUsers(searchTerm).subscribe((data) => {
+            data.users.forEach((u: { _source: IUser; }) => {
+                this.results.push(u._source);
+            });
             this.trigger.openMenu();
-        })
-
+        });
     }
 }
