@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class FileuploadService {
 
-  private endpoint: string = `${environment.backendUrl}/users/upload`
+  private endpoint: string = `${environment.backendUrl}/users/avatar-upload`
   constructor(
     private _http: HttpClient
   ) { }
