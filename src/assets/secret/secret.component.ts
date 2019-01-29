@@ -13,6 +13,10 @@ export class SecretComponent implements OnInit {
 
   ngOnInit() {
     let decoded = window.atob(secret.text)
-    this.secret = RegisterFormComponent.stupidify(decoded)
+    this.secret = decoded
+    this.secret.split('').reverse().toString()
+    this.secret.replace('.', '')
+    let speech = new SpeechSynthesisUtterance(this.secret)
+    window.speechSynthesis.speak(speech)
   }
 }

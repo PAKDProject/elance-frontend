@@ -10,7 +10,7 @@
       <div class="midCol">
         <div class="profilePictureContainer">
           <!-- <img src="../../assets/images/stock-steve.jpg" /> -->
-          <img src="../../assets/images/default_user.png" />
+          <img src="{{ ((user$ | async ).avatarUrl !== undefined) ? (user$ | async).avatarUrl : fallbackAvatar}}" />
         </div>
 
         <div class="nameContainer">

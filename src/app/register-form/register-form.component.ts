@@ -25,6 +25,10 @@ import { environment } from "src/environments/environment";
   styleUrls: ["./register-form.component.scss"]
 })
 export class RegisterFormComponent implements OnInit {
+
+  //testing shieeet
+  socialLinks: any[] = []
+
   modifySelection: boolean = false;
   isProduction: boolean = environment.production
 
@@ -37,7 +41,7 @@ export class RegisterFormComponent implements OnInit {
     id: "",
     skills: [],
     educationItems: this.educationAdded,
-    socialLinks: this.socialsAdded
+    socialLinks: this.socialLinks
   };
   @Select(UserState.getUser)
   user$: Observable<IUser>;
@@ -186,7 +190,7 @@ export class RegisterFormComponent implements OnInit {
   //On submit of entire page
   createUser() {
     //Retrieve any social media links that were entered
-    this.checkSocials();
+    //this.checkSocials();
     if (this.user.fName == "Bee" && this.user.lName == "Movie") {
       this.router.navigate(["secret"]);
     } else {
@@ -221,31 +225,31 @@ export class RegisterFormComponent implements OnInit {
   }
 
   //Get social media links and set them
-  checkSocials() {
-    const facebook = this.facebook.value;
-    const twitter = this.twitter.value;
-    const github = this.github.value;
-    const linkedin = this.linkedin.value;
+  // checkSocials() {
+  //   const facebook = this.facebook.value;
+  //   const twitter = this.twitter.value;
+  //   const github = this.github.value;
+  //   const linkedin = this.linkedin.value;
 
-    this.socialsAdded = [];
+  //   this.socialsAdded = [];
 
-    if (facebook)
-      this.socialsAdded.push({
-        name: "facebook",
-        linkUrl: facebook
-      });
-    if (twitter)
-      this.socialsAdded.push({
-        name: "twitter",
-        linkUrl: twitter
-      });
-    if (github) this.socialsAdded.push({ name: "github", linkUrl: github });
-    if (linkedin)
-      this.socialsAdded.push({
-        name: "linkedin",
-        linkUrl: linkedin
-      });
-  }
+  //   if (facebook)
+  //     this.socialsAdded.push({
+  //       name: "facebook",
+  //       linkUrl: facebook
+  //     });
+  //   if (twitter)
+  //     this.socialsAdded.push({
+  //       name: "twitter",
+  //       linkUrl: twitter
+  //     });
+  //   if (github) this.socialsAdded.push({ name: "github", linkUrl: github });
+  //   if (linkedin)
+  //     this.socialsAdded.push({
+  //       name: "linkedin",
+  //       linkUrl: linkedin
+  //     });
+  // }
 
   editItem(item: IEducationItem) {
     this.modifySelection = true;
@@ -274,6 +278,8 @@ export class RegisterFormComponent implements OnInit {
       maxWidth: "1000px",
       panelClass: "modalStyle",
       data: "profile"
+    }).afterClosed().subscribe(res => {
+      this.user.avatarUrl = res.url
     });
   }
 
@@ -298,5 +304,9 @@ export class RegisterFormComponent implements OnInit {
       return descArr.join("");
     }
     return;
+  }
+
+  saveSocialLink($event) {
+    this.socialLinks.push($event)
   }
 }

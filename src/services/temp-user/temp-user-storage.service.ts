@@ -84,22 +84,6 @@ export class TempUserStorageService {
       avatarUrl: 'www.facebook/killian',
       backgroundUrl: 'www.facebook/killian',
       socialLinks: [
-        {
-          name: 'github',
-          linkUrl: 'http://github.com'
-        },
-        {
-          name: 'facebook',
-          linkUrl: 'http://facebook.com'
-        },
-        {
-          name: 'twitter',
-          linkUrl: 'http://twitter.com'
-        },
-        {
-          name: 'linkedin',
-          linkUrl: 'http://linkedin.com'
-        }
       ],
       tagline: 'Software Developer',
       contacts: [],

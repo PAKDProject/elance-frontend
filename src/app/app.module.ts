@@ -69,6 +69,7 @@ import { DropZoneDirective } from "./directives/drop-zone.directive";
 import { StateGuard } from "./state.guard";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { OrganisationService } from "src/services/organisation-service/organisation.service";
+import { NgxImageCompressService } from 'ngx-image-compress'
 
 // Page Components
 import { AppComponent } from "./app.component";
@@ -94,6 +95,7 @@ import { ActiveComponent } from './organization-dashboard/active/active.componen
 import { PostedComponent } from './organization-dashboard/posted/posted.component';
 import { ContactsComponent } from './organization-dashboard/contacts/contacts.component';
 import { MembersComponent } from './organization-dashboard/members/members.component';
+import { SocialLinkComponent } from './social-link/social-link.component';
 
 @NgModule({
   declarations: [
@@ -140,7 +142,8 @@ import { MembersComponent } from './organization-dashboard/members/members.compo
     ActiveComponent,
     PostedComponent,
     ContactsComponent,
-    MembersComponent
+    MembersComponent,
+    SocialLinkComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -181,7 +184,8 @@ import { MembersComponent } from './organization-dashboard/members/members.compo
       useClass: HttpinterceptorService,
       multi: true
     },
-    OrganisationService
+    OrganisationService,
+    NgxImageCompressService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
