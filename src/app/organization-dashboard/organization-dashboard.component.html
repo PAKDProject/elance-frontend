@@ -11,7 +11,13 @@
             <img *ngIf='o.logoUrl == null || o.logoUrl == "filler"' src='../../../assets/images/elance-logo-small.png' alt='logo'/>
             <img *ngIf='o.logoUrl != "filler"' [src]='o.logoUrl' alt='logo'/>
           </div>
-          <h3>E-Lance</h3>
+          <div class='overlay'>
+              <div class='adminRow' *ngIf='o.adminUser.id == user.id'>
+                <mat-icon class='isAdmin'>star</mat-icon>
+                <mat-icon class='delete'>delete</mat-icon>
+              </div>
+              <h3>E-Lance</h3>
+          </div>
         </div>
       </div>
       <div class='addOrg' (click)='openCreate()'>
