@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MenuIconComponent } from './menu-icon.component';
+import { SocialLinkComponent } from './social-link.component';
 
-describe('MenuIconComponent', () => {
-  let component: MenuIconComponent;
-  let fixture: ComponentFixture<MenuIconComponent>;
+describe('SocialLinkComponent', () => {
+  let component: SocialLinkComponent;
+  let fixture: ComponentFixture<SocialLinkComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenuIconComponent ]
+      declarations: [ SocialLinkComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MenuIconComponent);
+    fixture = TestBed.createComponent(SocialLinkComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

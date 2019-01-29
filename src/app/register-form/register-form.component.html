@@ -179,8 +179,17 @@
       <!-- SOCIAL LINKS -->
       <mat-step [stepControl]="socialForm">
         <ng-template matStepLabel>Social Links</ng-template>
+        <div class="socialConnectionContainer">
+          <div>
+            <div *ngFor="let connection of socialLinks" class='imgContainer'>
+              <img src="{{connection.imageUrl}}" alt="{{connection.name}}" />
+            </div>
+          </div>
+        </div>
+
         <form [formGroup]="socialForm">
-          <div class="row">
+          <app-social-link (emitImageObject)="saveSocialLink($event)"></app-social-link>
+          <!-- <div class="row">
             <div class="col">
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
@@ -236,7 +245,7 @@
 
               </div>
             </div>
-          </div>
+          </div> -->
         </form>
         <div class="row">
           <div class="col">

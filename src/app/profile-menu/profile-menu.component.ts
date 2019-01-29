@@ -16,6 +16,7 @@ import { IJob } from "src/models/job-model";
   styleUrls: ["./profile-menu.component.scss"]
 })
 export class ProfileMenuComponent implements OnInit {
+  fallbackAvatar: string = "../../assets/images/default_user.png"
   @Select(UserState.getUser)
   user$: Observable<IUser>;
 

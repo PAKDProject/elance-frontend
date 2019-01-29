@@ -7,14 +7,20 @@ import { environment } from 'src/environments/environment';
 })
 export class FileuploadService {
 
-  private endpoint: string = `${environment.backendUrl}/users/upload`
+  private endpoint: string = `${environment.backendUrl}/users/avatar-upload`
   constructor(
     private _http: HttpClient
   ) { }
 
-  sendImage(fd: FormData) {
-    return this._http.post(this.endpoint, fd, {
-      headers: new HttpHeaders().set('Content-Type', "multipart/form-data")
+  sendImage(base64Image: string, userId: string) {
+    var image = {
+      "id": userId,
+      "image": base64Image
+    }
+    return this._http.post(this.endpoint, JSON.stringify(image), {
+      headers: new HttpHeaders().set('Content-Type', "application/json"),
+      reportProgress: true,
+      observe: 'events'
     })
   }
 }
