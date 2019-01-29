@@ -5,7 +5,6 @@ import {
   IEducationItem,
   ISocialLink
 } from "src/models/user-model";
-import { TempUserStorageService } from "../../services/temp-user/temp-user-storage.service";
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import * as AWS from "aws-sdk";
@@ -48,7 +47,6 @@ export class RegisterFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private _userService: TempUserStorageService,
     private router: Router,
     private store: Store,
     private userService: UserService,
@@ -263,7 +261,7 @@ export class RegisterFormComponent implements OnInit {
   }
 
   createTestUser() {
-    this._userService.getTestUser().subscribe(user => {
+    this.userService.getTestUser().subscribe(user => {
       this.store.dispatch(new RequestUserSuccessAction(user));
       this.router.navigateByUrl("home/user-dashboard");
     });

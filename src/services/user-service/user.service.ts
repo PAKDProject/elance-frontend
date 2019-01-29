@@ -93,6 +93,16 @@ export class UserService {
     return this.http.post(`${this.endpoint}/search`, JSON.stringify(query), this.httpOptions);
   }
 
+  getTestUser(): Observable<IUser> {
+    return this.http.get(`${this.endpoint}/sad34324-d73fsadas-DAB4GSUS-b801-42069LOL`).pipe(
+      map(res => {
+        let response = res as { user: IUser };
+        return response.user;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error("An error occurred:", error.error.message);

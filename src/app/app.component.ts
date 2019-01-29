@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TempJobStorageService } from 'src/services/temp-job/temp-job-storage.service';
 
 @Component({
   selector: 'app-root',

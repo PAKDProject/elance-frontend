@@ -64,7 +64,6 @@ import { NotificationService } from "../services/notifications/notification.serv
 import { HttpinterceptorService } from "src/services/http-interceptor/httpinterceptor.service";
 import { JobService } from "src/services/job-service/job.service";
 import { UserService } from "src/services/user-service/user.service";
-import { TempUserStorageService } from "../services/temp-user/temp-user-storage.service";
 import { DropZoneDirective } from "./directives/drop-zone.directive";
 import { StateGuard } from "./state.guard";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -72,9 +71,7 @@ import { OrganisationService } from "src/services/organisation-service/organisat
 
 // Page Components
 import { AppComponent } from "./app.component";
-import { SidenavComponent } from "./sidenav/sidenav.component";
 import { BrowseJobsComponent } from "./browse-jobs/browse-jobs.component";
-import { MenuIconComponent } from "./icons/menu-icon/menu-icon.component";
 import { PostJobComponent } from "./post-job/post-job.component";
 import { MessagesComponent } from "./messages/messages.component";
 import { ProfileMenuComponent } from "./profile-menu/profile-menu.component";
@@ -98,7 +95,6 @@ import { MembersComponent } from './organization-dashboard/members/members.compo
 @NgModule({
   declarations: [
     AppComponent,
-    SidenavComponent,
     UserDashboardComponent,
     BrowseJobsComponent,
     PostJobComponent,
@@ -171,7 +167,6 @@ import { MembersComponent } from './organization-dashboard/members/members.compo
     MarkdownModule.forRoot()
   ],
   providers: [
-    TempUserStorageService,
     UserService,
     StateGuard,
     NotificationService,
