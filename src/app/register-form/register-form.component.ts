@@ -275,7 +275,10 @@ export class RegisterFormComponent implements OnInit {
     this.dialog.open(UploadImageModalComponent, {
       maxWidth: "1000px",
       panelClass: "modalStyle",
-      data: "profile"
+      data: {
+        oldUrl: this.user.avatarUrl,
+        type: "profile"
+      }
     }).afterClosed().subscribe(res => {
       this.user.avatarUrl = res.url
     });

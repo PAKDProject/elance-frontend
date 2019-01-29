@@ -36,6 +36,9 @@
               <button class="btn upload mt-3 mb-3" (click)="openUploadModal()">
                 Upload Profile Image
               </button>
+              <div class="imageContainer">
+                <img *ngIf="this.user.avatarUrl" src="{{this.user.avatarUrl}}" alt="your_image">
+              </div>
             </div>
           </div>
           <div class="row">
