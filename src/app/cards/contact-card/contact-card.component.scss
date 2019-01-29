@@ -1,37 +1,64 @@
 @import '../../../variables.scss';
 .cardContainer {
     display: grid;
-    grid-row-gap: 5px;
+    grid-template-columns: 20px auto 20px;
     padding: 10px;
-    justify-items: center;
-    align-items: center;
     border: 2px darkgray solid;
     border-radius: 10px;
     margin: 10px;
     background: #eaeaea;
 
-    .profilePic {
-        border-radius: 50%;
-        border: 2px darkgray solid;
-        background: white;
-        img {
+    .midCol {
+        display: grid;
+        grid-template-rows: repeat(4,auto);
+        justify-items: center;
+        grid-row-gap: 5px;
+            
+        .profilePic {
+            justify-items: center;
+            align-items: center;
+            border-radius: 50%;
+            border: 2px darkgray solid;
+            background: white;
             height: 80px;
             width: 80px;
+            overflow: hidden;
+
+            img {
+                height: 100%;
+                width: 100%;
+            }
+        }
+
+        .name {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .tagline {
+            text-align: center;
+            font-style: italic;
+        }
+
+        button {
+            border: 1px $primary solid;
+            background: $primary;
+            color: white;
+        }
+        button:hover {
+            background: white;
+            color: $primary;
         }
     }
-
-    .name {
-        text-align: center;
-        font-size: 20px;
-        font-weight: 600;
-    }
-
-    .tagline {
-        text-align: center;
-        font-style: italic;
-    }
-
-    button {
-        background: $primary;
+    .rightCol {
+        .remove {
+            color: $accent;
+            justify-self: right;
+            cursor: pointer;
+        }
+        .remove:hover {
+            color: #cc0000;
+        }    
     }
 }
