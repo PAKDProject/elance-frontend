@@ -69,6 +69,7 @@ export class SidebarComponent implements OnInit {
     }
 
     showResults(searchTerm: string) {
+        this.results = [];
         this._userService.searchUsers(searchTerm).subscribe((data) => {
             data.users.forEach((u: { _source: IUser; }) => {
                 this.results.push(u._source);
