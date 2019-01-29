@@ -180,7 +180,7 @@
       <mat-step [stepControl]="socialForm">
         <ng-template matStepLabel>Social Links</ng-template>
         <div class="socialConnectionContainer">
-          <div>
+          <div class='centering'>
             <div *ngFor="let connection of socialLinks" class='imgContainer'>
               <img src="{{connection.imageUrl}}" alt="{{connection.name}}" />
             </div>
