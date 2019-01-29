@@ -31,12 +31,12 @@ export class UploadImageModalComponent implements OnInit {
   filePath: string = "";
   formData: FormData = new FormData();
   userID: string;
-
+  oldUrl: string;
   //The url that will be given to the image once uploaded
   fileUrl: string;
   constructor(public dialogRef: MatDialogRef<UploadImageModalComponent>, private _notify: NotificationService,
     private imageCompression: NgxImageCompressService,
-    private _fUpload: FileuploadService, @Inject(MAT_DIALOG_DATA) public data: string) { }
+    private _fUpload: FileuploadService, @Inject(MAT_DIALOG_DATA) public data: { type: string, oldUrl: string }) { }
 
   toggleHover(event) {
     this.isHovering = event;
@@ -64,7 +64,7 @@ export class UploadImageModalComponent implements OnInit {
           reader.onload = e => {
             this.filePath = reader.result.toString();
             const base64 = btoa(reader.result.toString())
-            this._fUpload.sendImage(base64, this.userID).subscribe((event: HttpEvent<any>) => {
+            this._fUpload.sendImage(base64, this.userID, this.data.oldUrl).subscribe((event: HttpEvent<any>) => {
               switch (event.type) {
                 case HttpEventType.Sent:
                   console.log('Upload Started');

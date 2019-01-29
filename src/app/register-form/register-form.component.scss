@@ -27,6 +27,14 @@
     background-color: $primary !important;
   }
 
+  .imageContainer {
+    img {
+      width: 100%;
+      height: 100%;
+    }
+    max-width: 400px;
+  }
+
   button {
     width: 100%;
     border: none;
