@@ -23,6 +23,7 @@ export interface IUser {
   jobHistory?: IJob[];
   appliedJobs?: IJob[];
   organisations?: IOrganisation[];
+  orgInvitations?: Partial<IOrganisation>[];
 }
 
 export interface ISocialLink {

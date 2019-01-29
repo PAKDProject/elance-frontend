@@ -127,14 +127,13 @@
     margin: 0;
     padding: 0;
     display: grid;
-    border: 1px red solid;
+    width: 100%;
+    margin: 5px;
 
-    div {
+    .centering {
       justify-self: center;
-      border: 1px blue solid;
       display: grid;
-      grid-template-columns: repeat(auto-fill,50px);
-      grid-template-rows: 50px;
+      grid-template-columns: repeat(10, auto);
 
       .imgContainer {
         width: 50px;
