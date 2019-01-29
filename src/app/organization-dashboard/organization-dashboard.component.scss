@@ -24,7 +24,7 @@
         .orgListOuter {
             margin: 20px 0px;
             display: grid;
-            grid-template-columns: minmax(50px,auto) minmax(200px,1fr) minmax(50px,100px);
+            grid-template-columns: minmax(50px,auto) minmax(auto,1fr) minmax(50px,100px);
 
             .orgList {
                 grid-column: 2;
