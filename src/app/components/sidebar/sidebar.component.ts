@@ -6,7 +6,8 @@ import { IUser } from 'src/models/user-model';
 import { CognitoWebTokenAuthService } from 'src/services/cognito-auth/cognito-web-token-auth.service';
 import { NotificationService } from 'src/services/notifications/notification.service';
 import { UserService } from 'src/services/user-service/user.service';
-import { MatMenuTrigger } from '@angular/material';
+import { MatMenuTrigger, MatDialog } from '@angular/material';
+import { UserProfileModalComponent } from 'src/app/modals/user-profile-modal/user-profile-modal.component';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -35,12 +36,13 @@ export class SidebarComponent implements OnInit {
     menuItems: any[];
     userFName: string;
     search: string;
-    results: IUser[];
+    results: IUser[] = [];
 
     constructor(
         private _auth: CognitoWebTokenAuthService,
         private _notifier: NotificationService,
-        private _userService: UserService
+        private _userService: UserService,
+        public _viewProfileDialog: MatDialog
     ) { }
 
     ngOnInit() {
@@ -68,19 +70,19 @@ export class SidebarComponent implements OnInit {
         })
     }
 
-    searchUsers() {
-        this._userService.searchUsers(this.search).subscribe((data) => {
-            console.log(data);
+    showResults(searchTerm: string) {
+        this.results = [];
+        this._userService.searchUsers(searchTerm).subscribe((data) => {
+            data.users.forEach((u: { _source: IUser; }) => {
+                this.results.push(u._source);
+            });
+            this.trigger.openMenu();
         });
     }
 
-    showResults(searchTerm: string) {
-        //Killian - hook up the search here and pop the results into the results variable plz
-        this._userService.getAllUsers().subscribe(res => {
-            this.results = res;
-            this.results = this.results.filter(res => res.fName.includes(searchTerm))
-            this.trigger.openMenu();
-        })
-
+    viewProfile(user: IUser) {
+        this._viewProfileDialog.open(UserProfileModalComponent, {
+          data: user
+        });
     }
 }

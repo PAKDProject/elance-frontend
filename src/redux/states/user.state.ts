@@ -16,7 +16,6 @@ import {
   UserApplyForJobFail,
   RequestAddOrgToUser
 } from "../actions/user.actions";
-import { TempUserStorageService } from "src/services/temp-user/temp-user-storage.service";
 import { UserService } from "src/services/user-service/user.service";
 import { ISkills } from "src/models/skill-model";
 import { NotificationService } from "src/services/notifications/notification.service";
@@ -56,7 +55,6 @@ export class UserStateModel {
 })
 export class UserState {
   constructor(
-    private userService: TempUserStorageService,
     private store: Store,
     private _userService: UserService,
     private _notification: NotificationService,

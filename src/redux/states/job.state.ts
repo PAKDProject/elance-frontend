@@ -17,7 +17,6 @@ import {
 import { IJob } from "src/models/job-model";
 import { JobService } from "src/services/job-service/job.service";
 import { NotificationService } from "src/services/notifications/notification.service";
-import { TempJobStorageService } from "src/services/temp-job/temp-job-storage.service";
 import { UserApplyForJob } from '../actions/user.actions';
 import { UserService } from 'src/services/user-service/user.service';
 import { IUser } from 'src/models/user-model';
@@ -36,7 +35,6 @@ export class JobsStateModel {
 })
 export class JobsState {
   constructor(
-    private jobsService: TempJobStorageService,
     private _jobsService: JobService,
     private _userService: UserService,
     private store: Store,
