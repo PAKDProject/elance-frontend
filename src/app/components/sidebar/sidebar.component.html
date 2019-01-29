@@ -43,7 +43,7 @@
     </form>
     <mat-menu #menu="matMenu" [overlapTrigger]="false" xPosition="before">
       <div *ngFor="let user of results; let i = index;">
-        <div class="user_grid">
+        <div class="user_grid" (click)="viewProfile(user)">
           <div class="user_image">
             <img src="../../../assets//images/default_user.png">
           </div>

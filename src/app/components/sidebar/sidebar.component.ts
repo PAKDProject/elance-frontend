@@ -6,7 +6,8 @@ import { IUser } from 'src/models/user-model';
 import { CognitoWebTokenAuthService } from 'src/services/cognito-auth/cognito-web-token-auth.service';
 import { NotificationService } from 'src/services/notifications/notification.service';
 import { UserService } from 'src/services/user-service/user.service';
-import { MatMenuTrigger } from '@angular/material';
+import { MatMenuTrigger, MatDialog } from '@angular/material';
+import { UserProfileModalComponent } from 'src/app/modals/user-profile-modal/user-profile-modal.component';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -40,7 +41,8 @@ export class SidebarComponent implements OnInit {
     constructor(
         private _auth: CognitoWebTokenAuthService,
         private _notifier: NotificationService,
-        private _userService: UserService
+        private _userService: UserService,
+        public _viewProfileDialog: MatDialog
     ) { }
 
     ngOnInit() {
@@ -75,6 +77,12 @@ export class SidebarComponent implements OnInit {
                 this.results.push(u._source);
             });
             this.trigger.openMenu();
+        });
+    }
+
+    viewProfile(user: IUser) {
+        this._viewProfileDialog.open(UserProfileModalComponent, {
+          data: user
         });
     }
 }
