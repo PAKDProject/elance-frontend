@@ -3,7 +3,7 @@
         <button *ngIf='editing' class='btn btn-primary btn-sm'>Add members</button>
     </div>
     <div class="gridContainer">
-        <contact-card *ngFor='let member of members' [ContactInput]='member'></contact-card>
+        <contact-card *ngFor='let member of members' [ContactInput]='member' [EditingInput]='editing' (RemoveEmit)='removeMember($event)'></contact-card>
     </div>
 </div>
 <div *ngIf='!(members.length > 0)' class="noneFound">

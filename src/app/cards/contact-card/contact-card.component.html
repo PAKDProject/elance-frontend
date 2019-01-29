@@ -1,12 +1,22 @@
 <div class="cardContainer">
-  <div class='profilePic'>
-    <img src='../../../assets/images/default_user.png'/>
+  <div class='leftCol'>
+
   </div>
-  <div class='name'>
-    John Smith
+  <div class='midCol'>
+    <div class='profilePic'>
+      <img src='../../../assets/images/default_user.png'/>
+    </div>
+    <div class='name'>
+      John Smith
+    </div>
+    <div class='tagline'>
+      Software Developer
+    </div>
+    <button class='btn btn-sm contact'>Contact</button>
   </div>
-  <div class='tagline'>
-    Software Developer
+  <div class='rightCol'>
+    <div *ngIf='editing' class="remove">
+      <mat-icon (click)='remove()'>close</mat-icon>
+    </div>
   </div>
-  <button class='btn btn-primary btn-sm'>Contact</button>
 </div>
