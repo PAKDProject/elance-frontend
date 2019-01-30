@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { TempUserStorageService } from '../services/temp-user/temp-user-storage.service';
 import { environment } from '../environments/environment'
 import { Store } from '@ngxs/store';
 import { UserState } from 'src/redux/states/user.state';
@@ -10,7 +9,7 @@ import { UserState } from 'src/redux/states/user.state';
   providedIn: 'root'
 })
 export class StateGuard implements CanActivate {
-  constructor(private userService: TempUserStorageService, private router: Router, private store: Store) { }
+  constructor(private router: Router, private store: Store) { }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,

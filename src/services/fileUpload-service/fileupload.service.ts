@@ -12,10 +12,11 @@ export class FileuploadService {
     private _http: HttpClient
   ) { }
 
-  sendImage(base64Image: string, userId: string) {
+  sendImage(base64Image: string, userId: string, oldUrl?: string) {
     var image = {
       "id": userId,
-      "image": base64Image
+      "image": base64Image,
+      "oldImageUrl": oldUrl
     }
     return this._http.post(this.endpoint, JSON.stringify(image), {
       headers: new HttpHeaders().set('Content-Type', "application/json"),

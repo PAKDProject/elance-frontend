@@ -27,6 +27,14 @@
     background-color: $primary !important;
   }
 
+  .imageContainer {
+    img {
+      width: 100%;
+      height: 100%;
+    }
+    max-width: 400px;
+  }
+
   button {
     width: 100%;
     border: none;
@@ -113,6 +121,31 @@
 
   .modalStyle {
     border-radius: 60px;
+  }
+
+  .socialConnectionContainer {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    width: 100%;
+    margin: 5px;
+
+    .centering {
+      justify-self: center;
+      display: grid;
+      grid-template-columns: repeat(10, auto);
+
+      .imgContainer {
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
   }
 
   @media only screen and (max-width: 500px) {

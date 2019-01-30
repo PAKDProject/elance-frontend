@@ -27,8 +27,8 @@ export interface IUser {
 }
 
 export interface ISocialLink {
-  name?: string;
-  linkUrl: string;
+  imageUrl: string
+  url: string
 }
 
 export interface IEducationItem {

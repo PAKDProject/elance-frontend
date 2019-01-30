@@ -1,0 +1,15 @@
+@import "../../variables.scss";
+
+button {
+    border: 2px $primary solid;
+    background: $primary;
+    color: white;
+
+    display:grid;
+    justify-items: center;
+    align-items: center;
+}
+button:hover {
+    background: white;
+    color: $primary;
+}

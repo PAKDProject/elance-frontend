@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { CognitoWebTokenAuthService } from "src/services/cognito-auth/cognito-web-token-auth.service";
 import { NgxSpinnerService } from "ngx-spinner";
-import { TempUserStorageService } from "../../services/temp-user/temp-user-storage.service";
 import { Store } from "@ngxs/store";
 import {
   RequestUserSuccessAction,
@@ -30,7 +29,6 @@ export class LoginCallbackComponent implements OnInit, OnDestroy {
     private activeRoute: ActivatedRoute,
     private cognitoService: CognitoWebTokenAuthService,
     private spinner: NgxSpinnerService,
-    private userServiceTemp: TempUserStorageService,
     private userService: UserService,
     private store: Store,
     private _location: Location

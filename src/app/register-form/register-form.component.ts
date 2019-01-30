@@ -5,7 +5,6 @@ import {
   IEducationItem,
   ISocialLink
 } from "src/models/user-model";
-import { TempUserStorageService } from "../../services/temp-user/temp-user-storage.service";
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import * as AWS from "aws-sdk";
@@ -25,6 +24,10 @@ import { environment } from "src/environments/environment";
   styleUrls: ["./register-form.component.scss"]
 })
 export class RegisterFormComponent implements OnInit {
+
+  //testing shieeet
+  socialLinks: any[] = []
+
   modifySelection: boolean = false;
   isProduction: boolean = environment.production
 
@@ -37,7 +40,7 @@ export class RegisterFormComponent implements OnInit {
     id: "",
     skills: [],
     educationItems: this.educationAdded,
-    socialLinks: this.socialsAdded
+    socialLinks: this.socialLinks
   };
   @Select(UserState.getUser)
   user$: Observable<IUser>;
@@ -48,7 +51,6 @@ export class RegisterFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private _userService: TempUserStorageService,
     private router: Router,
     private store: Store,
     private userService: UserService,
@@ -186,7 +188,7 @@ export class RegisterFormComponent implements OnInit {
   //On submit of entire page
   createUser() {
     //Retrieve any social media links that were entered
-    this.checkSocials();
+    //this.checkSocials();
     if (this.user.fName == "Bee" && this.user.lName == "Movie") {
       this.router.navigate(["secret"]);
     } else {
@@ -221,31 +223,31 @@ export class RegisterFormComponent implements OnInit {
   }
 
   //Get social media links and set them
-  checkSocials() {
-    const facebook = this.facebook.value;
-    const twitter = this.twitter.value;
-    const github = this.github.value;
-    const linkedin = this.linkedin.value;
+  // checkSocials() {
+  //   const facebook = this.facebook.value;
+  //   const twitter = this.twitter.value;
+  //   const github = this.github.value;
+  //   const linkedin = this.linkedin.value;
 
-    this.socialsAdded = [];
+  //   this.socialsAdded = [];
 
-    if (facebook)
-      this.socialsAdded.push({
-        name: "facebook",
-        linkUrl: facebook
-      });
-    if (twitter)
-      this.socialsAdded.push({
-        name: "twitter",
-        linkUrl: twitter
-      });
-    if (github) this.socialsAdded.push({ name: "github", linkUrl: github });
-    if (linkedin)
-      this.socialsAdded.push({
-        name: "linkedin",
-        linkUrl: linkedin
-      });
-  }
+  //   if (facebook)
+  //     this.socialsAdded.push({
+  //       name: "facebook",
+  //       linkUrl: facebook
+  //     });
+  //   if (twitter)
+  //     this.socialsAdded.push({
+  //       name: "twitter",
+  //       linkUrl: twitter
+  //     });
+  //   if (github) this.socialsAdded.push({ name: "github", linkUrl: github });
+  //   if (linkedin)
+  //     this.socialsAdded.push({
+  //       name: "linkedin",
+  //       linkUrl: linkedin
+  //     });
+  // }
 
   editItem(item: IEducationItem) {
     this.modifySelection = true;
@@ -263,7 +265,7 @@ export class RegisterFormComponent implements OnInit {
   }
 
   createTestUser() {
-    this._userService.getTestUser().subscribe(user => {
+    this.userService.getTestUser().subscribe(user => {
       this.store.dispatch(new RequestUserSuccessAction(user));
       this.router.navigateByUrl("home/user-dashboard");
     });
@@ -273,7 +275,12 @@ export class RegisterFormComponent implements OnInit {
     this.dialog.open(UploadImageModalComponent, {
       maxWidth: "1000px",
       panelClass: "modalStyle",
-      data: "profile"
+      data: {
+        oldUrl: this.user.avatarUrl,
+        type: "profile"
+      }
+    }).afterClosed().subscribe(res => {
+      this.user.avatarUrl = res.url
     });
   }
 
@@ -298,5 +305,9 @@ export class RegisterFormComponent implements OnInit {
       return descArr.join("");
     }
     return;
+  }
+
+  saveSocialLink($event) {
+    this.socialLinks.push($event)
   }
 }

@@ -36,6 +36,9 @@
               <button class="btn upload mt-3 mb-3" (click)="openUploadModal()">
                 Upload Profile Image
               </button>
+              <div class="imageContainer">
+                <img *ngIf="this.user.avatarUrl" src="{{this.user.avatarUrl}}" alt="your_image">
+              </div>
             </div>
           </div>
           <div class="row">
@@ -179,8 +182,17 @@
       <!-- SOCIAL LINKS -->
       <mat-step [stepControl]="socialForm">
         <ng-template matStepLabel>Social Links</ng-template>
+        <div class="socialConnectionContainer">
+          <div class='centering'>
+            <div *ngFor="let connection of socialLinks" class='imgContainer'>
+              <img src="{{connection.imageUrl}}" alt="{{connection.name}}" />
+            </div>
+          </div>
+        </div>
+
         <form [formGroup]="socialForm">
-          <div class="row">
+          <app-social-link (emitImageObject)="saveSocialLink($event)"></app-social-link>
+          <!-- <div class="row">
             <div class="col">
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
@@ -236,7 +248,7 @@
 
               </div>
             </div>
-          </div>
+          </div> -->
         </form>
         <div class="row">
           <div class="col">
