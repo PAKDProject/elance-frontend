@@ -1,16 +1,18 @@
-<div *ngIf='(contacts.length > 0)' class='pageContainer'>
-        <div class='header'>
-        </div>
-        <div class="gridContainer">
-                <contact-card *ngFor='let contact of contacts' [ContactInput]='contact'></contact-card>
-        </div>
+<div *ngIf='contacts' class='pageContainer'>
+    <div class='header'>
     </div>
-<div *ngIf='!(contacts.length > 0)' class="noneFound">
-    <div class="centerContainer">
-        <div class='imgContainer'>
-            <i class="far fa-frown"></i>
+    <div class="gridContainer">
+            <contact-card *ngFor='let contact of contacts' [ContactInput]='contact'></contact-card>
+    </div>
+</div>
+<div *ngIf='!contacts' class="listContainer">
+    <div class="noJobsFound">
+        <div class="centerContainer">
+            <div class='imgContainer'>
+                <i class="far fa-frown"></i>
+            </div>
+            <h2>No contacts found</h2>
+            <div>When a freelancer accepts one of your jobs, they will be visible here</div>
         </div>
-        <h2>No contacts found</h2>
-        <div>If you hire a freelancer, they will appear here</div>
     </div>
 </div>

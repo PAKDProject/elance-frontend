@@ -20,7 +20,7 @@ export class OrganizationDashboardComponent implements OnInit {
   testInc = [1, 2, 3, 4, 5];
 
   invitesOpen: boolean = false;
-  org: IOrganisation = null;
+  org: Partial<IOrganisation> = null;
 
   isAdmin = true;
   constructor(private _dialog: MatDialog, private store: Store, private _orgService: OrganisationService) { }
@@ -131,6 +131,7 @@ export class OrganizationDashboardComponent implements OnInit {
   toggleInvites() { this.invitesOpen = !this.invitesOpen }
 
   openDashboard(o: IOrganisation) {
+    console.log(this.user.organisations);
     this._orgService.getOrganisationByID(o.id).subscribe(res => {
       this.org = res;
     });

@@ -106,6 +106,7 @@
                                 color: gold;
                             }
                             .delete {
+                                opacity: 0;
                                 cursor: pointer;
                                 justify-self: flex-end;
                                 color: $accent;
@@ -133,19 +134,20 @@
                     border: 2px $primary solid;
     
                     .overlay {
+                        .adminRow{
+                            .delete{
+                                opacity: 1;
+                            }
+                        }
     
                         .botHalf {
                             h3 {
                                 opacity: 1;
                             }   
                         }
-                        // button {
-                        //     opacity: 1;
-                        // }
                     }
                     .logo {
-                        opacity: 0.1;
-                        // border: 2px $primary solid;
+                        opacity: 0.2;
                     }
                 }
             }

@@ -1,4 +1,4 @@
-<div *ngIf='(jobs.length > 0)' class='pageContainer'>
+<div *ngIf='jobs' class='pageContainer'>
     <div class='header'>
         <button class='btn btn-primary btn-sm'>Post A Job</button>
     </div>
@@ -6,14 +6,14 @@
     <active-job-card *ngFor='let job of jobs' [JobInput]='job'></active-job-card>
     </div>
 </div>
-<div *ngIf='!(jobs.length > 0)' class="listContainer">
+<div *ngIf='!jobs' class="listContainer">
     <div class="noJobsFound">
         <div class="centerContainer">
             <div class='imgContainer'>
                 <i class="far fa-frown"></i>
             </div>
-            <h2>No posted jobs found</h2>
-            <div>temp</div>
+            <h2>No active jobs found</h2>
+            <div>Jobs that you have accepted a freelancer for will appear here</div>
         </div>
     </div>
 </div>
