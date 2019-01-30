@@ -184,8 +184,13 @@
         <ng-template matStepLabel>Social Links</ng-template>
         <div class="socialConnectionContainer">
           <div class='centering'>
-            <div *ngFor="let connection of socialLinks" class='imgContainer'>
-              <img src="{{connection.imageUrl}}" alt="{{connection.name}}" />
+            <div *ngFor="let connection of socialLinks" class='socConnection'>
+              <div class='imgContainer'>
+                <img src="{{connection.imageUrl}}" alt="{{connection.name}}" />
+              </div>
+              <div class='delete' (click)='removeSocialLink(connection)'>
+                <mat-icon>close</mat-icon>
+              </div>
             </div>
           </div>
         </div>

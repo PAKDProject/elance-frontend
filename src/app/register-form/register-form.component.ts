@@ -310,4 +310,13 @@ export class RegisterFormComponent implements OnInit {
   saveSocialLink($event) {
     this.socialLinks.push($event)
   }
+  removeSocialLink(s: ISocialLink) {
+    const index: number = this.socialLinks.findIndex(sLink => {
+      return sLink === s;
+    });
+
+    if (index != -1) {
+      this.socialLinks.splice(index, 1);
+    }
+  }
 }

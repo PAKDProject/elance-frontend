@@ -135,14 +135,47 @@
       display: grid;
       grid-template-columns: repeat(10, auto);
 
-      .imgContainer {
+      .socConnection {        
+        display: grid;
+        grid-template-areas: 'mid';
+
         width: 50px;
         height: 50px;
         margin: 5px;
 
-        img {
-          width: 100%;
-          height: 100%;
+        .imgContainer {
+          grid-area: mid;
+          
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .delete {
+          z-index: 10;
+          width: 20px;
+          height: 20px;
+          justify-self: center;
+          align-self: center;
+          grid-area: mid;
+          color: #cc0000;
+          cursor: pointer;
+          border-radius: 50%;
+          display: grid;
+          justify-items: center;
+          align-items: center;
+
+          opacity: 0;
+        } 
+      }
+      .socConnection:hover {
+        .imgContainer{
+          img {
+            opacity: 0.4;
+          }
+        }
+        .delete {
+          opacity: 1;
         }
       }
     }
