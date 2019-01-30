@@ -45,7 +45,6 @@
                     color: black;
                     border: 2px darkgray solid;
                     border-radius: 5px;
-                    cursor: pointer;
         
                     .logo {
                         padding: 20px;
@@ -92,16 +91,22 @@
                         height: 100%;
                         grid-area: mid;
                         display: grid;
-                        grid-template-rows: repeat(2,auto);
+                        grid-template-rows: auto 1fr;
+                        justify-items: center;
+                        align-items: center;
+                        z-index: 10;
 
                         .adminRow {
                             display: grid;
+                            align-self: flex-start;
                             grid-template-columns: repeat(2,1fr);
+                            width: 100%;
                             .isAdmin {
                                 justify-self: flex-start;
                                 color: gold;
                             }
                             .delete {
+                                cursor: pointer;
                                 justify-self: flex-end;
                                 color: $accent;
                             }
@@ -109,23 +114,38 @@
                                 color: #cc0000;
                             }
                         }
-                        h3 {
-                            color: $primary;
-                            font-weight: 700;
-                            opacity: 0;
+                        .botHalf {
+                            display: grid;
+                            grid-template-rows: repeat(2,1fr);
+                            cursor: pointer;
+                            
+                            h3 {
+                                margin: 0; padding: 0;
+                                align-self: baseline;
+                                color: $primary;
+                                font-weight: 700;
+                                opacity: 0;
+                            }
                         }
                     }
                 }
                 .orgCard:hover {
                     border: 2px $primary solid;
     
+                    .overlay {
+    
+                        .botHalf {
+                            h3 {
+                                opacity: 1;
+                            }   
+                        }
+                        // button {
+                        //     opacity: 1;
+                        // }
+                    }
                     .logo {
                         opacity: 0.1;
                         // border: 2px $primary solid;
-                    }
-    
-                    h3 {
-                        opacity: 1;
                     }
                 }
             }

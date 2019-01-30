@@ -6,7 +6,7 @@
     
     <div class='orgListOuter'>
       <div *ngIf='user.organisations' class='orgList'>
-        <div class='orgCard' *ngFor='let o of user.organisations' (click)='openDashboard(o)'>
+        <div class='orgCard' *ngFor='let o of user.organisations'>
           <div class='logo'>
             <img *ngIf='o.logoUrl == null || o.logoUrl == "filler"' src='../../../assets/images/elance-logo-small.png' alt='logo'/>
             <img *ngIf='o.logoUrl != "filler"' [src]='o.logoUrl' alt='logo'/>
@@ -16,7 +16,10 @@
                 <mat-icon class='isAdmin'>star</mat-icon>
                 <mat-icon class='delete'>delete</mat-icon>
               </div>
-              <h3>E-Lance</h3>
+              <div class='botHalf' (click)='openDashboard(o)'>
+                <h3>{{o.orgName}}</h3>
+              </div>
+              <!-- <button (click)='openDashboard(o)' class='btn btn-sm'>Select</button> -->
           </div>
         </div>
       </div>
