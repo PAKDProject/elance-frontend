@@ -34,16 +34,17 @@
     </div>
     <div class='invites'  *ngIf='user.orgInvitations && invitesOpen'>
       <div class='inviteList'>
-        <div class='inviteCard' *ngFor='let invite of testInc'>
+        <div class='inviteCard' *ngFor='let invite of user.orgInvitations'>
           <div class='logo'>
-            <img src='../../../assets/images/elance-logo-small.png' alt='logo'/>
+            <img *ngIf='invite.logoUrl == null || invite.logoUrl == "filler"' src='../../../assets/images/elance-logo-small.png' alt='logo'/>
+            <img *ngIf='invite.logoUrl != "filler"' [src]='invite.logoUrl' alt='logo'/>
           </div>
-          <h3>E-Lance</h3>
+          <h3>{{invite.orgName}}</h3>
           <div class='actionButtons'>
-            <button class='accept btn btn-sm'>
+            <button class='accept btn btn-sm' (click)='acceptInvite(invite)'>
               <mat-icon>done</mat-icon>
             </button>
-            <button class='deny btn btn-sm'>
+            <button class='deny btn btn-sm' (click)='rejectInvite(invite)'>
               <mat-icon>close</mat-icon>
             </button>
           </div>

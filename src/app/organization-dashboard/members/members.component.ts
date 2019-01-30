@@ -16,7 +16,6 @@ export class MembersComponent implements OnInit {
   }
 
   removeMember(m: IUser) {
-    console.log('test');
     console.log(`Removing Member ${m.fName} ${m.lName}`)
     const index: number = this.members.findIndex(member => {
       return member === m;

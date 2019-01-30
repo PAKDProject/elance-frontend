@@ -156,4 +156,18 @@ export class OrganizationDashboardComponent implements OnInit {
   startEditingBio() {
     if (this.editing) { this.editingBio = true }
   }
+
+  acceptInvite(o: Partial<IOrganisation>) {
+    this.user.organisations.push(o);
+  }
+
+  rejectInvite(o: Partial<IOrganisation>) {
+    const index: number = this.user.orgInvitations.findIndex(org => {
+      return org.id === o.id;
+    });
+
+    if (index != -1) {
+      this.user.orgInvitations.splice(index, 1);
+    }
+  }
 }
