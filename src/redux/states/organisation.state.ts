@@ -1,9 +1,9 @@
 import { IOrganisation } from "src/models/organisation-model";
 import { State, Selector, Action, Store, StateContext } from "@ngxs/store";
-import { CreateOrganisation, CreateOrganisationSuccess, CreateOrganisationFail, SetOrganisations } from "../actions/organisation.actions";
+import { CreateOrganisation, CreateOrganisationSuccess, CreateOrganisationFail, SetOrganisations, UpdateOrganisation, UpdateOrganisationSuccess, UpdateOrganisationFail, DeleteOrganisation, DeleteOrganisationSuccess, DeleteOrganisationFail } from "../actions/organisation.actions";
 import { OrganisationService } from "src/services/organisation-service/organisation.service";
 import { NotificationService } from "src/services/notifications/notification.service";
-import { RequestAddOrgToUser } from "../actions/user.actions";
+import { RequestAddOrgToUser, RequestUpdateUserOrg, RequestDeleteOrgFromUser } from "../actions/user.actions";
 
 export class OrgsStateModel {
   orgs: Partial<IOrganisation>[];
@@ -18,9 +18,9 @@ export class OrgsStateModel {
 
 export class OrgsState {
   constructor(
-      private _orgService: OrganisationService, 
-      private _store: Store, 
-      private _notification: NotificationService
+    private _orgService: OrganisationService,
+    private _store: Store,
+    private _notification: NotificationService
   ) { }
 
   @Selector()
@@ -42,12 +42,12 @@ export class OrgsState {
 
   //#region Create Organisation
   @Action(CreateOrganisation)
-  createOrg({ getState }: StateContext<OrgsStateModel>, { payload }: CreateOrganisation) {
+  createOrg({ dispatch }: StateContext<OrgsStateModel>, { payload }: CreateOrganisation) {
     this._orgService.createOrganisation(payload).subscribe(res => {
-      this._store.dispatch(new CreateOrganisationSuccess(res));
+      dispatch(new CreateOrganisationSuccess(res));
     }),
       err => {
-        this._store.dispatch(new CreateOrganisationFail(err.message));
+        dispatch(new CreateOrganisationFail(err.message));
       }
   }
   @Action(CreateOrganisationSuccess)
@@ -55,13 +55,14 @@ export class OrgsState {
     const state = getState();
 
     const partialJob: Partial<IOrganisation> = {
-      
+      id: payload.id,
+      orgName: payload.orgName,
+      logoUrl: payload.logoUrl,
     }
-
-    state.orgs.push(payload);
-    this._store.dispatch(new RequestAddOrgToUser(payload));
+    state.orgs.push(partialJob);
+    this._store.dispatch(new RequestAddOrgToUser(partialJob));
     this._notification.showSuccess(`You've created ${payload.orgName}`, "You can now start posting jobs and adding members!")
-    patchState(state);
+    patchState({ orgs: state.orgs });
   }
   @Action(CreateOrganisationFail)
   createOrgFail({ errorMessage }: CreateOrganisationFail) {
@@ -69,5 +70,73 @@ export class OrgsState {
   }
   //#endregion
 
+  //#region Update Organisation
+  @Action(UpdateOrganisation)
+  UpdateOrganisation({ dispatch }: StateContext<OrgsStateModel>, { payload, orgId }: UpdateOrganisation) {
+    if (orgId && payload) {
+      this._orgService.updateOrganisation(payload, orgId).subscribe((res) => {
+        dispatch(new UpdateOrganisationSuccess(res));
+      }, error => {
+        dispatch(new UpdateOrganisationFail(error.message));
+      })
+    }
+  }
+
+  @Action(UpdateOrganisationSuccess)
+  UpdateOrganisationSuccess({ getState, patchState, dispatch }: StateContext<OrgsStateModel>, { payload }: UpdateOrganisationSuccess) {
+    const orgs = getState().orgs;
+
+    const partial: Partial<IOrganisation> = {
+      id: payload.id,
+      orgName: payload.orgName,
+      logoUrl: payload.logoUrl
+    };
+
+    dispatch(new RequestUpdateUserOrg(partial));
+
+    const index = orgs.findIndex(org => org.id === payload.id);
+
+    orgs[index] = partial;
+
+    patchState({ orgs: orgs });
+
+  }
+
+  @Action(UpdateOrganisationFail)
+  UpdateOrganisationFail({ patchState }: StateContext<OrgsStateModel>, { errorMessage }: UpdateOrganisationFail) {
+    this._notification.showError("Unfortunately something went wrong!", errorMessage);
+  }
+
+  //#endregion
+
+
+  //#region Delete Org
+  @Action(DeleteOrganisation)
+  DeleteOrganisation({ getState, dispatch }: StateContext<OrgsStateModel>, { payload }: DeleteOrganisation) {
+    const orgs = getState().orgs;
+
+    if (orgs.findIndex(org => org.id === payload) !== -1) {
+      this._orgService.deleteOrganisation(payload).subscribe(res => {
+        dispatch(new DeleteOrganisationSuccess(res.id));
+      }, error => {
+        dispatch(new DeleteOrganisationFail(error.message));
+      });
+    }
+  }
+  @Action(DeleteOrganisationSuccess)
+  DeleteOrganisationSuccess({ getState, patchState, dispatch }: StateContext<OrgsStateModel>, { payload }: DeleteOrganisationSuccess) {
+    const orgs = getState().orgs;
+
+    const updatedOrgs = orgs.filter(org => org.id !== payload);
+    dispatch(new RequestDeleteOrgFromUser(payload));
+
+    patchState({ orgs: updatedOrgs });
+  }
+  @Action(DeleteOrganisationFail)
+  DeleteOrganisationFail({ patchState }: StateContext<OrgsStateModel>, { errorMessage }: DeleteOrganisationFail) {
+    this._notification.showError("Unfortunately something went wrong!", errorMessage);
+  }
+
+  //#endregion
 
 }

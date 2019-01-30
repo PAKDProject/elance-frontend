@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { UserState } from 'src/redux/states/user.state';
 import { RequestJobs } from 'src/redux/actions/job.actions';
 import { IOrganisation } from 'src/models/organisation-model';
+import { OrganisationService } from 'src/services/organisation-service/organisation.service';
 
 @Component({
   selector: 'organization-dashboard',
@@ -16,30 +17,30 @@ import { IOrganisation } from 'src/models/organisation-model';
   styleUrls: ['./organization-dashboard.component.scss']
 })
 export class OrganizationDashboardComponent implements OnInit {
-  testInc = [1,2,3,4,5];
+  testInc = [1, 2, 3, 4, 5];
 
   invitesOpen: boolean = false;
   org: IOrganisation = null;
 
   isAdmin = true;
-  constructor(private _dialog: MatDialog, private store: Store) { }
-  
+  constructor(private _dialog: MatDialog, private store: Store, private _orgService: OrganisationService) { }
+
   menuItems = [
-    { 
-        path: 'active', 
-        title: 'Active Jobs'
+    {
+      path: 'active',
+      title: 'Active Jobs'
     },
-    { 
-        path: 'posted', 
-        title: 'Posted Jobs'
+    {
+      path: 'posted',
+      title: 'Posted Jobs'
     },
-    { 
-        path: 'contacts', 
-        title: 'Contacts'
+    {
+      path: 'contacts',
+      title: 'Contacts'
     },
-    { 
-        path: 'members', 
-        title: 'Members'
+    {
+      path: 'members',
+      title: 'Members'
     }
   ];;
   selectedPage: string = 'active';
@@ -91,7 +92,7 @@ export class OrganizationDashboardComponent implements OnInit {
       tagline: "Software Developer"
     }
   ]
-  
+
   @Select(JobsState.getJobs)
   jobs$: Observable<IJob[]>;
 
@@ -105,7 +106,7 @@ export class OrganizationDashboardComponent implements OnInit {
     this.store.dispatch(new RequestJobs());
 
     this.jobs$.subscribe(jobs => {
-      this.jobs = jobs.splice(0,7)
+      this.jobs = jobs.splice(0, 7)
     })
 
     this.activeJobs$.subscribe(jobs => {
@@ -120,7 +121,7 @@ export class OrganizationDashboardComponent implements OnInit {
   }
 
   setPage(page: string) {
-      this.selectedPage = page;
+    this.selectedPage = page;
   }
 
   openCreate() {
@@ -129,29 +130,30 @@ export class OrganizationDashboardComponent implements OnInit {
 
   toggleInvites() { this.invitesOpen = !this.invitesOpen }
 
-  openDashboard(o: IOrganisation) { this.org = o; }
+  openDashboard(o: IOrganisation) {
+    this._orgService.getOrganisationByID(o.id).subscribe(res => {
+      this.org = res;
+    });
+  }
 
   goBack() { this.org = null }
-  
+
   editing: boolean = false;
   editingTitle: boolean = false;
   editingBio: boolean = false;
-  toggleEditing() { 
-    if(this.editing)
-    {
+  toggleEditing() {
+    if (this.editing) {
       this.editingTitle = false
       this.editingBio = false
     }
 
     this.editing = !this.editing
-   }
+  }
 
   startEditingTitle() {
-    if(this.editing)
-    { this.editingTitle = true }
+    if (this.editing) { this.editingTitle = true }
   }
-  startEditingBio() { 
-    if(this.editing)
-    { this.editingBio = true }
+  startEditingBio() {
+    if (this.editing) { this.editingBio = true }
   }
 }

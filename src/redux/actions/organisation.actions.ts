@@ -23,26 +23,46 @@ export class CreateOrganisationFail {
 }
 //#endregion
 
-export class AddMemberToOrg{
+export class AddMemberToOrg {
   static readonly type = '[Orgs] Add Member to Org'
 
-  constructor(public payload: Partial<IUser>){}
+  constructor(public payload: Partial<IUser>) { }
 }
 
 //#region Update Organisation
-export class UpdateOrganisation{
+export class UpdateOrganisation {
   static readonly type = '[Orgs] Update Organisation'
-  constructor(public payload: Partial<IOrganisation>){}
+  constructor(public payload: Partial<IOrganisation>, public orgId: string) { }
 }
 
 export class UpdateOrganisationSuccess {
   static readonly type = '[Orgs] Update Organisation Success'
-  constructor(public payload: IOrganisation){}
+  constructor(public payload: IOrganisation) { }
 }
 export class UpdateOrganisationFail {
   static readonly type = '[Orgs] Update Organisation Fail'
-  constructor(public errorMessage: string){}
+  constructor(public errorMessage: string) { }
 }
 //#endregion
 
+//#region Delete Organisation
+export class DeleteOrganisation {
+  static readonly type = '[Orgs] Delete Org'
 
+  constructor(public payload: string) { }
+}
+
+export class DeleteOrganisationSuccess {
+  static readonly type = '[Orgs] Delete Org Success'
+
+  constructor(public payload: string) { }
+}
+export class DeleteOrganisationFail {
+  static readonly type = '[Orgs] Delete Org Fail'
+
+  constructor(public errorMessage: string) { }
+}
+
+
+
+//#endregion

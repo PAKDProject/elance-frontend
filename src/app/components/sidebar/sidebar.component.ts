@@ -36,6 +36,7 @@ export class SidebarComponent implements OnInit {
     menuItems: any[];
     userFName: string;
     search: string;
+    avatar:string;
     results: IUser[] = [];
 
     constructor(
@@ -49,7 +50,7 @@ export class SidebarComponent implements OnInit {
         this.menuItems = ROUTES.filter(menuItem => menuItem);
         this.user$.subscribe(res => {
             this.userFName = res.fName;
-
+            this.avatar = res.avatarUrl;
         })
 
 

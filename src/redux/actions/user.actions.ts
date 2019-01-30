@@ -18,19 +18,59 @@ export class RequestUserFailedActions {
 
 export class RequestAddSkillToUser {
     static readonly type = '[User] Request Add Skill To User'
-
+    /**
+     * Update the skills on the user object. Accepts the new array of skill objects
+     * @param skills : Updated skill array
+     */
     constructor(public skills: ISkills[]) { }
 }
 
 export class RequestAddOrgToUser {
     static readonly type = "[User] Request Add Organisation to User";
 
-    constructor(public payload: IOrganisation) { }
+    /**
+     * Add a reference to an organisation a user has created or is a member of to the user object.
+     * Accepts a partial organisation object containing
+     * -> Id
+     * -> orgName
+     * -> logoUrl
+     * @param payload : Partial<IOrganisation>
+     */
+    constructor(public payload: Partial<IOrganisation>) { }
+}
+export class RequestUpdateUserOrg {
+    static readonly type = "[User] Request Update Organisation on User";
+
+    /**
+     * Updates the organisation reference stored on the user.
+     * Accepts a partial organisation object containing
+     * -> Id
+     * -> orgName
+     * -> logoUrl    
+     * @param payload : Partial<IUser> 
+     * */
+    constructor(public payload: Partial<IOrganisation>) { }
+}
+
+
+export class RequestDeleteOrgFromUser {
+    static readonly type = "[User] Request Delete Organisation from User";
+    /**
+     * Delete the organisation reference stored on the user.
+     * Accepts an organisation id of type string
+     * @param payload : organisations id to delete
+     */
+    constructor(public payload: string) { }
 }
 
 export class RequestUpdateUser {
     static readonly type = '[User] Request Update User'
 
+    /**
+     * General purpose user update. Accepts Partial<IUser> object
+     * Note - Make sure not to include the entity or id of the user.
+     * @param user : Partial<IUser>
+     */
     constructor(public user: Partial<IUser>) { }
 }
 
@@ -49,6 +89,11 @@ export class RequestUpdateUserFail {
 export class UserApplyForJob {
     static readonly type = '[User] Apply For Job'
 
+    /**
+     * Adds a reference to a job the user applied for to the user object.
+     * Accepts a job object of the applied job;
+     * @param job : IJob object
+     */
     constructor(public job: IJob) { }
 }
 
@@ -64,15 +109,21 @@ export class UserApplyForJobFail {
     constructor(public errorMessage: string) { }
 }
 
-export class SendOrgInvite{
+export class SendOrgInvite {
     static readonly type = '[User] Send Org Invite'
 
-    constructor(public payload: Partial<IOrganisation>){}
+
+    constructor(public userId: string, public org: Partial<IOrganisation>) { }
 }
 
-export class AcceptOrgInvite{
+export class AcceptOrgInvite {
     static readonly type = '[User] Accept Org Invite'
 
-    constructor(public payload: string){}
+    /**
+     * Accept an invitation to join an organisation.
+     * Adds reference of organisation to user object and updates org state
+     * @param payload : Organisation id : string
+     */
+    constructor(public payload: string) { }
 }
 

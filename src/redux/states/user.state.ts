@@ -16,7 +16,9 @@ import {
   UserApplyForJobFail,
   RequestAddOrgToUser,
   SendOrgInvite,
-  AcceptOrgInvite
+  AcceptOrgInvite,
+  RequestUpdateUserOrg,
+  RequestDeleteOrgFromUser
 } from "../actions/user.actions";
 import { UserService } from "src/services/user-service/user.service";
 import { ISkills } from "src/models/skill-model";
@@ -156,6 +158,38 @@ export class UserState {
     this.store.dispatch(new RequestUpdateUser({ organisations: existingOrgs }));
   }
 
+  @Action(RequestUpdateUserOrg)
+  RequestUpdateUserOrg({ getState, dispatch }: StateContext<UserStateModel>, { payload }: RequestUpdateUserOrg) {
+    const userOrgs = getState().organisations;
+
+    const index = userOrgs.findIndex(org => org.id === payload.id);
+    if (index !== -1) {
+      userOrgs[index] = payload;
+
+      const partial: Partial<IUser> = {
+        organisations: userOrgs
+      }
+
+      dispatch(new RequestUpdateUser(partial));
+    }
+    else {
+      this._notification.showWarning("Couldn't find organisation to update on user")
+    }
+  }
+
+  @Action(RequestDeleteOrgFromUser)
+  RequestDeleteOrgFromUser({ dispatch, getState }: StateContext<UserStateModel>, { payload }: RequestDeleteOrgFromUser) {
+    const orgs = getState().organisations;
+
+    const newOrgs = orgs.filter(org => org.id !== payload);
+
+    const partial: Partial<IUser> = {
+      organisations: newOrgs
+    }
+
+    dispatch(new RequestUpdateUser(partial));
+  }
+
   @Action(UserApplyForJob)
   ApplyForJob({ getState }: StateContext<UserStateModel>, { job }: UserApplyForJob) {
     //Get user from state
@@ -196,30 +230,32 @@ export class UserState {
   }
 
   @Action(SendOrgInvite)
-  sendOrgInvite({getState}: StateContext<UserStateModel>, {payload}: SendOrgInvite){
-    const user = getState();
+  sendOrgInvite({ getState }: StateContext<UserStateModel>, { userId, org }: SendOrgInvite) {
+    this._userService.getUserByID(userId).subscribe(res => {
+      let user = res;
 
-    let orgInvites = user.orgInvitations;
+      if (user.orgInvitations === undefined) user.orgInvitations = []
 
-    if(orgInvites === undefined){
-      orgInvites = [];
-    }
+      user.orgInvitations.push(org);
 
-    orgInvites.push(payload);
+      const partialUser: Partial<IUser> = {
+        orgInvitations: user.orgInvitations
+      }
 
-    const partial : Partial<IUser> = {
-      orgInvitations: orgInvites
-    }
-
-    this.store.dispatch(new RequestUpdateUser(partial));
+      this._userService.updateUser(partialUser, user.id).subscribe(res => {
+        this._notification.showSuccess("Invite Sent");
+      })
+    }, error => {
+      this._notification.showError("Unable to send invite to user!", error.message);
+    })
   }
 
   @Action(AcceptOrgInvite)
-  acceptOrgInvite({getState}: StateContext<UserStateModel>, {payload}: AcceptOrgInvite){
+  acceptOrgInvite({ getState }: StateContext<UserStateModel>, { payload }: AcceptOrgInvite) {
     //Remove invite from the invites 
     const user = getState();
     let orgInvites = user.orgInvitations.filter(org => org.id !== payload);
-    
+
     //Get the organisation object
     this._orgService.getOrganisationByID(payload).subscribe(res => {
       const partial: Partial<IOrganisation> = {
@@ -235,7 +271,7 @@ export class UserState {
         orgInvitations: orgInvites,
         organisations: organisationsNew
       }
-      
+
       const otherPartialUser: Partial<IUser> = {
         id: user.id,
         fName: user.fName,
@@ -246,7 +282,7 @@ export class UserState {
 
       this.store.dispatch(new RequestUpdateUser(partialUser));
       this.store.dispatch(new AddMemberToOrg(otherPartialUser));
-    }),err => {
+    }), err => {
 
     }
   }
