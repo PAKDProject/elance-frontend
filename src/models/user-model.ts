@@ -22,7 +22,8 @@ export interface IUser {
   profileCards?: IProfileCard[];
   jobHistory?: IJob[];
   appliedJobs?: IJob[];
-  organisations?: IOrganisation[];
+  organisations?: Partial<IOrganisation>[];
+  orgInvitations?: Partial<IOrganisation>[];
 }
 
 export interface ISocialLink {

@@ -14,7 +14,9 @@ import {
   UserApplyForJob,
   UserApplyForJobSuccess,
   UserApplyForJobFail,
-  RequestAddOrgToUser
+  RequestAddOrgToUser,
+  SendOrgInvite,
+  AcceptOrgInvite
 } from "../actions/user.actions";
 import { TempUserStorageService } from "src/services/temp-user/temp-user-storage.service";
 import { UserService } from "src/services/user-service/user.service";
@@ -25,7 +27,9 @@ import { RequestJobs } from "../actions/job.actions";
 import { JobService } from "src/services/job-service/job.service";
 import { IProfileCard } from "src/models/profile-card";
 import { IOrganisation } from "src/models/organisation-model";
-import { SetOrganisations } from "../actions/organisation.actions";
+import { SetOrganisations, AddMemberToOrg } from "../actions/organisation.actions";
+import { state } from "@angular/animations";
+import { OrganisationService } from "src/services/organisation-service/organisation.service";
 
 export class UserStateModel {
   id: string;
@@ -47,7 +51,9 @@ export class UserStateModel {
   profileCards?: IProfileCard[];
   jobHistory?: IJob[];
   appliedJobs?: IJob[];
-  organisations?: IOrganisation[];
+  organisations?: Partial<IOrganisation>[];
+  orgInvitations?: Partial<IOrganisation>[];
+
 }
 
 @State({
@@ -60,7 +66,8 @@ export class UserState {
     private store: Store,
     private _userService: UserService,
     private _notification: NotificationService,
-    private _jobService: JobService
+    private _jobService: JobService,
+    private _orgService: OrganisationService
   ) { }
 
   @Selector()
@@ -144,7 +151,7 @@ export class UserState {
   @Action(RequestAddOrgToUser)
   addOrgToUser({ getState }: StateContext<UserStateModel>, { payload }: RequestAddOrgToUser) {
     const state = getState();
-    let existingOrgs: IOrganisation[] = [];
+    let existingOrgs: Partial<IOrganisation>[] = [];
     existingOrgs.push(...state.organisations);
     existingOrgs.push(payload);
 
@@ -188,5 +195,61 @@ export class UserState {
     this._notification.showError("Error occured in the state", errorMessage);
 
     patchState(state);
+  }
+
+  @Action(SendOrgInvite)
+  sendOrgInvite({getState}: StateContext<UserStateModel>, {payload}: SendOrgInvite){
+    const user = getState();
+
+    let orgInvites = user.orgInvitations;
+
+    if(orgInvites === undefined){
+      orgInvites = [];
+    }
+
+    orgInvites.push(payload);
+
+    const partial : Partial<IUser> = {
+      orgInvitations: orgInvites
+    }
+
+    this.store.dispatch(new RequestUpdateUser(partial));
+  }
+
+  @Action(AcceptOrgInvite)
+  acceptOrgInvite({getState}: StateContext<UserStateModel>, {payload}: AcceptOrgInvite){
+    //Remove invite from the invites 
+    const user = getState();
+    let orgInvites = user.orgInvitations.filter(org => org.id !== payload);
+    
+    //Get the organisation object
+    this._orgService.getOrganisationByID(payload).subscribe(res => {
+      const partial: Partial<IOrganisation> = {
+        id: res.id,
+        orgName: res.orgName,
+        logoUrl: res.logoUrl
+      }
+
+      const organisationsNew = [];
+      organisationsNew.push(partial);
+
+      const partialUser: Partial<IUser> = {
+        orgInvitations: orgInvites,
+        organisations: organisationsNew
+      }
+      
+      const otherPartialUser: Partial<IUser> = {
+        id: user.id,
+        fName: user.fName,
+        lName: user.lName,
+        tagline: user.tagline,
+        avatarUrl: user.avatarUrl
+      };
+
+      this.store.dispatch(new RequestUpdateUser(partialUser));
+      this.store.dispatch(new AddMemberToOrg(otherPartialUser));
+    }),err => {
+
+    }
   }
 }

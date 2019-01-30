@@ -64,3 +64,15 @@ export class UserApplyForJobFail {
     constructor(public errorMessage: string) { }
 }
 
+export class SendOrgInvite{
+    static readonly type = '[User] Send Org Invite'
+
+    constructor(public payload: Partial<IOrganisation>){}
+}
+
+export class AcceptOrgInvite{
+    static readonly type = '[User] Accept Org Invite'
+
+    constructor(public payload: string){}
+}
+
