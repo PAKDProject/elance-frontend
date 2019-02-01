@@ -1,0 +1,11 @@
+<div class='jobCardContainer'>
+  <h2>{{job.title?job.title:'null'}}</h2>
+  <div class='employerRow'>
+    <div class='imgContainer'>
+      <img src='../../assets/images/default_user.png'/>
+    </div>
+    <div>{{job.employerName?job.employerName:'null'}}</div>
+  </div>
+  <div class='date'>Due Date: {{job.dateDue?(job.dateDue | date):'null'}}</div>
+  <button class='btn btn-sm' (click)='openJob(job)'>See More</button>
+</div>

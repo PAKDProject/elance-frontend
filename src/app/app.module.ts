@@ -93,6 +93,7 @@ import { PostedComponent } from './organization-dashboard/posted/posted.componen
 import { ContactsComponent } from './organization-dashboard/contacts/contacts.component';
 import { MembersComponent } from './organization-dashboard/members/members.component';
 import { SocialLinkComponent } from './social-link/social-link.component';
+import { DashboardJobCardComponent } from './cards/dashboard-job-card/dashboard-job-card.component';
 
 @NgModule({
   declarations: [
@@ -139,7 +140,8 @@ import { SocialLinkComponent } from './social-link/social-link.component';
     PostedComponent,
     ContactsComponent,
     MembersComponent,
-    SocialLinkComponent
+    SocialLinkComponent,
+    DashboardJobCardComponent
   ],
   imports: [
     BrowserAnimationsModule,

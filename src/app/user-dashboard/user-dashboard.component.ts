@@ -8,6 +8,9 @@ import { RequestJobs } from 'src/redux/actions/job.actions';
 import { DragScrollComponent } from 'ngx-drag-scroll/lib';
 import { MatDialog } from '@angular/material';
 import { CreateJobModalComponent } from '../modals/create-job-modal/create-job-modal.component';
+import { ActiveJobModalComponent } from '../modals/active-job-modal/active-job-modal.component';
+import { InactiveJobModalComponent } from '../modals/inactive-job-modal/inactive-job-modal.component';
+import { UserState } from 'src/redux/states/user.state';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -15,10 +18,10 @@ import { CreateJobModalComponent } from '../modals/create-job-modal/create-job-m
   styleUrls: ['./user-dashboard.component.scss']
 })
 export class UserDashboardComponent implements OnInit {
-  contacts: IUser[]
-  @Select(JobsState.getJobs)
-  jobs$: Observable<IJob[]>;
-  jobs: IJob[];
+  @Select(UserState.getUser)
+  user$: Observable<IUser>;
+  
+  user: Partial<IUser>;
 
   constructor(private dialog: MatDialog, private store: Store) { }
 
@@ -26,11 +29,16 @@ export class UserDashboardComponent implements OnInit {
   @ViewChild('inactiveJobs', { read: DragScrollComponent }) inactiveCarousel: DragScrollComponent;
 
   ngOnInit() {
-    this.store.dispatch(new RequestJobs());
-    this.jobs$.subscribe(x => {
-      this.jobs = x;
-      this.jobs = this.jobs.splice(0,4);
-    })
+    this.user$.subscribe(element => {
+      this.user = {
+        fName: element.fName,
+        lName: element.lName,
+        tagline: element.tagline,
+        summary: element.summary,
+        educationItems: element.educationItems,
+        skills: element.skills,
+        jobHistory: element.jobHistory
+      }})
   }
 
   moveCarousel(direction: string, carousel: number) {
@@ -56,10 +64,7 @@ export class UserDashboardComponent implements OnInit {
     }
   }
 
-
   openModal(): void {
     this.dialog.open(CreateJobModalComponent);
   }
-
-
 }
