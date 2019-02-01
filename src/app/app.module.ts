@@ -94,6 +94,7 @@ import { ContactsComponent } from './organization-dashboard/contacts/contacts.co
 import { MembersComponent } from './organization-dashboard/members/members.component';
 import { SocialLinkComponent } from './social-link/social-link.component';
 import { DashboardJobCardComponent } from './cards/dashboard-job-card/dashboard-job-card.component';
+import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
@@ -141,7 +142,8 @@ import { DashboardJobCardComponent } from './cards/dashboard-job-card/dashboard-
     ContactsComponent,
     MembersComponent,
     SocialLinkComponent,
-    DashboardJobCardComponent
+    DashboardJobCardComponent,
+    ConfirmModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -194,7 +196,8 @@ import { DashboardJobCardComponent } from './cards/dashboard-job-card/dashboard-
     CreateJobModalComponent,
     SkillContainerModalComponent,
     UserProfileModalComponent,
-    CreateOrganisationModalComponent
+    CreateOrganisationModalComponent,
+    ConfirmModalComponent
   ]
 })
 export class AppModule { }

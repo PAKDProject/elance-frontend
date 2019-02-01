@@ -91,7 +91,7 @@
                         height: 100%;
                         grid-area: mid;
                         display: grid;
-                        grid-template-rows: auto 1fr;
+                        grid-template-rows: 1fr 4fr;
                         justify-items: center;
                         align-items: center;
                         z-index: 10;
@@ -101,6 +101,7 @@
                             align-self: flex-start;
                             grid-template-columns: repeat(2,1fr);
                             width: 100%;
+
                             .isAdmin {
                                 justify-self: flex-start;
                                 color: gold;
@@ -377,6 +378,7 @@
                     border: 2px darkgray solid;
                     border-radius: 50%;
                     background: white;
+                    overflow: hidden;
         
                     img {
                         justify-self: center;

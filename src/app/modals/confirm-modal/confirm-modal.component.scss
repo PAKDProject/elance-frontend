@@ -1,0 +1,27 @@
+@import '../../../variables.scss';
+
+.actions {
+    margin: 5px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-column-gap: 5px;
+
+    .no {
+        border: 1px $primary solid;
+        background: $primary;
+        color: white;
+    }
+    .no:hover {
+        background: white;
+        color: $primary;
+    }
+    .yes {
+        border: 1px #cc0000 solid;
+        background: #cc0000;
+        color: white;
+    }
+    .yes:hover {
+        background: white;
+        color: #cc0000;
+    }
+}

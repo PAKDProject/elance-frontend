@@ -8,18 +8,17 @@
       <div *ngIf='user.organisations' class='orgList'>
         <div class='orgCard' *ngFor='let o of user.organisations'>
           <div class='logo'>
-            <img *ngIf='o.logoUrl == null || o.logoUrl == "filler"' src='../../../assets/images/elance-logo-small.png' alt='logo'/>
-            <img *ngIf='o.logoUrl != "filler"' [src]='o.logoUrl' alt='logo'/>
+            <img *ngIf='o.logoUrl == null' src='../../../assets/images/elance-logo-small.png' alt='logo'/>
+            <img *ngIf='o.logoUrl != null' [src]='o.logoUrl.url' alt='logo'/>
           </div>
           <div class='overlay'>
               <div class='adminRow'>
                 <mat-icon class='isAdmin' *ngIf='o.adminUser && o.adminUser.id == user.id'>star</mat-icon>
-                <mat-icon class='delete' *ngIf='o.adminUser && o.adminUser.id == user.id'>delete</mat-icon>
+                <mat-icon class='delete' *ngIf='o.adminUser && o.adminUser.id == user.id' (click)='deleteOrg(o)'>delete</mat-icon>
               </div>
               <div class='botHalf' (click)='openDashboard(o)'>
                 <h3>{{o.orgName}}</h3>
               </div>
-              <!-- <button (click)='openDashboard(o)' class='btn btn-sm'>Select</button> -->
           </div>
         </div>
       </div>
@@ -67,15 +66,16 @@
   
       <div class='midCol'>
         <div class='imgContainer'>
-          <img src='../../../assets/images/default_user.png'/>
+          <img *ngIf='!org.logoUrl' src='../../../assets/images/default_user.png'/>
+          <img *ngIf='org.logoUrl' [src]='org.logoUrl.url'/>
         </div>
         <div class='title'>
             <h2 *ngIf='!editing || !editingTitle' (click)='startEditingTitle()'>{{org.orgName}}</h2>
-            <input *ngIf='editing && editingTitle' type='text' value='temp'/>
+            <input *ngIf='editing && editingTitle' type='text' [(ngModel)]='org.orgName'/>
         </div>
         <div class='description'>
           <p *ngIf='!editing || !editingBio' (click)='startEditingBio()'>{{org.tagline}}</p>
-          <textarea *ngIf='editing && editingBio' value='temp'></textarea>
+          <textarea *ngIf='editing && editingBio' [(ngModel)]='org.tagline'></textarea>
         </div>
         <!-- <div class='actionMenu'>
           <button class='btn btn-primary btn-sm'>Post A Job</button>

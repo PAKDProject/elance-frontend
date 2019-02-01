@@ -10,6 +10,9 @@ import { UserState } from 'src/redux/states/user.state';
 import { RequestJobs } from 'src/redux/actions/job.actions';
 import { IOrganisation } from 'src/models/organisation-model';
 import { OrganisationService } from 'src/services/organisation-service/organisation.service';
+import { UpdateOrganisation, DeleteOrganisation } from 'src/redux/actions/organisation.actions';
+import { RequestUpdateUser } from 'src/redux/actions/user.actions';
+import { ConfirmModalComponent } from '../modals/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'organization-dashboard',
@@ -23,7 +26,7 @@ export class OrganizationDashboardComponent implements OnInit {
   org: Partial<IOrganisation> = null;
 
   isAdmin = true;
-  constructor(private _dialog: MatDialog, private store: Store, private _orgService: OrganisationService) { }
+  constructor(private dialog: MatDialog, private store: Store, private _orgService: OrganisationService) { }
 
   menuItems = [
     {
@@ -125,13 +128,12 @@ export class OrganizationDashboardComponent implements OnInit {
   }
 
   openCreate() {
-    this._dialog.open(CreateOrganisationModalComponent);
+    this.dialog.open(CreateOrganisationModalComponent);
   }
 
   toggleInvites() { this.invitesOpen = !this.invitesOpen }
 
   openDashboard(o: IOrganisation) {
-    console.log(this.user.organisations);
     this._orgService.getOrganisationByID(o.id).subscribe(res => {
       this.org = res;
     });
@@ -146,6 +148,7 @@ export class OrganizationDashboardComponent implements OnInit {
     if (this.editing) {
       this.editingTitle = false
       this.editingBio = false
+      this.editOrg();
     }
 
     this.editing = !this.editing
@@ -160,6 +163,13 @@ export class OrganizationDashboardComponent implements OnInit {
 
   acceptInvite(o: Partial<IOrganisation>) {
     this.user.organisations.push(o);
+
+    this.store.dispatch(new RequestUpdateUser(
+      {
+        id: this.user.id,
+        orgInvitations: this.user.orgInvitations
+      }
+    ))
   }
 
   rejectInvite(o: Partial<IOrganisation>) {
@@ -170,5 +180,26 @@ export class OrganizationDashboardComponent implements OnInit {
     if (index != -1) {
       this.user.orgInvitations.splice(index, 1);
     }
+  }
+
+  updateUserInvitations() {
+    this.store.dispatch(new RequestUpdateUser(
+      {
+        id: this.user.id,
+        orgInvitations: this.user.orgInvitations
+      }
+    ))
+  }
+
+  editOrg() {
+    this.store.dispatch(new UpdateOrganisation(this.org, this.org.id));
+  }
+
+  deleteOrg(o: Partial<IOrganisation>) {
+    const dialogRef = this.dialog.open(ConfirmModalComponent)
+
+    dialogRef.afterClosed().subscribe(res => {
+      if(res) { this.store.dispatch(new DeleteOrganisation(o.id)) }
+    })
   }
 }
