@@ -17,7 +17,7 @@ import { UserProfileModalComponent } from "../user-profile-modal/user-profile-mo
 })
 export class InactiveJobModalComponent implements OnInit {
   @Select(UserState.getUser) user$: Observable<IUser>;
-  applicants: IUser[];
+  applicants: Partial<IUser>[];
   applicantIDs: string[];
   applicantsVisible: boolean = false;
   userID: string;
@@ -50,7 +50,7 @@ export class InactiveJobModalComponent implements OnInit {
   //Apply for the current job
   apply(): void {
     this.user$.subscribe(user => {
-      this._store.dispatch(new ApplyForJob(this.data.id, user)).subscribe(() => {
+      this._store.dispatch(new ApplyForJob(this.data.id, { id: user.id, fName: user.fName, lName: user.lName, avatarUrl: user.avatarUrl })).subscribe(() => {
         this.dialogRef.close();
       });
     });
@@ -75,7 +75,7 @@ export class InactiveJobModalComponent implements OnInit {
   }
 
 
-  selectUser(user: IUser) {
+  selectUser(user: Partial<IUser>) {
     //Redux- Accept a freelancer
     this._store.dispatch(new AcceptApplicant(this.data.id, user)).subscribe(() => {
       this._notification.showSuccess(`You chose ${user.fName} to do your job!`, "Let's hope he's competent...if not we accept no liability.")

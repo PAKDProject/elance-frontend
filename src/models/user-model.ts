@@ -21,7 +21,7 @@ export interface IUser {
   activeJobs?: IJob[];
   profileCards?: IProfileCard[];
   jobHistory?: IJob[];
-  appliedJobs?: IJob[];
+  appliedJobs?: Partial<IJob>[];
   organisations?: Partial<IOrganisation>[];
   orgInvitations?: Partial<IOrganisation>[];
 }

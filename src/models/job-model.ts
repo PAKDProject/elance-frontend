@@ -16,7 +16,7 @@ export interface IJob {
   dateDue?: Date;
   dateCompleted?: Date;
   progress?: number;
-  //New field
-  applicants?: IUser[];
-  chosenApplicant?: IUser;
+
+  applicants?: Partial<IUser>[];
+  chosenApplicant?: Partial<IUser>;
 }

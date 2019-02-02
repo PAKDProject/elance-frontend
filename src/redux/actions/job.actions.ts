@@ -62,9 +62,9 @@ export class ApplyForJob {
     /**
      * Accepts the id of the job and the user object. Then adds user to array of applicants for the specified job
      * @param jobID string
-     * @param user User object
+     * @param user Partial User object containing id, fName, lName, avatarUrl
      */
-    constructor(public jobID: string, public user: IUser) { }
+    constructor(public jobID: string, public user: Partial<IUser>) { }
 }
 export class ApplyForJobSuccess {
     static readonly type = '[Jobs] Apply For Job Success';
@@ -82,7 +82,7 @@ export class AcceptApplicant {
      * @param jobID string id of job
      * @param user user to accept for job
      */
-    constructor(public jobID: string, public user: IUser) { }
+    constructor(public jobID: string, public user: Partial<IUser>) { }
 }
 export class AcceptApplicantSuccess {
     static readonly type = '[Jobs] Accept Applicant Success'

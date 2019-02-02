@@ -97,18 +97,6 @@ export class UserApplyForJob {
     constructor(public job: IJob) { }
 }
 
-export class UserApplyForJobSuccess {
-    static readonly type = '[User] Apply For Job Success'
-
-    constructor(public user: IUser) { }
-}
-
-export class UserApplyForJobFail {
-    static readonly type = '[User] Apply For Job Fail'
-
-    constructor(public errorMessage: string) { }
-}
-
 export class SendOrgInvite {
     static readonly type = '[User] Send Org Invite'
 
