@@ -13,8 +13,8 @@
           </div>
           <div class='overlay'>
             <div class='adminRow'>
-              <mat-icon class='isAdmin' *ngIf='o.adminUser && o.adminUser.id == user.id'>star</mat-icon>
-              <mat-icon class='delete' *ngIf='o.adminUser && o.adminUser.id == user.id' (click)='deleteOrg(o)'>delete</mat-icon>
+              <mat-icon class='isAdmin' *ngIf='o.adminUser.id == user.id'>star</mat-icon>
+              <mat-icon class='delete' *ngIf='o.adminUser.id == user.id' (click)='deleteOrg(o)'>delete</mat-icon>
             </div>
             <div class='botHalf' (click)='openDashboard(o)'>
               <h3>{{o.orgName}}</h3>
