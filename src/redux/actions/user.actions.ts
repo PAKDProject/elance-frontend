@@ -100,7 +100,11 @@ export class UserApplyForJob {
 export class SendOrgInvite {
     static readonly type = '[User] Send Org Invite'
 
-
+    /**
+     * Send an invitation to join an organisation to a specific user
+     * @param userId User id of person to invite
+     * @param org Partial Organisation
+     */
     constructor(public userId: string, public org: Partial<IOrganisation>) { }
 }
 

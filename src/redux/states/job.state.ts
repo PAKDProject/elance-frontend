@@ -181,7 +181,7 @@ export class JobsState {
 
   @Action(ApplyForJobSuccess)
   applyForJobSuccess({ getState, patchState }: StateContext<JobsStateModel>, { payload }: ApplyForJobSuccess) {
-    const jobs = getState().jobs;
+    const jobs = getState().jobs || [];
 
     const index = jobs.map(e => e.id).indexOf(payload.id);
 
