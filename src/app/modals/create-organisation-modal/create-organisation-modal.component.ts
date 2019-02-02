@@ -85,7 +85,7 @@ export class CreateOrganisationModalComponent implements OnInit {
   //Check is admin user was added. If so create org and close modal
   createOrganisation() {
     if (this.organisation.logoUrl === null) {
-      this.organisation.logoUrl = "filler";
+      this.organisation.logoUrl.url = "filler";
     }
     if (this.organisation.adminUser !== undefined) {
       this._store.dispatch(new CreateOrganisation(this.organisation));
@@ -102,6 +102,7 @@ export class CreateOrganisationModalComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(data => {
       if (data !== undefined) {
+        console.log(data)
         this.organisation.logoUrl = data;
       }
     })

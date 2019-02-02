@@ -126,6 +126,7 @@ export class UserState {
 
   //#endregion
 
+
   @Action(RequestAddSkillToUser)
   addSkillToUser({ getState, dispatch }: StateContext<UserStateModel>, { skills }: RequestAddSkillToUser) {
     const existingSkills = getState().skills || [];
@@ -177,11 +178,7 @@ export class UserState {
 
       user.orgInvitations.push(org);
 
-      const partialUser: Partial<IUser> = {
-        orgInvitations: user.orgInvitations
-      }
-
-      this._userService.updateUser(partialUser, user.id).subscribe(res => {
+      this._userService.updateUser({ orgInvitations: user.orgInvitations }, user.id).subscribe(res => {
         this._notification.showSuccess("Invite Sent");
       })
     }, error => {
@@ -202,7 +199,6 @@ export class UserState {
         orgName: res.orgName,
         logoUrl: res.logoUrl
       }
-
       const organisationsNew = [];
       organisationsNew.push(partial);
 

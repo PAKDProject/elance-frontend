@@ -3,22 +3,22 @@
   <div class="centerContainer">
     <h1>{{(!user.organisations)?('You are not a member of any organizations'):('Please select an organization')}}</h1>
     <p>{{(!user.organisations)?('Click the button below to create one or check here for invites'):('')}}</p>
-    
+
     <div class='orgListOuter'>
       <div *ngIf='user.organisations' class='orgList'>
         <div class='orgCard' *ngFor='let o of user.organisations'>
           <div class='logo'>
-            <img *ngIf='o.logoUrl == null' src='../../../assets/images/elance-logo-small.png' alt='logo'/>
-            <img *ngIf='o.logoUrl != null' [src]='o.logoUrl.url' alt='logo'/>
+            <img *ngIf='o.logoUrl == null' src='../../../assets/images/elance-logo-small.png' alt='logo' />
+            <img *ngIf='o.logoUrl != null' [src]='o.logoUrl.url' alt='logo' />
           </div>
           <div class='overlay'>
-              <div class='adminRow'>
-                <mat-icon class='isAdmin' *ngIf='o.adminUser && o.adminUser.id == user.id'>star</mat-icon>
-                <mat-icon class='delete' *ngIf='o.adminUser && o.adminUser.id == user.id' (click)='deleteOrg(o)'>delete</mat-icon>
-              </div>
-              <div class='botHalf' (click)='openDashboard(o)'>
-                <h3>{{o.orgName}}</h3>
-              </div>
+            <div class='adminRow'>
+              <mat-icon class='isAdmin' *ngIf='o.adminUser && o.adminUser.id == user.id'>star</mat-icon>
+              <mat-icon class='delete' *ngIf='o.adminUser && o.adminUser.id == user.id' (click)='deleteOrg(o)'>delete</mat-icon>
+            </div>
+            <div class='botHalf' (click)='openDashboard(o)'>
+              <h3>{{o.orgName}}</h3>
+            </div>
           </div>
         </div>
       </div>
@@ -26,17 +26,19 @@
         <mat-icon>add</mat-icon>
       </div>
     </div>
-    
+
     <p *ngIf='user.orgInvitations'>You have new invites</p>
     <div *ngIf='user.orgInvitations' class='openInvites' (click)='toggleInvites()'>
-      <p>{{invitesOpen?'Close':'Open'}}</p><mat-icon>{{invitesOpen?'keyboard_arrow_up':'keyboard_arrow_down'}}</mat-icon> 
+      <p>{{invitesOpen?'Close':'Open'}}</p>
+      <mat-icon>{{invitesOpen?'keyboard_arrow_up':'keyboard_arrow_down'}}</mat-icon>
     </div>
-    <div class='invites'  *ngIf='user.orgInvitations && invitesOpen'>
+    <div class='invites' *ngIf='user.orgInvitations && invitesOpen'>
       <div class='inviteList'>
         <div class='inviteCard' *ngFor='let invite of user.orgInvitations'>
           <div class='logo'>
-            <img *ngIf='invite.logoUrl == null || invite.logoUrl == "filler"' src='../../../assets/images/elance-logo-small.png' alt='logo'/>
-            <img *ngIf='invite.logoUrl != "filler"' [src]='invite.logoUrl' alt='logo'/>
+            <img *ngIf='invite.logoUrl == null || invite.logoUrl.url == "filler"' src='../../../assets/images/elance-logo-small.png'
+              alt='logo' />
+            <img *ngIf='invite.logoUrl.url != "filler"' [src]='invite.logoUrl' alt='logo' />
           </div>
           <h3>{{invite.orgName}}</h3>
           <div class='actionButtons'>
@@ -63,15 +65,15 @@
           <mat-icon>arrow_back</mat-icon>
         </div>
       </div>
-  
+
       <div class='midCol'>
         <div class='imgContainer'>
-          <img *ngIf='!org.logoUrl' src='../../../assets/images/default_user.png'/>
-          <img *ngIf='org.logoUrl' [src]='org.logoUrl.url'/>
+          <img *ngIf='!org.logoUrl' src='../../../assets/images/default_user.png' />
+          <img *ngIf='org.logoUrl' [src]='org.logoUrl.url' />
         </div>
         <div class='title'>
-            <h2 *ngIf='!editing || !editingTitle' (click)='startEditingTitle()'>{{org.orgName}}</h2>
-            <input *ngIf='editing && editingTitle' type='text' [(ngModel)]='org.orgName'/>
+          <h2 *ngIf='!editing || !editingTitle' (click)='startEditingTitle()'>{{org.orgName}}</h2>
+          <input *ngIf='editing && editingTitle' type='text' [(ngModel)]='org.orgName' />
         </div>
         <div class='description'>
           <p *ngIf='!editing || !editingBio' (click)='startEditingBio()'>{{org.tagline}}</p>
@@ -82,20 +84,21 @@
           <button *ngIf='isAdmin' class='btn btn-primary btn-sm'>Add Members</button>
         </div> -->
       </div>
-  
+
       <div class='rightCol'>
         <div class='actionButton' (click)='toggleEditing()'>
           <div>{{ !editing ? "Edit" : "Stop Editing" }}</div>
           <mat-icon>{{ !editing ? "edit" : "close" }}</mat-icon>
         </div>
       </div>
-  
+
     </div>
     <div class='navTabs'>
-      <div matRipple [matRippleCentered]='true' class='tab' *ngFor='let tab of menuItems' (click)='setPage(tab.path)' [class.activeRoute]='selectedPage == tab.path'>
+      <div matRipple [matRippleCentered]='true' class='tab' *ngFor='let tab of menuItems' (click)='setPage(tab.path)'
+        [class.activeRoute]='selectedPage == tab.path'>
         <div class='title'>{{tab.title}}</div>
+      </div>
     </div>
-  </div>
   </div>
   <div class="main-content">
     <div class="container-fluid">

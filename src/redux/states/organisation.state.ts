@@ -23,6 +23,7 @@ export class OrgsState {
     private _notification: NotificationService
   ) { }
 
+  //#region Selector and Initial Set
   @Selector()
   static getOrgs(state: OrgsStateModel) {
     return state.orgs;
@@ -32,37 +33,39 @@ export class OrgsState {
   //Receives array of organisations and appends them to array
   @Action(SetOrganisations)
   setOrganisations({ getState, patchState }: StateContext<OrgsStateModel>, { payload }: SetOrganisations) {
-    const state = getState();
-
-    let newState = state.orgs;
+    let newState = getState().orgs || [];
     newState.push(...payload);
-
     patchState({ orgs: newState });
   }
+  //#endregion
 
   //#region Create Organisation
   @Action(CreateOrganisation)
   createOrg({ dispatch }: StateContext<OrgsStateModel>, { payload }: CreateOrganisation) {
-    this._orgService.createOrganisation(payload).subscribe(res => {
-      dispatch(new CreateOrganisationSuccess(res));
-    }),
-      err => {
-        dispatch(new CreateOrganisationFail(err.message));
-      }
+    if (payload) {
+      this._orgService.createOrganisation(payload).subscribe(res => {
+        dispatch(new CreateOrganisationSuccess(res));
+      }),
+        err => {
+          dispatch(new CreateOrganisationFail(err.message));
+        }
+    }
   }
   @Action(CreateOrganisationSuccess)
   createOrgSuccess({ getState, patchState }: StateContext<OrgsStateModel>, { payload }: CreateOrganisationSuccess) {
-    const state = getState();
+    let orgs = getState().orgs;
 
     const partialJob: Partial<IOrganisation> = {
       id: payload.id,
       orgName: payload.orgName,
       logoUrl: payload.logoUrl,
+      adminUser: { id: payload.adminUser.id }
     }
-    state.orgs.push(partialJob);
+
+    orgs.push(partialJob);
     this._store.dispatch(new RequestAddOrgToUser(partialJob));
     this._notification.showSuccess(`You've created ${payload.orgName}`, "You can now start posting jobs and adding members!")
-    patchState({ orgs: state.orgs });
+    patchState({ orgs: orgs });
   }
   @Action(CreateOrganisationFail)
   createOrgFail({ errorMessage }: CreateOrganisationFail) {
@@ -109,7 +112,6 @@ export class OrgsState {
 
   //#endregion
 
-
   //#region Delete Org
   @Action(DeleteOrganisation)
   DeleteOrganisation({ getState, dispatch }: StateContext<OrgsStateModel>, { payload }: DeleteOrganisation) {
@@ -129,7 +131,7 @@ export class OrgsState {
 
     const updatedOrgs = orgs.filter(org => org.id !== payload);
     dispatch(new RequestDeleteOrgFromUser(payload));
-
+    this._notification.showInfo("Deleted Organisation Successfully!")
     patchState({ orgs: updatedOrgs });
   }
   @Action(DeleteOrganisationFail)
