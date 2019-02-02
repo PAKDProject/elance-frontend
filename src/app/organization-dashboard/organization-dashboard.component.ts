@@ -143,10 +143,12 @@ export class OrganizationDashboardComponent implements OnInit {
 
   editing: boolean = false;
   editingTitle: boolean = false;
+  editingSite: boolean = false;
   editingBio: boolean = false;
   toggleEditing() {
     if (this.editing) {
       this.editingTitle = false
+      this.editingSite = false;
       this.editingBio = false
       this.editOrg();
     }
@@ -156,6 +158,9 @@ export class OrganizationDashboardComponent implements OnInit {
 
   startEditingTitle() {
     if (this.editing) { this.editingTitle = true }
+  }
+  startEditingSite() {
+    if (this.editing) { this.editingSite = true}
   }
   startEditingBio() {
     if (this.editing) { this.editingBio = true }

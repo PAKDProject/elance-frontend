@@ -70,17 +70,17 @@
           <img *ngIf='org.logoUrl' [src]='org.logoUrl.url'/>
         </div>
         <div class='title'>
-            <h2 *ngIf='!editing || !editingTitle' (click)='startEditingTitle()'>{{org.orgName}}</h2>
-            <input *ngIf='editing && editingTitle' type='text' [(ngModel)]='org.orgName'/>
+          <h2 *ngIf='!editing || !editingTitle' (click)='startEditingTitle()'>{{org.orgName}}</h2>
+          <input *ngIf='editing && editingTitle' type='text' [(ngModel)]='org.orgName'/>
+        </div>
+        <div class='site'>
+          <h6 *ngIf='!editing || !editingSite' (click)='startEditingSite()'>{{org.websiteUrl}}</h6>
+          <input *ngIf='editing && editingSite' type='text' [(ngModel)]='org.websiteUrl'/>
         </div>
         <div class='description'>
           <p *ngIf='!editing || !editingBio' (click)='startEditingBio()'>{{org.tagline}}</p>
           <textarea *ngIf='editing && editingBio' [(ngModel)]='org.tagline'></textarea>
         </div>
-        <!-- <div class='actionMenu'>
-          <button class='btn btn-primary btn-sm'>Post A Job</button>
-          <button *ngIf='isAdmin' class='btn btn-primary btn-sm'>Add Members</button>
-        </div> -->
       </div>
   
       <div class='rightCol'>
