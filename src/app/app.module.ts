@@ -68,7 +68,6 @@ import { DropZoneDirective } from "./directives/drop-zone.directive";
 import { StateGuard } from "./state.guard";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { OrganisationService } from "src/services/organisation-service/organisation.service";
-import { NgxImageCompressService } from 'ngx-image-compress'
 
 // Page Components
 import { AppComponent } from "./app.component";
@@ -96,6 +95,7 @@ import { SocialLinkComponent } from './social-link/social-link.component';
 import { DashboardJobCardComponent } from './cards/dashboard-job-card/dashboard-job-card.component';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 
+import { AddSocialComponent } from './add-social/add-social.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -143,7 +143,8 @@ import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.comp
     MembersComponent,
     SocialLinkComponent,
     DashboardJobCardComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    AddSocialComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -183,8 +184,7 @@ import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.comp
       useClass: HttpinterceptorService,
       multi: true
     },
-    OrganisationService,
-    NgxImageCompressService
+    OrganisationService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

@@ -253,32 +253,40 @@
 
               </div>
             </div>
+<<<<<<< Updated upstream
           </div> -->
         </form>
-        <div class="row">
-          <div class="col">
-            <button class="btn back" matStepperPrevious>Back</button>
-          </div>
-          <div class="col">
-            <button class="btn next" matStepperNext>Next</button>
-          </div>
-        </div>
-      </mat-step>
-      <!-- COMPLETE -->
-      <mat-step>
-        <ng-template matStepLabel>Finished!</ng-template>
-        <h4 style="text-align: center; margin: 20px;">
-          Great! You're all set!
-        </h4>
-        <div class="row">
-          <div class="col">
-            <button class="btn back" matStepperPrevious>Back</button>
-          </div>
-          <div class="col">
-            <button class="btn next" matStepperNext (click)="createUser()">Lets Go!</button>
-          </div>
-        </div>
-      </mat-step>
-    </mat-vertical-stepper>
-  </mat-card>
+        =======
+</div>
+</form> -->
+
+<app-add-social></app-add-social>
+
+>>>>>>> Stashed changes
+<div class="row">
+  <div class="col">
+    <button class="btn back" matStepperPrevious>Back</button>
+  </div>
+  <div class="col">
+    <button class="btn next" matStepperNext>Next</button>
+  </div>
+</div>
+</mat-step>
+<!-- COMPLETE -->
+<mat-step>
+  <ng-template matStepLabel>Finished!</ng-template>
+  <h4 style="text-align: center; margin: 20px;">
+    Great! You're all set!
+  </h4>
+  <div class="row">
+    <div class="col">
+      <button class="btn back" matStepperPrevious>Back</button>
+    </div>
+    <div class="col">
+      <button class="btn next" matStepperNext (click)="createUser()">Lets Go!</button>
+    </div>
+  </div>
+</mat-step>
+</mat-vertical-stepper>
+</mat-card>
 </div>
