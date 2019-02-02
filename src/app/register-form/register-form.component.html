@@ -180,7 +180,7 @@
       </mat-step>
 
       <!-- SOCIAL LINKS -->
-      <mat-step [stepControl]="socialForm">
+      <mat-step>
         <ng-template matStepLabel>Social Links</ng-template>
         <div class="socialConnectionContainer">
           <div class='centering'>
@@ -195,98 +195,34 @@
           </div>
         </div>
 
-        <form [formGroup]="socialForm">
-          <app-social-link (emitImageObject)="saveSocialLink($event)"></app-social-link>
-          <!-- <div class="row">
-            <div class="col">
-              <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                  <div class="input-group-image">
-                    <img src="../../assets/icons/facebook1.png" height="38px" width="38px" />
-                  </div>
-                </div>
-                <input type="text" class="form-control" id="inlineFormInputGroup" formControlName="facebook"
-                  placeholder="Facebook" />
 
-              </div>
-            </div>
+        <app-social-link (emitImageObject)="saveSocialLink($event)"></app-social-link>
+
+
+        <div class="row">
+          <div class="col">
+            <button class="btn back" matStepperPrevious>Back</button>
           </div>
-          <div class="row">
-            <div class="col">
-              <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                  <div class="input-group-image">
-                    <img src="../../assets/icons/twitter1.png" height="38px" width="38px" />
-                  </div>
-                </div>
-                <input type="text" class="form-control" id="inlineFormInputGroup" formControlName="twitter" placeholder="Twitter" />
-
-              </div>
-
-            </div>
+          <div class="col">
+            <button class="btn next" matStepperNext>Next</button>
           </div>
-          <div class="row">
-            <div class="col">
-
-              <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                  <div class="input-group-image">
-                    <img src="../../assets/icons/github1.png" height="38px" width="38px" />
-                  </div>
-                </div>
-                <input type="text" class="form-control" id="inlineFormInputGroup" formControlName="github" placeholder="Github" />
-
-              </div>
-
-            </div>
+        </div>
+      </mat-step>
+      <!-- COMPLETE -->
+      <mat-step>
+        <ng-template matStepLabel>Finished!</ng-template>
+        <h4 style="text-align: center; margin: 20px;">
+          Great! You're all set!
+        </h4>
+        <div class="row">
+          <div class="col">
+            <button class="btn back" matStepperPrevious>Back</button>
           </div>
-          <div class="row">
-            <div class="col">
-              <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                  <div class="input-group-image">
-                    <img src="../../assets/icons/linkedin1.png" height="38px" width="38px" />
-                  </div>
-                </div>
-                <input type="text" class="form-control" id="inlineFormInputGroup" formControlName="linkedin"
-                  placeholder="Linkedin" />
-
-              </div>
-            </div>
-<<<<<<< Updated upstream
-          </div> -->
-        </form>
-        =======
-</div>
-</form> -->
-
-<app-add-social></app-add-social>
-
->>>>>>> Stashed changes
-<div class="row">
-  <div class="col">
-    <button class="btn back" matStepperPrevious>Back</button>
-  </div>
-  <div class="col">
-    <button class="btn next" matStepperNext>Next</button>
-  </div>
-</div>
-</mat-step>
-<!-- COMPLETE -->
-<mat-step>
-  <ng-template matStepLabel>Finished!</ng-template>
-  <h4 style="text-align: center; margin: 20px;">
-    Great! You're all set!
-  </h4>
-  <div class="row">
-    <div class="col">
-      <button class="btn back" matStepperPrevious>Back</button>
-    </div>
-    <div class="col">
-      <button class="btn next" matStepperNext (click)="createUser()">Lets Go!</button>
-    </div>
-  </div>
-</mat-step>
-</mat-vertical-stepper>
-</mat-card>
+          <div class="col">
+            <button class="btn next" matStepperNext (click)="createUser()">Lets Go!</button>
+          </div>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </mat-card>
 </div>

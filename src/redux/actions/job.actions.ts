@@ -9,12 +9,20 @@ export class RequestJobs {
 export class RequestJobsSuccess {
     static readonly type = '[Jobs] Request Success'
 
+    /**
+     * Will Return all jobs available in the payload and set them to the state
+     * @param payload : Array of all job objects
+     */
     constructor(public payload: IJob[]) { }
 }
 
 export class RequestJobsFail {
     static readonly type = '[Jobs] Request Fail'
 
+    /**
+     * Handles error
+     * @param errorMessage string error message to display in popup notification
+     */
     constructor(public errorMessage: string) { }
 }
 
@@ -25,20 +33,37 @@ export class FilterJobs {
 
 export class AddJob {
     static readonly type = '[Jobs] Add Job'
+    /**
+     * Accepts a new job and adds it to the database
+     * @param payload New job object to be created
+     */
     constructor(public payload: IJob) { }
 }
 
 export class AddJobSuccess {
     static readonly type = '[Jobs] Add Job Success'
+    /**
+     * Adds the new job object to state
+     * @param payload The job object created in the database including id and entity
+     */
     constructor(public payload: IJob) { }
 }
 export class AddJobFail {
     static readonly type = '[Jobs] Add Job Fail'
+    /**
+     * Handles error
+     * @param errorMessage string error message
+     */
     constructor(public errorMessage: string) { }
 }
 
 export class ApplyForJob {
     static readonly type = '[Jobs] Apply For Job';
+    /**
+     * Accepts the id of the job and the user object. Then adds user to array of applicants for the specified job
+     * @param jobID string
+     * @param user User object
+     */
     constructor(public jobID: string, public user: IUser) { }
 }
 export class ApplyForJobSuccess {
@@ -52,6 +77,11 @@ export class ApplyForJobFail {
 
 export class AcceptApplicant {
     static readonly type = '[Jobs] Accept Applicant'
+    /**
+     * Moves a user from the applicants array to the selected user field for a specified job
+     * @param jobID string id of job
+     * @param user user to accept for job
+     */
     constructor(public jobID: string, public user: IUser) { }
 }
 export class AcceptApplicantSuccess {

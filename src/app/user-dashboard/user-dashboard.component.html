@@ -3,8 +3,9 @@
     <div class='pageContainer'>
       <div class="header">
         <h2>User Dashboard</h2>
+        <button (click)="openModal()">Open</button>
       </div>
-      
+
       <div class='pageBody'>
         <div class="cardContainer activeJobs">
           <div class="topRow">
@@ -16,13 +17,13 @@
         </div>
 
         <div class="cardContainer appliedJobs">
-            <div class="topRow">
-              <h1>Applied Jobs</h1>
-            </div>
-            <div class='cardContent'>
-              <dashboard-job-card *ngFor='let job of user.appliedJobs' [JobInput]='job'></dashboard-job-card>
-            </div>
+          <div class="topRow">
+            <h1>Applied Jobs</h1>
           </div>
+          <div class='cardContent'>
+            <dashboard-job-card *ngFor='let job of user.appliedJobs' [JobInput]='job'></dashboard-job-card>
+          </div>
+        </div>
 
         <div class="cardContainer postedJobs">
           <div class="topRow">

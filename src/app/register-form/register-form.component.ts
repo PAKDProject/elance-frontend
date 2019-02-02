@@ -47,7 +47,6 @@ export class RegisterFormComponent implements OnInit {
 
   aboutYouForm: FormGroup;
   educationForm: FormGroup;
-  socialForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -86,14 +85,6 @@ export class RegisterFormComponent implements OnInit {
       educationDescription: [""]
     });
 
-    //Social links form
-    this.socialForm = this.fb.group({
-      facebook: [""],
-      twitter: [""],
-      github: [""],
-      linkedin: [""]
-    });
-
     //Store values into relevant fields
     this.aboutYouForm.valueChanges.subscribe(data => {
       this.user.tagline = data.tagline;
@@ -124,18 +115,6 @@ export class RegisterFormComponent implements OnInit {
   }
   get educationEndDate() {
     return this.educationForm.get("educationEndDate");
-  }
-  get facebook() {
-    return this.socialForm.get("facebook");
-  }
-  get github() {
-    return this.socialForm.get("github");
-  }
-  get twitter() {
-    return this.socialForm.get("twitter");
-  }
-  get linkedin() {
-    return this.socialForm.get("linkedin");
   }
   //#endregion
 
@@ -222,32 +201,7 @@ export class RegisterFormComponent implements OnInit {
       ]
   }
 
-  //Get social media links and set them
-  // checkSocials() {
-  //   const facebook = this.facebook.value;
-  //   const twitter = this.twitter.value;
-  //   const github = this.github.value;
-  //   const linkedin = this.linkedin.value;
 
-  //   this.socialsAdded = [];
-
-  //   if (facebook)
-  //     this.socialsAdded.push({
-  //       name: "facebook",
-  //       linkUrl: facebook
-  //     });
-  //   if (twitter)
-  //     this.socialsAdded.push({
-  //       name: "twitter",
-  //       linkUrl: twitter
-  //     });
-  //   if (github) this.socialsAdded.push({ name: "github", linkUrl: github });
-  //   if (linkedin)
-  //     this.socialsAdded.push({
-  //       name: "linkedin",
-  //       linkUrl: linkedin
-  //     });
-  // }
 
   editItem(item: IEducationItem) {
     this.modifySelection = true;

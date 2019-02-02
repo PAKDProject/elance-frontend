@@ -95,7 +95,6 @@ import { SocialLinkComponent } from './social-link/social-link.component';
 import { DashboardJobCardComponent } from './cards/dashboard-job-card/dashboard-job-card.component';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 
-import { AddSocialComponent } from './add-social/add-social.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -143,8 +142,7 @@ import { AddSocialComponent } from './add-social/add-social.component';
     MembersComponent,
     SocialLinkComponent,
     DashboardJobCardComponent,
-    ConfirmModalComponent,
-    AddSocialComponent
+    ConfirmModalComponent
   ],
   imports: [
     BrowserAnimationsModule,

@@ -8,7 +8,6 @@ import { UserState } from "src/redux/states/user.state";
 import { Observable } from "rxjs";
 import { IUser } from "src/models/user-model";
 import { HttpEvent, HttpEventType } from "@angular/common/http";
-import { NgxImageCompressService } from "ngx-image-compress";
 import { Buffer } from "buffer";
 
 @Component({
@@ -35,7 +34,6 @@ export class UploadImageModalComponent implements OnInit {
   //The url that will be given to the image once uploaded
   fileUrl: string;
   constructor(public dialogRef: MatDialogRef<UploadImageModalComponent>, private _notify: NotificationService,
-    private imageCompression: NgxImageCompressService,
     private _fUpload: FileuploadService, @Inject(MAT_DIALOG_DATA) public data: { type: string, oldUrl: string }) { }
 
   toggleHover(event) {
