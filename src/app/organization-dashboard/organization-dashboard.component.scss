@@ -516,13 +516,18 @@
                 .midCol {
                     margin: 20px;
                     width: 80%;
-                    grid-template-rows: repeat(3, auto) 1fr;
-                    grid-template-columns: 1fr;
-                    grid-template-areas: 'logo'
-                                         'name'
-                                         'site'
-                                         'bio';
-                    align-items: center;
+                    grid-template-rows: repeat(2, auto) 1fr;
+                    grid-template-columns: auto 1fr;
+                    grid-template-areas: 'logo name'
+                                         'logo site'
+                                         'bio bio';
+                    
+                    .title {
+                        align-self: flex-end;
+                    }
+                    .site {
+                        align-self: flex-start;
+                    }
                 }
             }
         }
