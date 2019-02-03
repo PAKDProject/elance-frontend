@@ -9,6 +9,7 @@ import { Observable } from "rxjs";
 import { NotificationService } from "src/services/notifications/notification.service";
 import { UserService } from "src/services/user-service/user.service";
 import { UserProfileModalComponent } from "../user-profile-modal/user-profile-modal.component";
+import { UserApplyForJob } from "src/redux/actions/user.actions";
 
 @Component({
   selector: "inactive-job-modal",
@@ -49,9 +50,12 @@ export class InactiveJobModalComponent implements OnInit {
 
   //Apply for the current job
   apply(): void {
+    this._store.dispatch(new UserApplyForJob(this.data))
+
     this.user$.subscribe(user => {
       this._store.dispatch(new ApplyForJob(this.data.id, { id: user.id, fName: user.fName, lName: user.lName, avatarUrl: user.avatarUrl })).subscribe(() => {
         this.dialogRef.close();
+
       });
     });
   }
