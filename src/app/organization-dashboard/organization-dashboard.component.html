@@ -12,10 +12,12 @@
             <img *ngIf='o.logoUrl != null' [src]='o.logoUrl.url' alt='logo' />
           </div>
           <div class='overlay'>
-            <div class='adminRow'>
-              <mat-icon class='isAdmin' *ngIf='o.adminUser.id == user.id'>star</mat-icon>
-              <mat-icon class='delete' *ngIf='o.adminUser.id == user.id' (click)='deleteOrg(o)'>delete</mat-icon>
+            <div class='adminRow' *ngIf='o.adminUser != null && o.adminUser.id == user.id'>
+              <mat-icon class='isAdmin'>star</mat-icon>
+              <div class='filler' (click)='openDashboard(o)'></div>
+              <mat-icon class='delete' (click)='deleteOrg(o)'>delete</mat-icon>
             </div>
+            <div class='filler' *ngIf='!(o.adminUser != null && o.adminUser.id == user.id)' (click)='openDashboard(o)'></div>
             <div class='botHalf' (click)='openDashboard(o)'>
               <h3>{{o.orgName}}</h3>
             </div>
@@ -70,6 +72,9 @@
         <div class='imgContainer'>
           <img *ngIf='!org.logoUrl' src='../../../assets/images/default_user.png' />
           <img *ngIf='org.logoUrl' [src]='org.logoUrl.url' />
+          <div *ngIf='editing' class='overlay' (click)='editLogo()'>
+              <mat-icon>create</mat-icon>
+          </div>
         </div>
         <div class='title'>
           <h2 *ngIf='!editing || !editingTitle' (click)='startEditingTitle()'>{{org.orgName}}</h2>

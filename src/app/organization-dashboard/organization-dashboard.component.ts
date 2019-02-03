@@ -13,6 +13,7 @@ import { OrganisationService } from 'src/services/organisation-service/organisat
 import { UpdateOrganisation, DeleteOrganisation } from 'src/redux/actions/organisation.actions';
 import { RequestUpdateUser } from 'src/redux/actions/user.actions';
 import { ConfirmModalComponent } from '../modals/confirm-modal/confirm-modal.component';
+import { UploadImageModalComponent } from '../modals/upload-image-modal/upload-image-modal.component';
 
 @Component({
   selector: 'organization-dashboard',
@@ -207,4 +208,17 @@ export class OrganizationDashboardComponent implements OnInit {
       if(res) { this.store.dispatch(new DeleteOrganisation(o.id)) }
     })
   }
+
+  editLogo() {
+    const dialogRef = this.dialog.open(UploadImageModalComponent, {
+      data: "logo"
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (data !== undefined) {
+        console.log(data)
+        this.org.logoUrl = data;
+      }
+    })
+  }   
 }
