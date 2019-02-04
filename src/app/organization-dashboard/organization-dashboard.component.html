@@ -9,7 +9,7 @@
         <div class='orgCard' *ngFor='let o of user.organisations'>
           <div class='logo'>
             <img *ngIf='o.logoUrl == null' src='../../../assets/images/elance-logo-small.png' alt='logo' />
-            <img *ngIf='o.logoUrl != null' [src]='o.logoUrl.url' alt='logo' />
+            <img *ngIf='o.logoUrl != null' [src]='o.logoUrl' alt='logo' />
           </div>
           <div class='overlay'>
             <div class='adminRow' *ngIf='o.adminUser != null && o.adminUser.id == user.id'>
@@ -38,9 +38,9 @@
       <div class='inviteList'>
         <div class='inviteCard' *ngFor='let invite of user.orgInvitations'>
           <div class='logo'>
-            <img *ngIf='invite.logoUrl == null || invite.logoUrl.url == "filler"' src='../../../assets/images/elance-logo-small.png'
+            <img *ngIf='invite.logoUrl == null || invite.logoUrl == "filler"' src='../../../assets/images/elance-logo-small.png'
               alt='logo' />
-            <img *ngIf='invite.logoUrl.url != "filler"' [src]='invite.logoUrl' alt='logo' />
+            <img *ngIf='invite.logoUrl != "filler"' [src]='invite.logoUrl' alt='logo' />
           </div>
           <h3>{{invite.orgName}}</h3>
           <div class='actionButtons'>
@@ -71,18 +71,18 @@
       <div class='midCol'>
         <div class='imgContainer'>
           <img *ngIf='!org.logoUrl' src='../../../assets/images/default_user.png' />
-          <img *ngIf='org.logoUrl' [src]='org.logoUrl.url' />
+          <img *ngIf='org.logoUrl' [src]='org.logoUrl' />
           <div *ngIf='editing' class='overlay' (click)='editLogo()'>
-              <mat-icon>create</mat-icon>
+            <mat-icon>create</mat-icon>
           </div>
         </div>
         <div class='title'>
           <h2 *ngIf='!editing || !editingTitle' (click)='startEditingTitle()'>{{org.orgName}}</h2>
-          <input *ngIf='editing && editingTitle' type='text' [(ngModel)]='org.orgName'/>
+          <input *ngIf='editing && editingTitle' type='text' [(ngModel)]='org.orgName' />
         </div>
         <div class='site'>
           <h6 *ngIf='!editing || !editingSite' (click)='startEditingSite()'>{{org.websiteUrl}}</h6>
-          <input *ngIf='editing && editingSite' type='text' [(ngModel)]='org.websiteUrl'/>
+          <input *ngIf='editing && editingSite' type='text' [(ngModel)]='org.websiteUrl' />
         </div>
         <div class='description'>
           <p *ngIf='!editing || !editingBio' (click)='startEditingBio()'>{{org.tagline}}</p>

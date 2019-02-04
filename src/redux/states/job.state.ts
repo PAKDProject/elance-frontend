@@ -185,9 +185,13 @@ export class JobsState {
 
     const index = jobs.map(e => e.id).indexOf(payload.id);
 
-    jobs[index] = payload;
-    this._notification.showSuccess(`Woohoo you applied for ${payload.title}`, "We wish you the best of luck with your application!")
+    if (index !== -1) {
+      jobs[index] = payload;
+      this._notification.showSuccess(`Woohoo you applied for ${payload.title}`, "We wish you the best of luck with your application!")
+    }
     patchState({ isLoading: false, jobs: jobs });
+
+
   }
 
   @Action(ApplyForJobFail)

@@ -161,7 +161,7 @@ export class OrganizationDashboardComponent implements OnInit {
     if (this.editing) { this.editingTitle = true }
   }
   startEditingSite() {
-    if (this.editing) { this.editingSite = true}
+    if (this.editing) { this.editingSite = true }
   }
   startEditingBio() {
     if (this.editing) { this.editingBio = true }
@@ -205,7 +205,7 @@ export class OrganizationDashboardComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmModalComponent)
 
     dialogRef.afterClosed().subscribe(res => {
-      if(res) { this.store.dispatch(new DeleteOrganisation(o.id)) }
+      if (res) { this.store.dispatch(new DeleteOrganisation(o.id)) }
     })
   }
 
@@ -220,5 +220,5 @@ export class OrganizationDashboardComponent implements OnInit {
         this.org.logoUrl = data;
       }
     })
-  }   
+  }
 }
