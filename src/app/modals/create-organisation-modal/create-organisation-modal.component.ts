@@ -102,8 +102,7 @@ export class CreateOrganisationModalComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(data => {
       if (data !== undefined) {
-        console.log(data)
-        this.organisation.logoUrl = data;
+        this.organisation.logoUrl = data.url;
       }
     })
 

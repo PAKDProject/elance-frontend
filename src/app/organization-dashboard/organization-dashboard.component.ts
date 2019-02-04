@@ -221,4 +221,9 @@ export class OrganizationDashboardComponent implements OnInit {
       }
     })
   }
+
+  isAdminUser(o: Partial<IOrganisation>): boolean {
+    if (o.adminUser && o.adminUser.id === this.user.id) return true
+    return false;
+  }
 }

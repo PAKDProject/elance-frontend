@@ -64,9 +64,7 @@ export class OrgsState {
 
     orgs.push(partialJob);
 
-    const userParialOrganisation = JSON.parse(JSON.stringify(partialJob))
-    userParialOrganisation.adminUser = undefined
-    this._store.dispatch(new RequestAddOrgToUser(userParialOrganisation));
+    this._store.dispatch(new RequestAddOrgToUser(partialJob));
     this._notification.showSuccess(`You've created ${payload.orgName}`, "You can now start posting jobs and adding members!")
     patchState({ orgs: orgs });
   }

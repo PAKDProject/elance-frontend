@@ -8,11 +8,12 @@
       <div *ngIf='user.organisations' class='orgList'>
         <div class='orgCard' *ngFor='let o of user.organisations'>
           <div class='logo'>
-            <img *ngIf='o.logoUrl == null' src='../../../assets/images/elance-logo-small.png' alt='logo' />
-            <img *ngIf='o.logoUrl != null' [src]='o.logoUrl' alt='logo' />
+            <img *ngIf="o.logoUrl === 'filler' || o.logoUrl === undefined" src='../../../assets/images/elance-logo-small.png'
+              alt='logo' />
+            <img *ngIf="o.logoUrl !== 'filler' && o.logoUrl !== undefined" [src]='o.logoUrl' alt='logo' />
           </div>
           <div class='overlay'>
-            <div class='adminRow' *ngIf='o.adminUser != null && o.adminUser.id == user.id'>
+            <div class='adminRow' *ngIf='isAdminUser(o)'>
               <mat-icon class='isAdmin'>star</mat-icon>
               <div class='filler' (click)='openDashboard(o)'></div>
               <mat-icon class='delete' (click)='deleteOrg(o)'>delete</mat-icon>
@@ -70,8 +71,8 @@
 
       <div class='midCol'>
         <div class='imgContainer'>
-          <img *ngIf='!org.logoUrl' src='../../../assets/images/default_user.png' />
-          <img *ngIf='org.logoUrl' [src]='org.logoUrl' />
+          <img *ngIf="!org.logoUrl || org.logoUrl === 'filler'" src='../../../assets/images/elance-logo-small.png' />
+          <img *ngIf="org.logoUrl && org.logoUrl !== 'filler'" [src]='org.logoUrl' />
           <div *ngIf='editing' class='overlay' (click)='editLogo()'>
             <mat-icon>create</mat-icon>
           </div>
