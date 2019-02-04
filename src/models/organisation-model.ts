@@ -6,9 +6,7 @@ export interface IOrganisation {
   entity?: string;
   orgName: string;
   tagline?: string;
-  logoUrl?: {
-    url?: string;
-  }
+  logoUrl?: string;
   email: string;
   websiteUrl?: string;
   adminUser?: Partial<IUser>;

@@ -73,6 +73,7 @@ export class UploadImageModalComponent implements OnInit {
                   this.isUploading = false;
                   console.log('Upload Complete');
                   this.fileUrl = event.body.url
+                  console.log(this.fileUrl)
 
                   this._notify.showSuccess("Successful upload!", "Your avatar has been uploaded!")
                   setTimeout(() => {
