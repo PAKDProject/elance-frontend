@@ -59,11 +59,14 @@ export class OrgsState {
       id: payload.id,
       orgName: payload.orgName,
       logoUrl: payload.logoUrl,
-      adminUser: { id: payload.adminUser.id }
+      adminUser: payload.adminUser
     }
 
     orgs.push(partialJob);
-    this._store.dispatch(new RequestAddOrgToUser(partialJob));
+
+    const userParialOrganisation = JSON.parse(JSON.stringify(partialJob))
+    userParialOrganisation.adminUser = undefined
+    this._store.dispatch(new RequestAddOrgToUser(userParialOrganisation));
     this._notification.showSuccess(`You've created ${payload.orgName}`, "You can now start posting jobs and adding members!")
     patchState({ orgs: orgs });
   }
@@ -96,6 +99,7 @@ export class OrgsState {
     };
 
     dispatch(new RequestUpdateUserOrg(partial));
+    partial.adminUser = payload.adminUser;
 
     const index = orgs.findIndex(org => org.id === payload.id);
 
