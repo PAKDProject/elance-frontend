@@ -17,18 +17,20 @@ import {
 import { IJob } from "src/models/job-model";
 import { JobService } from "src/services/job-service/job.service";
 import { NotificationService } from "src/services/notifications/notification.service";
-import { UserApplyForJob } from "../actions/user.actions";
+
 
 
 export class JobsStateModel {
-  jobs: IJob[];
+  inactiveJobs: IJob[];
+  activeJobs: IJob[];
   isLoading: boolean;
 }
 
 @State({
   name: "jobs",
   defaults: {
-    jobs: [],
+    inactiveJobs: [],
+    activeJobs: [],
     isLoading: false
   }
 })
@@ -38,12 +40,17 @@ export class JobsState {
   //#region Selectors
   @Selector()
   static getJobs(state: JobsStateModel) {
-    return state.jobs;
+    return state.inactiveJobs;
   }
 
   @Selector()
   static getIsLoading(state: JobsStateModel) {
     return state.isLoading;
+  }
+
+  @Selector()
+  static getActiveJobs(state: JobsStateModel) {
+    return state.activeJobs
   }
   //#endregion
 
@@ -52,7 +59,8 @@ export class JobsState {
   requestStarted({ getState, patchState, dispatch }: StateContext<JobsStateModel>) {
     const state = getState();
     state.isLoading = true;
-    state.jobs = [];
+    state.inactiveJobs = [];
+    state.activeJobs = [];
     patchState(state);
 
     this._jobsService.getJobs().subscribe(
@@ -74,14 +82,19 @@ export class JobsState {
   }
 
   @Action(RequestJobsSuccess)
-  requestSuccessful({ patchState }: StateContext<JobsStateModel>, { payload }: RequestJobsSuccess) {
-    this._notification.showSuccess("New jobs are now available for applying!");
-    patchState({ isLoading: false, jobs: payload });
+  requestSuccessful({ patchState, getState }: StateContext<JobsStateModel>, { payload }: RequestJobsSuccess) {
+    let active = getState().activeJobs || [];
+    let inactive = getState().inactiveJobs || [];
+    payload.forEach(job => {
+      if (job.chosenApplicant !== undefined) active.push(job)
+      else inactive.push(job);
+    });
+    patchState({ isLoading: false, inactiveJobs: inactive, activeJobs: active });
   }
 
   @Action(RequestJobsFail)
   requestFailed({ patchState }: StateContext<JobsStateModel>, { errorMessage }: RequestJobsFail) {
-    patchState({ isLoading: false, jobs: [] });
+    patchState({ isLoading: false, inactiveJobs: [], activeJobs: [] });
   }
   //#endregion
 
@@ -89,7 +102,7 @@ export class JobsState {
   @Action(FilterJobs)
   filterStarted({ patchState, dispatch }: StateContext<JobsStateModel>, { filterForm }: FilterJobs) {
 
-    patchState({ isLoading: true, jobs: [] });
+    patchState({ isLoading: true, inactiveJobs: [] });
 
     this._jobsService.filterJob(filterForm).subscribe(
       jobs => {
@@ -122,19 +135,15 @@ export class JobsState {
 
   @Action(AddJobSuccess)
   addNewJobSuccess({ getState, patchState }: StateContext<JobsStateModel>, { payload }: AddJobSuccess) {
-    const state = getState();
-    let jobs: IJob[] = [];
+    const inactive = getState().inactiveJobs || [];
 
-    jobs.push(...state.jobs);
-    jobs.push(payload);
+    inactive.push(payload);
 
-    patchState({ isLoading: false, jobs: jobs });
-    this._notification.showSuccess("Job was Created!", "Get ready for applications to flood in!");
+    patchState({ isLoading: false, inactiveJobs: inactive });
   }
 
   @Action(AddJobFail)
   addNewJobFail({ patchState }: StateContext<JobsStateModel>, message: string) {
-    this._notification.showError("An error occured in the state", message);
     patchState({ isLoading: false });
   }
   //#endregion
@@ -145,7 +154,7 @@ export class JobsState {
     const state = getState();
     patchState({ isLoading: true });
 
-    const job = state.jobs.find(j => j.id === jobID);
+    const job = state.inactiveJobs.find(j => j.id === jobID);
     let partialJob: Partial<IJob> = {
       applicants: []
     };
@@ -181,7 +190,7 @@ export class JobsState {
 
   @Action(ApplyForJobSuccess)
   applyForJobSuccess({ getState, patchState }: StateContext<JobsStateModel>, { payload }: ApplyForJobSuccess) {
-    const jobs = getState().jobs || [];
+    const jobs = getState().inactiveJobs || [];
 
     const index = jobs.map(e => e.id).indexOf(payload.id);
 
@@ -189,7 +198,7 @@ export class JobsState {
       jobs[index] = payload;
       this._notification.showSuccess(`Woohoo you applied for ${payload.title}`, "We wish you the best of luck with your application!")
     }
-    patchState({ isLoading: false, jobs: jobs });
+    patchState({ isLoading: false, inactiveJobs: jobs });
 
 
   }
@@ -209,7 +218,7 @@ export class JobsState {
     patchState({ isLoading: true });
 
     // find the relevant job from state
-    let job = state.jobs.find(job => job.id === jobID);
+    let job = state.inactiveJobs.find(job => job.id === jobID);
 
     // Check if the job existed
     if (job !== undefined) {
@@ -250,16 +259,19 @@ export class JobsState {
 
   @Action(AcceptApplicantSuccess)
   acceptApplicantSuccess({ getState, patchState }: StateContext<JobsStateModel>, { job }: AcceptApplicantSuccess) {
-    const jobs = getState().jobs;
+    let jobs = getState().inactiveJobs;
+    let active = getState().activeJobs || [];
     //If update in db went succesfully replace old job with new one in state
     const index = jobs.map(j => j.id).indexOf(job.id);
-    if (index !== -1) jobs[index] = job;
-    patchState({ isLoading: false, jobs: jobs });
+    if (index !== -1) {
+      jobs.splice(index, 1);
+      active.push(job);
+    }
+    patchState({ isLoading: false, inactiveJobs: jobs, activeJobs: active });
   }
 
   @Action(AcceptApplicantFail)
   acceptApplicatnFail({ patchState }: StateContext<JobsStateModel>, { errorMessage }: AcceptApplicantFail) {
-    this._notification.showError("An error occured in the state", errorMessage);
     patchState({ isLoading: false });
   }
 

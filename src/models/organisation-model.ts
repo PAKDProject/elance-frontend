@@ -10,8 +10,8 @@ export interface IOrganisation {
   email: string;
   websiteUrl?: string;
   adminUser?: Partial<IUser>;
-  jobsPosted?: IJob[];
-  activeJobs?: IJob[];
-  members?: IUser[];
-  contacts?: IUser[];
+  jobsPosted?: Partial<IJob>[];
+  activeJobs?: Partial<IJob>[];
+  members?: Partial<IUser>[];
+  contacts?: Partial<IUser>[];
 }

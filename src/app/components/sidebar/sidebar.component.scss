@@ -140,3 +140,20 @@
   }
 
 }
+
+
+
+.green {
+  color: $primary;
+  font-weight: bold;
+  font-size: 1.3em;
+  margin: 1px;
+}
+
+.greensub {
+  color: $primary;
+  font-size: 0.8em;
+  font-weight: bolder;
+  opacity: 0.7;
+  border-TOP: 2px solid $primary;
+}

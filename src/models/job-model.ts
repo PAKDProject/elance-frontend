@@ -4,7 +4,6 @@ export interface IJob {
   id?: string;
   entity?: string;
   title: string;
-  // employer: IUser;
   employerName: string;
   employerID: string;
   location?: string;
@@ -16,7 +15,6 @@ export interface IJob {
   dateDue?: Date;
   dateCompleted?: Date;
   progress?: number;
-
   applicants?: Partial<IUser>[];
   chosenApplicant?: Partial<IUser>;
 }
