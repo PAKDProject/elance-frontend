@@ -5,13 +5,12 @@
       <mat-step>
         <ng-template matStepLabel>Getting Started</ng-template>
         <div class="row">
-          <div class="col-md-12">
-            <h2 class="text-center">Hello {{user.fName}}! </h2>
+          <div class="col-md-12 text-center mb-2">
+            <img src="../../assets/images/IL_full_transparent.png" width="500">
           </div>
         </div>
         <div class="row">
           <div class="col-md-12">
-            <h6 class=text-center>Welcome to <b>ELance</b>!</h6>
             <p class="text-center">
               We just need some information about you in order to find you some
               great freelance opportunities.
@@ -100,7 +99,7 @@
               <div class="form-group">
                 <label for="degreeTitle">Degree Title</label>
                 <input type="text" class="form-control" id="degreeTitle" formControlName="degreeTitle" placeholder="BSc(Hons) Business" />
-                <div class="feedback-invalid" *ngIf="degreeTitle.errors?.incorrect">
+                <div class="feedback-invalid" *ngIf="!!degreeTitle.errors?.incorrect">
                   Please enter at least a degree name
                 </div>
               </div>
@@ -121,11 +120,11 @@
           </div>
           <div class="row">
             <div class="feedback-invalid ml-3" *ngIf="
-                !educationStartDate.pending && educationStartDate.errors?.min">
+                !educationStartDate.pending && !!educationStartDate.errors?.min">
               Cool Story bro, how was the viking era?
             </div>
             <div class="feedback-invalid  ml-3" *ngIf="
-                !educationStartDate.pending && educationStartDate.errors?.max">
+                !educationStartDate.pending && !!educationStartDate.errors?.max">
               Cool Story bro, how are the flying cars?
             </div>
             <div class="feedback-invalid  ml-3" *ngIf="!educationEndDate.valid && educationEndDate.touched">

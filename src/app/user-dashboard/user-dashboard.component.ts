@@ -20,7 +20,7 @@ import { UserState } from 'src/redux/states/user.state';
 export class UserDashboardComponent implements OnInit {
   @Select(UserState.getUser)
   user$: Observable<IUser>;
-  
+
   user: Partial<IUser>;
 
   constructor(private dialog: MatDialog, private store: Store) { }
@@ -37,8 +37,11 @@ export class UserDashboardComponent implements OnInit {
         summary: element.summary,
         educationItems: element.educationItems,
         skills: element.skills,
-        jobHistory: element.jobHistory
-      }})
+        jobHistory: element.jobHistory,
+        appliedJobs: element.appliedJobs,
+        postedJobs: element.postedJobs
+      }
+    })
   }
 
   moveCarousel(direction: string, carousel: number) {

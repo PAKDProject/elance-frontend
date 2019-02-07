@@ -25,7 +25,6 @@ export class CreateJobModalComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private notificationService: NotificationService,
-    private _jobService: JobService,
     private _store: Store,
     private _dialogRef: MatDialogRef<CreateJobModalComponent>
   ) { }

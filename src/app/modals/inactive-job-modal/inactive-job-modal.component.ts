@@ -18,6 +18,8 @@ import { UserApplyForJob } from "src/redux/actions/user.actions";
 })
 export class InactiveJobModalComponent implements OnInit {
   @Select(UserState.getUser) user$: Observable<IUser>;
+
+  user: IUser;
   applicants: Partial<IUser>[];
   applicantIDs: string[];
   applicantsVisible: boolean = false;
@@ -29,14 +31,13 @@ export class InactiveJobModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: IJob,
     private _store: Store,
     private _notification: NotificationService,
-    private _userService: UserService,
     public _viewProfileDialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     // Check if user posted the job
     this.user$.subscribe(u => {
-      this.userID = u.id;
+      this.user = u;
       if (u.id === this.data.employerID) {
         this.isEmployer = true;
       }
@@ -50,14 +51,23 @@ export class InactiveJobModalComponent implements OnInit {
 
   //Apply for the current job
   apply(): void {
-    this._store.dispatch(new UserApplyForJob(this.data))
 
-    this.user$.subscribe(user => {
-      this._store.dispatch(new ApplyForJob(this.data.id, { id: user.id, fName: user.fName, lName: user.lName, avatarUrl: user.avatarUrl })).subscribe(() => {
-        this.dialogRef.close();
 
-      });
-    });
+    this._store.dispatch(new ApplyForJob(this.data.id, {
+      id: this.user.id,
+      fName: this.user.fName,
+      lName: this.user.lName,
+      avatarUrl: this.user.avatarUrl
+    })).subscribe(() => {
+      this._store.dispatch(new UserApplyForJob({
+        id: this.data.id,
+        title: this.data.title,
+        description: this.data.description,
+        payment: this.data.payment,
+        datePosted: this.data.datePosted
+      }))
+      this.dialogRef.close()
+    })
   }
 
   //If you are employer and there are applicants show the applicants screen
