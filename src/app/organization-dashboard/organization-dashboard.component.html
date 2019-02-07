@@ -87,7 +87,8 @@
           <input *ngIf='editing && editingSite' type='text' [(ngModel)]='org.websiteUrl' />
         </div>
         <div class='description'>
-          <p *ngIf='!editing || !editingBio' (click)='startEditingBio()'>{{org.tagline}}</p>
+          <!-- <p *ngIf='!editing || !editingBio' (click)='startEditingBio()'>{{org.tagline}}</p> -->
+          <markdown *ngIf='!editing || !editingBio' ngPreserveWhitespaces (click)='startEditingBio()'> {{org.tagline}} </markdown>
           <textarea *ngIf='editing && editingBio' [(ngModel)]='org.tagline'></textarea>
         </div>
       </div>
