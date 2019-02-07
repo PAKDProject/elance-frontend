@@ -65,6 +65,8 @@ export class UserDashboardComponent implements OnInit {
   }
 
   openModal(): void {
-    this.dialog.open(CreateJobModalComponent);
+    this.dialog.open(CreateJobModalComponent, {
+      data: this.user
+    });
   }
 }

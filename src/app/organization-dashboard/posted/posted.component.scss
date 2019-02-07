@@ -48,6 +48,12 @@
                 justify-self: center;
                 text-align: center;
             }
+            
+            button {
+                background: $primary;
+                border: none;
+                padding: 10px 40px;
+            }
         }
     }
 }
