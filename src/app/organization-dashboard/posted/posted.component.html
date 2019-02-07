@@ -1,19 +1,20 @@
 <div *ngIf='jobs' class='pageContainer'>
     <div class='header'>
-        <button class='btn btn-primary btn-sm'>Post A Job</button>
+        <button class='btn btn-primary btn-sm' (click)='createJob()'>Post A Job</button>
     </div>
     <div class="gridContainer">
     <inactive-job-card *ngFor='let job of jobs' [JobInput]='job'></inactive-job-card>
     </div>
 </div>
 <div *ngIf='!jobs' class="listContainer">
-  <div class="noJobsFound">
-      <div class="centerContainer">
-          <div class='imgContainer'>
-              <i class="far fa-frown"></i>
-          </div>
-          <h2>No posted jobs found</h2>
-          <div>Jobs that you post which haven't yet been accepted will appear here</div>
-      </div>
-  </div>
+    <div class="noJobsFound">
+        <div class="centerContainer">
+            <div class='imgContainer'>
+                <i class="far fa-frown"></i>
+            </div>
+            <h2>No posted jobs found</h2>
+            <div>Jobs that you post which haven't yet been accepted will appear here</div>
+            <button class='btn btn-primary btn-sm' (click)='createJob()'>Post A Job</button>
+        </div>
+    </div>
 </div>
