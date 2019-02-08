@@ -9,13 +9,11 @@ export class RequestUserSuccessAction {
 
     constructor(public payload: IUser) { }
 }
-
 export class RequestUserFailedActions {
     static readonly type = '[User] Request Fail'
 
     constructor(public errorMessage: string) { }
 }
-
 export class RequestAddSkillToUser {
     static readonly type = '[User] Request Add Skill To User'
     /**
@@ -24,7 +22,6 @@ export class RequestAddSkillToUser {
      */
     constructor(public skills: ISkills[]) { }
 }
-
 export class RequestAddOrgToUser {
     static readonly type = "[User] Request Add Organisation to User";
 
@@ -51,8 +48,15 @@ export class RequestUpdateUserOrg {
      * */
     constructor(public payload: Partial<IOrganisation>) { }
 }
+export class RequestAddPostedJob {
+    static readonly type = "[User] Request Add Posted Job to User";
 
-
+    /**
+     * Add a reference to a posted job to a user
+     * @param payload {jobId, jobTitle, description, employerName, payment, datePosted}
+     */
+    constructor(public payload: Partial<IJob>) { }
+}
 export class RequestDeleteOrgFromUser {
     static readonly type = "[User] Request Delete Organisation from User";
     /**
@@ -62,7 +66,6 @@ export class RequestDeleteOrgFromUser {
      */
     constructor(public payload: string) { }
 }
-
 export class RequestUpdateUser {
     static readonly type = '[User] Request Update User'
 
@@ -73,30 +76,26 @@ export class RequestUpdateUser {
      */
     constructor(public user: Partial<IUser>) { }
 }
-
 export class RequestUpdateUserSuccess {
     static readonly type = '[User] Request Update User Success'
 
     constructor(public user: Partial<IUser>) { }
 }
-
 export class RequestUpdateUserFail {
     static readonly type = '[User] Request Update User Fail'
 
     constructor(public errorMessage: string) { }
 }
-
 export class UserApplyForJob {
     static readonly type = '[User] Apply For Job'
 
     /**
      * Adds a reference to a job the user applied for to the user object.
      * Accepts a job object of the applied job;
-     * @param job : IJob object
+     * @param payload {jobId, jobTitle, description, employerName, payment, datePosted}
      */
-    constructor(public job: IJob) { }
+    constructor(public payload: Partial<IJob>) { }
 }
-
 export class SendOrgInvite {
     static readonly type = '[User] Send Org Invite'
 
@@ -107,7 +106,6 @@ export class SendOrgInvite {
      */
     constructor(public userId: string, public org: Partial<IOrganisation>) { }
 }
-
 export class AcceptOrgInvite {
     static readonly type = '[User] Accept Org Invite'
 

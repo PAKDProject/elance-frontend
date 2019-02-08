@@ -52,14 +52,14 @@
                 </div>
                 <input type="number" id="payment" class="form-control" placeholder="4000" formControlName="payment" />
               </div>
-              <div class="feedback" *ngIf="payment.errors?.min && payment.touched">
+              <div class="feedback" *ngIf="!!payment.errors?.min && payment.touched">
                 Don't be cheap
               </div>
               <div class="feedback" *ngIf="payment.value === 0">
                 Open Source eh?
                 <!-- Declan....really...this shit again -->
               </div>
-              <div class="feedback" *ngIf="payment.errors?.max && payment.touched">
+              <div class="feedback" *ngIf="!!payment.errors?.max && payment.touched">
                 Baller!
               </div>
               <div class="feedback" *ngIf="!payment.valid && payment.touched">

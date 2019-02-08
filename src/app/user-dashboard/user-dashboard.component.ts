@@ -21,7 +21,7 @@ export class UserDashboardComponent implements OnInit {
 
   @Select(UserState.getUser)
   user$: Observable<IUser>;
-  
+
   user: Partial<IUser>;
 
   carousels: DragScrollComponent[];
@@ -37,14 +37,17 @@ export class UserDashboardComponent implements OnInit {
         summary: element.summary,
         educationItems: element.educationItems,
         skills: element.skills,
-        jobHistory: element.jobHistory
-      }})
+        jobHistory: element.jobHistory,
+        appliedJobs: element.appliedJobs,
+        postedJobs: element.postedJobs
+      }
+    })
 
-      this.carousels = [
-        this.activeDrag,
-        this.postedDrag,
-        this.appliedDrag
-      ]
+    this.carousels = [
+      this.activeDrag,
+      this.postedDrag,
+      this.appliedDrag
+    ]
   }
 
   openModal(): void {

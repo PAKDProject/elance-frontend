@@ -12,7 +12,8 @@ import {
   SendOrgInvite,
   AcceptOrgInvite,
   RequestUpdateUserOrg,
-  RequestDeleteOrgFromUser
+  RequestDeleteOrgFromUser,
+  RequestAddPostedJob
 } from "../actions/user.actions";
 import { UserService } from "src/services/user-service/user.service";
 import { ISkills } from "src/models/skill-model";
@@ -40,13 +41,13 @@ export class UserStateModel {
   socialLinks?: ISocialLink[];
   tagline?: string;
   contacts?: IUser[];
-  activeJobs?: IJob[];
+  activeJobs?: Partial<IJob>[]; //{jobId, jobTitle, description, progress, employerName, dateAccepted}
   profileCards?: IProfileCard[];
-  jobHistory?: IJob[];
-  appliedJobs?: Partial<IJob>[];
-  organisations?: Partial<IOrganisation>[];
-  orgInvitations?: Partial<IOrganisation>[];
-
+  jobHistory?: Partial<IJob>[]; // {jobId, jobTitle, description, employerName, dateAccepted}
+  appliedJobs?: Partial<IJob>[];// {jobId, jobTitle, description, employerName, payment, datePosted}
+  postedJobs?: Partial<IJob>[];// {jobId, jobTitle, description, employerName, payment, datePosted}
+  organisations?: Partial<IOrganisation>[] // {orgId, logoUrl, name}
+  orgInvitations?: Partial<IOrganisation>[] // {orgId, logoUrl, name}
 }
 
 @State({
@@ -101,14 +102,13 @@ export class UserState {
   @Action(RequestUpdateUser)
   updateUserRequest({ getState, dispatch }: StateContext<UserStateModel>, { user }: RequestUpdateUser) {
     let userState = getState();
-    this._notification.showInfo("Updating user profile...");
 
-    this._userService.updateUser({ ...user }, userState.id).subscribe(
+    this._userService.updateUser(user, userState.id).subscribe(
       res => {
-        dispatch(new RequestUpdateUserSuccess(user));
+        dispatch(new RequestUpdateUserSuccess(res));
       },
       err => {
-        dispatch(new RequestUpdateUserFail(err));
+        dispatch(new RequestUpdateUserFail(err.message));
       }
     );
   }
@@ -120,8 +120,9 @@ export class UserState {
   }
 
   @Action(RequestUpdateUserFail)
-  updateUserRequestFail() {
+  updateUserRequestFail(context: StateContext<UserStateModel>, { errorMessage }: RequestUpdateUserFail) {
     this._notification.showError("User did not update!");
+    console.log("Failed: " + errorMessage)
   }
 
   //#endregion
@@ -155,6 +156,14 @@ export class UserState {
     }
   }
 
+  @Action(RequestAddPostedJob)
+  RequestAddPostedJob({ getState, dispatch }: StateContext<UserStateModel>, { payload }: RequestAddPostedJob) {
+    let postedJobs = getState().postedJobs || [];
+    postedJobs.push(payload);
+
+    dispatch(new RequestUpdateUser({ postedJobs: postedJobs }));
+  }
+
   @Action(RequestDeleteOrgFromUser)
   RequestDeleteOrgFromUser({ dispatch, getState }: StateContext<UserStateModel>, { payload }: RequestDeleteOrgFromUser) {
     const orgs = getState().organisations;
@@ -163,9 +172,10 @@ export class UserState {
   }
 
   @Action(UserApplyForJob)
-  ApplyForJob({ getState, dispatch }: StateContext<UserStateModel>, { job }: UserApplyForJob) {
+  ApplyForJob({ getState, dispatch }: StateContext<UserStateModel>, { payload }: UserApplyForJob) {
     const appliedJobs: Partial<IJob>[] = getState().appliedJobs || []
-    appliedJobs.push({ id: job.id, title: job.title, employerName: job.employerName, dateDue: job.dateDue })
+    appliedJobs.push(payload);
+
     dispatch(new RequestUpdateUser({ appliedJobs: appliedJobs }))
   }
 
