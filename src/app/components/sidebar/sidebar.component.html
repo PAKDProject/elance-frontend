@@ -1,34 +1,9 @@
-<div class="logo">
-  <a class="simple-text">
-    <div class="logo-img">
-      <img src="../../../assets/images/IL_small_transparent.png" />
-    </div>
-    <!-- <span class="green">I</span>ntelli<span class="green">L</span>ance.<span class="greensub">com</span> -->
-  </a>
-</div>
-<div class="sidebar-wrapper">
 
-  <!-- Notifications in mobile menu -->
-  <!-- <div *ngIf="isMobileMenu()" style="border: 2px solid red;">
-        <ul class="nav navbar-nav nav-mobile-menu"> 
-            <li class="nav-item dropdown">
-                <a class="nav-link" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="material-icons">notifications</i>
-                    <span class="notification">5</span>
-                    <p>
-                        <span class="d-lg-none d-md-block">Notifications</span>
-                    </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                    <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                    <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                    <a class="dropdown-item" href="#">Another Notification</a>
-                    <a class="dropdown-item" href="#">Another One</a>
-                </div>
-            </li>
-        </ul>
-    </div> -->
+<div class="sidebar-wrapper">
+  <!-- Logo -->
+  <div class="logoContainer">
+    <img src="../../../assets/images/intellilance-logo-large.png" />
+  </div>
 
   <!-- User Search -->
   <div id="search">
@@ -53,6 +28,7 @@
       </div>
     </mat-menu>
   </div>
+
   <!-- Actual Navigation Buttons -->
   <ul class="nav">
     <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
