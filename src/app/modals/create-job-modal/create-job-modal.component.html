@@ -16,37 +16,23 @@
               </div>
             </div>
           </div>
-          <!-- IS THIS NEEDED? -->
-          <!-- <div class="col-lg-6 col-md-6 col-sm-12">
-            <div class="form-group">
-              <label for="employer">
-                What name should be attatched to the job
-              </label>
-              <input type="text" id="employer" formControlName="employer" placeholder="Jason Jobgiver" class="form-control" />
-              <div class="feedback" *ngIf="!employer.valid && employer.touched">
-                Please enter an employer name
-              </div>
-            </div>
-          </div> -->
-        </div>
-
-        <div class="row">
           <div class="col">
             <div class="form-group">
               <label for="location">
                 Is the job in a specific location or
                 <div class="form-check ml-1" style="display: inline-block">
-                  <input type="checkbox" id="remote" formControlName="remote" class="form-check-input" (change)="toggleLocation()">
+                  <input type="checkbox" id="remote" formControlName="remote" class="form-check-input" (change)="toggleLocation()"/>
                   <label for="remote" class="form-check-label" style="color: black;">
                     Remote
                   </label>
                 </div>
               </label>
-              <input type="text" id="location" formControlName="location" placeholder="Galway" class="form-control" />
+              <input type="text" id="location" formControlName="location" placeholder="Galway" class="form-control" maxlength=30/>
+              <small id="char_count">{{location.value.length}}/30</small>
             </div>
           </div>
-
         </div>
+
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
@@ -82,11 +68,13 @@
             </div>
           </div>
         </div>
+
         <div class="row">
           <div class="col-lg-12 col-md-12  col-sm-12">
             <div class="form-group">
               <label for="description"> Description of Job </label>
-              <textarea id="description" rows="3" formControlName="description" class="form-control" placeholder="Please enter some details on the scope and ideas behind this job"></textarea>
+              <textarea id="description" rows="3" formControlName="description" class="form-control" placeholder="Please enter some details on the scope and ideas behind this job" maxlength=300></textarea>
+              <small id="char_count">{{description.value.length}}/300</small>
               <div class="feedback" *ngIf="!description.valid && description.touched">
                 Come on, give us something to work with!
               </div>
@@ -105,6 +93,7 @@
             </button>
           </div>
         </div>
+
       </form>
     </mat-dialog-content>
   </div>
