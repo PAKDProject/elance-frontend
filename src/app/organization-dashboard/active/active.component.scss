@@ -33,7 +33,7 @@
             align-self: center;
 
             display: grid;
-            grid-template-rows: auto auto auto;
+            grid-template-rows: repeat(4,auto);
             
             i {
                 height: 100%;
@@ -48,6 +48,12 @@
             div {
                 justify-self: center;
                 text-align: center;
+            }
+            
+            button {
+                background: $primary;
+                border: none;
+                padding: 10px 40px;
             }
         }
     }

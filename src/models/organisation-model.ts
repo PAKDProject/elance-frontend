@@ -9,9 +9,9 @@ export interface IOrganisation {
   logoUrl?: string;
   email: string;
   websiteUrl?: string;
-  adminUser?: Partial<IUser>;
-  jobsPosted?: Partial<IJob>[];
-  activeJobs?: Partial<IJob>[];
-  members?: Partial<IUser>[];
-  contacts?: Partial<IUser>[];
+  adminUser?: string; //userId
+  jobsPosted?: Partial<IJob>[]; // {jobId, jobTitle, description, payment, datePosted};
+  activeJobs?: Partial<IJob>[] // {jobId, chosenApplicant, jobTitle, progress, dateDue, description};
+  members?: Partial<IUser>[] // {userId, fName, lName, avatarUrl, email};
+  contacts?: Partial<IUser>[] // {userId, fName, lName, avatarUrl, email};
 }

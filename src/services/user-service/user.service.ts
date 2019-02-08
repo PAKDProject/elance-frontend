@@ -62,12 +62,16 @@ export class UserService {
    */
   updateUser(updatedUser: Partial<IUser>, userId: string): Observable<IUser> {
     return this.http
-      .put<IUser>(
+      .put(
         `${this.endpoint}/${userId}`,
         JSON.stringify(updatedUser),
         this.httpOptions
+      ).pipe(map(res => {
+        let response = res as { user: IUser };
+        return response.user;
+      }),
+        catchError(this.handleError)
       )
-      .pipe(catchError(this.handleError));
   }
   /**
    * Delete a user by their userId

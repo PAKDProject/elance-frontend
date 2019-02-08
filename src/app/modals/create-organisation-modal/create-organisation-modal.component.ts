@@ -39,7 +39,7 @@ export class CreateOrganisationModalComponent implements OnInit {
     this.organisation = {
       orgName: "",
       email: "",
-      adminUser: this.partialUser
+      adminUser: this.partialUser.id
     };
 
     //Set up reactive form fields

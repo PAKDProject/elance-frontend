@@ -17,6 +17,7 @@ import {
 import { IJob } from "src/models/job-model";
 import { JobService } from "src/services/job-service/job.service";
 import { NotificationService } from "src/services/notifications/notification.service";
+import { RequestUpdateUser, RequestAddPostedJob } from "../actions/user.actions";
 
 
 
@@ -134,9 +135,18 @@ export class JobsState {
   }
 
   @Action(AddJobSuccess)
-  addNewJobSuccess({ getState, patchState }: StateContext<JobsStateModel>, { payload }: AddJobSuccess) {
+  addNewJobSuccess({ getState, patchState, dispatch }: StateContext<JobsStateModel>, { payload }: AddJobSuccess) {
     const inactive = getState().inactiveJobs || [];
-
+    const partial: Partial<IJob> = {
+      id: payload.id,
+      //jobId, jobTitle, description, employerName, payment, datePosted}
+      title: payload.title,
+      description: payload.description,
+      employerName: payload.employerName,
+      payment: payload.payment,
+      datePosted: payload.datePosted
+    }
+    dispatch(new RequestAddPostedJob(partial));
     inactive.push(payload);
 
     patchState({ isLoading: false, inactiveJobs: inactive });

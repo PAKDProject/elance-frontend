@@ -1,24 +1,9 @@
 <div class="container">
   <h2 mat-dialog-title>Create a new Job</h2>
 
-  <div *ngIf="induvidual === undefined">
-    <mat-dialog-content id="typeSelection">
-      <p>How would you like to create a job</p>
-      <span>
-        <button class="btn secondary" (click)="induvidual = false" disabled>
-          Organization
-        </button>
-        Or
-        <button class="btn secondary" (click)="induvidual = true">
-          Individual
-        </button>
-      </span>
-    </mat-dialog-content>
-  </div>
-
-  <div *ngIf="induvidual">
+  <div>
     <mat-dialog-content>
-      <form [formGroup]="induvidualJobForm">
+      <form [formGroup]="jobForm">
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
@@ -31,7 +16,8 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-12">
+          <!-- IS THIS NEEDED? -->
+          <!-- <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
               <label for="employer">
                 What name should be attatched to the job
@@ -41,14 +27,14 @@
                 Please enter an employer name
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <div class="row">
           <div class="col">
             <div class="form-group">
               <label for="location">
-                Where are you located or
+                Is the job in a specific location or
                 <div class="form-check ml-1" style="display: inline-block">
                   <input type="checkbox" id="remote" formControlName="remote" class="form-check-input" (change)="toggleLocation()">
                   <label for="remote" class="form-check-label" style="color: black;">
@@ -80,14 +66,14 @@
                 </div>
                 <input type="number" id="payment" class="form-control" placeholder="4000" formControlName="payment" />
               </div>
-              <div class="feedback" *ngIf="payment.errors?.min && payment.touched">
+              <div class="feedback" *ngIf="!!payment.errors?.min && payment.touched">
                 Don't be cheap
               </div>
               <div class="feedback" *ngIf="payment.value === 0">
                 Open Source eh?
                 <!-- Declan....really...this shit again -->
               </div>
-              <div class="feedback" *ngIf="payment.errors?.max && payment.touched">
+              <div class="feedback" *ngIf="!!payment.errors?.max && payment.touched">
                 Baller!
               </div>
               <div class="feedback" *ngIf="!payment.valid && payment.touched">
@@ -114,7 +100,7 @@
             </button>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6">
-            <button class="btn btn-block primary" [disabled]="induvidualJobForm.invalid" (click)="submitForm()">
+            <button class="btn btn-block primary" [disabled]="jobForm.invalid" (click)="submitForm()">
               Create Job
             </button>
           </div>
@@ -122,5 +108,4 @@
       </form>
     </mat-dialog-content>
   </div>
-  <div *ngIf="induvidual === false">Organization</div>
 </div>
