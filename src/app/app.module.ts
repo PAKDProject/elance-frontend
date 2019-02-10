@@ -6,6 +6,9 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 //Ngx-Markdown
 import { MarkdownModule } from 'ngx-markdown';
 
+//Ng-Datepicker
+
+
 //Angular Bootstrap
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
@@ -168,7 +171,8 @@ import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.comp
       autoDismiss: true,
       easeTime: 300
     }),
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+
   ],
   providers: [
     UserService,

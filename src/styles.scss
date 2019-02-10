@@ -28,16 +28,47 @@ body {
   width: 5px;
   height: 5px;
 }
+
 ::-webkit-scrollbar-thumb {
   background: $primary;
   padding-right: 5px;
   border-radius: 10px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: darken($primary, 5)
 }
+
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 0px rgba(0,0,0,0); 
+  box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
   border-radius: 10px;
-  background: #f1f1f1; 
+  background: #f1f1f1;
+}
+
+
+ngb-datepicker {
+  position: absolute;
+  background-color: white;
+  z-index: 100000;
+
+  .ngb-dp-header {
+    background-color: #12896e;
+  }
+
+  select {
+    background-color: #12896e;
+    color: white;
+  }
+}
+
+div.ngb-dp-weekday.small.ng-star-inserted {
+  color: #128963 !important;
+}
+
+div.btn-light.bg-primary.text-white.ng-star-inserted {
+  background-color: #12896e !important;
+}
+
+.ngb-dp-arrow .btn-link {
+  color: #12896e !important;
 }
