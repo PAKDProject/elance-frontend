@@ -10,8 +10,18 @@ import { ActiveJobModalComponent } from 'src/app/modals/active-job-modal/active-
 })
 export class DashboardJobCardComponent implements OnInit {
   @Input('JobInput') job: IJob;
+  // job: IJob = {
+  //   title: 'Temp Title',
+  //   dateDue: new Date('2020-02-02'),
+  //   datePosted: new Date('2020-02-02'),
+  //   employerName: 'Jeff Bezos',
+  //   employerID: 'yes',
+  //   description: 'Placeholder description for the current job. Will be added later. Filling character space',
+  //   payment: 3000
+  // }
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) {
+  }
 
   ngOnInit() {
   }

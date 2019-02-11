@@ -1,0 +1,71 @@
+@import '../../../variables.scss';
+
+.blockContainer {
+    display: inline-block;
+    .jobCardContainer {
+        max-height: 200px;
+        margin: 5px;
+        padding: 10px;
+        border: 1px darkgray solid;
+        border-radius: 5px;
+        background: lightgray;
+        display: grid;
+        justify-items: center;
+        grid-row-gap: 5px;
+    
+        h2 {
+            font-size: 20px;
+            margin-bottom: 0px;
+            text-align: center;
+        }
+    
+        .employerRow {
+            display: grid;
+            grid-template-columns: repeat(2,auto);
+            grid-column-gap: 5px;
+            align-items: center;
+            justify-items: center;
+    
+            font-style: italic;
+            text-align: center;
+    
+            .imgContainer {
+                display: grid;
+                align-items: center;
+                justify-items: center;
+                border: 1px darkgray solid;
+                border-radius: 50%;
+                overflow: hidden;
+                background: white;
+                width: 20px;
+                height: 20px;
+    
+                img {
+                    // height: 20px;
+                    width: 100%;
+                }
+            }
+    
+            div {
+                white-space: nowrap;
+            }
+        }
+    
+        .date {
+            text-align: center;
+            white-space: nowrap;
+        }
+    
+        button {
+            background: $primary;
+            border: 2px $primary solid;
+            color: white;
+            width: 90%;
+            padding: 5px;
+        }
+        button:hover {
+            background: white;
+            color: $primary;
+        }
+    }   
+}

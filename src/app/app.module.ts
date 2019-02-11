@@ -72,7 +72,6 @@ import { OrganisationService } from "src/services/organisation-service/organisat
 // Page Components
 import { AppComponent } from "./app.component";
 import { BrowseJobsComponent } from "./browse-jobs/browse-jobs.component";
-import { PostJobComponent } from "./post-job/post-job.component";
 import { MessagesComponent } from "./messages/messages.component";
 import { ProfileMenuComponent } from "./profile-menu/profile-menu.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
@@ -101,7 +100,6 @@ import { JobFeedbackModalComponent } from './modals/job-feedback-modal/job-feedb
     AppComponent,
     UserDashboardComponent,
     BrowseJobsComponent,
-    PostJobComponent,
     MessagesComponent,
     OrganizationDashboardComponent,
     ProfileMenuComponent,

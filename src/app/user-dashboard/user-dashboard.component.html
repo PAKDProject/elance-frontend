@@ -3,7 +3,6 @@
     <div class='pageContainer'>
       <div class="header">
         <h2 (click)='testFeedbackModal()'>User Dashboard</h2>
-        <button class='btn btn-sm' (click)="openModal()">Create Job</button>
       </div>
 
       <div class='pageBody'>
@@ -12,7 +11,16 @@
             <h1>Active Jobs</h1>
           </div>
           <div class='cardContent'>
-            <dashboard-job-card *ngFor='let job of user.activeJobs' [JobInput]='job'></dashboard-job-card>
+            <div class='dragArrow' (click)='moveDragLeft(0)'>
+              <mat-icon>keyboard_arrow_left</mat-icon>
+            </div>
+            <drag-scroll #activeJobs>
+              <dashboard-job-card *ngFor='let job of user.activeJobs' [JobInput]='job'></dashboard-job-card>
+              <!-- <dashboard-job-card drag-scroll-item *ngFor='let j of tempArray'></dashboard-job-card> -->
+            </drag-scroll>
+            <div class='dragArrow' (click)='moveDragRight(0)'>
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </div>
           </div>
         </div>
 
@@ -21,7 +29,16 @@
             <h1>Applied Jobs</h1>
           </div>
           <div class='cardContent'>
-            <dashboard-job-card *ngFor='let job of user.appliedJobs' [JobInput]='job'></dashboard-job-card>
+            <div class='dragArrow' (click)='moveDragLeft(1)'>
+                <mat-icon>keyboard_arrow_left</mat-icon>
+            </div>
+            <drag-scroll #appliedJobs>
+              <dashboard-job-card *ngFor='let job of user.appliedJobs' [JobInput]='job'></dashboard-job-card>         
+              <!-- <dashboard-job-card drag-scroll-item *ngFor='let j of tempArray'></dashboard-job-card> -->
+            </drag-scroll>
+            <div class='dragArrow' (click)='moveDragRight(1)'>
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </div>
           </div>
         </div>
 
@@ -30,12 +47,25 @@
             <h1>Posted Jobs</h1>
           </div>
           <div class='cardContent'>
-            <dashboard-job-card *ngFor='let job of user.postedJobs' [JobInput]='job'></dashboard-job-card>
+            <div class='dragArrow' (click)='moveDragLeft(2)'>
+              <mat-icon>keyboard_arrow_left</mat-icon>
+            </div>
+            <drag-scroll #postedJobs>
+              <dashboard-job-card *ngFor='let job of user.postedJobs' [JobInput]='job'></dashboard-job-card>
+              <!-- <dashboard-job-card drag-scroll-item *ngFor='let j of tempArray'></dashboard-job-card> -->
+            </drag-scroll>
+            <div class='dragArrow' (click)='moveDragRight(2)'>
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </div>
           </div>
         </div>
 
-        <contacts-card></contacts-card>
+        <!-- <contacts-card></contacts-card> -->
       </div>
+
+      <button class='btn btn-sm' (click)="openModal()">Create Job</button>
+      
+      <contacts-card></contacts-card>
     </div>
   </div>
 </div>

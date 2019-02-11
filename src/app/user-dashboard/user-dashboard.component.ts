@@ -1,17 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IUser } from 'src/models/user-model';
-import { JobsState } from 'src/redux/states/job.state';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { IJob } from 'src/models/job-model';
-import { RequestJobs } from 'src/redux/actions/job.actions';
 import { DragScrollComponent } from 'ngx-drag-scroll/lib';
 import { MatDialog } from '@angular/material';
 import { CreateJobModalComponent } from '../modals/create-job-modal/create-job-modal.component';
-import { ActiveJobModalComponent } from '../modals/active-job-modal/active-job-modal.component';
-import { InactiveJobModalComponent } from '../modals/inactive-job-modal/inactive-job-modal.component';
 import { UserState } from 'src/redux/states/user.state';
 import { JobFeedbackModalComponent } from '../modals/job-feedback-modal/job-feedback-modal.component';
+import { IJob } from 'src/models/job-model';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -19,15 +15,20 @@ import { JobFeedbackModalComponent } from '../modals/job-feedback-modal/job-feed
   styleUrls: ['./user-dashboard.component.scss']
 })
 export class UserDashboardComponent implements OnInit {
+  tempArray = [ 1,2,3,4,5,6,7,8,9,0,11,12 ];
+
+  @ViewChild('activeJobs', {read: DragScrollComponent}) activeDrag: DragScrollComponent;
+  @ViewChild('postedJobs', {read: DragScrollComponent}) postedDrag: DragScrollComponent;
+  @ViewChild('appliedJobs', {read: DragScrollComponent}) appliedDrag: DragScrollComponent;
+
   @Select(UserState.getUser)
   user$: Observable<IUser>;
 
   user: Partial<IUser>;
 
-  constructor(private dialog: MatDialog, private store: Store) { }
+  carousels: DragScrollComponent[];
 
-  @ViewChild('activeJobs', { read: DragScrollComponent }) activeCarousel: DragScrollComponent;
-  @ViewChild('inactiveJobs', { read: DragScrollComponent }) inactiveCarousel: DragScrollComponent;
+  constructor(private dialog: MatDialog, private store: Store) { }
 
   ngOnInit() {
     this.user$.subscribe(element => {
@@ -43,29 +44,12 @@ export class UserDashboardComponent implements OnInit {
         postedJobs: element.postedJobs
       }
     })
-  }
 
-  moveCarousel(direction: string, carousel: number) {
-    if (direction == 'left') {
-      switch (carousel) {
-        case 1:
-          this.activeCarousel.moveLeft();
-          break;
-        case 2:
-          this.inactiveCarousel.moveLeft();
-          break;
-      }
-    }
-    else {
-      switch (carousel) {
-        case 1:
-          this.activeCarousel.moveRight();
-          break;
-        case 2:
-          this.inactiveCarousel.moveRight();
-          break;
-      }
-    }
+    this.carousels = [
+      this.activeDrag,
+      this.postedDrag,
+      this.appliedDrag
+    ]
   }
 
   openModal(): void {
@@ -93,5 +77,12 @@ export class UserDashboardComponent implements OnInit {
     this.dialog.open(JobFeedbackModalComponent, {
       data: testJob
     });
+  }
+
+  moveDragLeft(index) {
+    this.carousels[index].moveLeft()
+  }
+  moveDragRight(index) {
+    this.carousels[index].moveRight()
   }
 }
