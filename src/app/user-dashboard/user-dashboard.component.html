@@ -30,10 +30,10 @@
           </div>
           <div class='cardContent'>
             <div class='dragArrow' (click)='moveDragLeft(1)'>
-                <mat-icon>keyboard_arrow_left</mat-icon>
+              <mat-icon>keyboard_arrow_left</mat-icon>
             </div>
             <drag-scroll #appliedJobs>
-              <dashboard-job-card *ngFor='let job of user.appliedJobs' [JobInput]='job'></dashboard-job-card>         
+              <dashboard-job-card *ngFor='let job of user.appliedJobs' [JobInput]='job'></dashboard-job-card>
               <!-- <dashboard-job-card drag-scroll-item *ngFor='let j of tempArray'></dashboard-job-card> -->
             </drag-scroll>
             <div class='dragArrow' (click)='moveDragRight(1)'>
@@ -64,7 +64,7 @@
       </div>
 
       <button class='btn btn-sm' (click)="openModal()">Create Job</button>
-      
+
       <contacts-card></contacts-card>
     </div>
   </div>

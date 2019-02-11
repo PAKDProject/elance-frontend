@@ -92,20 +92,21 @@ export class CreateJobModalComponent implements OnInit {
     if (date <= new Date()) {
       this.dateDue.setErrors({ invalid: true });
       this.notificationService.showError("An error occured");
-    } 
-    else {      
-      if((this.data as IOrganisation).websiteUrl) {
+    }
+    else {
+      if ((this.data as IOrganisation).websiteUrl) {
         let tempOrg = this.data as IOrganisation
         this.newJob.employerID = tempOrg.id
         this.newJob.employerName = tempOrg.orgName
         this.dispatch();
       }
-      else if((this.data as IUser).fName){
+      else if ((this.data as IUser).fName) {
         this.user$.subscribe(u => {
           this.newJob.employerID = u.id
           this.newJob.employerName = `${u.fName} ${u.lName}`
-          this.dispatch();
         })
+        this.dispatch();
+
       }
     }
   }
