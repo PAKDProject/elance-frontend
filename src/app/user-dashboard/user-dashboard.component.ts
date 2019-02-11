@@ -13,11 +13,11 @@ import { UserState } from 'src/redux/states/user.state';
   styleUrls: ['./user-dashboard.component.scss']
 })
 export class UserDashboardComponent implements OnInit {
-  tempArray = [ 1,2,3,4,5,6,7,8,9,0,11,12 ];
+  tempArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 11, 12];
 
-  @ViewChild('activeJobs', {read: DragScrollComponent}) activeDrag: DragScrollComponent;
-  @ViewChild('postedJobs', {read: DragScrollComponent}) postedDrag: DragScrollComponent;
-  @ViewChild('appliedJobs', {read: DragScrollComponent}) appliedDrag: DragScrollComponent;
+  @ViewChild('activeJobs', { read: DragScrollComponent }) activeDrag: DragScrollComponent;
+  @ViewChild('postedJobs', { read: DragScrollComponent }) postedDrag: DragScrollComponent;
+  @ViewChild('appliedJobs', { read: DragScrollComponent }) appliedDrag: DragScrollComponent;
 
   @Select(UserState.getUser)
   user$: Observable<IUser>;
@@ -39,7 +39,9 @@ export class UserDashboardComponent implements OnInit {
         skills: element.skills,
         jobHistory: element.jobHistory,
         appliedJobs: element.appliedJobs,
-        postedJobs: element.postedJobs
+        postedJobs: element.postedJobs,
+        activeJobs: element.activeJobs
+
       }
     })
 

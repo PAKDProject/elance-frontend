@@ -96,6 +96,10 @@ export class UserApplyForJob {
      */
     constructor(public payload: Partial<IJob>) { }
 }
+export class RequestAddActiveJob {
+    static readonly type = "[user] Add Active Job";
+    constructor(public job: Partial<IJob>, public userId: string) { }
+}
 export class SendOrgInvite {
     static readonly type = '[User] Send Org Invite'
 
