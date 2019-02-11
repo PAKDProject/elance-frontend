@@ -3,7 +3,7 @@
     .header {
         display: grid;
         grid-template-columns: 1fr auto;
-        grid-column-gap: 10px;
+        grid-column-gap: 30px;
         align-items: center;
 
         mat-icon {
@@ -11,9 +11,23 @@
         }
     }
     .jobInfo {
+        margin: 10px;
+        padding: 10px;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-column-gap: 10px;
+        grid-row-gap: 5px;
+        border: 1px $accent solid;
+        border-radius: 5px;
+
+        .title {
+            font-weight: 500;
+            // font-size: 18px;
+        }
         .dates {
             display: grid;
-            grid-template-columns: repeat(4,auto);
+            grid-template-columns: auto 1fr;
+            grid-column-gap: 10px;
         }
     
     }
@@ -32,6 +46,10 @@
                     align-items: center;
 
                     font-size: 1.25rem;
+                }
+
+                textarea {
+                    max-height: 300px;
                 }
             }
         }

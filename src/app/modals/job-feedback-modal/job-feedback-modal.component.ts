@@ -10,7 +10,7 @@ import { NotificationService } from 'src/services/notifications/notification.ser
   styleUrls: ['./job-feedback-modal.component.scss']
 })
 export class JobFeedbackModalComponent implements OnInit {
-  jobInfo: boolean = true;
+  jobInfo: boolean = false;
   rating: number;
 
   constructor(
