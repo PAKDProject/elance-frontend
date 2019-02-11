@@ -11,6 +11,7 @@ import { CreateJobModalComponent } from '../modals/create-job-modal/create-job-m
 import { ActiveJobModalComponent } from '../modals/active-job-modal/active-job-modal.component';
 import { InactiveJobModalComponent } from '../modals/inactive-job-modal/inactive-job-modal.component';
 import { UserState } from 'src/redux/states/user.state';
+import { JobFeedbackModalComponent } from '../modals/job-feedback-modal/job-feedback-modal.component';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -70,6 +71,27 @@ export class UserDashboardComponent implements OnInit {
   openModal(): void {
     this.dialog.open(CreateJobModalComponent, {
       data: this.user
+    });
+  }
+
+  
+  testFeedbackModal(): void {
+    let testJob: IJob = {
+      id: "1800-YEET-SKEET", // Not Shown
+      title: "Title",
+      employerID: "2900-SKEET-YEET", //Not shown
+      employerName: "Big Chungus",
+      description: "Lorem ipsum dolor dolor bills yall",
+      dateDue: new Date(),
+      datePosted: new Date(),
+      dateAccepted: new Date(),
+      dateCompleted: new Date(),
+      location: 'Dublin',
+      progress: 90, //Not needed for this
+      payment: 4000,
+    }
+    this.dialog.open(JobFeedbackModalComponent, {
+      data: testJob
     });
   }
 }
