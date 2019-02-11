@@ -23,7 +23,18 @@
         cursor: pointer;
     }
     .modalBody {
+        form {
+            .form-group {
+                .starRow {
+                    display: grid;
+                    grid-template-columns: repeat(2,auto) 1fr;
+                    grid-column-gap: 10px;
+                    align-items: center;
 
+                    font-size: 1.25rem;
+                }
+            }
+        }
     }
 
     .buttons {
@@ -46,3 +57,11 @@
   color: $primary;
   background: $secondary;
 }
+
+.star {
+    font-size: 1.5rem;
+    color: #b0c4de;
+  }
+  .filled {
+    color: $primary;
+  }

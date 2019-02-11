@@ -11,6 +11,7 @@ import { NotificationService } from 'src/services/notifications/notification.ser
 })
 export class JobFeedbackModalComponent implements OnInit {
   jobInfo: boolean = true;
+  rating: number;
 
   constructor(
     public dialogRef: MatDialogRef<JobFeedbackModalComponent>,
