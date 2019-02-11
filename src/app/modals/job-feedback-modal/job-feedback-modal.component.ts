@@ -12,6 +12,7 @@ import { NotificationService } from 'src/services/notifications/notification.ser
 export class JobFeedbackModalComponent implements OnInit {
   jobInfo: boolean = false;
   rating: number;
+  comment: string = "";
 
   constructor(
     public dialogRef: MatDialogRef<JobFeedbackModalComponent>,
@@ -25,4 +26,8 @@ export class JobFeedbackModalComponent implements OnInit {
   
   closeModal() { this.dialogRef.close() }
   toggleJobInfo() { this.jobInfo = !this.jobInfo}
+
+  submit() {
+    console.log(`Feedback => rating: ${this.rating} comment: ${this.comment}`)
+  }
 }
