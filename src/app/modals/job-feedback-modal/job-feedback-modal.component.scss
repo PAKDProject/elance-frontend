@@ -1,0 +1,67 @@
+@import '../../../variables.scss';
+.container {
+    .header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-column-gap: 10px;
+        align-items: center;
+
+        mat-icon {
+            cursor: pointer;
+        }
+    }
+    .jobInfo {
+        .dates {
+            display: grid;
+            grid-template-columns: repeat(4,auto);
+        }
+    
+    }
+    .toggleInfo {
+        display: grid;
+        justify-items: center;
+        cursor: pointer;
+    }
+    .modalBody {
+        form {
+            .form-group {
+                .starRow {
+                    display: grid;
+                    grid-template-columns: repeat(2,auto) 1fr;
+                    grid-column-gap: 10px;
+                    align-items: center;
+
+                    font-size: 1.25rem;
+                }
+            }
+        }
+    }
+
+    .buttons {
+        
+    }
+}
+
+.primary {
+  background: $primary;
+  color: white;
+}
+
+.primary:hover {
+  color: $primary;
+  background: white;
+  border: 1px solid $primary;
+}
+
+.secondary {
+  color: $primary;
+  background: $secondary;
+}
+
+.star {
+    font-size: 1.5rem;
+    color: #b0c4de;
+  }
+  .filled {
+    color: $primary;
+  }

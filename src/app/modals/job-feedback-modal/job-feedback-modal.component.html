@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="header">
+    <h1>Freelancer Feedback</h1>
+    <mat-icon (click)="closeModal()">close</mat-icon>
+  </div>
+  <div *ngIf='jobInfo' class="jobInfo">
+    <div>Job Title: {{ data.title }}</div>
+    <div>Employer: {{ data.employerName }}</div>
+    <div>Payment: {{ data.payment | currency: "EUR":"symbol":"1.2-2" }}</div>
+    <div class="dates">
+      <div>Posted: {{ data.datePosted | date: "dd/MM/yyyy" }}</div>
+      <div>{{ data.dateAccepted ? ("Accepted: " + (data.dateAccepted | date: "dd/MM/yyyy")) : "" }}</div>
+      <div>{{ data.dateCompleted ? ("Completed: "+ (data.dateCompleted | date: "dd/MM/yyyy")) : "" }}</div>
+      <div>{{ data.dateDue ? ("Due: " + (data.dateDue | date: "dd/MM/yyyy")) : "" }}</div>
+    </div>
+    <div>{{ data.location ? "Location:" + data.location : "" }}</div>
+    <div>{{ data.description }}</div>
+  </div>
+  <div (click)='toggleJobInfo()' class="toggleInfo"><mat-icon>{{ jobInfo? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon></div>
+  
+  <div class="modalBody">
+    <form>
+      <div class="form-group">
+        <label>Rating:</label>
+        <div class="starRow">
+          <ngb-rating [(rate)]="rating" max='5'>
+              <ng-template let-fill="fill" let-index="index">
+                <span class="star" [class.filled]="fill === 100">&#9733;</span>
+              </ng-template>
+          </ngb-rating>
+          <div>{{rating? rating : 0}}</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="comment">Additional Comments:</label>
+        <textarea id="comment" class="form-control"></textarea>
+      </div>
+    </form>
+  </div>
+  
+  <div class="buttons row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <button class="btn btn-block secondary" (click)='closeModal()'>Cancel</button>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <button class="btn btn-block primary" (click)="submitForm()">Submit</button>
+      </div>
+  </div>
+</div>

@@ -13,7 +13,8 @@ import {
   AcceptOrgInvite,
   RequestUpdateUserOrg,
   RequestDeleteOrgFromUser,
-  RequestAddPostedJob
+  RequestAddPostedJob,
+  RequestAddActiveJob
 } from "../actions/user.actions";
 import { UserService } from "src/services/user-service/user.service";
 import { ISkills } from "src/models/skill-model";
@@ -171,6 +172,23 @@ export class UserState {
     dispatch(new RequestUpdateUser({ organisations: newOrgs }));
   }
 
+  @Action(RequestAddActiveJob)
+  RequestAddActiveJob(context: StateContext<UserStateModel>, { job, userId }: RequestAddActiveJob) {
+    let userToUpdate: IUser;
+    this._userService.getUserByID(userId).subscribe(user => {
+      userToUpdate = user;
+      let activeJobs = userToUpdate.activeJobs || [];
+      let appliedJobs = userToUpdate.appliedJobs;
+      const index = appliedJobs.findIndex(i => i.id === job.id);
+      appliedJobs.splice(index, 1);
+      activeJobs.push(job);
+
+      this._userService.updateUser({ activeJobs: activeJobs, appliedJobs: appliedJobs }, userId).subscribe(res => {
+        alert(JSON.stringify(res))
+      })
+    })
+
+  }
   @Action(UserApplyForJob)
   ApplyForJob({ getState, dispatch }: StateContext<UserStateModel>, { payload }: UserApplyForJob) {
     const appliedJobs: Partial<IJob>[] = getState().appliedJobs || []

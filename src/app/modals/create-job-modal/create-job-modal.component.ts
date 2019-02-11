@@ -137,8 +137,9 @@ export class CreateJobModalComponent implements OnInit {
         this.user$.subscribe(u => {
           this.newJob.employerID = u.id
           this.newJob.employerName = `${u.fName} ${u.lName}`
-          this.dispatch();
         })
+        this.dispatch();
+
       }
     }
   }
