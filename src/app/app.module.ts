@@ -6,6 +6,9 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 //Ngx-Markdown
 import { MarkdownModule } from 'ngx-markdown';
 
+//Ng-Datepicker
+
+
 //Angular Bootstrap
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
@@ -170,7 +173,8 @@ import { JobFeedbackModalComponent } from './modals/job-feedback-modal/job-feedb
       autoDismiss: true,
       easeTime: 300
     }),
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+
   ],
   providers: [
     UserService,

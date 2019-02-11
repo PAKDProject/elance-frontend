@@ -10,8 +10,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { UserState } from "src/redux/states/user.state";
 import { Observable } from "rxjs";
 import { IUser } from "src/models/user-model";
+import { ISkills } from "src/models/skill-model";
 import { IOrganisation } from "src/models/organisation-model";
 import { dispatch } from "rxjs/internal/observable/range";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "app-create-job-modal",
@@ -21,6 +23,15 @@ import { dispatch } from "rxjs/internal/observable/range";
 export class CreateJobModalComponent implements OnInit {
   @Select(UserState.getUser) user$: Observable<IUser>;
   jobForm: FormGroup;
+  skillForm: FormGroup;
+  skills: ISkills[];
+  skillsLoading: boolean;
+  selectedSkills: ISkills[] = [];
+  addCustomSkill = term => ({
+    skillTitle: term,
+    category: "Custom"
+  });
+
   newJob: IJob;
 
   constructor(
@@ -28,10 +39,12 @@ export class CreateJobModalComponent implements OnInit {
     private fb: FormBuilder,
     private notificationService: NotificationService,
     private _store: Store,
-    private _dialogRef: MatDialogRef<CreateJobModalComponent>
+    private _dialogRef: MatDialogRef<CreateJobModalComponent>,
+    private _http: HttpClient
   ) { }
 
   ngOnInit() {
+    //#region Jobs
     this.newJob = {
       title: "",
       employerName: "",
@@ -60,6 +73,23 @@ export class CreateJobModalComponent implements OnInit {
       this.newJob.payment = data.payment;
       this.newJob.remote = data.remote;
     });
+    //#endregion
+    //#region skill tags
+    this.getSkills().subscribe(res => {
+      console.log(res);
+      this.skillsLoading = false;
+      this.skills = res;
+    });
+
+    this.skillForm = this.fb.group({
+      selectedSkill: []
+    });
+
+    this.skillForm.valueChanges.subscribe(data => {
+      this.selectedSkills = data.selectedSkill;
+    })
+
+    //#endregion
   }
 
   //#region getters
@@ -88,12 +118,15 @@ export class CreateJobModalComponent implements OnInit {
     if (this.newJob.remote === false) this.location.enable();
   }
   submitForm(): void {
-    const date = new Date(`${this.dateDue.value}T00:00:00`);
+    const date = new Date(this.dateDue.value.year, this.dateDue.value.month - 1, this.dateDue.value.day);
+    this.newJob.dateDue = date
+    console.log(date)
     if (date <= new Date()) {
       this.dateDue.setErrors({ invalid: true });
       this.notificationService.showError("An error occured");
     }
     else {
+      this.newJob.tags = this.selectedSkills;
       if ((this.data as IOrganisation).websiteUrl) {
         let tempOrg = this.data as IOrganisation
         this.newJob.employerID = tempOrg.id
@@ -112,8 +145,23 @@ export class CreateJobModalComponent implements OnInit {
   }
 
   dispatch() {
+    console.log(this.newJob)
     this._store.dispatch(new AddJob(this.newJob));
     this._dialogRef.close();
   }
+
+  //#region tags region
+  getSkills(): Observable<ISkills[]> {
+    return this._http.get<ISkills[]>("assets/data/skills.json");
+  }
+  customSearchFn(term: string, item: ISkills) {
+    term = term.toLocaleLowerCase();
+    return (
+      item.skillTitle.toLocaleLowerCase().indexOf(term) > -1 ||
+      item.category.toLocaleLowerCase() === term
+    );
+  }
+
+  //#endregion
 }
 

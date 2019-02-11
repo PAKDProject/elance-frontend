@@ -1,4 +1,5 @@
 import { IUser } from "./user-model";
+import { ISkills } from "./skill-model";
 
 export interface IJob {
   id?: string;
@@ -17,4 +18,5 @@ export interface IJob {
   progress?: number;
   applicants?: Partial<IUser>[];
   chosenApplicant?: Partial<IUser>;
+  tags?: ISkills[]
 }
