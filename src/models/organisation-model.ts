@@ -14,4 +14,5 @@ export interface IOrganisation {
   activeJobs?: Partial<IJob>[] // {jobId, chosenApplicant, jobTitle, progress, dateDue, description};
   members?: Partial<IUser>[] // {userId, fName, lName, avatarUrl, email};
   contacts?: Partial<IUser>[] // {userId, fName, lName, avatarUrl, email};
+  tag?: string
 }

@@ -84,6 +84,15 @@
                 </button>
               </div>
             </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="tag">What type of work do you do</label>
+                  <input id="tag" type="text" class="form-control" formControlName="tag" [ngbTypeahead]="search"
+                    (focus)="focus$.next($event.target.value)" (click)="click$.next($event.target.value)" #instance="ngbTypeahead" />
+                </div>
+              </div>
+            </div>
 
             <div class="row">
               <div class="col">

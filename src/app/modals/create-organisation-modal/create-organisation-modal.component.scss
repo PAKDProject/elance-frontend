@@ -9,6 +9,7 @@
   height: auto;
   overflow-y: hidden;
   overflow-x: hidden;
+
   #header {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -85,6 +86,11 @@
     background-color: white;
     border: 1px solid $primary;
   }
+}
+
+.dropdown-item.active {
+  background: $primary;
+  color: white;
 }
 
 @media only screen and (max-width: 600px) {
