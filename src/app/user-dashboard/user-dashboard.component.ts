@@ -1,3 +1,4 @@
+import { RequestRefreshUser } from './../../redux/actions/user.actions';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IUser } from 'src/models/user-model';
 import { Select, Store } from '@ngxs/store';
@@ -31,6 +32,7 @@ export class UserDashboardComponent implements OnInit {
   constructor(private dialog: MatDialog, private store: Store) { }
 
   ngOnInit() {
+    this.store.dispatch(new RequestRefreshUser());
     this.user$.subscribe(element => {
       this.user = {
         fName: element.fName,
@@ -43,7 +45,6 @@ export class UserDashboardComponent implements OnInit {
         appliedJobs: element.appliedJobs,
         postedJobs: element.postedJobs,
         activeJobs: element.activeJobs
-
       }
     })
 
@@ -55,12 +56,16 @@ export class UserDashboardComponent implements OnInit {
   }
 
   openModal(): void {
-    this.dialog.open(CreateJobModalComponent, {
+    const dialogRef = this.dialog.open(CreateJobModalComponent, {
       data: this.user
     });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.store.dispatch(new RequestRefreshUser())
+    })
   }
 
-  
+
   testFeedbackModal(): void {
     let testJob: IJob = {
       id: "1800-YEET-SKEET", // Not Shown

@@ -65,12 +65,11 @@ export class OrgsState {
     orgs.push(partialJob);
 
     this._store.dispatch(new RequestAddOrgToUser(partialJob));
-    this._notification.showSuccess(`You've created ${payload.orgName}`, "You can now start posting jobs and adding members!")
+
     patchState({ orgs: orgs });
   }
   @Action(CreateOrganisationFail)
   createOrgFail({ errorMessage }: CreateOrganisationFail) {
-    this._notification.showError("An error occured!", errorMessage);
   }
   //#endregion
 
@@ -109,7 +108,6 @@ export class OrgsState {
 
   @Action(UpdateOrganisationFail)
   UpdateOrganisationFail({ patchState }: StateContext<OrgsStateModel>, { errorMessage }: UpdateOrganisationFail) {
-    this._notification.showError("Unfortunately something went wrong!", errorMessage);
   }
 
   //#endregion
@@ -133,12 +131,10 @@ export class OrgsState {
 
     const updatedOrgs = orgs.filter(org => org.id !== payload);
     dispatch(new RequestDeleteOrgFromUser(payload));
-    this._notification.showInfo("Deleted Organisation Successfully!")
     patchState({ orgs: updatedOrgs });
   }
   @Action(DeleteOrganisationFail)
   DeleteOrganisationFail({ patchState }: StateContext<OrgsStateModel>, { errorMessage }: DeleteOrganisationFail) {
-    this._notification.showError("Unfortunately something went wrong!", errorMessage);
   }
 
   //#endregion

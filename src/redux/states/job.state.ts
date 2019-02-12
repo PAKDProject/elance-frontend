@@ -16,8 +16,7 @@ import {
 } from "../actions/job.actions";
 import { IJob } from "src/models/job-model";
 import { JobService } from "src/services/job-service/job.service";
-import { NotificationService } from "src/services/notifications/notification.service";
-import { RequestUpdateUser, RequestAddPostedJob, RequestAddActiveJob } from "../actions/user.actions";
+import { RequestAddPostedJob, RequestAddActiveJob } from "../actions/user.actions";
 
 
 
@@ -35,7 +34,7 @@ export class JobsStateModel {
   }
 })
 export class JobsState {
-  constructor(private _jobsService: JobService, private _notification: NotificationService) { }
+  constructor(private _jobsService: JobService) { }
 
   //#region Selectors
   @Selector()
@@ -73,12 +72,7 @@ export class JobsState {
         );
       }
     );
-    // this.jobsService.getAllJobs().pipe(tap(jobs => {
-    //     console.log(jobs)
-    //     this.store.dispatch(new RequestJobsSuccess(jobs))
-    // }), catchError(err =>
-    //     this.store.dispatch(new RequestJobsFail(err))
-    // ))
+
   }
 
   @Action(RequestJobsSuccess)
@@ -143,7 +137,7 @@ export class JobsState {
       description: payload.description,
       employerName: payload.employerName,
       payment: payload.payment,
-      datePosted: payload.datePosted
+      dateDue: payload.dateDue
     }
     dispatch(new RequestAddPostedJob(partial));
     inactive.push(payload);
@@ -186,8 +180,7 @@ export class JobsState {
       //Update job in database
       this._jobsService.updateJob(partialJob, job.id).subscribe((res: { job: IJob }) => {
         const updatedJob = res.job;
-        //dispatch(new UserApplyForJob(updatedJob))
-        //BROKEN AF
+
         dispatch(new ApplyForJobSuccess(updatedJob));
 
       }),
@@ -205,7 +198,6 @@ export class JobsState {
 
     if (index !== -1) {
       jobs[index] = payload;
-      this._notification.showSuccess(`Woohoo you applied for ${payload.title}`, "We wish you the best of luck with your application!")
     }
     patchState({ isLoading: false, inactiveJobs: jobs });
 
@@ -214,7 +206,6 @@ export class JobsState {
 
   @Action(ApplyForJobFail)
   applyForJobFail({ patchState }: StateContext<JobsStateModel>, { errorMessage }: ApplyForJobFail) {
-    this._notification.showError("An error occured in the state", errorMessage);
     patchState({ isLoading: false });
   }
   //#endregion

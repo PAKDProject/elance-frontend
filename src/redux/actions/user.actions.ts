@@ -9,6 +9,11 @@ export class RequestUserSuccessAction {
 
     constructor(public payload: IUser) { }
 }
+
+export class RequestRefreshUser {
+    static readonly type = '[User] Refresh User'
+    constructor() { }
+}
 export class RequestUserFailedActions {
     static readonly type = '[User] Request Fail'
 

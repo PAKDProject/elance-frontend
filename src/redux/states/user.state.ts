@@ -14,7 +14,8 @@ import {
   RequestUpdateUserOrg,
   RequestDeleteOrgFromUser,
   RequestAddPostedJob,
-  RequestAddActiveJob
+  RequestAddActiveJob,
+  RequestRefreshUser
 } from "../actions/user.actions";
 import { UserService } from "src/services/user-service/user.service";
 import { ISkills } from "src/models/skill-model";
@@ -59,7 +60,6 @@ export class UserState {
   constructor(
     private store: Store,
     private _userService: UserService,
-    private _notification: NotificationService,
     private _orgService: OrganisationService
   ) { }
 
@@ -91,10 +91,23 @@ export class UserState {
       dispatch(new SetOrganisations(payload.organisations));
     }
   }
+  @Action(RequestRefreshUser)
+  RequestRefreshUser({ getState, setState }: StateContext<UserStateModel>) {
+    const userId = getState().id;
+    let user;
+
+    this._userService.getUserByID(userId).subscribe(res => {
+      user = res;
+    });
+
+    if (user) {
+      setState(user);
+    }
+
+  }
 
   @Action(RequestUserFailedActions)
   requestFailed({ patchState }: StateContext<UserStateModel>, { errorMessage }: RequestUserFailedActions) {
-    this._notification.showError("Couldn't set user ", errorMessage)
     patchState({});
   }
   //#endregion
@@ -116,13 +129,11 @@ export class UserState {
 
   @Action(RequestUpdateUserSuccess)
   updateUserRequestSuccess({ patchState }: StateContext<UserStateModel>, { user }: RequestUpdateUserSuccess) {
-    this._notification.showSuccess("User updated successfully!");
     patchState(user);
   }
 
   @Action(RequestUpdateUserFail)
   updateUserRequestFail(context: StateContext<UserStateModel>, { errorMessage }: RequestUpdateUserFail) {
-    this._notification.showError("User did not update!");
     console.log("Failed: " + errorMessage)
   }
 
@@ -153,7 +164,7 @@ export class UserState {
       dispatch(new RequestUpdateUser({ organisations: userOrgs }));
     }
     else {
-      this._notification.showWarning("Couldn't find organisation to update on user")
+      console.log("Couldn't find organisation to update on user")
     }
   }
 
@@ -184,7 +195,7 @@ export class UserState {
       activeJobs.push(job);
 
       this._userService.updateUser({ activeJobs: activeJobs, appliedJobs: appliedJobs }, userId).subscribe(res => {
-        alert(JSON.stringify(res))
+
       })
     })
 
@@ -207,10 +218,8 @@ export class UserState {
       user.orgInvitations.push(org);
 
       this._userService.updateUser({ orgInvitations: user.orgInvitations }, user.id).subscribe(res => {
-        this._notification.showSuccess("Invite Sent");
       })
     }, error => {
-      this._notification.showError("Unable to send invite to user!", error.message);
     })
   }
 
