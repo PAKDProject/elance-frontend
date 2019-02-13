@@ -50,7 +50,7 @@
             <div class='dragArrow' (click)='moveDragLeft(2)'>
               <mat-icon>keyboard_arrow_left</mat-icon>
             </div>
-            <drag-scroll #postedJobs>
+            <drag-scroll #postedJobs *ngIf="user.postedJobs.length > 0">
               <dashboard-job-card *ngFor='let job of user.postedJobs' [JobInput]='job'></dashboard-job-card>
               <!-- <dashboard-job-card drag-scroll-item *ngFor='let j of tempArray'></dashboard-job-card> -->
             </drag-scroll>

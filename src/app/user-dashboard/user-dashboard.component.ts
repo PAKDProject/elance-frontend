@@ -1,5 +1,5 @@
 import { RequestRefreshUser } from './../../redux/actions/user.actions';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnChanges } from '@angular/core';
 import { IUser } from 'src/models/user-model';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -16,6 +16,7 @@ import { IJob } from 'src/models/job-model';
   styleUrls: ['./user-dashboard.component.scss']
 })
 export class UserDashboardComponent implements OnInit {
+
   tempArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 11, 12];
 
   @ViewChild('activeJobs', { read: DragScrollComponent }) activeDrag: DragScrollComponent;
@@ -42,10 +43,11 @@ export class UserDashboardComponent implements OnInit {
         educationItems: element.educationItems,
         skills: element.skills,
         jobHistory: element.jobHistory,
-        appliedJobs: element.appliedJobs,
-        postedJobs: element.postedJobs,
-        activeJobs: element.activeJobs
+        appliedJobs: element.appliedJobs || [],
+        postedJobs: element.postedJobs || [],
+        activeJobs: element.activeJobs || []
       }
+      if (this.user.postedJobs == undefined) { this.user.postedJobs = [] }
     })
 
     this.carousels = [
@@ -61,10 +63,9 @@ export class UserDashboardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.store.dispatch(new RequestRefreshUser())
+      this.ngOnInit()
     })
   }
-
 
   testFeedbackModal(): void {
     let testJob: IJob = {

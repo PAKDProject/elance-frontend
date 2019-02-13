@@ -14,6 +14,7 @@ import { ISkills } from "src/models/skill-model";
 import { IOrganisation } from "src/models/organisation-model";
 import { dispatch } from "rxjs/internal/observable/range";
 import { HttpClient } from "@angular/common/http";
+import { RequestUpdateUser, RequestRefreshUser } from "src/redux/actions/user.actions";
 
 @Component({
   selector: "app-create-job-modal",
@@ -76,7 +77,6 @@ export class CreateJobModalComponent implements OnInit {
     //#endregion
     //#region skill tags
     this.getSkills().subscribe(res => {
-      console.log(res);
       this.skillsLoading = false;
       this.skills = res;
     });
@@ -120,7 +120,6 @@ export class CreateJobModalComponent implements OnInit {
   submitForm(): void {
     const date = new Date(this.dateDue.value.year, this.dateDue.value.month - 1, this.dateDue.value.day);
     this.newJob.dateDue = date
-    console.log(date)
     if (date <= new Date()) {
       this.dateDue.setErrors({ invalid: true });
       this.notificationService.showError("An error occured");
@@ -145,8 +144,7 @@ export class CreateJobModalComponent implements OnInit {
   }
 
   dispatch() {
-    console.log(this.newJob)
-    this._store.dispatch(new AddJob(this.newJob));
+    this._store.dispatch([new AddJob(this.newJob), new RequestRefreshUser()]);
     this._dialogRef.close();
   }
 
