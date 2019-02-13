@@ -79,7 +79,11 @@
           </div>
         </div>
         <div class='title'>
-          <h2 *ngIf='!editing || !editingTitle' (click)='startEditingTitle()'>{{org.orgName}}</h2>
+          <h2 *ngIf='!editing || !editingTitle' (click)='startEditingTitle()'>{{org.orgName}}
+          </h2>
+          <span class="badge badge-pill pill">{{org.tag}}</span>
+          <div></div>
+
           <input *ngIf='editing && editingTitle' type='text' [(ngModel)]='org.orgName' />
         </div>
         <div class='site'>
@@ -88,7 +92,8 @@
         </div>
         <div class='description'>
           <!-- <p *ngIf='!editing || !editingBio' (click)='startEditingBio()'>{{org.tagline}}</p> -->
-          <markdown *ngIf='!editing || !editingBio' ngPreserveWhitespaces (click)='startEditingBio()'> {{org.tagline}} </markdown>
+          <markdown *ngIf='!editing || !editingBio' ngPreserveWhitespaces (click)='startEditingBio()'> {{org.tagline}}
+          </markdown>
           <textarea *ngIf='editing && editingBio' [(ngModel)]='org.tagline'></textarea>
         </div>
       </div>

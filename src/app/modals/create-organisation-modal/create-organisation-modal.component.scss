@@ -102,3 +102,21 @@
     height: 80vh;
   }
 }
+
+
+::ng-deep .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+  background-color: white;
+  border-color: $primary;
+  color: $primary;
+
+  padding: 4px;
+  border-radius: 3px;
+}
+
+::ng-deep .ng-option.ng-star-inserted.ng-option-marked:hover {
+  background-color: white;
+}
+
+#select:focus {
+  border: none;
+}

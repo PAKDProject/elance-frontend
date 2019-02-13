@@ -84,13 +84,12 @@
                 </button>
               </div>
             </div>
-            <div class="row">
+            <div class="row mb-2">
               <div class="col-md-12">
-                <div class="form-group">
-                  <label for="tag">What type of work do you do</label>
-                  <input id="tag" type="text" class="form-control" formControlName="tag" [ngbTypeahead]="search"
-                    (focus)="focus$.next($event.target.value)" (click)="click$.next($event.target.value)" #instance="ngbTypeahead" />
-                </div>
+                <label for="select">Choose a Category</label>
+                <ng-select id="select" dropdownPosition="bottom" appendTo="body" [items]="options" formControlName="tag"
+                  placeholder="No Category selected">
+                </ng-select>
               </div>
             </div>
 
