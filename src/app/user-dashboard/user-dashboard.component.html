@@ -15,8 +15,8 @@
               <mat-icon>keyboard_arrow_left</mat-icon>
             </div>
             <drag-scroll #activeJobs>
-              <dashboard-job-card *ngFor='let job of user.activeJobs' [JobInput]='job'></dashboard-job-card>
-              <!-- <dashboard-job-card drag-scroll-item *ngFor='let j of tempArray'></dashboard-job-card> -->
+              <!-- <dashboard-job-card *ngFor='let job of user.activeJobs' [JobInput]='job'></dashboard-job-card> -->
+              <dashboard-job-card drag-scroll-item *ngFor='let j of tempJobs' [JobInput]='j'></dashboard-job-card>
             </drag-scroll>
             <div class='dragArrow' (click)='moveDragRight(0)'>
               <mat-icon>keyboard_arrow_right</mat-icon>

@@ -16,8 +16,43 @@ import { IJob } from 'src/models/job-model';
   styleUrls: ['./user-dashboard.component.scss']
 })
 export class UserDashboardComponent implements OnInit {
-  tempArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 11, 12];
-
+  tempJobs: IJob[] = [
+      {
+        id: "14071faf-1d96-4cf3-b657-65bae0363f77",
+        title: "Office Assistant I",
+        employerID: "14071faf-1d96-4cf3-b657-65bae0363f66",
+        employerName: "Ghandi",
+        description: "Donec semper sapien a libero. Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla.",
+        datePosted: new Date("03/31/2018"),
+        dateAccepted: new Date("11/14/2017"),
+        payment: 4533,
+        progress: 29
+    },
+    {
+        id: "71a6a660-4948-4d36-a124-f37eb1ff1489",
+        entity: "job",
+        title: "Teacher",
+        employerID: "1800-yeet",
+        employerName: "Photofeed",
+        description: "Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum.",
+        datePosted: new Date("11/15/2017"),
+        dateAccepted: new Date("07/02/2018"),
+        payment: 820,
+        progress: 98
+    },
+    {
+        id: "79ac4980-0612-440c-a98d-99c5dd1f0181",
+        entity: "job",
+        title: "Structural Analysis Engineer",
+        employerID: "1800-Skeet",
+        employerName: "Skiba",
+        description: "Sed accumsan felis. Ut at dolor quis odio consequat varius. Integer ac leo. Pellentesque ultrices mattis odio.",
+        datePosted: new Date("09/20/2018"),
+        dateAccepted: new Date("05/09/2018"),
+        payment: 1337,
+        progress: 46
+    }
+  ]
   @ViewChild('activeJobs', { read: DragScrollComponent }) activeDrag: DragScrollComponent;
   @ViewChild('postedJobs', { read: DragScrollComponent }) postedDrag: DragScrollComponent;
   @ViewChild('appliedJobs', { read: DragScrollComponent }) appliedDrag: DragScrollComponent;

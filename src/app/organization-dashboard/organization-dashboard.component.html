@@ -8,9 +8,9 @@
       <div *ngIf='user.organisations' class='orgList'>
         <div class='orgCard' *ngFor='let o of user.organisations'>
           <div class='logo'>
-            <img *ngIf="o.logoUrl === 'filler' || o.logoUrl === undefined" src='../../../assets/images/elance-logo-small.png'
+            <img *ngIf="o.logoUrl === 'filler' || o.logoUrl === undefined" src='../../../assets/images/intellilance-logo-small.png'
               alt='logo' />
-            <img *ngIf="o.logoUrl !== 'filler' && o.logoUrl !== undefined" [src]='o.logoUrl' alt='logo' />
+            <img *ngIf="o.logoUrl !== 'filler' && o.logoUrl !== undefined" [src]='o.logoUrl' alt='{{o.orgName}}' />
           </div>
           <div class='overlay'>
             <div class='adminRow' *ngIf='isAdminUser(o)'>
@@ -19,7 +19,8 @@
               <div class='filler' (click)='openDashboard(o)'></div>
               <mat-icon class='delete' (click)='deleteOrg(o)'>delete</mat-icon>
             </div>
-            <div class='filler' *ngIf='!(o.adminUser != null && o.adminUser.id == user.id)' (click)='openDashboard(o)'></div>
+            <div class='filler' *ngIf='o.adminUser != user.id' (click)='openDashboard(o)'></div>
+
             <div class='botHalf' (click)='openDashboard(o)'>
               <h3>{{o.orgName}}</h3>
             </div>
