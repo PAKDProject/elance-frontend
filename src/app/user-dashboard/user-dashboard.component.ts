@@ -51,6 +51,38 @@ export class UserDashboardComponent implements OnInit {
         contacts: element.contacts || []
       }
       if (this.user.postedJobs == undefined) { this.user.postedJobs = [] }
+
+      //TEMP
+      this.user.contacts.push(this.user.contacts[0])
+      this.user.activeJobs = [
+        {
+          title: 'Temp Title 1',
+          dateDue: new Date('2020-02-02'),
+          datePosted: new Date('2020-02-02'),
+          employerName: 'Jeff Bezos',
+          employerID: 'yes',
+          description: 'Placeholder description for the current job. Will be added later. Filling character space',
+          payment: 3000
+        },
+        {
+          title: 'Temp Title 2',
+          dateDue: new Date('2020-02-02'),
+          datePosted: new Date('2020-02-02'),
+          employerName: 'Jeff Bezos',
+          employerID: 'yes',
+          description: 'Placeholder description for the current job. Will be added later. Filling character space',
+          payment: 3000
+        },
+        {
+          title: 'Temp Title 3',
+          dateDue: new Date('2020-02-02'),
+          datePosted: new Date('2020-02-02'),
+          employerName: 'Jeff Bezos',
+          employerID: 'yes',
+          description: 'Placeholder description for the current job. Will be added later. Filling character space',
+          payment: 3000
+        }
+      ]
     })
 
     this.carousels = [
