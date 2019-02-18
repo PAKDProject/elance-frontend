@@ -14,9 +14,7 @@ export class EducationModalComponent implements OnInit {
   educationForm: FormGroup;
   educationItem: IEducationItem;
   oldItem: IEducationItem;
-  emitEducation: EventEmitter<IEducationItem> = new EventEmitter<
-    IEducationItem
-  >();
+  emitEducation: EventEmitter<IEducationItem> = new EventEmitter<IEducationItem>();
 
   constructor(
     public dialogRef: MatDialogRef<EducationModalComponent>,
@@ -25,7 +23,7 @@ export class EducationModalComponent implements OnInit {
   ) { }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(null);
   }
 
   ngOnInit(): void {

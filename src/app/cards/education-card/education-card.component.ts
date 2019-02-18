@@ -13,7 +13,7 @@ export class EducationCardComponent {
   @Input("editing") editing: boolean;
   @Output() educationEmit: EventEmitter<any> = new EventEmitter<
     any
-    >();
+  >();
 
   constructor(public dialog: MatDialog) { }
 
@@ -24,6 +24,7 @@ export class EducationCardComponent {
     });
 
     dialogRef.afterClosed().subscribe(data => {
+
       if (data !== undefined) {
         this.educationEmit.emit(data);
       }
