@@ -1,147 +1,142 @@
-<div class="container">
+<div mat-dialog-content>
   <h2 mat-dialog-title>Create a new Job</h2>
+  <form [formGroup]="jobForm">
+    <mat-vertical-stepper>
 
-  <div>
-    <mat-dialog-content>
-      <form [formGroup]="jobForm">
-        <mat-vertical-stepper>
+      <mat-step [stepControl]="jobForm">
+        <ng-template matStepLabel><b>Job Details</b></ng-template>
 
-          <mat-step [stepControl]="jobForm">
-            <ng-template matStepLabel><b>Job Details</b></ng-template>
-
-            <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="form-group">
-                  <label for="jobTitle"> What kind of job will it be </label>
-                  <input type="text" id="jobTitle" formControlName="jobTitle" placeholder="Angular 90 Project" class="form-control"
-                    maxlength=30 />
-                  <small id="char_count">{{jobTitle.value.length}}/30</small>
-                  <div class="feedback" *ngIf="!jobTitle.valid && jobTitle.touched">
-                    Please enter a title for Freelancers to see
-                  </div>
-                </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+              <label for="jobTitle"> What kind of job will it be </label>
+              <input type="text" id="jobTitle" formControlName="jobTitle" placeholder="Angular 90 Project" class="form-control"
+                maxlength=30 />
+              <small id="char_count">{{jobTitle.value.length}}/30</small>
+              <div class="feedback" *ngIf="!jobTitle.valid && jobTitle.touched">
+                Please enter a title for Freelancers to see
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label for="location">
-                    Is the job in a specific location or
-                    <div class="form-check ml-1" style="display: inline-block">
-                      <input type="checkbox" id="remote" formControlName="remote" class="form-check-input" (change)="toggleLocation()" />
-                      <label for="remote" class="form-check-label" style="color: black;">
-                        Remote
-                      </label>
-                    </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="location">
+                Is the job in a specific location or
+                <div class="form-check ml-1" style="display: inline-block">
+                  <input type="checkbox" id="remote" formControlName="remote" class="form-check-input" (change)="toggleLocation()" />
+                  <label for="remote" class="form-check-label" style="color: black;">
+                    Remote
                   </label>
-                  <input type="text" id="location" formControlName="location" placeholder="Galway" class="form-control"
-                    maxlength=30 />
-                  <small id="char_count">{{location.value.length}}/30</small>
                 </div>
+              </label>
+              <input type="text" id="location" formControlName="location" placeholder="Galway" class="form-control"
+                maxlength=30 />
+              <small id="char_count">{{location.value.length}}/30</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+              <label for="dateDue"> When should the job be completed </label>
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="dateDue"
+                ngbDatepicker #d="ngbDatepicker" (focus)="d.toggle()">
+
+              <!-- <input type="date" id="dateDue" min="2018-12-12" max="2020-12-30" formControlName="dateDue" class="form-control" /> -->
+              <div class="feedback" *ngIf="!dateDue.valid && dateDue.touched">
+                Woah that job was finished a bit too soon buddy
               </div>
             </div>
-
-            <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="form-group">
-                  <label for="dateDue"> When should the job be completed </label>
-                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="dateDue"
-                    ngbDatepicker #d="ngbDatepicker" (focus)="d.toggle()">
-
-                  <!-- <input type="date" id="dateDue" min="2018-12-12" max="2020-12-30" formControlName="dateDue" class="form-control" /> -->
-                  <div class="feedback" *ngIf="!dateDue.valid && dateDue.touched">
-                    Woah that job was finished a bit too soon buddy
-                  </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+              <label for="payment"> Payment for job</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroupPrepend">€</span>
                 </div>
+                <input type="number" id="payment" class="form-control" placeholder="4000" formControlName="payment" />
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="form-group">
-                  <label for="payment"> Payment for job</label>
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="inputGroupPrepend">€</span>
-                    </div>
-                    <input type="number" id="payment" class="form-control" placeholder="4000" formControlName="payment" />
-                  </div>
-                  <div class="feedback" *ngIf="!!payment.errors?.min && payment.touched">
-                    Don't be cheap
-                  </div>
-                  <div class="feedback" *ngIf="payment.value === 0">
-                    Open Source eh?
-                    <!-- Declan....really...this shit again -->
-                  </div>
-                  <div class="feedback" *ngIf="!!payment.errors?.max && payment.touched">
-                    Baller!
-                  </div>
-                  <div class="feedback" *ngIf="!payment.valid && payment.touched">
-                    Please enter a payment value
-                  </div>
-                </div>
+              <div class="feedback" *ngIf="!!payment.errors?.min && payment.touched">
+                Don't be cheap
+              </div>
+              <div class="feedback" *ngIf="payment.value === 0">
+                Open Source eh?
+                <!-- Declan....really...this shit again -->
+              </div>
+              <div class="feedback" *ngIf="!!payment.errors?.max && payment.touched">
+                Baller!
+              </div>
+              <div class="feedback" *ngIf="!payment.valid && payment.touched">
+                Please enter a payment value
               </div>
             </div>
+          </div>
+        </div>
 
-            <div class="row">
-              <div class="col-lg-12 col-md-12  col-sm-12">
-                <div class="form-group">
-                  <label for="description"> Description of Job </label>
-                  <textarea id="description" rows="3" formControlName="description" class="form-control" placeholder="Please enter some details on the scope and ideas behind this job"
-                    maxlength=300></textarea>
-                  <small id="char_count">{{description.value.length}}/300</small>
-                  <div class="feedback" *ngIf="!description.valid && description.touched">
-                    Come on, give us something to work with!
-                  </div>
-                </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12  col-sm-12">
+            <div class="form-group">
+              <label for="description"> Description of Job </label>
+              <textarea id="description" rows="3" formControlName="description" class="form-control" placeholder="Please enter some details on the scope and ideas behind this job"
+                maxlength=300></textarea>
+              <small id="char_count">{{description.value.length}}/300</small>
+              <div class="feedback" *ngIf="!description.valid && description.touched">
+                Come on, give us something to work with!
               </div>
             </div>
-            <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-6">
-                <button class="btn btn-block secondary" [mat-dialog-close]="true">
-                  Cancel
-                </button>
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-6">
-                <button class="btn btn-block primary" matStepperNext>
-                  Add Tags
-                </button>
-              </div>
-            </div>
-          </mat-step>
-          <mat-step>
-            <ng-template matStepLabel><b>Tags</b></ng-template>
-            <p class="text-muted">Adding tags helps us find you more suitable applicants</p>
-            <div class="row">
-              <div class="col">
-                <form class="form" [formGroup]="skillForm">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <button class="btn btn-block secondary" [mat-dialog-close]="true">
+              Cancel
+            </button>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <button class="btn btn-block primary" matStepperNext>
+              Add Tags
+            </button>
+          </div>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel><b>Tags</b></ng-template>
+        <p class="text-muted">Adding tags helps us find you more suitable applicants</p>
+        <div class="row">
+          <div class="col">
+            <form class="form" [formGroup]="skillForm">
 
-                  <ng-select [items]="skills" [multiple]="true" [loading]="skillsLoading" [addTag]="addCustomSkill"
-                    [markFirst]="false" [searchFn]="customSearchFn" groupBy="category" bindLabel="skillTitle"
-                    placeholder="Choose a skill" appendTo="body" id="select" formControlName="selectedSkill">
-                    <ng-template ng-option-tmp let-item="item">
-                      {{ item.skillTitle }} <br />
-                      <small>{{ item.category }}</small>
-                    </ng-template>
-                  </ng-select>
+              <ng-select [items]="skills" [multiple]="true" [loading]="skillsLoading" [addTag]="addCustomSkill"
+                [markFirst]="false" [searchFn]="customSearchFn" groupBy="category" bindLabel="skillTitle"
+                placeholder="Choose a skill" appendTo="body" id="select" formControlName="selectedSkill">
+                <ng-template ng-option-tmp let-item="item">
+                  {{ item.skillTitle }} <br />
+                  <small>{{ item.category }}</small>
+                </ng-template>
+              </ng-select>
 
 
-                  <div class="feedback" *ngIf="!skillForm.valid">Please select at least one tag</div>
-                </form>
-              </div>
-            </div>
+              <div class="feedback" *ngIf="!skillForm.valid">Please select at least one tag</div>
+            </form>
+          </div>
+        </div>
 
-            <div class="row mt-3">
-              <div class="col-lg-6 col-md-6 col-sm-6">
-                <button class="btn btn-block secondary" matStepperPrevious>
-                  Back
-                </button>
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-6">
-                <button class="btn btn-block primary" [disabled]="!jobForm.valid" (click)="submitForm()">
-                  Create Job
-                </button>
-              </div>
-            </div>
-          </mat-step>
-        </mat-vertical-stepper>
+        <div class="row mt-3">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <button class="btn btn-block secondary" matStepperPrevious>
+              Back
+            </button>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <button class="btn btn-block primary" [disabled]="!jobForm.valid" (click)="submitForm()">
+              Create Job
+            </button>
+          </div>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
 
-      </form>
-    </mat-dialog-content>
-  </div>
+  </form>
 </div>
