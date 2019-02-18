@@ -31,6 +31,7 @@ export class UploadImageModalComponent implements OnInit {
   formData: FormData = new FormData();
   userID: string;
   oldUrl: string;
+  previewUrl: string;
   //The url that will be given to the image once uploaded
   fileUrl: string;
   constructor(public dialogRef: MatDialogRef<UploadImageModalComponent>, private _notify: NotificationService,
@@ -88,7 +89,12 @@ export class UploadImageModalComponent implements OnInit {
               }
             })
           };
+
+
+
+
           reader.readAsBinaryString(event[0]);
+
         }
       }
       else {
