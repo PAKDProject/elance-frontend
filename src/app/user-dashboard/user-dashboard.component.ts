@@ -51,6 +51,8 @@ export class UserDashboardComponent implements OnInit {
         contacts: element.contacts || []
       }
       if (this.user.postedJobs == undefined) { this.user.postedJobs = [] }
+      if (this.user.activeJobs == undefined) { this.user.activeJobs = [] }
+      if (this.user.appliedJobs == undefined) { this.user.appliedJobs = [] }
 
       //TEMP
       this.user.contacts.push(this.user.contacts[0])
