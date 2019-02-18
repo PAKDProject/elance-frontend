@@ -12,7 +12,7 @@
       <div class="infoRow">
         <div>
           Posted: {{ data.datePosted | date: "dd/MM/yyyy" }}
-          {{ data.dateDue ? ("Due: " + data.dateDue | date: "dd/MM/yyyy") : "" }}
+          <!-- {{ data.dateDue ? ("Due: " + data.dateDue | date: "dd/MM/yyyy") : "" }} -->
         </div>
         <div>{{ data.location ? "Location:" + data.location : "" }}</div>
       </div>
@@ -39,7 +39,7 @@
       <button style="background: #12896e;" (click)="apply()" *ngIf="!isEmployer">
         Apply
       </button>
-      <button style="background: #12896e;" (click)="showApplicants()" *ngIf="isEmployer" [disabled]="!data.applicants">
+      <button style="background: #12896e;" (click)="showApplicants()" *ngIf="isEmployer">
         Show Applicants
         <span class="badge badge-light" id="pill">{{
           data.applicants ? data.applicants.length : 0

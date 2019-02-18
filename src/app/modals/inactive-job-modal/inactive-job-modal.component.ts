@@ -43,7 +43,7 @@ export class InactiveJobModalComponent implements OnInit {
       }
     });
 
-    console.log(this.data)
+    // console.log(this.data)
   }
 
   //Close modal
@@ -74,7 +74,8 @@ export class InactiveJobModalComponent implements OnInit {
 
   //If you are employer and there are applicants show the applicants screen
   showApplicants() {
-    if (this.isEmployer && this.data.applicants.length > 0) {
+
+    if (this.isEmployer && this.data.applicants && this.data.applicants.length > 0) {
       this.applicants = this.data.applicants;
       this.applicantsVisible = true;
     } else {
