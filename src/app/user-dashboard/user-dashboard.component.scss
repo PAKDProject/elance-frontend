@@ -42,6 +42,20 @@
                 align-items: center;
                 display: grid;
                 grid-template-columns: auto 1fr auto;
+
+                .dragArrow {
+                    mat-icon {
+                        cursor: pointer;
+                    }
+                }
+
+                .placeholder {
+                    grid-column: 2;
+                    display: grid;
+                    justify-items: center;
+                    align-items: center;
+                    min-height: 200px;
+                }
             }
         }
     }
