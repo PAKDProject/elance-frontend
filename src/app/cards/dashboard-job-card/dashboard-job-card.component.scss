@@ -3,6 +3,7 @@
 .blockContainer {
     display: inline-block;
     .jobCardContainer {
+        min-width: 250px;
         max-height: 200px;
         margin: 5px;
         padding: 10px;

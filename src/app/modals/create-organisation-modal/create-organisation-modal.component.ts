@@ -8,15 +8,12 @@ import { FormGroup, Form, FormBuilder, Validators } from '@angular/forms';
 import { IOrganisation } from 'src/models/organisation-model';
 import { UploadImageModalComponent } from '../upload-image-modal/upload-image-modal.component';
 import { CreateOrganisation } from 'src/redux/actions/organisation.actions';
-import { map, distinctUntilChanged, debounceTime, filter } from 'rxjs/operators';
-import { NgbTypeaheadConfig, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-create-organisation-modal',
   templateUrl: './create-organisation-modal.component.html',
   styleUrls: ['./create-organisation-modal.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  providers: [NgbTypeaheadConfig]
+  encapsulation: ViewEncapsulation.None
 })
 export class CreateOrganisationModalComponent implements OnInit {
 
@@ -26,9 +23,9 @@ export class CreateOrganisationModalComponent implements OnInit {
   partialUser: Partial<IUser>;
   orgName: string = "";
   options: string[] = ["Software", "Business", "Marketing", "Networking", "Science", "Nutrition", "Construction", "Law", "Medicine"]
-  constructor(private _dialogRef: MatDialogRef<CreateOrganisationModalComponent>, private _dialog: MatDialog, private _store: Store, private _fb: FormBuilder, private config: NgbTypeaheadConfig) {
-    config.showHint = true;
-    config.placement = ["top-left"]
+
+  constructor(private _dialogRef: MatDialogRef<CreateOrganisationModalComponent>, private _dialog: MatDialog, private _store: Store, private _fb: FormBuilder) {
+
   }
 
 
@@ -56,7 +53,7 @@ export class CreateOrganisationModalComponent implements OnInit {
       tagline: [this.organisation.tagline],
       websiteUrl: [this.organisation.websiteUrl],
       logoUrl: [this.organisation.logoUrl],
-      tag: [""]
+      tag: ["", Validators.required]
     });
 
     //Get values from form
@@ -68,6 +65,7 @@ export class CreateOrganisationModalComponent implements OnInit {
       this.organisation.logoUrl = data.logoUrl;
       this.orgName = data.organisationName;
       this.organisation.tag = data.tag;
+      console.log(data)
     });
   }// end of init
 
@@ -116,20 +114,7 @@ export class CreateOrganisationModalComponent implements OnInit {
     })
 
   }
-  @ViewChild('instance') instance: NgbTypeahead;
-  focus$ = new Subject<string>();
-  click$ = new Subject<string>();
 
-  search = (text$: Observable<string>) => {
-    const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
-    const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
-    const inputFocus$ = this.focus$;
-
-    return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
-      map(term => (term === '' ? this.options
-        : this.options.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
-    );
-  }
 
 
 

@@ -65,9 +65,9 @@ label {
 }
 
 ::ng-deep .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
-  background-color: white;
+  background-color: $primary;
   border-color: $primary;
-  color: $primary;
+  color: white;
 
   padding: 4px;
   border-radius: 3px;

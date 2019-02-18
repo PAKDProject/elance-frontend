@@ -1,7 +1,9 @@
 .wrapper {
   min-height: 100vh;
-}
+  height: 100%;
 
-.sidebar {
-  z-index: 0 !important;
+  .sidebar {
+    z-index: 0 !important;
+    height: 100%;
+  }
 }
