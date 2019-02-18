@@ -32,7 +32,6 @@ export class UserProfileModalComponent implements OnInit {
     })).subscribe(() => {
       this.notification.showSuccess(`Added ${this.data.fName} ${this.data.lName} as a contact`, "Contact them now from the messaging tab")
       this.dialogRef.close()
-
     })
   }
 

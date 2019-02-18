@@ -74,7 +74,7 @@ export class RegisterFormComponent implements OnInit {
     });
     //Education form
     this.educationForm = this.fb.group({
-      degreeTitle: [""],
+      degreeTitle: ["", Validators.required],
       educationStartDate: [
         "",
         [Validators.min(1900), Validators.max(new Date().getFullYear())]

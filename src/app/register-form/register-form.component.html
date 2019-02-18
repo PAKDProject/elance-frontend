@@ -82,14 +82,22 @@
         </div>
         <div class="row">
           <div class="col">
-            <ul>
+            <!-- <ul>
               <li *ngFor="let education of educationAdded" (click)="editItem(education)">
                 {{ education.degreeTitle }}
                 <span *ngIf="education.collegeName">
                   from {{ education.collegeName }} </span><span *ngIf="education.startYear || education.endYear">({{
                   education.startYear }}-{{ education.endYear }})</span>
               </li>
-            </ul>
+            </ul> -->
+
+            <span class="badge badge-pill pill" data-toggle="tooltip" title="Click to edit or delete!" *ngFor="let education of educationAdded"
+              (click)="editItem(education)">
+              {{ education.degreeTitle }}
+              <span *ngIf="education.collegeName">
+                from {{ education.collegeName }} </span><span *ngIf="education.startYear || education.endYear">({{
+                education.startYear }}-{{ education.endYear }})</span>
+            </span>
           </div>
         </div>
         <hr *ngIf="this.educationAdded.length > 0" />
