@@ -86,6 +86,11 @@ export class UploadImageModalComponent implements OnInit {
                     this.uploadedPercentage = event['loaded'] / event['total'] * 100;
                   }
                   break;
+                default:
+                  this.hoveringMessage = "Drag in your image now"
+                  this._notify.showWarning("Oops something went wrong!", "Please try again")
+                  this.dialogRef.disableClose = false;
+                  break;
               }
             })
           };
