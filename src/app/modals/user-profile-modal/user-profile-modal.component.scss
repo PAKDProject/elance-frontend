@@ -23,17 +23,28 @@
 
 .modalHeader {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr auto;
 
   .contactBtn {
-    justify-self: left;
-
+    width: 100%;
   }
 
   .contactBtn button {
+    display: flex;
+    align-items: center;
+    justify-content: center !important;
     background: $primary;
     color: white;
     border: 1px solid $primary;
+
+    mat-icon {
+      margin-right: 5px;
+    }
+
+    span {
+      margin-left: 5px;
+    }
+
   }
 
   .contactBtn button:hover {

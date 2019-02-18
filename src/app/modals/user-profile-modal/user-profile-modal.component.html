@@ -1,7 +1,9 @@
 <div class="modalHeader">
   <!-- leave this space for any extra buttons we might use later on-->
   <div class="contactBtn">
-    <button class="btn btn-sm" (click)="addContact()">Add Contact</button>
+    <button class="btn btn-block btn-sm" (click)="addContact()">
+      <mat-icon>person_add</mat-icon> <span>Add Contact</span>
+    </button>
   </div>
   <div class='closeIcon'>
     <mat-icon (click)="onNoClick()">close</mat-icon>

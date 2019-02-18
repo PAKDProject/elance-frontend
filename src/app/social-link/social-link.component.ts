@@ -29,7 +29,6 @@ export class SocialLinkComponent implements OnInit {
     this.socialLinks.valueChanges.pipe(debounceTime(500), distinctUntilChanged()).subscribe(newValue => {
       this.socialLink = newValue.socialLink
       let companyUrl: string = this.getCompanyUrl(newValue.socialLink)
-
       this.socialLinkImageUrl = "https://logo.clearbit.com/" + companyUrl
     })
   }
@@ -44,6 +43,8 @@ export class SocialLinkComponent implements OnInit {
     let temp = document.createElement('a')
     if (!fullStr.includes("http") && !fullStr.includes("https")) {
       fullStr = "https://" + fullStr
+
+
     }
     temp.href = fullStr
 
@@ -64,11 +65,18 @@ export class SocialLinkComponent implements OnInit {
     else {
       this.emitImageObject.emit({
         imageUrl: this.socialLinkImageUrl,
-        url: this.socialLink
+        url: this.addHttp(this.socialLink)
       })
       this.socialLinks.get("socialLink").setValue("")
       this.socialLinkImageUrl = this.DEFAULT_IMAGE_LOCATION
     }
+  }
+
+  addHttp(url: string) {
+    if (!url.includes("http") && !url.includes("https")) {
+      url = "https://" + url
+    }
+    return url
   }
 
 }

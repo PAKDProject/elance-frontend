@@ -23,6 +23,17 @@
     }
   }
 
+
+  .pill {
+    margin: 0.5rem;
+    background: $primary;
+    color: white;
+    padding: 0.5rem;
+    cursor: pointer;
+
+  }
+
+
   /deep/ .mat-vertical-stepper-header .mat-step-icon {
     background-color: $primary !important;
   }
@@ -32,6 +43,7 @@
       width: 100%;
       height: 100%;
     }
+
     max-width: 400px;
   }
 
@@ -159,7 +171,7 @@
       display: grid;
       grid-template-columns: repeat(10, auto);
 
-      .socConnection {        
+      .socConnection {
         display: grid;
         grid-template-areas: 'mid';
 
@@ -169,12 +181,13 @@
 
         .imgContainer {
           grid-area: mid;
-          
+
           img {
             width: 100%;
             height: 100%;
           }
         }
+
         .delete {
           z-index: 10;
           width: 20px;
@@ -190,14 +203,16 @@
           align-items: center;
 
           opacity: 0;
-        } 
+        }
       }
+
       .socConnection:hover {
-        .imgContainer{
+        .imgContainer {
           img {
             opacity: 0.4;
           }
         }
+
         .delete {
           opacity: 1;
         }
