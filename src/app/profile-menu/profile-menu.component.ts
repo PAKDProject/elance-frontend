@@ -161,6 +161,7 @@ export class ProfileMenuComponent implements OnInit {
 
   //Education editing
   addEducation(e: { old: IEducationItem, new: IEducationItem }) {
+    console.log(e)
     if (e != null) {
       //If old is null but new isnt, add education
       if (e.old === null && e.new != null) {

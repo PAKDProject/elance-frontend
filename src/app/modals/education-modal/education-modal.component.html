@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  <form [formGroup]="educationForm" (ngSubmit)="addEducation()">
+  <form [formGroup]="educationForm">
     <div class="row">
       <div class="col">
         <div class="form-group">
@@ -98,7 +98,7 @@
         </button>
       </div>
       <div class="col">
-        <button class="btn primary btn-block" id="addEducation" [disabled]="!educationForm.valid" type="submit">
+        <button class="btn primary btn-block" id="addEducation" [disabled]="!educationForm.valid" (click)="addEducation()">
           Save Education
         </button>
       </div>
