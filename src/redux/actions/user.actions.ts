@@ -9,6 +9,11 @@ export class RequestUserSuccessAction {
 
     constructor(public payload: IUser) { }
 }
+
+export class RequestRefreshUser {
+    static readonly type = '[User] Refresh User'
+    constructor() { }
+}
 export class RequestUserFailedActions {
     static readonly type = '[User] Request Fail'
 
@@ -95,6 +100,10 @@ export class UserApplyForJob {
      * @param payload {jobId, jobTitle, description, employerName, payment, datePosted}
      */
     constructor(public payload: Partial<IJob>) { }
+}
+export class RequestAddActiveJob {
+    static readonly type = "[user] Add Active Job";
+    constructor(public job: Partial<IJob>, public userId: string) { }
 }
 export class SendOrgInvite {
     static readonly type = '[User] Send Org Invite'

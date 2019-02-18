@@ -42,6 +42,8 @@ export class InactiveJobModalComponent implements OnInit {
         this.isEmployer = true;
       }
     });
+
+    console.log(this.data)
   }
 
   //Close modal
@@ -51,8 +53,6 @@ export class InactiveJobModalComponent implements OnInit {
 
   //Apply for the current job
   apply(): void {
-
-
     this._store.dispatch(new ApplyForJob(this.data.id, {
       id: this.user.id,
       fName: this.user.fName,
@@ -62,10 +62,12 @@ export class InactiveJobModalComponent implements OnInit {
       this._store.dispatch(new UserApplyForJob({
         id: this.data.id,
         title: this.data.title,
+        employerName: this.data.employerName,
         description: this.data.description,
         payment: this.data.payment,
-        datePosted: this.data.datePosted
+        dateDue: this.data.dateDue
       }))
+      this._notification.showSuccess(`Woohoo you applied for ${this.data.title}`, "We wish you the best of luck with your application!")
       this.dialogRef.close()
     })
   }

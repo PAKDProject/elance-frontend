@@ -16,13 +16,29 @@
       <div>{{ data.location ? "Location:" + data.location : "" }}</div>
     </div>
   </div>
-  <div class="modalBody">{{ data.description }}</div>
+  <div class="modalBody">
+    <div class="container">
+      {{ data.description }}
+
+      <div *ngIf="data.tags">
+        <hr />
+        <p class="text-muted">
+          Tags:
+        </p>
+        <div class="modalBody">
+          <span class="badge badge-pill pill" *ngFor="let tag of data.tags">{{tag.skillTitle}}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
   <div class="modalBottom">
     <button style="background: gray" (click)="onNoClick()">Cancel</button>
     <button style="background: #12896e;" (click)="apply()" *ngIf="!isEmployer">
       Apply
     </button>
-    <button style="background: #12896e;" (click)="showApplicants()" *ngIf="isEmployer">
+    <button style="background: #12896e;" (click)="showApplicants()" *ngIf="isEmployer" [disabled]="!data.applicants">
       Show Applicants
       <span class="badge badge-light" id="pill">{{
         data.applicants ? data.applicants.length : 0

@@ -6,6 +6,9 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 //Ngx-Markdown
 import { MarkdownModule } from 'ngx-markdown';
 
+//Ng-Datepicker
+
+
 //Angular Bootstrap
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
@@ -93,6 +96,7 @@ import { MembersComponent } from './organization-dashboard/members/members.compo
 import { SocialLinkComponent } from './social-link/social-link.component';
 import { DashboardJobCardComponent } from './cards/dashboard-job-card/dashboard-job-card.component';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
+import { JobFeedbackModalComponent } from './modals/job-feedback-modal/job-feedback-modal.component';
 
 @NgModule({
   declarations: [
@@ -140,7 +144,8 @@ import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.comp
     MembersComponent,
     SocialLinkComponent,
     DashboardJobCardComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    JobFeedbackModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -168,7 +173,8 @@ import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.comp
       autoDismiss: true,
       easeTime: 300
     }),
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+
   ],
   providers: [
     UserService,
@@ -193,7 +199,8 @@ import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.comp
     SkillContainerModalComponent,
     UserProfileModalComponent,
     CreateOrganisationModalComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    JobFeedbackModalComponent
   ]
 })
 export class AppModule { }

@@ -16,8 +16,7 @@ import {
 } from "../actions/job.actions";
 import { IJob } from "src/models/job-model";
 import { JobService } from "src/services/job-service/job.service";
-import { NotificationService } from "src/services/notifications/notification.service";
-import { RequestUpdateUser, RequestAddPostedJob } from "../actions/user.actions";
+import { RequestAddPostedJob, RequestAddActiveJob } from "../actions/user.actions";
 
 
 
@@ -31,12 +30,11 @@ export class JobsStateModel {
   name: "jobs",
   defaults: {
     inactiveJobs: [],
-    activeJobs: [],
     isLoading: false
   }
 })
 export class JobsState {
-  constructor(private _jobsService: JobService, private _notification: NotificationService) { }
+  constructor(private _jobsService: JobService) { }
 
   //#region Selectors
   @Selector()
@@ -74,12 +72,7 @@ export class JobsState {
         );
       }
     );
-    // this.jobsService.getAllJobs().pipe(tap(jobs => {
-    //     console.log(jobs)
-    //     this.store.dispatch(new RequestJobsSuccess(jobs))
-    // }), catchError(err =>
-    //     this.store.dispatch(new RequestJobsFail(err))
-    // ))
+
   }
 
   @Action(RequestJobsSuccess)
@@ -144,7 +137,7 @@ export class JobsState {
       description: payload.description,
       employerName: payload.employerName,
       payment: payload.payment,
-      datePosted: payload.datePosted
+      dateDue: payload.dateDue
     }
     dispatch(new RequestAddPostedJob(partial));
     inactive.push(payload);
@@ -187,8 +180,7 @@ export class JobsState {
       //Update job in database
       this._jobsService.updateJob(partialJob, job.id).subscribe((res: { job: IJob }) => {
         const updatedJob = res.job;
-        //dispatch(new UserApplyForJob(updatedJob))
-        //BROKEN AF
+
         dispatch(new ApplyForJobSuccess(updatedJob));
 
       }),
@@ -206,7 +198,6 @@ export class JobsState {
 
     if (index !== -1) {
       jobs[index] = payload;
-      this._notification.showSuccess(`Woohoo you applied for ${payload.title}`, "We wish you the best of luck with your application!")
     }
     patchState({ isLoading: false, inactiveJobs: jobs });
 
@@ -215,7 +206,6 @@ export class JobsState {
 
   @Action(ApplyForJobFail)
   applyForJobFail({ patchState }: StateContext<JobsStateModel>, { errorMessage }: ApplyForJobFail) {
-    this._notification.showError("An error occured in the state", errorMessage);
     patchState({ isLoading: false });
   }
   //#endregion
@@ -236,48 +226,35 @@ export class JobsState {
       //Update the job
       this._jobsService.updateJob({ chosenApplicant: user }, jobID).subscribe((res: { job: IJob }) => {
         const updatedJob = res.job;
-        dispatch(new AcceptApplicantSuccess(updatedJob));
+        dispatch(new RequestAddActiveJob({
+          id: updatedJob.id,
+          title: updatedJob.title,
+          employerName: updatedJob.employerName,
+          description: updatedJob.description,
+          progress: updatedJob.progress,
+          datePosted: updatedJob.datePosted
+        },
+          user.id))
+        dispatch(
+          new AcceptApplicantSuccess(updatedJob));
       }),
         err => {
           dispatch(new AcceptApplicantFail(err.message));
         };
 
-      //Update the user's active jobs
-      // const partialUser: Partial<IUser> = {
-      //   activeJobs: []
-      // }
 
-      // if (user.activeJobs !== undefined) {
-      //   if (!user.activeJobs.includes(job)) {
-      //     partialUser.activeJobs.push(job);
-      //   }
-      // } else {
-      //   partialUser.activeJobs.push(job);
-      // }
-
-      // this._userService
-      // .updateUser(partialUser, user.id)
-      // .subscribe((res: { user: IUser }) => {
-      //   const updatedUser = res.user;
-      //   this.store.dispatch(new ApplyForJobSuccess(updatedUser));
-      // }),
-      // err => {
-      //   this.store.dispatch(new ApplyForJobFail(err.message));
-      // };
     }
   }
 
   @Action(AcceptApplicantSuccess)
   acceptApplicantSuccess({ getState, patchState }: StateContext<JobsStateModel>, { job }: AcceptApplicantSuccess) {
     let jobs = getState().inactiveJobs;
-    let active = getState().activeJobs || [];
     //If update in db went succesfully replace old job with new one in state
     const index = jobs.map(j => j.id).indexOf(job.id);
     if (index !== -1) {
       jobs.splice(index, 1);
-      active.push(job);
     }
-    patchState({ isLoading: false, inactiveJobs: jobs, activeJobs: active });
+    patchState({ isLoading: false, inactiveJobs: jobs });
   }
 
   @Action(AcceptApplicantFail)

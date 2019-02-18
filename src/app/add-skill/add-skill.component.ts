@@ -29,7 +29,6 @@ export class AddSkillComponent implements OnInit {
   ngOnInit() {
 
     this.getSkills().subscribe(res => {
-      console.log(res);
       this.skillsLoading = false;
       this.skills = res;
     });

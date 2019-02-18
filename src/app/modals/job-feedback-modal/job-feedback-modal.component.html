@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="header">
+    <h1>Freelancer Feedback</h1>
+    <mat-icon (click)="closeModal()">close</mat-icon>
+  </div>
+  <div *ngIf='jobInfo' class="jobInfo">
+    <div class="title">Job Title:</div> <div>{{ data.title }}</div>
+    <div class="title">Employer:</div>  <div>{{ data.employerName }}</div>
+    <div class="title">Payment:</div>   <div>{{ data.payment | currency: "EUR":"symbol":"1.2-2" }}</div>
+    <div class="title">Dates:</div>
+    <div class="dates">
+      <div class="title">Posted:</div><div>{{ data.datePosted | date: "dd/MM/yyyy" }}</div>
+      <div class="title">Accepted:</div><div>{{ data.dateAccepted ? (data.dateAccepted | date: "dd/MM/yyyy") : "" }}</div>
+      <div class="title">Completed:</div><div>{{ data.dateCompleted ? (data.dateCompleted | date: "dd/MM/yyyy") : "" }}</div>
+      <div class="title">Due:</div><div>{{ data.dateDue ? (data.dateDue | date: "dd/MM/yyyy") : "" }}</div>
+    </div>
+    <div class="title">Location:</div><div>{{ data.location ? data.location : "" }}</div>
+    <div class="title">Description:</div><div>{{ data.description }}</div>
+  </div>
+  <div (click)='toggleJobInfo()' class="toggleInfo">
+    <!-- <div>{{ jobInfo? 'Hide Job Info' : 'Open Job Info' }}</div> -->
+    <div>{{ jobInfo? '' : 'Open Job Info' }}</div>
+    <mat-icon>{{ jobInfo? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</mat-icon>
+  </div>
+  
+  <div class="modalBody">
+    <form>
+      <div class="form-group">
+        <label>Rating:</label>
+        <div class="starRow">
+          <ngb-rating [(rate)]="rating" max='5'>
+              <ng-template let-fill="fill" let-index="index">
+                <span class="star" [class.filled]="fill === 100">&#9733;</span>
+              </ng-template>
+          </ngb-rating>
+          <div>{{rating? rating : 0}}</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="comment">Additional Comments:</label>
+        <textarea id="comment" class="form-control" maxlength="300" [(ngModel)]='comment' [ngModelOptions]="{standalone: true}"></textarea>
+      </div>
+    </form>
+  </div>
+  
+  <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <button class="btn btn-block secondary" (click)='closeModal()'>Cancel</button>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <button class="btn btn-block primary" (click)="submit()">Submit</button>
+      </div>
+  </div>
+</div>

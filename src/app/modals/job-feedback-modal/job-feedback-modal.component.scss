@@ -1,0 +1,85 @@
+@import '../../../variables.scss';
+.container {
+    .header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-column-gap: 30px;
+        align-items: center;
+
+        mat-icon {
+            cursor: pointer;
+        }
+    }
+    .jobInfo {
+        margin: 10px;
+        padding: 10px;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-column-gap: 10px;
+        grid-row-gap: 5px;
+        border: 1px $accent solid;
+        border-radius: 5px;
+
+        .title {
+            font-weight: 500;
+            // font-size: 18px;
+        }
+        .dates {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            grid-column-gap: 10px;
+        }
+    
+    }
+    .toggleInfo {
+        display: grid;
+        justify-items: center;
+        cursor: pointer;
+    }
+    .modalBody {
+        form {
+            .form-group {
+                .starRow {
+                    display: grid;
+                    grid-template-columns: repeat(2,auto) 1fr;
+                    grid-column-gap: 10px;
+                    align-items: center;
+
+                    font-size: 1.25rem;
+                }
+
+                textarea {
+                    max-height: 300px;
+                }
+            }
+        }
+    }
+
+    .buttons {
+        
+    }
+}
+
+.primary {
+  background: $primary;
+  color: white;
+}
+
+.primary:hover {
+  color: $primary;
+  background: white;
+  border: 1px solid $primary;
+}
+
+.secondary {
+  color: $primary;
+  background: $secondary;
+}
+
+.star {
+    font-size: 1.5rem;
+    color: #b0c4de;
+  }
+  .filled {
+    color: $primary;
+  }

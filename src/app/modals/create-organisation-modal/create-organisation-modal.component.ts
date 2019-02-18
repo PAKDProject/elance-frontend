@@ -1,19 +1,22 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { Store, Select } from '@ngxs/store';
 import { UserState } from 'src/redux/states/user.state';
-import { Observable } from 'rxjs';
+import { Observable, Subject, merge } from 'rxjs';
 import { IUser } from 'src/models/user-model';
 import { FormGroup, Form, FormBuilder, Validators } from '@angular/forms';
 import { IOrganisation } from 'src/models/organisation-model';
 import { UploadImageModalComponent } from '../upload-image-modal/upload-image-modal.component';
 import { CreateOrganisation } from 'src/redux/actions/organisation.actions';
+import { map, distinctUntilChanged, debounceTime, filter } from 'rxjs/operators';
+import { NgbTypeaheadConfig, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-create-organisation-modal',
   templateUrl: './create-organisation-modal.component.html',
   styleUrls: ['./create-organisation-modal.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers: [NgbTypeaheadConfig]
 })
 export class CreateOrganisationModalComponent implements OnInit {
 
@@ -22,7 +25,11 @@ export class CreateOrganisationModalComponent implements OnInit {
   organisation: IOrganisation;
   partialUser: Partial<IUser>;
   orgName: string = "";
-  constructor(private _dialogRef: MatDialogRef<CreateOrganisationModalComponent>, private _dialog: MatDialog, private _store: Store, private _fb: FormBuilder) { }
+  options: string[] = ["Software", "Business", "Marketing", "Networking", "Science", "Nutrition", "Construction", "Law", "Medicine"]
+  constructor(private _dialogRef: MatDialogRef<CreateOrganisationModalComponent>, private _dialog: MatDialog, private _store: Store, private _fb: FormBuilder, private config: NgbTypeaheadConfig) {
+    config.showHint = true;
+    config.placement = ["top-left"]
+  }
 
 
   ngOnInit() {
@@ -48,7 +55,8 @@ export class CreateOrganisationModalComponent implements OnInit {
       organisationEmail: [this.organisation.email, [Validators.required, Validators.email]],
       tagline: [this.organisation.tagline],
       websiteUrl: [this.organisation.websiteUrl],
-      logoUrl: [this.organisation.logoUrl]
+      logoUrl: [this.organisation.logoUrl],
+      tag: [""]
     });
 
     //Get values from form
@@ -59,6 +67,7 @@ export class CreateOrganisationModalComponent implements OnInit {
       this.organisation.tagline = data.tagline;
       this.organisation.logoUrl = data.logoUrl;
       this.orgName = data.organisationName;
+      this.organisation.tag = data.tag;
     });
   }// end of init
 
@@ -106,6 +115,20 @@ export class CreateOrganisationModalComponent implements OnInit {
       }
     })
 
+  }
+  @ViewChild('instance') instance: NgbTypeahead;
+  focus$ = new Subject<string>();
+  click$ = new Subject<string>();
+
+  search = (text$: Observable<string>) => {
+    const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
+    const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
+    const inputFocus$ = this.focus$;
+
+    return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
+      map(term => (term === '' ? this.options
+        : this.options.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
+    );
   }
 
 
