@@ -36,7 +36,7 @@ export class SidebarComponent implements OnInit {
     menuItems: any[];
     userFName: string;
     search: string;
-    avatar:string;
+    avatar: string;
     results: IUser[] = [];
 
     constructor(
@@ -83,7 +83,7 @@ export class SidebarComponent implements OnInit {
 
     viewProfile(user: IUser) {
         this._viewProfileDialog.open(UserProfileModalComponent, {
-          data: user
+            data: user
         });
     }
 }

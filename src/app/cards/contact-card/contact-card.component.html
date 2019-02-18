@@ -4,15 +4,15 @@
   </div>
   <div class='midCol'>
     <div class='profilePic'>
-      <img src='../../../assets/images/default_user.png'/>
+      <img src='../../../assets/images/default_user.png' />
     </div>
     <div class='name'>
-      John Smith
+      {{contact.fName + " "+ contact.lName | titlecase}}
     </div>
     <div class='tagline'>
-      Software Developer
+      {{contact.tagline}}
     </div>
-    <button class='btn btn-sm contact'>Contact</button>
+    <button class='btn btn-sm contact'><a href="mailto:{{contact.email}}">Contact</a></button>
   </div>
   <div class='rightCol'>
     <div *ngIf='editing' class="remove">

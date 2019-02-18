@@ -126,3 +126,13 @@ export class AcceptOrgInvite {
     constructor(public payload: string) { }
 }
 
+export class RequestAddContact {
+    static readonly type = '[User] Add Contact to User';
+    constructor(public payload: Partial<IUser>) { }
+}
+
+export class RequestDeleteContact {
+    static readonly type = '[User] Delete Contact from User'
+    constructor(public payload: string) { }
+}
+

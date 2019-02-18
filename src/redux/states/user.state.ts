@@ -15,7 +15,9 @@ import {
   RequestDeleteOrgFromUser,
   RequestAddPostedJob,
   RequestAddActiveJob,
-  RequestRefreshUser
+  RequestRefreshUser,
+  RequestAddContact,
+  RequestDeleteContact
 } from "../actions/user.actions";
 import { UserService } from "src/services/user-service/user.service";
 import { ISkills } from "src/models/skill-model";
@@ -42,7 +44,7 @@ export class UserStateModel {
   backgroundUrl?: string;
   socialLinks?: ISocialLink[];
   tagline?: string;
-  contacts?: IUser[];
+  contacts?: Partial<IUser>[];
   activeJobs?: Partial<IJob>[]; //{jobId, jobTitle, description, progress, employerName, dateAccepted}
   profileCards?: IProfileCard[];
   jobHistory?: Partial<IJob>[]; // {jobId, jobTitle, description, employerName, dateAccepted}
@@ -145,6 +147,28 @@ export class UserState {
     const existingSkills = getState().skills || [];
     existingSkills.push(...skills);
     dispatch(new RequestUpdateUser({ skills: existingSkills }));
+  }
+
+  @Action(RequestAddContact)
+  RequestAddContact({ getState, dispatch }: StateContext<UserStateModel>, { payload }: RequestAddContact) {
+    const contacts = getState().contacts || [];
+
+    contacts.push(payload);
+
+    dispatch(new RequestUpdateUser({ contacts: contacts }));
+  }
+
+  @Action(RequestDeleteContact)
+  RequestDeleteContact({ getState, dispatch }: StateContext<UserStateModel>, { payload }: RequestDeleteContact) {
+    const contacts = getState().contacts || [];
+
+    if (contacts !== []) {
+      const index = contacts.findIndex(c => c.id === payload);
+      if (index !== -1) {
+        contacts.splice(index, 1);
+        dispatch(new RequestUpdateUser({ contacts: contacts }))
+      }
+    }
   }
 
   @Action(RequestAddOrgToUser)

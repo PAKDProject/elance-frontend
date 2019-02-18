@@ -22,7 +22,7 @@ export class EducationModalComponent implements OnInit {
     public dialogRef: MatDialogRef<EducationModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _fb: FormBuilder
-  ) {}
+  ) { }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -30,13 +30,11 @@ export class EducationModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.editing = this.data.editing;
-    if (this.data.education)
-    { 
+    if (this.data.education) {
       this.oldItem = this.data.education;
       this.educationItem = this.data.education;
     }
-    else
-    {
+    else {
       this.educationItem = {};
     }
     this.oldItem = this.data.education;
@@ -58,8 +56,8 @@ export class EducationModalComponent implements OnInit {
     else {
       this.educationForm = this._fb.group({
         degreeTitle: "",
-        educationStartDate: [,[Validators.min(1900), Validators.max((new Date()).getFullYear())]],
-        educationEndDate: (new Date()).getFullYear() ,
+        educationStartDate: [, [Validators.min(1900), Validators.max((new Date()).getFullYear())]],
+        educationEndDate: (new Date()).getFullYear(),
         collegeName: "",
         finalGrade: "",
         educationDescription: ""
@@ -114,15 +112,12 @@ export class EducationModalComponent implements OnInit {
       collegeName: this.collegeName.value
     };
     //HERE I EMIT THE EDUCATION ITEM, Where it ends up? I dont have a notion
-    if(this.oldItem != null)
-    { this.dialogRef.close({ old: this.oldItem, new: this.educationItem }) }
-    else
-    { this.dialogRef.close({ old: null, new: this.educationItem })}
+    if (this.oldItem != null) { this.dialogRef.close({ old: this.oldItem, new: this.educationItem }) }
+    else { this.dialogRef.close({ old: null, new: this.educationItem }) }
   }
 
   //Remove education
   removeEducation() {
-    console.log("Remove clicked");
     this.dialogRef.close({ old: this.oldItem, new: null });
   }
 }

@@ -1,4 +1,4 @@
-import { RequestRefreshUser } from './../../redux/actions/user.actions';
+import { RequestRefreshUser, RequestDeleteContact } from './../../redux/actions/user.actions';
 import { Component, OnInit, ViewChild, OnChanges } from '@angular/core';
 import { IUser } from 'src/models/user-model';
 import { Select, Store } from '@ngxs/store';
@@ -9,6 +9,7 @@ import { CreateJobModalComponent } from '../modals/create-job-modal/create-job-m
 import { UserState } from 'src/redux/states/user.state';
 import { JobFeedbackModalComponent } from '../modals/job-feedback-modal/job-feedback-modal.component';
 import { IJob } from 'src/models/job-model';
+import { NotificationService } from 'src/services/notifications/notification.service';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -22,6 +23,7 @@ export class UserDashboardComponent implements OnInit {
   @ViewChild('activeJobs', { read: DragScrollComponent }) activeDrag: DragScrollComponent;
   @ViewChild('postedJobs', { read: DragScrollComponent }) postedDrag: DragScrollComponent;
   @ViewChild('appliedJobs', { read: DragScrollComponent }) appliedDrag: DragScrollComponent;
+  @ViewChild('contacts', { read: DragScrollComponent }) contactsDrag: DragScrollComponent;
 
   @Select(UserState.getUser)
   user$: Observable<IUser>;
@@ -30,7 +32,7 @@ export class UserDashboardComponent implements OnInit {
 
   carousels: DragScrollComponent[];
 
-  constructor(private dialog: MatDialog, private store: Store) { }
+  constructor(private dialog: MatDialog, private store: Store, private notification: NotificationService) { }
 
   ngOnInit() {
     this.store.dispatch(new RequestRefreshUser());
@@ -45,7 +47,8 @@ export class UserDashboardComponent implements OnInit {
         jobHistory: element.jobHistory,
         appliedJobs: element.appliedJobs || [],
         postedJobs: element.postedJobs || [],
-        activeJobs: element.activeJobs || []
+        activeJobs: element.activeJobs || [],
+        contacts: element.contacts || []
       }
       if (this.user.postedJobs == undefined) { this.user.postedJobs = [] }
     })
@@ -92,5 +95,11 @@ export class UserDashboardComponent implements OnInit {
   }
   moveDragRight(index) {
     this.carousels[index].moveRight()
+  }
+
+  deleteContact($event: Partial<IUser>) {
+    this.store.dispatch(new RequestDeleteContact($event.id)).subscribe(() => {
+      this.notification.showInfo("Removed Contact");
+    })
   }
 }

@@ -1,5 +1,8 @@
 <div class="modalHeader">
   <!-- leave this space for any extra buttons we might use later on-->
+  <div class="contactBtn">
+    <button class="btn btn-sm" (click)="addContact()">Add Contact</button>
+  </div>
   <div class='closeIcon'>
     <mat-icon (click)="onNoClick()">close</mat-icon>
   </div>
@@ -12,7 +15,7 @@
       </div>
 
       <div class="leftCol"></div>
-      
+
       <div class="midCol">
         <div class="profilePictureContainer">
           <!-- <img src="../../assets/images/stock-steve.jpg" /> -->
@@ -34,8 +37,8 @@
         <div class="socialConnectionContainer">
           <div *ngIf="this.data.socialLinks">
             <div class="socialConnectionContainer" *ngIf="this.data.socialLinks.length > 0">
-              <a *ngFor="let connection of this.data.socialLinks" href="http://{{ connection.linkUrl }}" target="_blank">
-                <img src="../../assets/icons/{{ connection.name }}1.png" id="{{ connection.name }}" alt="{{ connection.name }}" />
+              <a *ngFor="let connection of this.data.socialLinks" href="{{ connection.url }}" target="_blank">
+                <img src="{{connection.imageUrl}}" id="{{ connection.url }}" alt="{{ connection.url }}" />
               </a>
             </div>
           </div>

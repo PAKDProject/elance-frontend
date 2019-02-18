@@ -15,8 +15,8 @@
               <mat-icon>keyboard_arrow_left</mat-icon>
             </div>
             <drag-scroll #activeJobs>
-              <!-- <dashboard-job-card *ngFor='let job of user.activeJobs' [JobInput]='job'></dashboard-job-card> -->
-              <dashboard-job-card drag-scroll-item *ngFor='let j of tempJobs' [JobInput]='j'></dashboard-job-card>
+              <dashboard-job-card *ngFor='let job of user.activeJobs' [JobInput]='job'></dashboard-job-card>
+              <!-- <dashboard-job-card drag-scroll-item *ngFor='let j of tempJobs' [JobInput]='j'></dashboard-job-card> -->
             </drag-scroll>
             <div class='dragArrow' (click)='moveDragRight(0)'>
               <mat-icon>keyboard_arrow_right</mat-icon>
@@ -60,12 +60,31 @@
           </div>
         </div>
 
+
+        <div class="cardContainer contacts">
+          <div class="topRow">
+            <h1>Contacts</h1>
+          </div>
+          <div class='cardContent'>
+            <div class='dragArrow' (click)='moveDragLeft(2)'>
+              <mat-icon>keyboard_arrow_left</mat-icon>
+            </div>
+            <drag-scroll #contacts *ngIf="user.contacts.length > 0">
+              <contact-card *ngFor='let contact of user.contacts' [ContactInput]="contact" [EditingInput]="1 === 1"
+                (RemoveEmit)="deleteContact($event)"></contact-card>
+              <!-- <dashboard-job-card drag-scroll-item *ngFor='let j of tempArray'></dashboard-job-card> -->
+            </drag-scroll>
+            <div class='dragArrow' (click)='moveDragRight(2)'>
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </div>
+          </div>
+        </div>
         <!-- <contacts-card></contacts-card> -->
       </div>
 
       <button class='createJob btn btn-sm' (click)="openModal()">Create Job</button>
 
-      <contacts-card></contacts-card>
+      <!-- <contacts-card ></contacts-card> -->
     </div>
   </div>
 </div>

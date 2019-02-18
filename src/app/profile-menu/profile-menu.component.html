@@ -41,9 +41,9 @@
 
         <div class="socailConnectionContainer"></div>
 
-        <div class="socialConnectionContainer" *ngIf="socialLinks.length > 0">
-          <a *ngFor="let connection of socialLinks" href="{{connection.linkUrl}}" target="_blank">
-            <img src="../../assets/icons/{{connection.name}}1.png" id="{{connection.name}}" alt="{{connection.name}}" />
+        <div class="socialConnectionContainer" *ngIf="socialLinks && socialLinks.length > 0">
+          <a *ngFor="let connection of socialLinks" href="{{connection.url}}" target="_blank">
+            <img src="{{connection.imageUrl}}" id="{{connection.url}}" alt="{{connection.url}}" />
           </a>
         </div>
       </div>
