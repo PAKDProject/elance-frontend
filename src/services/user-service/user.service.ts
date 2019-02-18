@@ -97,8 +97,18 @@ export class UserService {
     return this.http.post(`${this.endpoint}/search`, JSON.stringify(query), this.httpOptions);
   }
 
-  getTestUser(): Observable<IUser> {
+  getTestUser1(): Observable<IUser> {
     return this.http.get(`${this.endpoint}/sad34324-d73fsadas-DAB4GSUS-b801-42069LOL`).pipe(
+      map(res => {
+        let response = res as { user: IUser };
+        return response.user;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  getTestUser2(): Observable<IUser> {
+    return this.http.get(`${this.endpoint}/d813c1eb-d73f-482f-b801-9519b664e706`).pipe(
       map(res => {
         let response = res as { user: IUser };
         return response.user;

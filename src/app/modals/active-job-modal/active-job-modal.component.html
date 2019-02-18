@@ -5,7 +5,7 @@
     <mat-icon (click)='onNoClick()'>close</mat-icon>
     </div>
     <div class="infoRow">
-      <div>Employer: {{data.employer}}</div>
+      <div>Employer: {{data.employerName}}</div>
       <div>Date Accepted: {{(data.dateAccepted)? (data.dateAccepted | date: 'dd/MM/yyyy') : 'unknown'}}</div>
     </div>
     <div class="infoRow">
@@ -21,4 +21,5 @@
   <div class="modalBody">
     {{data.description}}
   </div>
+  <button class="btn btn-success" (click)="completeJob(data)">Complete Job</button>
 </div>

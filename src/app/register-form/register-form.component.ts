@@ -218,8 +218,15 @@ export class RegisterFormComponent implements OnInit {
     });
   }
 
-  createTestUser() {
-    this.userService.getTestUser().subscribe(user => {
+  createTestUser1() {
+    this.userService.getTestUser1().subscribe(user => {
+      this.store.dispatch(new RequestUserSuccessAction(user));
+      this.router.navigateByUrl("home/user-dashboard");
+    });
+  }
+
+  createTestUser2() {
+    this.userService.getTestUser2().subscribe(user => {
       this.store.dispatch(new RequestUserSuccessAction(user));
       this.router.navigateByUrl("home/user-dashboard");
     });
