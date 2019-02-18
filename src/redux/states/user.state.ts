@@ -153,9 +153,12 @@ export class UserState {
   RequestAddContact({ getState, dispatch }: StateContext<UserStateModel>, { payload }: RequestAddContact) {
     const contacts = getState().contacts || [];
 
-    contacts.push(payload);
+    const index = contacts.findIndex(c => c.id === payload.id)
+    if (index === -1) {
+      contacts.push(payload);
+      dispatch(new RequestUpdateUser({ contacts: contacts }));
+    }
 
-    dispatch(new RequestUpdateUser({ contacts: contacts }));
   }
 
   @Action(RequestDeleteContact)
