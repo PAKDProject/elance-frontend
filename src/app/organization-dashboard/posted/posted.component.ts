@@ -1,8 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IJob } from 'src/models/job-model';
 import { CreateJobModalComponent } from 'src/app/modals/create-job-modal/create-job-modal.component';
 import { MatDialog } from '@angular/material';
 import { IOrganisation } from 'src/models/organisation-model';
+import { Store } from '@ngxs/store';
+import { bool } from 'aws-sdk/clients/signer';
 
 @Component({
   selector: 'dashboard-posted-jobs',
@@ -12,16 +14,21 @@ import { IOrganisation } from 'src/models/organisation-model';
 export class PostedComponent implements OnInit {
   @Input('JobsIn') jobs: IJob[];
   @Input('OrgIn') org: IOrganisation;
+  @Output() refresh: EventEmitter<bool> = new EventEmitter<bool>();
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private store: Store) { }
 
   ngOnInit() {
   }
 
-  
+
   createJob(): void {
     this.dialog.open(CreateJobModalComponent, {
       data: this.org
+    }).afterClosed().subscribe(() => {
+      this.refresh.emit(true);
+
     });
+
   }
 }

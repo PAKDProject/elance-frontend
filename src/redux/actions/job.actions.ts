@@ -95,7 +95,7 @@ export class AcceptApplicant {
      * @param jobID string id of job
      * @param user user to accept for job
      */
-    constructor(public jobID: string, public user: Partial<IUser>) { }
+    constructor(public jobID: string, public user: Partial<IUser>, public type: string) { }
 }
 export class AcceptApplicantSuccess {
     static readonly type = '[Jobs] Accept Applicant Success';
@@ -105,3 +105,25 @@ export class AcceptApplicantFail {
     static readonly type = '[Jobs] Accept Applicant Fail';
     constructor(public errorMessage: string) { }
 }
+
+
+//#region Add job to org 
+export class AddJobOrg {
+    static readonly type = '[Jobs] Org Post Job';
+    /**
+     * Moves a user from the applicants array to the selected user field for a specified job
+     * @param jobID string id of job
+     * @param user user to accept for job
+     */
+    constructor(public payload: IJob, public orgId: string) { }
+}
+export class AddJobOrgSuccess {
+    static readonly type = '[Jobs] Org Post Job Success';
+    constructor(public job: IJob, public orgId: string) { }
+}
+export class AddJobOrgFail {
+    static readonly type = '[Jobs] Org Post Job Fail';
+    constructor(public errorMessage: string) { }
+}
+
+//#endregion

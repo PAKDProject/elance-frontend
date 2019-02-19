@@ -226,7 +226,6 @@ export class UserState {
       activeJobs.push(job);
 
       this._userService.updateUser({ activeJobs: activeJobs, appliedJobs: appliedJobs }, userId).subscribe(res => {
-        console.log(res);
 
       })
     })
@@ -261,7 +260,7 @@ export class UserState {
       const index = postedJobs.findIndex(i => i.id === job.id);
       postedJobs.splice(index, 1);
 
-      this._userService.updateUser({ postedJobs: postedJobs}, userId).subscribe(res => {
+      this._userService.updateUser({ postedJobs: postedJobs }, userId).subscribe(res => {
 
       });
       // TODO: check if org is the employer and remove from there

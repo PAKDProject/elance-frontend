@@ -134,7 +134,7 @@ export class OrganizationDashboardComponent implements OnInit {
 
   toggleInvites() { this.invitesOpen = !this.invitesOpen }
 
-  openDashboard(o: IOrganisation) {
+  openDashboard(o: Partial<IOrganisation>) {
     this._orgService.getOrganisationByID(o.id).subscribe(res => {
       this.org = res;
     });
@@ -225,5 +225,11 @@ export class OrganizationDashboardComponent implements OnInit {
   isAdminUser(o: Partial<IOrganisation>): boolean {
     if (o.adminUser && o.adminUser === this.user.id) return true
     return false;
+  }
+
+  update(event) {
+    if (event) {
+      this.openDashboard(this.org);
+    }
   }
 }

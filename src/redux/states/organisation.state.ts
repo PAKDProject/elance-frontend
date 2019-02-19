@@ -1,8 +1,7 @@
 import { IOrganisation } from "src/models/organisation-model";
 import { State, Selector, Action, Store, StateContext } from "@ngxs/store";
-import { CreateOrganisation, CreateOrganisationSuccess, CreateOrganisationFail, SetOrganisations, UpdateOrganisation, UpdateOrganisationSuccess, UpdateOrganisationFail, DeleteOrganisation, DeleteOrganisationSuccess, DeleteOrganisationFail } from "../actions/organisation.actions";
+import { CreateOrganisation, CreateOrganisationSuccess, CreateOrganisationFail, SetOrganisations, UpdateOrganisation, UpdateOrganisationSuccess, UpdateOrganisationFail, DeleteOrganisation, DeleteOrganisationSuccess, DeleteOrganisationFail, OrgAddPostedJob, AddActiveJobToOrg } from "../actions/organisation.actions";
 import { OrganisationService } from "src/services/organisation-service/organisation.service";
-import { NotificationService } from "src/services/notifications/notification.service";
 import { RequestAddOrgToUser, RequestUpdateUserOrg, RequestDeleteOrgFromUser } from "../actions/user.actions";
 
 export class OrgsStateModel {
@@ -19,9 +18,7 @@ export class OrgsStateModel {
 export class OrgsState {
   constructor(
     private _orgService: OrganisationService,
-    private _store: Store,
-    private _notification: NotificationService
-  ) { }
+    private _store: Store) { }
 
   //#region Selector and Initial Set
   @Selector()
@@ -138,5 +135,55 @@ export class OrgsState {
   }
 
   //#endregion
+
+  @Action(OrgAddPostedJob)
+  OrgAddPostedJob({ getState, patchState }: StateContext<OrgsStateModel>, { payload, orgId }: OrgAddPostedJob) {
+    const orgs = getState().orgs;
+
+    const index = orgs.findIndex(o => o.id === orgId);
+
+    if (index !== -1) {
+      const org = orgs[index];
+
+      const postedJobs = org.jobsPosted || [];
+
+      postedJobs.push(payload);
+
+      org.jobsPosted = postedJobs;
+
+      this._orgService.updateOrganisation({ jobsPosted: postedJobs }, orgId).subscribe((res) => {
+        orgs[index] = res;
+
+        patchState({ orgs: orgs })
+      })
+    }
+  }
+
+  @Action(AddActiveJobToOrg)
+  AddActiveJobToOrg({ getState, patchState }: StateContext<OrgsStateModel>, { payload, orgId }: AddActiveJobToOrg) {
+    const orgs = getState().orgs;
+
+    const index = orgs.findIndex(o => o.id === orgId);
+
+    if (index !== -1) {
+      const org = orgs[index];
+
+      const activeJobs = org.activeJobs || [];
+
+      activeJobs.push(payload);
+
+      const jobIndex = org.jobsPosted.findIndex(j => j.id === payload.id)
+      if (jobIndex !== 1) {
+        org.jobsPosted.splice(jobIndex, 1);
+      }
+
+      this._orgService.updateOrganisation({ activeJobs: activeJobs, jobsPosted: org.jobsPosted }, orgId).subscribe((res) => {
+        orgs[index] = res;
+        patchState({ orgs: orgs })
+      })
+    }
+  }
+
+
 
 }

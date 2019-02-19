@@ -11,16 +11,21 @@ import { InactiveJobModalComponent } from 'src/app/modals/inactive-job-modal/ina
 })
 export class DashboardJobCardComponent implements OnInit {
   @Input('JobInput') job: IJob;
+  @Input() type: string;
 
   constructor(private dialog: MatDialog) { }
 
   ngOnInit() { }
 
   openJob() {
-    if(this.job.chosenApplicant)
-    { this.openActiveJobModal() }
-    else
-    { this.openInactiveJobModal() }
+    switch (this.type) {
+      case 'inactive':
+        this.openInactiveJobModal();
+        break;
+      case 'active':
+        this.openActiveJobModal();
+        break;
+    }
   }
 
   openActiveJobModal() {
@@ -33,7 +38,7 @@ export class DashboardJobCardComponent implements OnInit {
   openInactiveJobModal() {
     console.log('2')
     const dialogRef = this.dialog.open(InactiveJobModalComponent, {
-      data: this.job
+      data: { job: this.job, type: 'user' }
     })
   }
 }
