@@ -1,0 +1,143 @@
+
+@import '../../variables.scss';
+
+.pageContainer {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-column-gap: 20px;
+    
+    .contactsList, .messageArea {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        background: #eaeaea;
+        height: 100%;
+        min-height: 80vh;
+        max-height: 800px;
+        
+        .topRow {
+            background: $accent;
+            padding: 5px;
+            
+            h1 {
+                padding-left: 10px;
+                color: white;
+                justify-self: left;
+                font-size: 25px;
+                white-space: nowrap;
+            }
+        }
+    
+        .contactsList {
+            display: grid;
+            grid-auto-flow: dense;
+            overflow: auto;
+            .contactRow{
+                display: grid;
+                grid-template-areas: "pic name message"
+                                        "pic tagline message";
+                grid-template-columns: auto 1fr auto;
+                grid-column-gap: 20px;
+                border: 1px transparent solid;
+                padding: 10px;
+                height: 80px;
+    
+                .profilePic {
+                    grid-area: pic;
+                    width: 60px;
+                    height: 60px;
+                    overflow: hidden;
+                    border-radius: 50%;
+                    border: 2px solid darkgray;
+                    justify-self: center;
+                    align-self: center;
+        
+                    img {
+                        width: 100%;
+                    }
+                }
+                
+                .name {
+                    grid-area: name;
+                    align-self: center;
+                    font-size: 16px;
+                    font-weight: 600;
+                }
+            
+                .tagline {
+                    grid-area: tagline;
+                    align-self: flex-start;
+                    font-weight: 12px;
+                    font-style: italic;
+                }
+            
+                .messageIcon {
+                    grid-area: message;
+                    align-self: center;
+                    padding-right: 20px;
+                    
+                    mat-icon {
+                        cursor: pointer;
+                        font-size: 30px;
+                    }
+                    mat-icon:hover {
+                        color: $primary
+                    }
+                }
+            }
+            .contactRow:hover {
+                border: 1px $accent solid;
+            }
+        }
+        .moreButton {
+            justify-self: center;
+            align-self: flex-end;
+            margin-top: 10px;
+            width: 90%;
+            
+            button {
+                width: 100%;
+                background: #12896e;
+                border-radius: 5px;
+                border: 0px;
+                color: white;
+                height: 40px;
+                cursor: pointer;
+            }
+        }
+
+        .messageContent {
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            grid-column-gap: 10px;
+            padding: 10px;
+
+            textarea {
+                min-height: 50px;
+                max-height: 80px;
+                border-radius: 10px;
+            }
+
+            button {
+                border: 1px $primary solid;
+                background: $primary;
+                color: white;
+                display: grid;
+                justify-items: center;
+                align-items: center;
+                border-radius: 10px;
+                // border-radius: 50%;
+                // justify-self: right;
+            }
+            button:hover {
+                background: white;
+                color: $primary;
+            }
+        }
+    }
+    .messageArea { 
+        grid-template-rows: auto 1fr auto;
+    }
+}
