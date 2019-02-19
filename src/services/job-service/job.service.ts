@@ -122,9 +122,9 @@ export class JobService {
     return this._http.get(this.endpoint).pipe(
       map(res => {
         let response = res as { jobs: IJob[] };
-        console.log("yeet");
-        console.table(filters);
-        console.log(response.jobs);
+        // console.log("yeet");
+        // console.table(filters);
+        // console.log(response.jobs);
 
         //Filtering & searching
         if (filters.searchTerm) {
@@ -168,7 +168,7 @@ export class JobService {
             break;
         }
 
-        console.log(response.jobs);
+        // console.log(response.jobs);
 
         return response.jobs;
       })

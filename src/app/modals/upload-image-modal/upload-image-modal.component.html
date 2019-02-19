@@ -4,7 +4,6 @@
   <mat-dialog-content>
     <hr />
     <div class="modalBody" dropZone (hovered)="toggleHover($event)" (dropped)="startUpload($event)" [class.hovering]="isHovering">
-      <img *ngIf="filePath !== ''" id="image" [src]="filePath" />
       <h2 mat-dialog-title>{{ hoveringMessage }}</h2>
       <div class="file">
         <label class="file-label">

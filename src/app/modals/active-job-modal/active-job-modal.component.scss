@@ -9,6 +9,8 @@
             grid-template-columns: 1fr auto;
 
             h1 {
+                width: 100%;
+                text-align: center;
                 color: $primary;
             }
 
@@ -25,6 +27,31 @@
 
             div{
                 width: 100%;
+            }
+        }
+    }
+    .buttons {
+        margin-top: 20px;
+        display: grid;
+        justify-items: center;
+        button {
+            color: white;
+            background: $primary;
+            border: 1px $primary solid;
+        }
+        button:hover {
+            color: $primary;
+            background: white;
+        }
+    }
+}
+
+@media only screen and (max-width:450px)
+{
+    .modalContainer {
+        .modalHeader {
+            .infoRow {
+                grid-template-columns: 1fr;
             }
         }
     }

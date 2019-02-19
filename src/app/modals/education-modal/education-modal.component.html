@@ -1,107 +1,109 @@
-<div class="modalContainer" *ngIf="!editing && data.education !== null">
-  <div class="modalHeader">
-    <div class="topRow">
-      <h1>{{ educationItem.degreeTitle }}</h1>
-      <mat-icon (click)="onNoClick()">close</mat-icon>
-    </div>
-    <div class="timeCollegeRow">
-      <div class="timeContainer">
-        {{ educationItem.startYear }}-{{ educationItem.endYear }}
+<div mat-dialog-content>
+  <div class="modalContainer" *ngIf="!editing && data.education !== null">
+    <div class="modalHeader">
+      <div class="topRow">
+        <h1>{{ educationItem.degreeTitle }}</h1>
+        <mat-icon (click)="onNoClick()">close</mat-icon>
       </div>
-      <div class="collegeName">{{ educationItem.collegeName }}</div>
+      <div class="timeCollegeRow">
+        <div class="timeContainer">
+          {{ educationItem.startYear }}-{{ educationItem.endYear }}
+        </div>
+        <div class="collegeName">{{ educationItem.collegeName }}</div>
+      </div>
+      <h3>{{ educationItem.grade }}</h3>
     </div>
-    <h3>{{ educationItem.grade }}</h3>
+    <div class="modalBody">{{ educationItem.description }}</div>
   </div>
-  <div class="modalBody">{{ educationItem.description }}</div>
-</div>
-
-<div class="container" *ngIf="editing">
-  <div class="titleBar">
-    <div></div>
-
-    <div>
-      <h2 mat-dialog-title class="text-center" *ngIf="oldItem != null">
-        Edit Education
-      </h2>
-      <h2 mat-dialog-title class="text-center" *ngIf="oldItem == null">
-        Add Education
-      </h2>
+  
+  <div class="container" *ngIf="editing">
+    <div class="titleBar">
+      <div></div>
+  
+      <div>
+        <h2 mat-dialog-title class="text-center" *ngIf="oldItem != null">
+          Edit Education
+        </h2>
+        <h2 mat-dialog-title class="text-center" *ngIf="oldItem == null">
+          Add Education
+        </h2>
+      </div>
+  
+      <div class="deleteButton" *ngIf='oldItem != null'>
+        <mat-icon (click)='removeEducation()'>delete</mat-icon>
+      </div>
     </div>
-
-    <div class="deleteButton" *ngIf='oldItem != null'>
-      <mat-icon (click)='removeEducation()'>delete</mat-icon>
-    </div>
-  </div>
-
-  <form [formGroup]="educationForm" (ngSubmit)="addEducation()">
-    <div class="row">
-      <div class="col">
-        <div class="form-group">
-          <label for="degreeTitle">Degree Title</label>
-          <input type="text" class="form-control" id="degreeTitle" formControlName="degreeTitle" placeholder="BSc(Hons) Business" />
-          <div class="feedback-invalid" *ngIf="!!degreeTitle.errors?.incorrect">
-            Please enter at least a degree name
+  
+    <form [formGroup]="educationForm">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="degreeTitle">Degree Title</label>
+            <input type="text" class="form-control" id="degreeTitle" formControlName="degreeTitle" placeholder="BSc(Hons) Business" />
+            <div class="feedback-invalid" *ngIf="!!degreeTitle.errors?.incorrect">
+              Please enter at least a degree name
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <label for="educationStartDate">Started</label>
-        <input type="number" class="form-control" id="educationStartDate" formControlName="educationStartDate"
-          placeholder="2012" />
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <label for="educationEndDate">Finished</label>
-        <input type="number" class="form-control" id="educationEndDate" formControlName="educationEndDate" placeholder="2016" />
-      </div>
-    </div>
-    <div class="row">
-      <div class="feedback-invalid ml-3" *ngIf="!educationStartDate.pending && !!educationStartDate.errors?.min">
-        Cool Story bro, how was the viking era?
-      </div>
-      <div class="feedback-invalid  ml-3" *ngIf="!educationStartDate.pending && !!educationStartDate.errors?.max">
-        Cool Story bro, how are the flying cars?
-      </div>
-      <div class="feedback-invalid  ml-3" *ngIf="!educationEndDate.valid && educationEndDate.dirty">
-        Course must have ended after it began ... duh
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-8 col-md-8 col-sm-12">
-        <div class="form-group">
-          <label for="collegeName">College Name</label>
-          <input class="form-control" id="collegeName" formControlName="collegeName" type="text" placeholder="IT Sligo" />
+  
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <label for="educationStartDate">Started</label>
+          <input type="number" class="form-control" id="educationStartDate" formControlName="educationStartDate"
+            placeholder="2012" />
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <label for="educationEndDate">Finished</label>
+          <input type="number" class="form-control" id="educationEndDate" formControlName="educationEndDate" placeholder="2016" />
         </div>
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-12">
-        <div class="form-group">
-          <label for="finalGrade">Grade</label>
-          <input type="text" class="form-control" id="finalGrade" formControlName="finalGrade" placeholder="1.1" />
+      <div class="row">
+        <div class="feedback-invalid ml-3" *ngIf="!educationStartDate.pending && !!educationStartDate.errors?.min">
+          Cool Story bro, how was the viking era?
+        </div>
+        <div class="feedback-invalid  ml-3" *ngIf="!educationStartDate.pending && !!educationStartDate.errors?.max">
+          Cool Story bro, how are the flying cars?
+        </div>
+        <div class="feedback-invalid  ml-3" *ngIf="!educationEndDate.valid && educationEndDate.dirty">
+          Course must have ended after it began ... duh
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <div class="form-group">
-          <label for="educationDescription">Details</label>
-          <textarea class="form-control" id="educationDescription" name="educationDescription" rows="3" placeholder="Any detail on projects or grades ..."
-            formControlName="educationDescription"></textarea>
+      <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-12">
+          <div class="form-group">
+            <label for="collegeName">College Name</label>
+            <input class="form-control" id="collegeName" formControlName="collegeName" type="text" placeholder="IT Sligo" />
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+          <div class="form-group">
+            <label for="finalGrade">Grade</label>
+            <input type="text" class="form-control" id="finalGrade" formControlName="finalGrade" placeholder="1.1" />
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <button class="btn secondary btn-block" id="deleteEducation" (click)="onNoClick()">
-          Close
-        </button>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="educationDescription">Details</label>
+            <textarea class="form-control" id="educationDescription" name="educationDescription" rows="3" placeholder="Any detail on projects or grades ..."
+              formControlName="educationDescription"></textarea>
+          </div>
+        </div>
       </div>
-      <div class="col">
-        <button class="btn primary btn-block" id="addEducation" [disabled]="!educationForm.valid" type="submit">
-          Save Education
-        </button>
+      <div class="row">
+        <div class="col">
+          <button class="btn secondary btn-block" id="deleteEducation" (click)="onNoClick()">
+            Close
+          </button>
+        </div>
+        <div class="col">
+          <button class="btn primary btn-block" id="addEducation" [disabled]="!educationForm.valid" (click)="addEducation()">
+            Save Education
+          </button>
+        </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>  
 </div>

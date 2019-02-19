@@ -12,13 +12,15 @@ import {
   ApplyForJobFail,
   AcceptApplicant,
   AcceptApplicantSuccess,
-  AcceptApplicantFail
+  AcceptApplicantFail,
+  RemoveJob,
+  RemoveJobSuccess,
+  RemoveJobFail
 } from "../actions/job.actions";
 import { IJob } from "src/models/job-model";
 import { JobService } from "src/services/job-service/job.service";
 import { RequestAddPostedJob, RequestAddActiveJob } from "../actions/user.actions";
-
-
+import { isNullOrUndefined } from 'util';
 
 export class JobsStateModel {
   inactiveJobs: IJob[];
@@ -30,6 +32,7 @@ export class JobsStateModel {
   name: "jobs",
   defaults: {
     inactiveJobs: [],
+    activeJobs: [],
     isLoading: false
   }
 })
@@ -226,13 +229,16 @@ export class JobsState {
       //Update the job
       this._jobsService.updateJob({ chosenApplicant: user }, jobID).subscribe((res: { job: IJob }) => {
         const updatedJob = res.job;
+        console.log(updatedJob);
         dispatch(new RequestAddActiveJob({
           id: updatedJob.id,
           title: updatedJob.title,
           employerName: updatedJob.employerName,
-          description: updatedJob.description,
+          employerID: updatedJob.employerID,
+          payment: updatedJob.payment,
           progress: updatedJob.progress,
-          datePosted: updatedJob.datePosted
+          dateAccepted: updatedJob.dateAccepted,
+          dateDue: updatedJob.dateDue
         },
           user.id))
         dispatch(
@@ -261,9 +267,39 @@ export class JobsState {
   acceptApplicatnFail({ patchState }: StateContext<JobsStateModel>, { errorMessage }: AcceptApplicantFail) {
     patchState({ isLoading: false });
   }
-
   //#endregion
 
-}//end of file
+  //#region Complete Job
+  @Action(RemoveJob)
+  removeJob({getState, dispatch, patchState}: StateContext<JobsStateModel>, {jobID}: RemoveJob) {
+    const state = getState();
+    patchState({ isLoading: true});
+
+    // Get job in state
+    const job = state.activeJobs.find(j => j.id === jobID);
+
+    if(!isNullOrUndefined(job)) {
+      this._jobsService.deleteJob(jobID);
+      try {
+        dispatch( new RemoveJobSuccess(jobID));
+      } catch (e) {
+        dispatch( new RemoveJobFail(jobID));
+      }
+    }
+  }
+
+  @Action(RemoveJobSuccess)
+  removeJobSuccess({getState, patchState}: StateContext<JobsStateModel>, {jobID}: RemoveJobSuccess) {
+    const inactiveJobs = getState().inactiveJobs;
+    patchState({isLoading: false, activeJobs: inactiveJobs});
+  }
+
+  @Action(RemoveJobFail)
+  removeJobFail({patchState}: StateContext<JobsStateModel>, {errorMessage}: RemoveJobFail) {
+    patchState({ isLoading: false});
+  }
+  //#endregion
+
+}
 
 

@@ -1,64 +1,81 @@
 @import '../../../variables.scss';
-.cardContainer {
+
+.blockContainer {
+  display: inline-block;
+  .cardContainer {
+    min-width: 250px;
     display: grid;
     grid-template-columns: 20px auto 20px;
     padding: 10px;
     border: 2px darkgray solid;
     border-radius: 10px;
-    margin: 10px;
+    margin: 5px;
     background: #eaeaea;
 
     .midCol {
-        display: grid;
-        grid-template-rows: repeat(4,auto);
+      display: grid;
+      grid-template-rows: repeat(4, auto);
+      justify-items: center;
+      grid-row-gap: 5px;
+
+      .profilePic {
         justify-items: center;
-        grid-row-gap: 5px;
-            
-        .profilePic {
-            justify-items: center;
-            align-items: center;
-            border-radius: 50%;
-            border: 2px darkgray solid;
-            background: white;
-            height: 80px;
-            width: 80px;
-            overflow: hidden;
+        align-items: center;
+        border-radius: 50%;
+        border: 2px darkgray solid;
+        background: white;
+        height: 80px;
+        width: 80px;
+        overflow: hidden;
 
-            img {
-                height: 100%;
-                width: 100%;
-            }
+        img {
+          height: 100%;
+          width: 100%;
         }
+      }
 
-        .name {
-            text-align: center;
-            font-size: 20px;
-            font-weight: 600;
-        }
+      .name {
+        text-align: center;
+        font-size: 20px;
+        font-weight: 600;
+      }
 
-        .tagline {
-            text-align: center;
-            font-style: italic;
-        }
+      .tagline {
+        text-align: center;
+        font-style: italic;
+      }
 
-        button {
-            border: 1px $primary solid;
-            background: $primary;
-            color: white;
+      button {
+        border: 1px $primary solid;
+        background: $primary;
+        color: white;
+
+        a {
+          text-decoration: none;
+          color: white;
         }
-        button:hover {
-            background: white;
-            color: $primary;
+      }
+
+      button:hover {
+        background: white;
+        color: $primary;
+
+        a:hover {
+          color: $primary;
         }
+      }
     }
+
     .rightCol {
-        .remove {
-            color: $accent;
-            justify-self: right;
-            cursor: pointer;
-        }
-        .remove:hover {
-            color: #cc0000;
-        }    
+      .remove {
+        color: $accent;
+        justify-self: right;
+        cursor: pointer;
+      }
+
+      .remove:hover {
+        color: #cc0000;
+      }
     }
+  }
 }

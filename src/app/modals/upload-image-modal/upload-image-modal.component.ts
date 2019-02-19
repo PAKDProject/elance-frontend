@@ -31,6 +31,7 @@ export class UploadImageModalComponent implements OnInit {
   formData: FormData = new FormData();
   userID: string;
   oldUrl: string;
+  previewUrl: string;
   //The url that will be given to the image once uploaded
   fileUrl: string;
   constructor(public dialogRef: MatDialogRef<UploadImageModalComponent>, private _notify: NotificationService,
@@ -85,10 +86,20 @@ export class UploadImageModalComponent implements OnInit {
                     this.uploadedPercentage = event['loaded'] / event['total'] * 100;
                   }
                   break;
+                default:
+                  this.hoveringMessage = "Drag in your image now"
+                  this._notify.showWarning("Oops something went wrong!", "Please try again")
+                  this.dialogRef.disableClose = false;
+                  break;
               }
             })
           };
+
+
+
+
           reader.readAsBinaryString(event[0]);
+
         }
       }
       else {

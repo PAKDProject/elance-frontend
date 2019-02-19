@@ -75,8 +75,21 @@ export class ApplyForJobFail {
     constructor(public errorMessage: string) { }
 }
 
+export class RemoveJob {
+    static readonly type = '[Jobs] Remove Job';
+    constructor(public jobID: string) { }
+}
+export class RemoveJobSuccess {
+    static readonly type = '[Jobs] Remove Job Success';
+    constructor(public jobID: string) { }
+}
+export class RemoveJobFail {
+    static readonly type = '[Jobs] Remove Job Fail';
+    constructor(public errorMessage: string) { }
+}
+
 export class AcceptApplicant {
-    static readonly type = '[Jobs] Accept Applicant'
+    static readonly type = '[Jobs] Accept Applicant';
     /**
      * Moves a user from the applicants array to the selected user field for a specified job
      * @param jobID string id of job
@@ -85,10 +98,10 @@ export class AcceptApplicant {
     constructor(public jobID: string, public user: Partial<IUser>) { }
 }
 export class AcceptApplicantSuccess {
-    static readonly type = '[Jobs] Accept Applicant Success'
+    static readonly type = '[Jobs] Accept Applicant Success';
     constructor(public job: IJob) { }
 }
 export class AcceptApplicantFail {
-    static readonly type = '[Jobs] Accept Applicant Fail'
+    static readonly type = '[Jobs] Accept Applicant Fail';
     constructor(public errorMessage: string) { }
 }
