@@ -1,9 +1,8 @@
 @import '../../../variables.scss';
 
 .modalContainer {
+  padding: 10px;
   .modalHeader {
-    padding: 10px;
-
     .topRow {
       display: grid;
       grid-template-columns: 1fr auto;

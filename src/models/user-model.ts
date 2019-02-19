@@ -17,7 +17,7 @@ export interface IUser {
   backgroundUrl?: string;
   socialLinks?: ISocialLink[];
   tagline?: string;
-  contacts?: IUser[];
+  contacts?: Partial<IUser>[];
   activeJobs?: Partial<IJob>[];
   profileCards?: IProfileCard[];
   jobHistory?: IJob[];

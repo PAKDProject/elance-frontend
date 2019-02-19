@@ -6,7 +6,7 @@
         <ng-template matStepLabel>Getting Started</ng-template>
         <div class="row">
           <div class="col-md-12 text-center mb-2">
-            <img src="../../assets/images/IL_full_transparent.png" width="500" style="width: 100%">
+            <img src="../../assets/images/IL_full_transparent.png" width="500" style="width: 100%; max-width: 600px">
           </div>
         </div>
         <div class="row">
@@ -19,8 +19,11 @@
         </div>
 
         <!-- TEMPORARY -->
-        <button *ngIf="!isProduction" class="btn float-right next" (click)="createTestUser()">
-          Use Test User
+        <button *ngIf="!isProduction" class="btn float-right next" (click)="createTestUser1()">
+          Use John Smith
+        </button>
+        <button *ngIf="!isProduction" class="btn float-right next" (click)="createTestUser2()">
+          Use Paul Kratz
         </button>
         <!---->
 
@@ -82,14 +85,22 @@
         </div>
         <div class="row">
           <div class="col">
-            <ul>
+            <!-- <ul>
               <li *ngFor="let education of educationAdded" (click)="editItem(education)">
                 {{ education.degreeTitle }}
                 <span *ngIf="education.collegeName">
                   from {{ education.collegeName }} </span><span *ngIf="education.startYear || education.endYear">({{
                   education.startYear }}-{{ education.endYear }})</span>
               </li>
-            </ul>
+            </ul> -->
+
+            <span class="badge badge-pill pill" data-toggle="tooltip" title="Click to edit or delete!" *ngFor="let education of educationAdded"
+              (click)="editItem(education)">
+              {{ education.degreeTitle }}
+              <span *ngIf="education.collegeName">
+                from {{ education.collegeName }} </span><span *ngIf="education.startYear || education.endYear">({{
+                education.startYear }}-{{ education.endYear }})</span>
+            </span>
           </div>
         </div>
         <hr *ngIf="this.educationAdded.length > 0" />

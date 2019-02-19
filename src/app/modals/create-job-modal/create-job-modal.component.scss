@@ -1,18 +1,13 @@
 @import "../../../variables.scss";
 
-.container {
-  width: 70vw;
-  height: auto;
+h2 {
+  font-style: italic;
+  color: $primary;
+  text-align: center;
+}
 
-  h2 {
-    font-style: italic;
-    color: $primary;
-    text-align: center;
-  }
-
-  #typeSelection {
-    text-align: center;
-  }
+#typeSelection {
+  text-align: center;
 }
 
 .secondary:hover {

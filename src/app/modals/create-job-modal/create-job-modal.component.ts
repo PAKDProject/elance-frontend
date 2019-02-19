@@ -118,27 +118,32 @@ export class CreateJobModalComponent implements OnInit {
     if (this.newJob.remote === false) this.location.enable();
   }
   submitForm(): void {
-    const date = new Date(this.dateDue.value.year, this.dateDue.value.month - 1, this.dateDue.value.day);
-    this.newJob.dateDue = date
-    if (date <= new Date()) {
-      this.dateDue.setErrors({ invalid: true });
-      this.notificationService.showError("An error occured");
+    if (this.selectedSkills.length === 0) {
+      this.skillForm.setErrors({ invalid: true });
     }
     else {
-      this.newJob.tags = this.selectedSkills;
-      if ((this.data as IOrganisation).websiteUrl) {
-        let tempOrg = this.data as IOrganisation
-        this.newJob.employerID = tempOrg.id
-        this.newJob.employerName = tempOrg.orgName
-        this.dispatch();
+      const date = new Date(this.dateDue.value.year, this.dateDue.value.month - 1, this.dateDue.value.day);
+      this.newJob.dateDue = date
+      if (date <= new Date()) {
+        this.dateDue.setErrors({ invalid: true });
+        this.notificationService.showError("An error occured");
       }
-      else if ((this.data as IUser).fName) {
-        this.user$.subscribe(u => {
-          this.newJob.employerID = u.id
-          this.newJob.employerName = `${u.fName} ${u.lName}`
-        })
-        this.dispatch();
+      else {
+        this.newJob.tags = this.selectedSkills;
+        if ((this.data as IOrganisation).websiteUrl) {
+          let tempOrg = this.data as IOrganisation
+          this.newJob.employerID = tempOrg.id
+          this.newJob.employerName = tempOrg.orgName
+          this.dispatch();
+        }
+        else if ((this.data as IUser).fName) {
+          this.user$.subscribe(u => {
+            this.newJob.employerID = u.id
+            this.newJob.employerName = `${u.fName} ${u.lName}`
+          })
+          this.dispatch();
 
+        }
       }
     }
   }
