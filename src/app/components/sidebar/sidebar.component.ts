@@ -19,7 +19,7 @@ declare interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
     { path: 'user-dashboard', title: 'User Dashboard', icon: 'dashboard', class: '' },
     { path: 'browse-jobs', title: 'Browse Jobs', icon: 'find_in_page', class: '' },
-    // { path: 'messages', title: 'Messaging', icon: 'message', class: '' },
+    { path: 'messages', title: 'Messaging', icon: 'message', class: '' },
     { path: 'organization-dashboard', title: 'Organization Dashboard', icon: 'group', class: '' },
     { path: 'user-profile', title: 'My Profile', icon: 'face', class: '' }
 ];
@@ -36,7 +36,7 @@ export class SidebarComponent implements OnInit {
     menuItems: any[];
     userFName: string;
     search: string;
-    avatar:string;
+    avatar: string;
     results: IUser[] = [];
 
     constructor(
@@ -83,7 +83,7 @@ export class SidebarComponent implements OnInit {
 
     viewProfile(user: IUser) {
         this._viewProfileDialog.open(UserProfileModalComponent, {
-          data: user
+            data: user
         });
     }
 }
