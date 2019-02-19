@@ -1,5 +1,38 @@
 <div class="main-content">
   <div class="container-fluid">
-    <h2>Messages</h2>
+    <!-- <h2>Messages</h2> -->
+    <div class='pageContainer'>
+      <div class='contactsList'>
+        <div class="topRow">
+          <h1>Contacts</h1>
+        </div>
+        <div class='contactsList'>
+          <div *ngFor='let contact of ((user$ | async ).contacts !== undefined) ? (user$ | async).contacts : null;' class='contactRow'>
+            <div (click)='openProfile()' class='profilePic'>
+              <img src='../../../assets/images/default_user.png'/>
+            </div>
+            <div (click)='openProfile(contact)' class='name'>{{contact.fName}} {{contact.lName}}</div>
+            <div class='tagline'>{{contact.tagline}}</div>
+            <div class='messageIcon'>
+              <mat-icon (click)='openMessenger(contact)'>message</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='messageArea'>
+        <div class='topRow'>
+          <h1>{{(selectedContact != null? selectedContact.fName + ' ' + selectedContact.lName:'Messages')}}</h1>
+        </div>
+        <div class='messageContent'>
+          <h1>Temp</h1>
+        </div>
+        <form [formGroup]='messageForm'>
+          <textarea class='form-control'></textarea>
+          <button class='btn btn-primary'>
+            <mat-icon>send</mat-icon>
+          </button>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
