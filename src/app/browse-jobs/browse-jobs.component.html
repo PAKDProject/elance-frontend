@@ -12,8 +12,8 @@
     <div class="mb-2" *ngIf="(skillsCount$ | async) < 3 && this.showSkillsForm == true">
       <app-add-skill (dismissFormEmit)="dismissForm($event)" (emitSkills)="addSkill($event)"></app-add-skill>
     </div>
-    <div class='mb-2' *ngIf="(!((skillsCount$ | async) >= 3) && (this.showRecommended == true))">
-
+    <div class='mb-2' *ngIf="(!((skillsCount$ | async) < 3) && (this.showRecommended == true))">
+      <fucc-jobs (dismissFormEmit)="dismissFucc($event)"></fucc-jobs>
     </div>
     <div style="display: grid">
       <div class="topBar">

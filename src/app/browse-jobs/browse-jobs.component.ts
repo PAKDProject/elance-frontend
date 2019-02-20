@@ -104,13 +104,16 @@ export class BrowseJobsComponent implements OnInit {
   }
 
   refresh() {
-    this.store.dispatch(new RequestJobs());
+    this.store.dispatch(new RequestJobs())
   }
 
   dismissForm(e: boolean) {
-    if (e === true) this.showSkillsForm = false;
+    if (e === true) this.showSkillsForm = false
   }
 
+  dismissFucc(e: boolean) {
+    if (e) this.showRecommended = false
+  }
   addSkill(e: ISkills[]) {
     this.store.dispatch(new RequestAddSkillToUser(e))
   }
