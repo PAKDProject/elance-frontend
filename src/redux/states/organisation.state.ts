@@ -143,18 +143,21 @@ export class OrgsState {
     const index = orgs.findIndex(o => o.id === orgId);
 
     if (index !== -1) {
-      const org = orgs[index];
+      this._orgService.getOrganisationByID(orgId).subscribe((res) => {
+        if (res) {
+          const postedJobs = res.jobsPosted || [];
 
-      const postedJobs = org.jobsPosted || [];
+          postedJobs.push(payload);
 
-      postedJobs.push(payload);
+          this._orgService.updateOrganisation({ jobsPosted: postedJobs }, orgId).subscribe(res => {
+            orgs[index] = res;
 
-      org.jobsPosted = postedJobs;
-
-      this._orgService.updateOrganisation({ jobsPosted: postedJobs }, orgId).subscribe((res) => {
-        orgs[index] = res;
-
-        patchState({ orgs: orgs })
+            patchState({ orgs: orgs })
+          })
+        }
+        else {
+          console.log('Error returning from server')
+        }
       })
     }
   }
@@ -165,25 +168,25 @@ export class OrgsState {
 
     const index = orgs.findIndex(o => o.id === orgId);
 
-    if (index !== -1) {
-      const org = orgs[index];
+    if (index != -1) {
+      this._orgService.getOrganisationByID(orgId).subscribe((res) => {
+        if (res) {
+          const activeJobs = res.activeJobs || [];
+          const postedJobs = res.jobsPosted || [];
 
-      const activeJobs = org.activeJobs || [];
-
-      activeJobs.push(payload);
-
-      const jobIndex = org.jobsPosted.findIndex(j => j.id === payload.id)
-      if (jobIndex !== 1) {
-        org.jobsPosted.splice(jobIndex, 1);
-      }
-
-      this._orgService.updateOrganisation({ activeJobs: activeJobs, jobsPosted: org.jobsPosted }, orgId).subscribe((res) => {
-        orgs[index] = res;
-        patchState({ orgs: orgs })
+          activeJobs.push(payload);
+          const indexToRemove = postedJobs.findIndex(p => p.id === payload.id);
+          postedJobs.splice(indexToRemove, 1);
+          this._orgService.updateOrganisation({ activeJobs: activeJobs, jobsPosted: postedJobs }, orgId).subscribe((res) => {
+            orgs[index] = res;
+            patchState({ orgs: orgs })
+          })
+        }
       })
     }
+
   }
-
-
-
 }
+
+
+
