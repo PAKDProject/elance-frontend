@@ -1,7 +1,7 @@
 <div class='cardContainer'>
   <div class='topRow'>
     <!-- <h2>Here are you top recommended jobs</h2> -->
-    <h2>Here are your fuccing recommended jobs</h2>
+    <h2>Here are your recommended jobs</h2>
     <mat-icon (click)='dismiss()'>close</mat-icon>
   </div>
   <div class='bodyContent'>
@@ -13,8 +13,10 @@
         </div>
         <div>{{job.employerName?job.employerName:'null'}}</div>
       </div>
-      <div class='date'>Due Date: {{job.dateDue?(job.dateDue | date):'null'}}</div>
+      <div>Location: {{job.remote?'None':job.location}}</div>
+      <div>Payment: {{job.payment?job.payment:'unknown'}}</div>
+      <div class='date'>Due: {{job.dateDue?(job.dateDue | date):'null'}}</div>
+      <div>80% match</div>
       <button class='btn btn-sm' (click)='openJob(job)'>See More</button>
-    </div>
   </div>
 </div>

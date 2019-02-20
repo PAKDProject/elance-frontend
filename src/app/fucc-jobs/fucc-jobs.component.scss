@@ -3,12 +3,13 @@
     border: 1px $accent solid;
     background: #eaeaea;
     border-radius: 5px;
-    margin: 5px;
+    // margin: 5px;
     padding: 10px;
 
     .topRow {
         display: grid;
         grid-template-columns: 1fr 50px;
+        margin-bottom: 10px;
         
         mat-icon {
             justify-self: center;
@@ -19,12 +20,14 @@
     .bodyContent {
         display: grid;
         grid-template-columns: repeat(3,1fr);
+        grid-column-gap: 10px;
         justify-items: center;
 
         .fuccCard{
+            width: 100%;
             min-width: 250px;
-            max-height: 200px;
-            margin: 5px;
+            // max-height: 200px;
+            // margin: 5px;
             padding: 5px;
             border: 1px darkgray solid;
             border-radius: 5px;
@@ -32,7 +35,7 @@
             display: grid;
             justify-items: center;
             grid-row-gap: 10px;
-        
+
             h2 {
                 font-size: 20px;
                 margin-bottom: 0px;
