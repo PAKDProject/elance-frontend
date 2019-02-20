@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WebsocketService } from 'src/services/websocket-service/websocket.service';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,9 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'elance-app-frontend';
 
-  constructor() { }
+  constructor(private _webSocketService: WebsocketService) { }
 
   ngOnInit() {
+    this._webSocketService.connect()
   }
 }
