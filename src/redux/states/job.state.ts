@@ -18,7 +18,8 @@ import {
   RemoveJobFail,
   AddJobOrg,
   AddJobOrgSuccess,
-  AddJobOrgFail
+  AddJobOrgFail,
+  ChangeBrowseFormat
 } from "../actions/job.actions";
 import { IJob } from "src/models/job-model";
 import { JobService } from "src/services/job-service/job.service";
@@ -30,6 +31,8 @@ export class JobsStateModel {
   inactiveJobs: IJob[];
   activeJobs: IJob[];
   isLoading: boolean;
+  isList: boolean;
+  showRecommended: boolean;
 }
 
 @State({
@@ -37,7 +40,8 @@ export class JobsStateModel {
   defaults: {
     inactiveJobs: [],
     activeJobs: [],
-    isLoading: false
+    isLoading: false,
+    isList: false
   }
 })
 export class JobsState {
@@ -353,7 +357,15 @@ export class JobsState {
   }
 
   //#endregion
+  @Action(ChangeBrowseFormat)
+  ChangeBrowseFormat({ dispatch, patchState }: StateContext<JobsStateModel>, { payload }: ChangeBrowseFormat) {
+    patchState({ isList: payload });
+  }
 
+  @Selector()
+  static getBrowseFormat(state: JobsStateModel) {
+    return state.isList;
+  }
 }
 
 

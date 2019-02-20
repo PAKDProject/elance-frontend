@@ -97,6 +97,7 @@ import { SocialLinkComponent } from './social-link/social-link.component';
 import { DashboardJobCardComponent } from './cards/dashboard-job-card/dashboard-job-card.component';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 import { JobFeedbackModalComponent } from './modals/job-feedback-modal/job-feedback-modal.component';
+import { FuccJobsComponent } from './fucc-jobs/fucc-jobs.component';
 
 @NgModule({
   declarations: [
@@ -145,7 +146,8 @@ import { JobFeedbackModalComponent } from './modals/job-feedback-modal/job-feedb
     SocialLinkComponent,
     DashboardJobCardComponent,
     ConfirmModalComponent,
-    JobFeedbackModalComponent
+    JobFeedbackModalComponent,
+    FuccJobsComponent
   ],
   imports: [
     BrowserAnimationsModule,

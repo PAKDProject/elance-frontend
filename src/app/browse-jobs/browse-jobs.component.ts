@@ -5,7 +5,7 @@ import { JobsState } from "src/redux/states/job.state";
 import { UserState } from "src/redux/states/user.state"
 import { Observable } from "rxjs";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
-import { RequestJobs, FilterJobs } from "src/redux/actions/job.actions";
+import { RequestJobs, FilterJobs, ChangeBrowseFormat } from "src/redux/actions/job.actions";
 import { FormControl, NgForm } from "@angular/forms";
 import { RequestUpdateUser, RequestAddSkillToUser } from "src/redux/actions/user.actions";
 import { ISkills } from "src/models/skill-model";
@@ -15,9 +15,9 @@ import { ISkills } from "src/models/skill-model";
   styleUrls: ["./browse-jobs.component.scss"]
 })
 export class BrowseJobsComponent implements OnInit {
-  isList: boolean = false;
-  filterToggle: boolean = false;
-  showSkillsForm: boolean = true;
+  filterToggle: boolean = false
+  showSkillsForm: boolean = true
+  showRecommended: boolean = true
 
   //For polling changes to the search box
   searchTerm: FormControl = new FormControl();
@@ -36,6 +36,9 @@ export class BrowseJobsComponent implements OnInit {
   jobs$: Observable<IJob[]>;
   @Select(UserState.getSkillCount)
   skillsCount$: Observable<number>
+  @Select(JobsState.getBrowseFormat)
+  isList$: Observable<boolean>
+  isList: boolean;
 
   constructor(private store: Store) {
     this.filters = {
@@ -91,11 +94,13 @@ export class BrowseJobsComponent implements OnInit {
     this.jobs$.subscribe(jobs => {
       this.jobs = jobs
     })
+
+    this.isList$.subscribe(x => {this.isList = x})
   }
 
   //Inverts list type
   changeListType() {
-    this.isList = !this.isList;
+    this.store.dispatch(new ChangeBrowseFormat(!this.isList))
   }
 
   refresh() {

@@ -12,12 +12,15 @@
     <div class="mb-2" *ngIf="(skillsCount$ | async) < 3 && this.showSkillsForm == true">
       <app-add-skill (dismissFormEmit)="dismissForm($event)" (emitSkills)="addSkill($event)"></app-add-skill>
     </div>
+    <div class='mb-2' *ngIf="(!((skillsCount$ | async) >= 3) && (this.showRecommended == true))">
+
+    </div>
     <div style="display: grid">
       <div class="topBar">
         <!-- Change List Type Buttons -->
         <div class="listViewButton" (click)="changeListType()">
-          <p>{{(isList)?('Grid View'):('List View')}}</p>
-          <mat-icon>{{(isList)?('view_module'):('list')}}</mat-icon>
+          <p>{{(isList$ | async)?('Grid View'):('List View')}}</p>
+          <mat-icon>{{(isList$ | async)?('view_module'):('list')}}</mat-icon>
         </div>
 
         <!-- Filter Opening Button -->
@@ -83,8 +86,8 @@
 
       <!-- Router outlet (Disabled if loading anything) -->
       <div *ngIf="(isLoading$ | async) === false">
-        <jobs-grid *ngIf='!isList' [JobsInput]='(jobs$ | async)' (notify)='hideJob($event)'></jobs-grid>
-        <jobs-list *ngIf='isList' [JobsInput]='(jobs$ | async)' (notify)='hideJob($event)'></jobs-list>
+        <jobs-grid *ngIf='!(isList$ | async)' [JobsInput]='(jobs$ | async)' (notify)='hideJob($event)'></jobs-grid>
+        <jobs-list *ngIf='(isList$ | async)' [JobsInput]='(jobs$ | async)' (notify)='hideJob($event)'></jobs-list>
       </div>
     </div>
   </div>

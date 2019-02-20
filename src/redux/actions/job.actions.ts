@@ -127,3 +127,10 @@ export class AddJobOrgFail {
 }
 
 //#endregion
+
+export class ChangeBrowseFormat {
+    static readonly type = '[Browse Jobs] Changing browse page format';
+    constructor(public payload: boolean) {
+        console.log(payload)
+    }
+}
