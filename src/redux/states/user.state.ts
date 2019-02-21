@@ -321,7 +321,7 @@ export class UserState {
       };
 
       this.store.dispatch(new RequestUpdateUser(partialUser));
-      this.store.dispatch(new AddMemberToOrg(otherPartialUser));
+      this.store.dispatch(new AddMemberToOrg(otherPartialUser, payload));
     }), err => {
 
     }

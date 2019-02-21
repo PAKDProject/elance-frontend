@@ -1,8 +1,11 @@
 import { IOrganisation } from "src/models/organisation-model";
 import { State, Selector, Action, Store, StateContext } from "@ngxs/store";
-import { CreateOrganisation, CreateOrganisationSuccess, CreateOrganisationFail, SetOrganisations, UpdateOrganisation, UpdateOrganisationSuccess, UpdateOrganisationFail, DeleteOrganisation, DeleteOrganisationSuccess, DeleteOrganisationFail, OrgAddPostedJob, AddActiveJobToOrg, AddContactToOrg } from "../actions/organisation.actions";
+import { CreateOrganisation, CreateOrganisationSuccess, CreateOrganisationFail, SetOrganisations, UpdateOrganisation, UpdateOrganisationSuccess, UpdateOrganisationFail, DeleteOrganisation, DeleteOrganisationSuccess, DeleteOrganisationFail, OrgAddPostedJob, AddActiveJobToOrg, AddContactToOrg, AddMemberToOrg } from "../actions/organisation.actions";
 import { OrganisationService } from "src/services/organisation-service/organisation.service";
 import { RequestAddOrgToUser, RequestUpdateUserOrg, RequestDeleteOrgFromUser } from "../actions/user.actions";
+import { UserService } from "src/services/user-service/user.service";
+import { IUser } from "src/models/user-model";
+import { StateChangeError } from "aws-sdk/clients/directconnect";
 
 export class OrgsStateModel {
   orgs: Partial<IOrganisation>[];
@@ -18,7 +21,8 @@ export class OrgsStateModel {
 export class OrgsState {
   constructor(
     private _orgService: OrganisationService,
-    private _store: Store) { }
+    private _store: Store,
+    private _userService: UserService) { }
 
   //#region Selector and Initial Set
   @Selector()
@@ -49,19 +53,36 @@ export class OrgsState {
     }
   }
   @Action(CreateOrganisationSuccess)
-  createOrgSuccess({ getState, patchState }: StateContext<OrgsStateModel>, { payload }: CreateOrganisationSuccess) {
+  createOrgSuccess({ getState, patchState, dispatch }: StateContext<OrgsStateModel>, { payload }: CreateOrganisationSuccess) {
     let orgs = getState().orgs;
 
-    const partialJob: Partial<IOrganisation> = {
+    const partialOrg: Partial<IOrganisation> = {
       id: payload.id,
       orgName: payload.orgName,
       logoUrl: payload.logoUrl,
       adminUser: payload.adminUser
     }
 
-    orgs.push(partialJob);
+    orgs.push(partialOrg);
 
-    this._store.dispatch(new RequestAddOrgToUser(partialJob));
+    this._store.dispatch(new RequestAddOrgToUser(partialOrg));
+
+    //Add admin as default member
+
+    this._userService.getUserByID(payload.adminUser).subscribe((res) => {
+      const user = res;
+
+      const partialUser: Partial<IUser> = {
+        id: user.id,
+        fName: user.fName,
+        lName: user.lName,
+        email: user.email,
+        tagline: user.tagline,
+        avatarUrl: user.avatarUrl
+      }
+
+      dispatch(new AddMemberToOrg(partialUser, payload.id));
+    })
 
     patchState({ orgs: orgs });
   }
@@ -213,6 +234,35 @@ export class OrgsState {
             patchState({ orgs: orgs });
           })
         }
+      })
+    }
+  }
+
+  @Action(AddMemberToOrg)
+  AddMemberToOrg({ getState, patchState }: StateContext<OrgsStateModel>, { payload, orgId }: AddMemberToOrg) {
+
+    const orgs = getState().orgs || [];
+
+    const index = orgs.findIndex(o => o.id === orgId);
+    if (index !== -1) {
+
+      this._orgService.getOrganisationByID(orgId).subscribe((res) => {
+        const org = res;
+
+        const members = org.members || [];
+
+        if (members.findIndex(m => m.id === payload.id) === -1) {
+          members.push(payload);
+
+          this._orgService.updateOrganisation({ members: members }, orgId).subscribe((res) => {
+            orgs[index] = res;
+
+
+            patchState({ orgs: orgs });
+          })
+        }
+
+
       })
     }
   }

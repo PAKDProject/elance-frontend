@@ -27,7 +27,7 @@ export class CreateOrganisationFail {
 export class AddMemberToOrg {
   static readonly type = '[Orgs] Add Member to Org'
 
-  constructor(public payload: Partial<IUser>) { }
+  constructor(public payload: Partial<IUser>, public orgId: string) { }
 }
 
 //#region Update Organisation
