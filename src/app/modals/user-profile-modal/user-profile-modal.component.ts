@@ -53,7 +53,7 @@ export class UserProfileModalComponent implements OnInit {
       tagline: this.data.user.tagline,
       email: this.data.user.email
     }, this.data.orgId)).subscribe(() => {
-      this.notification.showSuccess(`Added ${this.data.fName} ${this.data.lName} as a member to your organization!`);
+      this.notification.showSuccess(`Added ${this.data.user.fName} ${this.data.user.lName} as a member to your organization!`);
       this.dialogRef.close()
     })
   }
