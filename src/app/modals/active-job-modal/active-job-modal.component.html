@@ -6,25 +6,34 @@
     </div>
     <div class="infoRow">
       <div>•Employer: {{data.employerName}}</div>
-      <div>•Date Accepted: {{(data.dateAccepted)? (data.dateAccepted | date: 'dd/MM/yyyy') : 'unknown'}}</div>
+      <div>Date Accepted: {{(data.dateAccepted)? (data.dateAccepted | date: 'dd/MM/yyyy') : 'unknown'}} •</div>
     </div>
     <div class="infoRow">
       <!-- <div>Posted: {{data.datePosted | date: 'dd/MM/yyyy'}} {{(data.dateDue)? ('Due: '+data.dateDue | date: 'dd/MM/yyyy'):''}}</div> -->
       <div>•Payment: €{{data.payment | number: '.0'}}</div>
-      <div>•Date Due: {{(data.dateDue)? (data.dateDue | date: 'dd/MM/yyyy'): 'unknown'}}</div>
+      <div>Date Due: {{(data.dateDue)? (data.dateDue | date: 'dd/MM/yyyy'): 'unknown'}} •</div>
     </div>
     <div class="infoRow">
       <div>•Location: {{(data.location)? (data.location) : 'none'}}</div>
-      <div>•Progress: {{(data.progress)? (data.progress) : '0'}}%</div>
+      <div>Progress: {{(data.progress)? (data.progress) : '0'}}% •</div>
     </div>
   </div>
   <div class="modalBody">
     {{data.description}}
   </div>
-  <div class='buttons'>
+  <div class='buttons' *ngIf="!admin">
     <button class="btn btn-success" *ngIf="data.progress !== 100" (click)="completeJob(data)">Complete Job</button>
     <button class="btn btn-success" *ngIf="data.progress === 100" disabled>
       <mat-icon>done</mat-icon> Job Complete
     </button>
+  </div>
+  <div class="admin-buttons" *ngIf="admin">
+    <button class="btn btn-block pill" *ngIf="data.progress !== 100">Job Complete! Give Feedback</button>
+
+    <span class="badge badge-pill pill" *ngIf="data.progress === 100">In Progress</span>
+    <span class="badge badge-pill chat" (click)="contact()">
+      <mat-icon>chat</mat-icon>
+    </span>
+
   </div>
 </div>
