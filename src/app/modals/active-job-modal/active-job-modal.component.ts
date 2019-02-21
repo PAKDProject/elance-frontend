@@ -55,7 +55,7 @@ export class ActiveJobModalComponent implements OnInit {
   }
 
   contact() {
-
+    this.router.navigate(['/home/messages/' + 'sad34324-d73fsadas-DAB4GSUS-b801-42069LOL'])
   }
 
 }
