@@ -51,15 +51,15 @@ export class WebsocketService {
   }
 
   async getConfig(): Promise<IWebConfig> {
-    return this._http.get<IWebConfig>(`${environment.backendUrl}/fucc/getConfig`).toPromise()
+    return this._http.get<IWebConfig>(`${environment.backendUrl}/fucc/getconfig`).toPromise()
   }
 }
 
 interface IMessage {
   action: string
-  userId: string
-  senderUserId: string
-  content: string
+  userId?: string
+  senderUserId?: string
+  content: any
 }
 
 interface IWebConfig {

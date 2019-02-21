@@ -21,7 +21,7 @@
                   <label for="orgName">
                     Name your Organisation
                   </label>
-                  <input type="text" id="orgName" placeholder="Great Software Inc." formControlName="organisationName"
+                  <input type="text" id="orgName" maxlength="40" placeholder="Great Software Inc." formControlName="organisationName"
                     class="form-control">
                   <div class="feedback" *ngIf="organisationName.touched && !organisationName.valid">
                     You must name your organisation.
@@ -33,7 +33,7 @@
                   <label for="orgEmail">
                     Email for your organisation
                   </label>
-                  <input type="email" id="orgEmail" placeholder="admin@greatsoftwareinc.com" formControlName="organisationEmail"
+                  <input type="email" id="orgEmail" maxlength="50" placeholder="admin@greatsoftwareinc.com" formControlName="organisationEmail"
                     class="form-control">
                   <div class="feedback" *ngIf="organisationEmail.touched && !organisationEmail.valid">
                     You must provide a valid email for your organisation. This is so your members can contact you!
@@ -47,7 +47,7 @@
                   <label for="orgTagline">Describe your organisation</label>
                   <small>Hint: This field supports markdown. <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
                       target="_blank">(More Info)</a></small>
-                  <textarea id="orgTagline" class="form-control" rows="4" formControlName="tagline"></textarea>
+                  <textarea maxlength="500" id="orgTagline" class="form-control" rows="4" formControlName="tagline"></textarea>
                   <div id="editor" *ngIf="tagline.value">
                     <label>Markdown Preview</label>
                     <markdown [data]="tagline.value" ngPreserveWhitespaces></markdown>
@@ -73,7 +73,7 @@
                   <label for="websiteUrl">
                     Have a Website? Link it here
                   </label>
-                  <input type="url" class="form-control" id="websiteUrl" formControlName="websiteUrl" placeholder="greatsoftwareinc.com">
+                  <input maxlength="100" type="url" class="form-control" id="websiteUrl" formControlName="websiteUrl" placeholder="greatsoftwareinc.com">
                 </div>
               </div>
             </div>

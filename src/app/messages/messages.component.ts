@@ -5,6 +5,8 @@ import { UserState } from "src/redux/states/user.state";
 import { Observable } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IMessage } from 'src/models/message-model';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/services/user-service/user.service';
 
 @Component({
   selector: 'app-messages',
@@ -12,6 +14,7 @@ import { IMessage } from 'src/models/message-model';
   styleUrls: ['./messages.component.scss']
 })
 export class MessagesComponent implements OnInit {
+  contactsShown: boolean = true;
   @ViewChild('messages') private messagesContainer: ElementRef;
 
   @Select(UserState.getUser)
@@ -24,19 +27,27 @@ export class MessagesComponent implements OnInit {
       message: new FormControl('', Validators.required)
     })
 
-  constructor(private store: Store) { }
+  constructor(private store: Store,
+    private route: ActivatedRoute,
+    private userService: UserService
+  ) { }
 
-  ngOnInit() { }
-
-  openProfile() {
+  ngOnInit() {
+    let id = this.route.snapshot.params['id']
+    if(id)
+    { this.userService.getUserByID(id).subscribe(res => {this.selectedContact = res}) }
   }
+
+  toggleContacts() { this.contactsShown = !this.contactsShown }
+
+  openProfile() { }
 
   openMessenger(contact: IUser) {
     this.selectedContact = contact
   }
 
   //TEMP
-  sampleConversation: IMessage[] = [
+  sampleConversation: IMessage[] = [ //]
     {
       content: 'Hello',
       isSeen: true,

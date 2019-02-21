@@ -16,7 +16,6 @@
             </div>
             <drag-scroll #activeJobs *ngIf="user.activeJobs.length > 0">
               <dashboard-job-card *ngFor='let job of user.activeJobs' [JobInput]='job' [type]="'active'"></dashboard-job-card>
-              <!-- <dashboard-job-card drag-scroll-item *ngFor='let j of tempJobs' [JobInput]='j'></dashboard-job-card> -->
             </drag-scroll>
             <div class='dragArrow' (click)='moveDragRight(0)'>
               <mat-icon>keyboard_arrow_right</mat-icon>

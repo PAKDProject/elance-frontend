@@ -1,9 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { IUser } from 'src/models/user-model';
 import { Store } from '@ngxs/store';
 import { RequestAddContact } from 'src/redux/actions/user.actions';
 import { NotificationService } from 'src/services/notifications/notification.service';
+import { AddMemberToOrg } from 'src/redux/actions/organisation.actions';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-user-profile-modal',
@@ -11,11 +13,18 @@ import { NotificationService } from 'src/services/notifications/notification.ser
   styleUrls: ['./user-profile-modal.component.scss']
 })
 export class UserProfileModalComponent implements OnInit {
+  isOrg = false;
 
   profileCards;
   constructor(
     public dialogRef: MatDialogRef<UserProfileModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IUser, private store: Store, private notification: NotificationService) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private store: Store,
+    private notification: NotificationService) {
+      if(!isNullOrUndefined(this.data.orgId)){
+        this.isOrg = true;
+      }
+    }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -31,6 +40,20 @@ export class UserProfileModalComponent implements OnInit {
       email: this.data.email
     })).subscribe(() => {
       this.notification.showSuccess(`Added ${this.data.fName} ${this.data.lName} as a contact`, "Contact them now from the messaging tab")
+      this.dialogRef.close()
+    })
+  }
+
+  addMemberToOrg() {
+    this.store.dispatch(new AddMemberToOrg({
+      id: this.data.user.id,
+      fName: this.data.user.fName,
+      lName: this.data.user.lName,
+      avatarUrl: this.data.user.avatarUrl,
+      tagline: this.data.user.tagline,
+      email: this.data.user.email
+    }, this.data.orgId)).subscribe(() => {
+      this.notification.showSuccess(`Added ${this.data.user.fName} ${this.data.user.lName} as a member to your organization!`);
       this.dialogRef.close()
     })
   }
