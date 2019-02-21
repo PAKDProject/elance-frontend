@@ -1,7 +1,9 @@
 @import '../../variables.scss';
 .cardContainer {
     border: 1px $accent solid;
-    background: #eaeaea;
+    // background: #eaeaea;
+    color: white;
+    background: $accent;
     border-radius: 5px;
     // margin: 5px;
     padding: 10px;
@@ -23,15 +25,19 @@
         grid-column-gap: 10px;
         justify-items: center;
 
+        .fuccCard:hover {
+            border: 2px $primary solid;
+        }
         .fuccCard{
             width: 100%;
             min-width: 250px;
+            color: initial;
             // max-height: 200px;
             // margin: 5px;
             padding: 5px;
-            border: 1px darkgray solid;
+            border: 2px #eaeaea solid;
             border-radius: 5px;
-            background: lightgray;
+            background: #eaeaea;
             display: grid;
             justify-items: center;
             grid-row-gap: 10px;
