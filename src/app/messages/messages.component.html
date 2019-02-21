@@ -23,8 +23,14 @@
         <div class='topRow'>
           <h1>{{(selectedContact != null? selectedContact.fName + ' ' + selectedContact.lName:'Messages')}}</h1>
         </div>
-        <div class='messageContent'>
-          <h1>Temp</h1>
+        <div class='messageContent' #messages [scrollTop]="messages.scrollHeight">
+          <div *ngFor='let m of sampleConversation'
+            [class.sender]='m.senderId == (user$ | async).id'
+            [class.sender]='m.senderId == "user2"'
+            [class.unseen] ='!(m.isSeen)'>
+            <p>{{m.content}}</p>
+            <small>{{m.timestamp | date: 'dd/mm/YYYY'}}</small>
+          </div>
         </div>
         <form [formGroup]='messageForm'>
           <textarea class='form-control'></textarea>

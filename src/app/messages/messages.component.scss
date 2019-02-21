@@ -106,6 +106,40 @@
         }
 
         .messageContent {
+            padding: 10px;
+            display: grid;
+            grid-row-gap: 10px;
+            overflow: auto;
+
+            div {
+                padding: 10px;
+                border-radius: 10px;
+                border: 2px $cardBack solid;
+                
+                background: $cardBack;
+                
+                justify-self: left;
+                align-self: center;
+
+                p {
+                    margin: 0; padding: 0;
+                }
+                small {
+                    margin: 0; padding: 0;
+                }
+            }
+            .sender {
+                border: 2px $primary;
+
+                color: white;
+                background: $primary;
+                
+                justify-self: right;
+            }
+            .unseen {
+                // border: 2px white solid;
+                border: 2px white dotted;
+            }
         }
 
         form {
