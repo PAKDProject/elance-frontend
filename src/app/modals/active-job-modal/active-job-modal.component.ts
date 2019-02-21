@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { IUser } from 'src/models/user-model';
 import { OrgsState } from 'src/redux/states/organisation.state';
 import { IOrganisation } from 'src/models/organisation-model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-active-job-modal',
@@ -25,7 +26,7 @@ export class ActiveJobModalComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ActiveJobModalComponent>,
     private _store: Store,
-    @Inject(MAT_DIALOG_DATA) public data: IJob) { }
+    @Inject(MAT_DIALOG_DATA) public data: IJob, private router: Router) { }
 
   ngOnInit(): void {
     this.admin = this.isAdmin();
@@ -41,7 +42,6 @@ export class ActiveJobModalComponent implements OnInit {
     });
   }
 
-
   isAdmin() {
     let isAdmin = false;
     this.org$.subscribe((res) => {
@@ -52,6 +52,10 @@ export class ActiveJobModalComponent implements OnInit {
       });
     })
     return isAdmin
+  }
+
+  contact() {
+
   }
 
 }
