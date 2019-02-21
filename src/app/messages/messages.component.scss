@@ -88,6 +88,23 @@
                 border: 1px $accent solid;
             }
         }
+
+            
+        .noMessages {
+            display: grid;
+            justify-items: center;
+            align-items: center;
+            
+            div {
+                text-align: center;
+                
+                img {
+                    width: 80px;
+                    height: auto;
+                }
+            }
+        }
+        
         .moreButton {
             justify-self: center;
             align-self: flex-end;

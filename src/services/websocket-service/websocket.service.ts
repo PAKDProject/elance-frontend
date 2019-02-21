@@ -57,9 +57,9 @@ export class WebsocketService {
 
 interface IMessage {
   action: string
-  userId: string
-  senderUserId: string
-  content: string
+  userId?: string
+  senderUserId?: string
+  content: any
 }
 
 interface IWebConfig {
