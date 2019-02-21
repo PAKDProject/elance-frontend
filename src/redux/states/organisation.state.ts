@@ -1,6 +1,6 @@
 import { IOrganisation } from "src/models/organisation-model";
 import { State, Selector, Action, Store, StateContext } from "@ngxs/store";
-import { CreateOrganisation, CreateOrganisationSuccess, CreateOrganisationFail, SetOrganisations, UpdateOrganisation, UpdateOrganisationSuccess, UpdateOrganisationFail, DeleteOrganisation, DeleteOrganisationSuccess, DeleteOrganisationFail, OrgAddPostedJob, AddActiveJobToOrg } from "../actions/organisation.actions";
+import { CreateOrganisation, CreateOrganisationSuccess, CreateOrganisationFail, SetOrganisations, UpdateOrganisation, UpdateOrganisationSuccess, UpdateOrganisationFail, DeleteOrganisation, DeleteOrganisationSuccess, DeleteOrganisationFail, OrgAddPostedJob, AddActiveJobToOrg, AddContactToOrg } from "../actions/organisation.actions";
 import { OrganisationService } from "src/services/organisation-service/organisation.service";
 import { RequestAddOrgToUser, RequestUpdateUserOrg, RequestDeleteOrgFromUser } from "../actions/user.actions";
 
@@ -174,6 +174,8 @@ export class OrgsState {
           const activeJobs = res.activeJobs || [];
           const postedJobs = res.jobsPosted || [];
 
+
+
           activeJobs.push(payload);
           const indexToRemove = postedJobs.findIndex(p => p.id === payload.id);
           postedJobs.splice(indexToRemove, 1);
@@ -185,6 +187,34 @@ export class OrgsState {
       })
     }
 
+  }
+  @Action(AddContactToOrg)
+  addContactToOrg({ getState, patchState }: StateContext<OrgsStateModel>, { payload, orgId }: AddContactToOrg) {
+    //email, avatarurl, fname, lname, tagline, id
+    const orgs = getState().orgs;
+
+    const index = orgs.findIndex(o => o.id === orgId);
+
+    if (index != -1) {
+
+
+      this._orgService.getOrganisationByID(orgId).subscribe(res => {
+        const org = res;
+
+        const contacts = org.contacts || [];
+
+        if (contacts.findIndex(p => p.id === payload.id) === -1) {
+
+          contacts.push(payload);
+
+          this._orgService.updateOrganisation({ contacts: contacts }, orgId).subscribe((res) => {
+            orgs[index] = res;
+
+            patchState({ orgs: orgs });
+          })
+        }
+      })
+    }
   }
 }
 

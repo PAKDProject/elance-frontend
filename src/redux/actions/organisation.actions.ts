@@ -76,6 +76,11 @@ export class AddActiveJobToOrg {
 
   constructor(public payload: Partial<IJob>, public orgId: string) { }
 }
+export class AddContactToOrg {
+  static readonly type = '[Orgs] Add Contact To Org';
+
+  constructor(public payload: Partial<IUser>, public orgId: string) { }
+}
 
 
 
