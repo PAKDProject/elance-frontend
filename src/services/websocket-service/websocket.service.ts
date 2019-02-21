@@ -44,7 +44,7 @@ export class WebsocketService {
 
         clearInterval(timer)
       } catch (error) {
-        this._notifier.showError("Failed connection!", "Failed to connect to FUCC system. Retrying in 15 seconds...")
+        this._notifier.showError("Failed connection!", "Failed to FUCC the system. Retrying in 15 seconds...")
         console.log(error) //used for dev
       }
     }, 15000)

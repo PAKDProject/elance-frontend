@@ -119,7 +119,7 @@
       <dashboard-active-jobs *ngIf='selectedPage=="active"' [JobsIn]='org.activeJobs' [OrgIn]='org'></dashboard-active-jobs>
       <dashboard-posted-jobs *ngIf='selectedPage=="posted"' [JobsIn]='org.jobsPosted' [OrgIn]='org' (refresh)="update($event)"></dashboard-posted-jobs>
       <dashboard-contacts *ngIf='selectedPage=="contacts"' [ContactsIn]='org.contacts'></dashboard-contacts>
-      <dashboard-members *ngIf='selectedPage=="members"' [MembersIn]='contacts' [EditingIn]='editing'></dashboard-members>
+      <dashboard-members *ngIf='selectedPage=="members"' [MembersIn]='org.members' [EditingIn]='editing'></dashboard-members>
     </div>
   </div>
 </div>
