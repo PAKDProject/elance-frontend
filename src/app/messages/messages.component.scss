@@ -3,20 +3,20 @@
 
 .pageContainer {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: auto auto 2fr;
     grid-column-gap: 20px;
     
-    .contactsList, .messageArea {
+    mat-icon {
+        align-self: center;
+    }
+    .contactsPanel, .messageArea {
         display: grid;
-        grid-template-rows: auto auto 1fr;
+        grid-template-rows: auto 1fr;
         background: #eaeaea;
         height: 100%;
         min-height: 80vh;
         max-height: 800px;
         
-        mat-icon {
-            align-self: center;
-        }
         .topRow {
             background: $accent;
             padding: 5px;
