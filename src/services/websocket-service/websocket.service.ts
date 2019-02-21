@@ -51,7 +51,7 @@ export class WebsocketService {
   }
 
   async getConfig(): Promise<IWebConfig> {
-    return this._http.get<IWebConfig>(`${environment.backendUrl}/fucc/getConfig`).toPromise()
+    return this._http.get<IWebConfig>(`${environment.backendUrl}/fucc/getconfig`).toPromise()
   }
 }
 

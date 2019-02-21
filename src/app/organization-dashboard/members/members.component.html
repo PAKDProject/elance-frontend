@@ -2,6 +2,29 @@
     <div class='header'>
         <button *ngIf='editing' class='btn btn-primary btn-sm'>Add members</button>
     </div>
+  <!-- User Search -->
+    <div id="search">
+    <form class="form-inline" id="searchBtn" [matMenuTriggerFor]="menu">
+        <div class="form-group" id="search_fields">
+        <input type="text" class="form-control" autocomplete="off" placeholder="Search users..." name="search" id="search_field"
+            #search />
+        <button class="btn btn-sm" style="background: #24896e; color: white; align-self: center;" (click)="showResults(search.value)">
+            <mat-icon>search</mat-icon>
+        </button>
+        </div>
+    </form>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false" xPosition="before">
+        <div *ngFor="let user of results; let i = index;">
+        <div class="user_grid" (click)="viewProfile(user)">
+            <div class="user_image">
+            <img src="../../../assets//images/default_user.png">
+            </div>
+            <p class="user_name">{{user.fName +' ' +user.lName | titlecase}}</p>
+        </div>
+        <hr *ngIf="i !== results.length-1" />
+        </div>
+    </mat-menu>
+    </div>
     <div class="gridContainer">
         <contact-card *ngFor='let member of members' [ContactInput]='member' [EditingInput]='editing' (RemoveEmit)='removeMember($event)'></contact-card>
     </div>
