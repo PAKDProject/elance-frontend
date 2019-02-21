@@ -91,7 +91,7 @@ export class CreateOrganisationModalComponent implements OnInit {
 
   //Check is admin user was added. If so create org and close modal
   createOrganisation() {
-    if (this.organisation.logoUrl === null) {
+    if (this.organisation.logoUrl === null || this.organisation.logoUrl === undefined) {
       this.organisation.logoUrl = "filler";
     }
     if (this.organisation.adminUser !== undefined) {

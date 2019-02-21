@@ -38,7 +38,8 @@ export class InactiveJobModalComponent implements OnInit {
     private _store: Store,
     private _notification: NotificationService,
     public _viewProfileDialog: MatDialog,
-    private jobService: JobService
+    private jobService: JobService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -125,7 +126,9 @@ export class InactiveJobModalComponent implements OnInit {
       id: user.id,
       fName: user.fName,
       lName: user.lName,
-      avatarUrl: user.avatarUrl
+      avatarUrl: user.avatarUrl,
+      tagline: user.tagline,
+      email: user.email
     }, this.data.type)).subscribe(() => {
       this._notification.showSuccess(`You chose ${user.fName} to do your job!`, "Let's hope he's competent...if not we accept no liability.")
       this.dialogRef.close();
@@ -139,8 +142,11 @@ export class InactiveJobModalComponent implements OnInit {
   }
 
   viewProfile(user: IUser) {
-    this._viewProfileDialog.open(UserProfileModalComponent, {
-      data: user
-    });
+    this.userService.getUserByID(user.id).subscribe((res) => {
+      this._viewProfileDialog.open(UserProfileModalComponent, {
+        data: res
+      });
+    })
+
   }
 }

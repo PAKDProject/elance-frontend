@@ -25,7 +25,7 @@ import { IJob } from "src/models/job-model";
 import { JobService } from "src/services/job-service/job.service";
 import { RequestAddPostedJob, RequestAddActiveJob } from "../actions/user.actions";
 import { isNullOrUndefined } from 'util';
-import { OrgAddPostedJob, AddActiveJobToOrg } from "../actions/organisation.actions";
+import { OrgAddPostedJob, AddActiveJobToOrg, AddContactToOrg } from "../actions/organisation.actions";
 
 export class JobsStateModel {
   inactiveJobs: IJob[];
@@ -236,31 +236,43 @@ export class JobsState {
       //Update the job
       this._jobsService.updateJob({ chosenApplicant: user }, jobID).subscribe((res: { job: IJob }) => {
         const updatedJob = res.job;
-        if (type === 'user') {
-          dispatch(new RequestAddActiveJob({
-            id: updatedJob.id,
-            title: updatedJob.title,
-            employerName: updatedJob.employerName,
-            employerID: updatedJob.employerID,
-            payment: updatedJob.payment,
-            progress: updatedJob.progress,
-            dateAccepted: updatedJob.dateAccepted,
-            dateDue: updatedJob.dateDue
-          },
-            user.id))
-        }
-        else if (type === 'org') {
-          dispatch(new AddActiveJobToOrg({
-            id: updatedJob.id,
-            title: updatedJob.title,
-            employerName: updatedJob.employerName,
-            employerID: updatedJob.employerID,
-            payment: updatedJob.payment,
-            progress: updatedJob.progress,
-            dateAccepted: updatedJob.dateAccepted,
-            dateDue: updatedJob.dateDue
-          }, updatedJob.employerID));
-        }
+
+        dispatch(new RequestAddActiveJob({
+          id: updatedJob.id,
+          title: updatedJob.title,
+          employerName: updatedJob.employerName,
+          employerID: updatedJob.employerID,
+          payment: updatedJob.payment,
+          progress: updatedJob.progress,
+          dateAccepted: updatedJob.dateAccepted,
+          dateDue: updatedJob.dateDue
+        },
+          user.id))
+
+        dispatch(new AddActiveJobToOrg({
+          id: updatedJob.id,
+          title: updatedJob.title,
+          employerName: updatedJob.employerName,
+          employerID: updatedJob.employerID,
+          description: updatedJob.description,
+          payment: updatedJob.payment,
+          progress: 50,
+          datePosted: updatedJob.datePosted,
+          dateAccepted: updatedJob.dateAccepted,
+          dateDue: updatedJob.dateDue
+        }, updatedJob.employerID));
+
+        dispatch(new AddContactToOrg({
+          id: user.id,
+          fName: user.fName,
+          lName: user.lName,
+          tagline: user.tagline,
+          avatarUrl: user.avatarUrl,
+          email: user.email
+        }, updatedJob.employerID));
+
+
+
         dispatch(
           new AcceptApplicantSuccess(updatedJob));
       }),
