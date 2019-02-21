@@ -1,8 +1,7 @@
 <div class="main-content">
   <div class="container-fluid">
-    <!-- <h2>Messages</h2> -->
     <div class='pageContainer'>
-      <div class='contactsList'>
+      <div class='contactsList' *ngIf='contactsShown'>
         <div class="topRow">
           <h1>Contacts</h1>
         </div>
@@ -19,6 +18,7 @@
           </div>
         </div>
       </div>
+      <mat-icon (click)='toggleContacts()'>{{(contactsShown)?'keyboard_arrow_left':'keyboard_arrow_right'}}</mat-icon>
       <div class='messageArea'>
         <div class='topRow'>
           <h1>{{(selectedContact != null? selectedContact.fName + ' ' + selectedContact.lName:'Messages')}}</h1>
@@ -26,7 +26,7 @@
         <div class='noMessages' *ngIf='!(sampleConversation.length > 0)'>
           <div>
               <img src='../../assets/images/no_messages.png' alt='no_messages'/>
-              <h1>No messages yet</h1>
+              <h1>{{(selectedContact)?'No messages yet':'Select a contact to start messaging'}}</h1>
           </div>
         </div>
         <div class='messageContent' *ngIf='sampleConversation.length > 0' #messages [scrollTop]="messages.scrollHeight">
@@ -35,7 +35,7 @@
             [class.sender]='m.senderId == "user2"'
             [class.unseen] ='!(m.isSeen)'>
             <p>{{m.content}}</p>
-            <small>{{m.timestamp | date: 'dd/mm/YYYY'}}</small>
+            <small>{{m.timestamp | date: 'dd/mm/yyyy'}}</small>
           </div>
         </div>
         <form [formGroup]='messageForm'>
