@@ -1,58 +1,86 @@
 @import "../../../variables.scss";
 
 .modalContainer {
-    .modalHeader {
-        padding: 10px;
+  .modalHeader {
+    padding: 10px;
 
-        .topRow {
-            display: grid;
-            grid-template-columns: 1fr auto;
+    .topRow {
+      display: grid;
+      grid-template-columns: 1fr auto;
 
-            h1 {
-                width: 100%;
-                text-align: center;
-                color: $primary;
-            }
+      h1 {
+        width: 100%;
+        text-align: center;
+        color: $primary;
+      }
 
-            mat-icon {
-                cursor: pointer;
-            }
-        }
-        .infoRow {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            grid-column-gap: 20px;
-
-            font-size: 20px;
-
-            div{
-                width: 100%;
-            }
-        }
+      mat-icon {
+        cursor: pointer;
+      }
     }
-    .buttons {
-        margin-top: 20px;
-        display: grid;
-        justify-items: center;
-        button {
-            color: white;
-            background: $primary;
-            border: 1px $primary solid;
-        }
-        button:hover {
-            color: $primary;
-            background: white;
-        }
+
+    .infoRow {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-column-gap: 20px;
+
+      font-size: 20px;
+
+      div {
+        width: 100%;
+      }
     }
+  }
+
+  .buttons {
+    margin-top: 20px;
+    display: grid;
+    justify-items: center;
+
+    button {
+      color: white;
+      background: $primary;
+      border: 1px $primary solid;
+    }
+
+    button:hover {
+      color: $primary;
+      background: white;
+    }
+  }
 }
 
-@media only screen and (max-width:450px)
-{
-    .modalContainer {
-        .modalHeader {
-            .infoRow {
-                grid-template-columns: 1fr;
-            }
-        }
+
+.admin-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  .pill {
+    justify-self: center;
+    grid-column: 2;
+    background: $primary;
+    color: white;
+    padding: 10px;
+    align-self: center;
+  }
+
+  .chat {
+    justify-self: right;
+    grid-column: 3;
+    background: $primary;
+    color: white;
+    padding: 10px;
+
+
+  }
+}
+
+@media only screen and (max-width:450px) {
+  .modalContainer {
+    .modalHeader {
+      .infoRow {
+        grid-template-columns: 1fr;
+      }
     }
+  }
 }

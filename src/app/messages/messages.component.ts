@@ -34,8 +34,8 @@ export class MessagesComponent implements OnInit {
 
   ngOnInit() {
     let id = this.route.snapshot.params['id']
-    if(id)
-    { this.userService.getUserByID(id).subscribe(res => {this.selectedContact = res}) }
+    if (id) { this.userService.getUserByID(id).subscribe(res => { this.selectedContact = res; console.log(this.selectedContact) }) }
+
   }
 
   toggleContacts() { this.contactsShown = !this.contactsShown }

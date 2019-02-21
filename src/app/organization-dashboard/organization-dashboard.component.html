@@ -100,7 +100,7 @@
       </div>
 
       <div class='rightCol'>
-        <div class='actionButton' (click)='toggleEditing()'>
+        <div class='actionButton' *ngIf="isAdminUser(org)" (click)='toggleEditing()'>
           <div>{{ !editing ? "Edit" : "Stop Editing" }}</div>
           <mat-icon>{{ !editing ? "edit" : "close" }}</mat-icon>
         </div>
