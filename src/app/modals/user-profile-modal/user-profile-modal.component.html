@@ -1,6 +1,11 @@
 <div class="modalHeader">
   <!-- leave this space for any extra buttons we might use later on-->
-  <div class="contactBtn">
+  <div class="contactBtn" *ngIf="isOrg">
+      <button class="btn btn-block btn-sm" (click)="addMemberToOrg()">
+        <mat-icon>person_add</mat-icon> <span>Add to this organization</span>
+      </button>
+  </div>
+  <div class="contactBtn" *ngIf="!isOrg">
     <button class="btn btn-block btn-sm" (click)="addContact()">
       <mat-icon>person_add</mat-icon> <span>Add Contact</span>
     </button>
