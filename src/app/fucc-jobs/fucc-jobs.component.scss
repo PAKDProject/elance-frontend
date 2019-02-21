@@ -1,0 +1,101 @@
+@import '../../variables.scss';
+.cardContainer {
+    border: 1px $accent solid;
+    // background: #eaeaea;
+    color: white;
+    background: $accent;
+    border-radius: 5px;
+    // margin: 5px;
+    padding: 10px;
+
+    .topRow {
+        display: grid;
+        grid-template-columns: 1fr 50px;
+        margin-bottom: 10px;
+        
+        mat-icon {
+            justify-self: center;
+            align-self: center;
+            cursor: pointer;
+        }
+    }
+    .bodyContent {
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        grid-column-gap: 10px;
+        justify-items: center;
+
+        .fuccCard:hover {
+            border: 2px $primary solid;
+        }
+        .fuccCard{
+            width: 100%;
+            min-width: 250px;
+            color: initial;
+            // max-height: 200px;
+            // margin: 5px;
+            padding: 5px;
+            border: 2px #eaeaea solid;
+            border-radius: 5px;
+            background: #eaeaea;
+            display: grid;
+            justify-items: center;
+            grid-row-gap: 10px;
+
+            h2 {
+                font-size: 20px;
+                margin-bottom: 0px;
+                text-align: center;
+            }
+        
+            .employerRow {
+                display: grid;
+                grid-template-columns: repeat(2,auto);
+                grid-column-gap: 5px;
+                align-items: center;
+                justify-items: center;
+        
+                font-style: italic;
+                text-align: center;
+        
+                .imgContainer {
+                    display: grid;
+                    align-items: center;
+                    justify-items: center;
+                    border: 1px darkgray solid;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    background: white;
+                    width: 20px;
+                    height: 20px;
+        
+                    img {
+                        // height: 20px;
+                        width: 100%;
+                    }
+                }
+        
+                div {
+                    white-space: nowrap;
+                }
+            }
+        
+            .date {
+                text-align: center;
+                white-space: nowrap;
+            }
+        
+            button {
+                background: $primary;
+                border: 2px $primary solid;
+                color: white;
+                width: 90%;
+                padding: 5px;
+            }
+            button:hover {
+                background: white;
+                color: $primary;
+            }
+        }
+    }
+}

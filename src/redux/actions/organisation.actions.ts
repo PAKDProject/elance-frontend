@@ -1,5 +1,6 @@
 import { IOrganisation } from "src/models/organisation-model";
 import { IUser } from "src/models/user-model";
+import { IJob } from "src/models/job-model";
 
 //#region Set Organisations
 export class SetOrganisations {
@@ -61,6 +62,24 @@ export class DeleteOrganisationFail {
   static readonly type = '[Orgs] Delete Org Fail'
 
   constructor(public errorMessage: string) { }
+}
+
+
+export class OrgAddPostedJob {
+  static readonly type = '[Orgs] Add Posted Job To Org';
+
+  constructor(public payload: Partial<IJob>, public orgId: string) { }
+}
+
+export class AddActiveJobToOrg {
+  static readonly type = '[Orgs] Add Active Job To Org';
+
+  constructor(public payload: Partial<IJob>, public orgId: string) { }
+}
+export class AddContactToOrg {
+  static readonly type = '[Orgs] Add Contact To Org';
+
+  constructor(public payload: Partial<IUser>, public orgId: string) { }
 }
 
 

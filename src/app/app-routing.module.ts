@@ -19,6 +19,7 @@ import { ListComponent } from './browse-jobs/list/list.component';
 import { SecretComponent } from 'src/assets/secret/secret.component';
 
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { FuccJobsComponent } from './fucc-jobs/fucc-jobs.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },

@@ -8,7 +8,8 @@
       <div *ngIf='user.organisations' class='orgList'>
         <div class='orgCard' *ngFor='let o of user.organisations'>
           <div class='logo'>
-            <img *ngIf="o.logoUrl === 'filler' || o.logoUrl === undefined" src='../../assets/images/default_organization.png' alt='logo' />
+            <img *ngIf="o.logoUrl === 'filler' || o.logoUrl === undefined" src='../../assets/images/default_organization.png'
+              alt='logo' />
             <img *ngIf="o.logoUrl !== 'filler' && o.logoUrl !== undefined" [src]='o.logoUrl' alt='{{o.orgName}}' />
           </div>
           <div class='overlay'>
@@ -40,7 +41,8 @@
       <div class='inviteList'>
         <div class='inviteCard' *ngFor='let invite of user.orgInvitations'>
           <div class='logo'>
-            <img *ngIf='invite.logoUrl === undefined || invite.logoUrl == "filler"' src='../../assets/images/default_organization.png' alt='logo' />
+            <img *ngIf='invite.logoUrl === undefined || invite.logoUrl == "filler"' src='../../assets/images/default_organization.png'
+              alt='logo' />
             <img *ngIf='!(invite.logoUrl === undefined || invite.logoUrl == "filler")' [src]='invite.logoUrl' alt='logo' />
           </div>
           <h3>{{invite.orgName}}</h3>
@@ -115,7 +117,7 @@
   <div class="main-content">
     <div class="container-fluid">
       <dashboard-active-jobs *ngIf='selectedPage=="active"' [JobsIn]='org.activeJobs' [OrgIn]='org'></dashboard-active-jobs>
-      <dashboard-posted-jobs *ngIf='selectedPage=="posted"' [JobsIn]='org.jobsPosted' [OrgIn]='org'></dashboard-posted-jobs>
+      <dashboard-posted-jobs *ngIf='selectedPage=="posted"' [JobsIn]='org.jobsPosted' [OrgIn]='org' (refresh)="update($event)"></dashboard-posted-jobs>
       <dashboard-contacts *ngIf='selectedPage=="contacts"' [ContactsIn]='org.contacts'></dashboard-contacts>
       <dashboard-members *ngIf='selectedPage=="members"' [MembersIn]='contacts' [EditingIn]='editing'></dashboard-members>
     </div>

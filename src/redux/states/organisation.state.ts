@@ -1,8 +1,7 @@
 import { IOrganisation } from "src/models/organisation-model";
 import { State, Selector, Action, Store, StateContext } from "@ngxs/store";
-import { CreateOrganisation, CreateOrganisationSuccess, CreateOrganisationFail, SetOrganisations, UpdateOrganisation, UpdateOrganisationSuccess, UpdateOrganisationFail, DeleteOrganisation, DeleteOrganisationSuccess, DeleteOrganisationFail } from "../actions/organisation.actions";
+import { CreateOrganisation, CreateOrganisationSuccess, CreateOrganisationFail, SetOrganisations, UpdateOrganisation, UpdateOrganisationSuccess, UpdateOrganisationFail, DeleteOrganisation, DeleteOrganisationSuccess, DeleteOrganisationFail, OrgAddPostedJob, AddActiveJobToOrg, AddContactToOrg } from "../actions/organisation.actions";
 import { OrganisationService } from "src/services/organisation-service/organisation.service";
-import { NotificationService } from "src/services/notifications/notification.service";
 import { RequestAddOrgToUser, RequestUpdateUserOrg, RequestDeleteOrgFromUser } from "../actions/user.actions";
 
 export class OrgsStateModel {
@@ -19,9 +18,7 @@ export class OrgsStateModel {
 export class OrgsState {
   constructor(
     private _orgService: OrganisationService,
-    private _store: Store,
-    private _notification: NotificationService
-  ) { }
+    private _store: Store) { }
 
   //#region Selector and Initial Set
   @Selector()
@@ -139,4 +136,87 @@ export class OrgsState {
 
   //#endregion
 
+  @Action(OrgAddPostedJob)
+  OrgAddPostedJob({ getState, patchState }: StateContext<OrgsStateModel>, { payload, orgId }: OrgAddPostedJob) {
+    const orgs = getState().orgs;
+
+    const index = orgs.findIndex(o => o.id === orgId);
+
+    if (index !== -1) {
+      this._orgService.getOrganisationByID(orgId).subscribe((res) => {
+        if (res) {
+          const postedJobs = res.jobsPosted || [];
+
+          postedJobs.push(payload);
+
+          this._orgService.updateOrganisation({ jobsPosted: postedJobs }, orgId).subscribe(res => {
+            orgs[index] = res;
+
+            patchState({ orgs: orgs })
+          })
+        }
+        else {
+          console.log('Error returning from server')
+        }
+      })
+    }
+  }
+
+  @Action(AddActiveJobToOrg)
+  AddActiveJobToOrg({ getState, patchState }: StateContext<OrgsStateModel>, { payload, orgId }: AddActiveJobToOrg) {
+    const orgs = getState().orgs;
+
+    const index = orgs.findIndex(o => o.id === orgId);
+
+    if (index != -1) {
+      this._orgService.getOrganisationByID(orgId).subscribe((res) => {
+        if (res) {
+          const activeJobs = res.activeJobs || [];
+          const postedJobs = res.jobsPosted || [];
+
+
+
+          activeJobs.push(payload);
+          const indexToRemove = postedJobs.findIndex(p => p.id === payload.id);
+          postedJobs.splice(indexToRemove, 1);
+          this._orgService.updateOrganisation({ activeJobs: activeJobs, jobsPosted: postedJobs }, orgId).subscribe((res) => {
+            orgs[index] = res;
+            patchState({ orgs: orgs })
+          })
+        }
+      })
+    }
+
+  }
+  @Action(AddContactToOrg)
+  addContactToOrg({ getState, patchState }: StateContext<OrgsStateModel>, { payload, orgId }: AddContactToOrg) {
+    //email, avatarurl, fname, lname, tagline, id
+    const orgs = getState().orgs;
+
+    const index = orgs.findIndex(o => o.id === orgId);
+
+    if (index != -1) {
+
+
+      this._orgService.getOrganisationByID(orgId).subscribe(res => {
+        const org = res;
+
+        const contacts = org.contacts || [];
+
+        if (contacts.findIndex(p => p.id === payload.id) === -1) {
+
+          contacts.push(payload);
+
+          this._orgService.updateOrganisation({ contacts: contacts }, orgId).subscribe((res) => {
+            orgs[index] = res;
+
+            patchState({ orgs: orgs });
+          })
+        }
+      })
+    }
+  }
 }
+
+
+

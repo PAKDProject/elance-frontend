@@ -5,7 +5,7 @@ import { NotificationService } from "src/services/notifications/notification.ser
 import { UserService } from "src/services/user-service/user.service";
 import { JobService } from "src/services/job-service/job.service";
 import { Store, Select } from "@ngxs/store";
-import { AddJob } from "src/redux/actions/job.actions";
+import { AddJob, AddJobOrg } from "src/redux/actions/job.actions";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { UserState } from "src/redux/states/user.state";
 import { Observable } from "rxjs";
@@ -23,11 +23,13 @@ import { RequestUpdateUser, RequestRefreshUser } from "src/redux/actions/user.ac
 })
 export class CreateJobModalComponent implements OnInit {
   @Select(UserState.getUser) user$: Observable<IUser>;
+
   jobForm: FormGroup;
   skillForm: FormGroup;
   skills: ISkills[];
   skillsLoading: boolean;
   selectedSkills: ISkills[] = [];
+
   addCustomSkill = term => ({
     skillTitle: term,
     category: "Custom"
@@ -117,6 +119,8 @@ export class CreateJobModalComponent implements OnInit {
     if (this.newJob.remote) this.location.disable();
     if (this.newJob.remote === false) this.location.enable();
   }
+
+
   submitForm(): void {
     if (this.selectedSkills.length === 0) {
       this.skillForm.setErrors({ invalid: true });
@@ -130,11 +134,11 @@ export class CreateJobModalComponent implements OnInit {
       }
       else {
         this.newJob.tags = this.selectedSkills;
-        if ((this.data as IOrganisation).websiteUrl) {
+        if ((this.data as IOrganisation).orgName) {
           let tempOrg = this.data as IOrganisation
           this.newJob.employerID = tempOrg.id
           this.newJob.employerName = tempOrg.orgName
-          this.dispatch();
+          this.dispatchOrg();
         }
         else if ((this.data as IUser).fName) {
           this.user$.subscribe(u => {
@@ -150,6 +154,11 @@ export class CreateJobModalComponent implements OnInit {
 
   dispatch() {
     this._store.dispatch([new AddJob(this.newJob), new RequestRefreshUser()]);
+    this._dialogRef.close();
+  }
+
+  dispatchOrg() {
+    this._store.dispatch(new AddJobOrg(this.newJob, this.newJob.employerID));
     this._dialogRef.close();
   }
 

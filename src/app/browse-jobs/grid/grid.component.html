@@ -1,14 +1,14 @@
 <div *ngIf='(jobs.length > 0)' class="gridContainer">
-    <inactive-job-card *ngFor='let job of jobs' [JobInput]='job' (notify)='hideJob(job)' [canHide]='true'></inactive-job-card>
+  <inactive-job-card *ngFor='let job of jobs' [JobInput]='job' (notify)='hideJob(job)' [canHide]='true' [type]="'user'"></inactive-job-card>
 </div>
 <div *ngIf='!(jobs.length > 0)' class="listContainer">
-    <div class="noJobsFound">
-        <div class="centerContainer">
-            <div class='imgContainer'>
-                <i class="far fa-frown"></i>
-            </div>
-            <h2>No jobs found</h2>
-            <div>try changing your search terms</div>
-        </div>
+  <div class="noJobsFound">
+    <div class="centerContainer">
+      <div class='imgContainer'>
+        <i class="far fa-frown"></i>
+      </div>
+      <h2>No jobs found</h2>
+      <div>try changing your search terms</div>
     </div>
+  </div>
 </div>

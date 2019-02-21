@@ -15,7 +15,7 @@
               <mat-icon>keyboard_arrow_left</mat-icon>
             </div>
             <drag-scroll #activeJobs *ngIf="user.activeJobs.length > 0">
-              <dashboard-job-card *ngFor='let job of user.activeJobs' [JobInput]='job'></dashboard-job-card>
+              <dashboard-job-card *ngFor='let job of user.activeJobs' [JobInput]='job' [type]="'active'"></dashboard-job-card>
               <!-- <dashboard-job-card drag-scroll-item *ngFor='let j of tempJobs' [JobInput]='j'></dashboard-job-card> -->
             </drag-scroll>
             <div class='dragArrow' (click)='moveDragRight(0)'>
@@ -36,7 +36,7 @@
               <mat-icon>keyboard_arrow_left</mat-icon>
             </div>
             <drag-scroll #appliedJobs *ngIf="user.appliedJobs.length > 0">
-              <dashboard-job-card *ngFor='let job of user.appliedJobs' [JobInput]='job'></dashboard-job-card>
+              <dashboard-job-card *ngFor='let job of user.appliedJobs' [JobInput]='job' [type]="'inactive'"></dashboard-job-card>
             </drag-scroll>
             <div class='dragArrow' (click)='moveDragRight(1)'>
               <mat-icon>keyboard_arrow_right</mat-icon>
@@ -56,7 +56,7 @@
               <mat-icon>keyboard_arrow_left</mat-icon>
             </div>
             <drag-scroll #postedJobs>
-              <dashboard-job-card *ngFor='let job of user.postedJobs' [JobInput]='job'></dashboard-job-card>
+              <dashboard-job-card *ngFor='let job of user.postedJobs' [JobInput]='job' [type]="'inactive'"></dashboard-job-card>
             </drag-scroll>
             <div class='dragArrow' (click)='moveDragRight(2)'>
               <mat-icon>keyboard_arrow_right</mat-icon>

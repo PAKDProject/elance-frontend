@@ -15,17 +15,24 @@ import {
   AcceptApplicantFail,
   RemoveJob,
   RemoveJobSuccess,
-  RemoveJobFail
+  RemoveJobFail,
+  AddJobOrg,
+  AddJobOrgSuccess,
+  AddJobOrgFail,
+  ChangeBrowseFormat
 } from "../actions/job.actions";
 import { IJob } from "src/models/job-model";
 import { JobService } from "src/services/job-service/job.service";
 import { RequestAddPostedJob, RequestAddActiveJob } from "../actions/user.actions";
 import { isNullOrUndefined } from 'util';
+import { OrgAddPostedJob, AddActiveJobToOrg, AddContactToOrg } from "../actions/organisation.actions";
 
 export class JobsStateModel {
   inactiveJobs: IJob[];
   activeJobs: IJob[];
   isLoading: boolean;
+  isList: boolean;
+  showRecommended: boolean;
 }
 
 @State({
@@ -33,7 +40,8 @@ export class JobsStateModel {
   defaults: {
     inactiveJobs: [],
     activeJobs: [],
-    isLoading: false
+    isLoading: false,
+    isList: false
   }
 })
 export class JobsState {
@@ -215,7 +223,7 @@ export class JobsState {
 
   //#region Accept Applicant
   @Action(AcceptApplicant)
-  acceptApplicant({ getState, dispatch, patchState }: StateContext<JobsStateModel>, { jobID, user }: AcceptApplicant) {
+  acceptApplicant({ getState, dispatch, patchState }: StateContext<JobsStateModel>, { jobID, user, type }: AcceptApplicant) {
     // get current state
     const state = getState();
     patchState({ isLoading: true });
@@ -225,11 +233,10 @@ export class JobsState {
 
     // Check if the job existed
     if (job !== undefined) {
-
       //Update the job
       this._jobsService.updateJob({ chosenApplicant: user }, jobID).subscribe((res: { job: IJob }) => {
         const updatedJob = res.job;
-        console.log(updatedJob);
+
         dispatch(new RequestAddActiveJob({
           id: updatedJob.id,
           title: updatedJob.title,
@@ -241,14 +248,37 @@ export class JobsState {
           dateDue: updatedJob.dateDue
         },
           user.id))
+
+        dispatch(new AddActiveJobToOrg({
+          id: updatedJob.id,
+          title: updatedJob.title,
+          employerName: updatedJob.employerName,
+          employerID: updatedJob.employerID,
+          description: updatedJob.description,
+          payment: updatedJob.payment,
+          progress: 50,
+          datePosted: updatedJob.datePosted,
+          dateAccepted: updatedJob.dateAccepted,
+          dateDue: updatedJob.dateDue
+        }, updatedJob.employerID));
+
+        dispatch(new AddContactToOrg({
+          id: user.id,
+          fName: user.fName,
+          lName: user.lName,
+          tagline: user.tagline,
+          avatarUrl: user.avatarUrl,
+          email: user.email
+        }, updatedJob.employerID));
+
+
+
         dispatch(
           new AcceptApplicantSuccess(updatedJob));
       }),
         err => {
           dispatch(new AcceptApplicantFail(err.message));
         };
-
-
     }
   }
 
@@ -271,35 +301,83 @@ export class JobsState {
 
   //#region Complete Job
   @Action(RemoveJob)
-  removeJob({getState, dispatch, patchState}: StateContext<JobsStateModel>, {jobID}: RemoveJob) {
+  removeJob({ getState, dispatch, patchState }: StateContext<JobsStateModel>, { jobID }: RemoveJob) {
     const state = getState();
-    patchState({ isLoading: true});
+    patchState({ isLoading: true });
 
     // Get job in state
     const job = state.activeJobs.find(j => j.id === jobID);
 
-    if(!isNullOrUndefined(job)) {
+    if (!isNullOrUndefined(job)) {
       this._jobsService.deleteJob(jobID);
       try {
-        dispatch( new RemoveJobSuccess(jobID));
+        dispatch(new RemoveJobSuccess(jobID));
       } catch (e) {
-        dispatch( new RemoveJobFail(jobID));
+        dispatch(new RemoveJobFail(jobID));
       }
     }
   }
 
   @Action(RemoveJobSuccess)
-  removeJobSuccess({getState, patchState}: StateContext<JobsStateModel>, {jobID}: RemoveJobSuccess) {
+  removeJobSuccess({ getState, patchState }: StateContext<JobsStateModel>, { jobID }: RemoveJobSuccess) {
     const inactiveJobs = getState().inactiveJobs;
-    patchState({isLoading: false, activeJobs: inactiveJobs});
+    patchState({ isLoading: false, activeJobs: inactiveJobs });
   }
 
   @Action(RemoveJobFail)
-  removeJobFail({patchState}: StateContext<JobsStateModel>, {errorMessage}: RemoveJobFail) {
-    patchState({ isLoading: false});
+  removeJobFail({ patchState }: StateContext<JobsStateModel>, { errorMessage }: RemoveJobFail) {
+    patchState({ isLoading: false });
   }
   //#endregion
 
+
+  //#region Add org job
+  @Action(AddJobOrg)
+  AddJobOrg({ dispatch, patchState }: StateContext<JobsStateModel>, { payload, orgId }: AddJobOrg) {
+    patchState({ isLoading: true });
+
+    this._jobsService.createNewJob(payload).subscribe(
+      (res: { job: IJob }) => {
+        let updatedPayload = res.job;
+        dispatch(new AddJobOrgSuccess(updatedPayload, orgId));
+      },
+      err => {
+        dispatch(new AddJobOrgFail(err.message));
+      }
+    );
+  }
+
+  @Action(AddJobOrgSuccess)
+  AddJobOrgSuccess({ getState, dispatch, patchState }: StateContext<JobsStateModel>, { job, orgId }: AddJobOrgSuccess) {
+    const jobs = getState().inactiveJobs || [];
+
+    jobs.push(job);
+
+    const partialOrgJob: Partial<IJob> = {
+      id: job.id,
+      title: job.title,
+      employerName: job.employerName,
+      payment: job.payment,
+      datePosted: job.datePosted,
+      description: job.description
+    };
+
+    dispatch(new OrgAddPostedJob(partialOrgJob, orgId));
+
+    patchState({ isLoading: false, inactiveJobs: jobs });
+
+  }
+
+  //#endregion
+  @Action(ChangeBrowseFormat)
+  ChangeBrowseFormat({ dispatch, patchState }: StateContext<JobsStateModel>, { payload }: ChangeBrowseFormat) {
+    patchState({ isList: payload });
+  }
+
+  @Selector()
+  static getBrowseFormat(state: JobsStateModel) {
+    return state.isList;
+  }
 }
 
 
