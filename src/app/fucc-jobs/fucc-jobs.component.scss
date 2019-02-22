@@ -30,7 +30,7 @@
         }
         .fuccCard{
             width: 100%;
-            min-width: 250px;
+            min-width: 200px;
             color: initial;
             // max-height: 200px;
             // margin: 5px;
@@ -96,6 +96,16 @@
                 background: white;
                 color: $primary;
             }
+        }
+    }
+}
+
+@media only screen and (max-width: 720px)
+{
+    .cardContainer {
+        .bodyContent {
+            grid-template-columns: 1fr;
+            grid-row-gap: 10px;
         }
     }
 }
