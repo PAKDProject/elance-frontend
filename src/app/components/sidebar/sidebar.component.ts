@@ -82,11 +82,13 @@ export class SidebarComponent implements OnInit {
     }
 
     viewProfile(user: IUser) {
-        this._viewProfileDialog.open(UserProfileModalComponent, {
-            data: {
-                user: user,
-                isOrg: false
-            }
+        this._userService.getUserByID(user.id).subscribe(res => {
+            this._viewProfileDialog.open(UserProfileModalComponent, {
+                data: {
+                    user: res,
+                    isOrg: false
+                }
+            });
         });
     }
 }
