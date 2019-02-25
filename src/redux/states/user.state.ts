@@ -31,6 +31,7 @@ import { IOrganisation } from "src/models/organisation-model";
 import { SetOrganisations, AddMemberToOrg } from "../actions/organisation.actions";
 import { OrganisationService } from "src/services/organisation-service/organisation.service";
 import { RemoveJob } from '../actions/job.actions';
+import { isNullOrUndefined } from 'util';
 
 export class UserStateModel {
   id: string;
@@ -109,7 +110,6 @@ export class UserState {
     if (user) {
       setState(user);
     }
-
   }
 
   @Action(RequestUserFailedActions)
@@ -155,11 +155,29 @@ export class UserState {
 
   @Action(RequestAddContact)
   RequestAddContact({ getState, dispatch }: StateContext<UserStateModel>, { payload }: RequestAddContact) {
+    const currentUser = getState();
+    const contact: Partial<IUser> = {
+      id: currentUser.id,
+      fName: currentUser.fName,
+      lName: currentUser.lName,
+      avatarUrl: currentUser.avatarUrl,
+      tagline: currentUser.tagline,
+      email: currentUser.email
+    };
+    let contactList: Partial<IUser>[] = [];
     const contacts = getState().contacts || [];
 
     const index = contacts.findIndex(c => c.id === payload.id)
     if (index === -1) {
       contacts.push(payload);
+      if (!isNullOrUndefined(currentUser.contacts)) {
+        contactList.push(contact);
+        this._userService.updateUser({contacts: contactList}, payload.id).subscribe();
+      } else {
+        contactList = currentUser.contacts;
+        contactList.push(contact);
+        this._userService.updateUser({contacts: contactList}, payload.id).subscribe();
+      }
       dispatch(new RequestUpdateUser({ contacts: contacts }));
     }
 

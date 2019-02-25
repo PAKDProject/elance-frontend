@@ -1,11 +1,11 @@
 <div class="modalHeader">
   <!-- leave this space for any extra buttons we might use later on-->
-  <div class="contactBtn" *ngIf="isOrg">
-      <button class="btn btn-block btn-sm" (click)="addMemberToOrg()">
-        <mat-icon>person_add</mat-icon> <span>Add to this organization</span>
-      </button>
+  <div class="contactBtn" *ngIf="data.isOrg">
+    <button class="btn btn-block btn-sm" (click)="addMemberToOrg()">
+      <mat-icon>person_add</mat-icon> <span>Add to this organization</span>
+    </button>
   </div>
-  <div class="contactBtn" *ngIf="!isOrg">
+  <div class="contactBtn" *ngIf="!data.isOrg">
     <button class="btn btn-block btn-sm" (click)="addContact()">
       <mat-icon>person_add</mat-icon> <span>Add Contact</span>
     </button>
@@ -30,21 +30,21 @@
         </div>
 
         <div class="nameContainer">
-          <h1>{{ this.data.fName }} {{ this.data.lName }}</h1>
+          <h1>{{ this.data.user.fName }} {{ this.data.user.lName }}</h1>
         </div>
 
         <div class="jobTitleContainer">
-          <h2>{{ this.data.tagline }}</h2>
+          <h2>{{ this.data.user.tagline }}</h2>
         </div>
 
         <div class="emailContainer">
-          <h4>{{ this.data.email }}</h4>
+          <h4>{{ this.data.user.email }}</h4>
         </div>
 
         <div class="socialConnectionContainer">
-          <div *ngIf="this.data.socialLinks">
-            <div class="socialConnectionContainer" *ngIf="this.data.socialLinks.length > 0">
-              <a *ngFor="let connection of this.data.socialLinks" href="{{ connection.url }}" target="_blank">
+          <div *ngIf="this.data.user.socialLinks">
+            <div class="socialConnectionContainer" *ngIf="this.data.user.socialLinks.length > 0">
+              <a *ngFor="let connection of this.data.user.socialLinks" href="{{ connection.url }}" target="_blank">
                 <img src="{{connection.imageUrl}}" id="{{ connection.url }}" alt="{{ connection.url }}" />
               </a>
             </div>
@@ -55,7 +55,7 @@
       <div class="rightCol"></div>
     </div>
 
-    <div class="profileBody" *ngIf="this.data.profileCards">
+    <div class="profileBody" *ngIf="this.data.user.profileCards">
       <div *ngFor="let card of this.profileCards" class="nonDraggableContainer">
         <profile-row [card]="card" [editing]="false"></profile-row>
       </div>

@@ -10,6 +10,7 @@ import { UserState } from 'src/redux/states/user.state';
 import { JobFeedbackModalComponent } from '../modals/job-feedback-modal/job-feedback-modal.component';
 import { IJob } from 'src/models/job-model';
 import { NotificationService } from 'src/services/notifications/notification.service';
+import { UserService } from 'src/services/user-service/user.service';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -50,6 +51,8 @@ export class UserDashboardComponent implements OnInit {
         activeJobs: element.activeJobs || [],
         contacts: element.contacts || []
       }
+
+
       if (this.user.postedJobs == undefined) { this.user.postedJobs = [] }
       if (this.user.activeJobs == undefined) { this.user.activeJobs = [] }
       if (this.user.appliedJobs == undefined) { this.user.appliedJobs = [] }

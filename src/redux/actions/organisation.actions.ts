@@ -8,6 +8,10 @@ export class SetOrganisations {
   constructor(public payload: Partial<IOrganisation>[]) { }
 }
 //#endregion
+export class RequestRefreshOrg {
+  static readonly type = '[Orgs] Refresh Organisation'
+  constructor() { }
+}
 //#region Create organisation
 export class CreateOrganisation {
   static readonly type = '[Orgs] Create Organisation'

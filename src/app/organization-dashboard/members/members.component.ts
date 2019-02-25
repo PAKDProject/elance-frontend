@@ -3,6 +3,9 @@ import { IUser } from 'src/models/user-model';
 import { UserService } from 'src/services/user-service/user.service';
 import { MatDialog, MatMenuTrigger } from '@angular/material';
 import { UserProfileModalComponent } from 'src/app/modals/user-profile-modal/user-profile-modal.component';
+import { Store } from '@ngxs/store';
+import { RequestRefreshOrg } from 'src/redux/actions/organisation.actions';
+import { OrganisationService } from 'src/services/organisation-service/organisation.service';
 
 @Component({
   selector: 'dashboard-members',
@@ -10,7 +13,7 @@ import { UserProfileModalComponent } from 'src/app/modals/user-profile-modal/use
   styleUrls: ['./members.component.scss']
 })
 export class MembersComponent implements OnInit {
-  @Input('MembersIn') members: IUser[];
+  @Input('MembersIn') members: Partial<IUser>[];
   @Input('EditingIn') editing: boolean;
   @Input('orgId') orgId: string;
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
@@ -18,10 +21,13 @@ export class MembersComponent implements OnInit {
 
   constructor(
     private _userService: UserService,
-    public _viewProfileDialog: MatDialog
+    public _viewProfileDialog: MatDialog,
+    private _store: Store,
+    private _orgService: OrganisationService
   ) { }
 
   ngOnInit() {
+
   }
 
   removeMember(m: IUser) {
@@ -38,19 +44,27 @@ export class MembersComponent implements OnInit {
   showResults(searchTerm: string) {
     this.results = [];
     this._userService.searchUsers(searchTerm).subscribe((data) => {
-        data.users.forEach((u: { _source: IUser; }) => {
-            this.results.push(u._source);
-        });
-        this.trigger.openMenu();
+      data.users.forEach((u: { _source: IUser; }) => {
+        this.results.push(u._source);
+      });
+      this.trigger.openMenu();
     });
-}
+  }
 
   viewProfile(user: IUser) {
-      this._viewProfileDialog.open(UserProfileModalComponent, {
-          data: {
-            user: user,
-            orgId: this.orgId
-          },
-      });
+    console.log(user)
+    this._viewProfileDialog.open(UserProfileModalComponent, {
+      data: {
+        user: user,
+        isOrg: true,
+        orgId: this.orgId
+      },
+    }).afterClosed().subscribe(() => {
+      this._store.dispatch(new RequestRefreshOrg());
+
+      this._orgService.getOrganisationByID(this.orgId).subscribe((org) => {
+        this.members = org.members
+      })
+    });
   }
 }

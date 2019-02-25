@@ -13,7 +13,6 @@ import { isNullOrUndefined } from 'util';
   styleUrls: ['./user-profile-modal.component.scss']
 })
 export class UserProfileModalComponent implements OnInit {
-  isOrg = false;
 
   profileCards;
   constructor(
@@ -21,10 +20,8 @@ export class UserProfileModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private store: Store,
     private notification: NotificationService) {
-      if(!isNullOrUndefined(this.data.orgId)){
-        this.isOrg = true;
-      }
-    }
+
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -32,47 +29,49 @@ export class UserProfileModalComponent implements OnInit {
 
   addContact() {
     this.store.dispatch(new RequestAddContact({
-      id: this.data.id,
-      fName: this.data.fName,
-      lName: this.data.lName,
-      avatarUrl: this.data.avatarUrl,
-      tagline: this.data.tagline,
-      email: this.data.email
-    })).subscribe(() => {
-      this.notification.showSuccess(`Added ${this.data.fName} ${this.data.lName} as a contact`, "Contact them now from the messaging tab")
-      this.dialogRef.close()
-    })
-  }
-
-  addMemberToOrg() {
-    this.store.dispatch(new AddMemberToOrg({
       id: this.data.user.id,
       fName: this.data.user.fName,
       lName: this.data.user.lName,
       avatarUrl: this.data.user.avatarUrl,
       tagline: this.data.user.tagline,
       email: this.data.user.email
-    }, this.data.orgId)).subscribe(() => {
-      this.notification.showSuccess(`Added ${this.data.user.fName} ${this.data.user.lName} as a member to your organization!`);
+    })).subscribe(() => {
+      this.notification.showSuccess(`Added ${this.data.user.fName} ${this.data.user.lName} as a contact`, "Contact them now from the messaging tab")
       this.dialogRef.close()
     })
   }
 
+  addMemberToOrg() {
+    if (!isNullOrUndefined(this.data.orgId)) {
+      this.store.dispatch(new AddMemberToOrg({
+        id: this.data.user.id,
+        fName: this.data.user.fName,
+        lName: this.data.user.lName,
+        avatarUrl: this.data.user.avatarUrl,
+        tagline: this.data.user.tagline,
+        email: this.data.user.email
+      }, this.data.orgId)).subscribe(() => {
+        this.notification.showSuccess(`Added ${this.data.user.fName} ${this.data.user.lName} as a member to your organization!`);
+        this.dialogRef.close()
+      })
+    }
+  }
+
   ngOnInit() {
-    this.profileCards = this.data.profileCards
+    this.profileCards = this.data.user.profileCards
     this.profileCards.forEach(c => {
       switch (c.type) {
         case "bio":
-          c.content = this.data.summary
+          c.content = this.data.user.summary
           break;
         case "edu":
-          c.content = this.data.educationItems
+          c.content = this.data.user.educationItems
           break;
         case "skills":
-          c.content = this.data.skills
+          c.content = this.data.user.skills
           break;
         case "jobs":
-          c.content = this.data.jobHistory
+          c.content = this.data.user.jobHistory
           break;
       }
     });

@@ -14,6 +14,7 @@ import { UpdateOrganisation, DeleteOrganisation } from 'src/redux/actions/organi
 import { RequestUpdateUser } from 'src/redux/actions/user.actions';
 import { ConfirmModalComponent } from '../modals/confirm-modal/confirm-modal.component';
 import { UploadImageModalComponent } from '../modals/upload-image-modal/upload-image-modal.component';
+import { OrgsState } from 'src/redux/states/organisation.state';
 
 @Component({
   selector: 'organization-dashboard',
@@ -105,6 +106,8 @@ export class OrganizationDashboardComponent implements OnInit {
 
   @Select(UserState.getUser)
   user$: Observable<IUser>;
+
+
 
   ngOnInit() {
     this.store.dispatch(new RequestJobs());

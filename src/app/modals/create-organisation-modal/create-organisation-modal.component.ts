@@ -65,7 +65,6 @@ export class CreateOrganisationModalComponent implements OnInit {
       this.organisation.logoUrl = data.logoUrl;
       this.orgName = data.organisationName;
       this.organisation.tag = data.tag;
-      console.log(data)
     });
   }// end of init
 
