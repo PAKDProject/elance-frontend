@@ -6,9 +6,10 @@
           <h1>Contacts</h1>
         </div>
         <div class='contactsList'>
-          <div *ngFor='let contact of ((user$ | async ).contacts !== undefined) ? (user$ | async).contacts : null;' class='contactRow'>
+          <div *ngFor='let contact of ((user$ | async ).contacts !== undefined) ? (user$ | async).contacts : null;'
+            class='contactRow'>
             <div (click)='openProfile()' class='profilePic'>
-              <img src='../../../assets/images/default_user.png'/>
+              <img src='../../../assets/images/default_user.png' />
             </div>
             <div (click)='openProfile(contact)' class='name'>{{contact.fName}} {{contact.lName}}</div>
             <div class='tagline'>{{contact.tagline}}</div>
@@ -25,17 +26,15 @@
         </div>
         <div class='noMessages' *ngIf='!(sampleConversation.length > 0)'>
           <div>
-              <img src='../../assets/images/no_messages.png' alt='no_messages'/>
-              <h1>{{(selectedContact)?'No messages yet':'Select a contact to start messaging'}}</h1>
+            <img src='../../assets/images/no_messages.png' alt='no_messages' />
+            <h1>{{(selectedContact)?'No messages yet':'Select a contact to start messaging'}}</h1>
           </div>
         </div>
         <div class='messageContent' *ngIf='sampleConversation.length > 0' #messages [scrollTop]="messages.scrollHeight">
-          <div *ngFor='let m of sampleConversation'
-            [class.sender]='m.senderId == (user$ | async).id'
-            [class.sender]='m.senderId == "user2"'
-            [class.unseen] ='!(m.isSeen)'>
+          <div *ngFor='let m of sampleConversation' [class.sender]='m.senderId == (user$ | async).id'
+            [class.unseen]='!(m.isSeen)'>
             <p>{{m.content}}</p>
-            <small>{{m.timestamp | date: 'dd/mm/yyyy'}}</small>
+            <small>{{m.timestamp | date: 'HH:mm'}}</small>
           </div>
         </div>
         <form [formGroup]='messageForm'>
