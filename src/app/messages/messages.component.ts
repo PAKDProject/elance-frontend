@@ -7,6 +7,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IMessage } from 'src/models/message-model';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/services/user-service/user.service';
+import { WebsocketService } from 'src/services/websocket-service/websocket.service';
+import { MessageState } from 'src/redux/states/message.state';
 
 @Component({
   selector: 'app-messages',
@@ -19,6 +21,7 @@ export class MessagesComponent implements OnInit {
 
   @Select(UserState.getUser)
   user$: Observable<IUser>;
+  @Select(MessageState.getMessages) messages$: Observable<IMessage[]>;
 
   selectedContact: IUser;
 
@@ -29,15 +32,19 @@ export class MessagesComponent implements OnInit {
 
   constructor(private store: Store,
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
   ) { }
 
   ngOnInit() {
     let id = this.route.snapshot.params['id']
     console.info(id)
-    if (id) { this.userService.getUserByID(id).subscribe(
-      res => { this.selectedContact = res; console.log(this.selectedContact) })
+    if (id) {
+      this.userService.getUserByID(id).subscribe(
+        res => { this.selectedContact = res; console.log(this.selectedContact) })
     }
+    // this.messages$.subscribe(mes => {
+    //   this.sampleConversation = mes
+    // }) getting messages
   }
 
   toggleContacts() { this.contactsShown = !this.contactsShown }
@@ -54,7 +61,7 @@ export class MessagesComponent implements OnInit {
       content: 'Hello',
       isSeen: true,
       recipientId: 'user1',
-      senderId: 'user2',
+      senderId: 'sad34324-d73fsadas-DAB4GSUS-b801-42069LOL',
       timestamp: new Date()
     },
     {

@@ -16,6 +16,7 @@ export class WebsocketService {
   private socket$: WebSocketSubject<IMessage>
   private config: IWebConfig
   private isConnected: boolean = false
+  private ws: WebSocket
   private user: IUser
 
   @Select(UserState.getUser) user$: Observable<IUser>
@@ -32,26 +33,43 @@ export class WebsocketService {
     let timer = setInterval(async () => {
       try {
         if (this.config === undefined) {
-          this.config = await this.getConfig()
+          let res = await this.getConfig()
+          this.config = res.config
         }
-
-        this.socket$ = await WebSocketSubject.create(`${this.config.endpoint}?userId=${this.user.id}`)
-        this.socket$.subscribe(message => {
-          this._store.dispatch(new AddMessageToState(message))
-        }, err => {
-          this._notifier.showError("Something went wrong with the connection...")
-        })
+        this.ws = new WebSocket(`wss://${this.config.endpoint}?userId=${this.user.id}`)
+        this.ws.onopen = () => this._notifier.showSuccess('Connected!', "Successfully connected to FUCC System.")
+        this.ws.onmessage = (event) => {
+          let message: IMessage = JSON.parse(event.data)
+          if (message.action === "message") {
+            let im = message.content as IInstantMessage
+            //let im = message as IInstantMessage
+            this._store.dispatch(new AddMessageToState(im))
+          }
+        }
+        this.ws.onerror = () => {
+          throw new Error("Error with connection")
+        }
 
         clearInterval(timer)
       } catch (error) {
         this._notifier.showError("Failed connection!", "Failed to FUCC the system. Retrying in 15 seconds...")
-        console.log(error) //used for dev
       }
     }, 15000)
   }
 
-  async getConfig(): Promise<IWebConfig> {
-    return this._http.get<IWebConfig>(`${environment.backendUrl}/fucc/getconfig`).toPromise()
+  async getConfig(): Promise<{ config: IWebConfig }> {
+    return this._http.get<{ config: IWebConfig }>(`${environment.backendUrl}/fucc/getconfig`).toPromise()
+  }
+
+  async send(messageContent: string, recipentUserId: string) {
+    let message: IMessage = {
+      action: "sendMessage",
+      userId: recipentUserId,
+      senderUserId: this.user.id,
+      content: messageContent
+    }
+
+    this.ws.send(JSON.stringify(message))
   }
 }
 
