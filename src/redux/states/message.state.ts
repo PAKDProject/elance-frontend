@@ -18,6 +18,13 @@ export class MessageState {
         return state.messages
     }
 
+    @Selector()
+    static getMessagesForUser(state: MessageStateModel) {
+        return (id: string) => {
+            return state.messages.filter(user => user.recipentId === id || user.senderId === id)
+        }
+    }
+
     @Action(AddMessageToState)
     AddMessageToState({ getState, patchState }: StateContext<MessageStateModel>, { payload }: AddMessageToState) {
         const messages = getState().messages

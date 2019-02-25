@@ -4,11 +4,12 @@ import { Select, Store } from "@ngxs/store";
 import { UserState } from "src/redux/states/user.state";
 import { Observable } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { IMessage } from 'src/models/message-model';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/services/user-service/user.service';
-import { WebsocketService } from 'src/services/websocket-service/websocket.service';
+import { WebsocketService, IInstantMessage, IMessage } from 'src/services/websocket-service/websocket.service';
 import { MessageState } from 'src/redux/states/message.state';
+import { map } from 'rxjs/operators';
+import { AddMessageToState } from 'src/redux/actions/message.actions';
 
 @Component({
   selector: 'app-messages',
@@ -21,9 +22,11 @@ export class MessagesComponent implements OnInit {
 
   @Select(UserState.getUser)
   user$: Observable<IUser>;
-  @Select(MessageState.getMessages) messages$: Observable<IMessage[]>;
+  @Select(MessageState.getMessagesForUser) messages$: Observable<IInstantMessage[]>;
 
   selectedContact: IUser;
+  selectedMessages: IInstantMessage[] = []
+  user: IUser
 
   messageForm: FormGroup =
     new FormGroup({
@@ -33,6 +36,7 @@ export class MessagesComponent implements OnInit {
   constructor(private store: Store,
     private route: ActivatedRoute,
     private userService: UserService,
+    private webSockerService: WebsocketService
   ) { }
 
   ngOnInit() {
@@ -40,85 +44,46 @@ export class MessagesComponent implements OnInit {
     console.info(id)
     if (id) {
       this.userService.getUserByID(id).subscribe(
-        res => { this.selectedContact = res; console.log(this.selectedContact) })
+        res => { this.selectedContact = res; })
     }
-    // this.messages$.subscribe(mes => {
-    //   this.sampleConversation = mes
-    // }) getting messages
+    this.user$.subscribe(user => {
+      this.user = user
+    })
   }
 
-  toggleContacts() { this.contactsShown = !this.contactsShown }
+  toggleContacts() { this.contactsShown = !this.contactsShown; }
 
-  openProfile() { }
+  openProfile() {
+  }
 
   openMessenger(contact: IUser) {
     this.selectedContact = contact
+
+    this.store.select(MessageState.getMessagesForUser).pipe(map(res =>
+      res(contact.id)
+    )).subscribe(res => {
+      this.selectedMessages = res
+    })
   }
 
-  //TEMP
-  sampleConversation: IMessage[] = [ //]
-    {
-      content: 'Hello',
-      isSeen: true,
-      recipientId: 'user1',
-      senderId: 'sad34324-d73fsadas-DAB4GSUS-b801-42069LOL',
-      timestamp: new Date()
-    },
-    {
-      content: 'Hi',
-      isSeen: true,
-      recipientId: 'user2',
-      senderId: 'user1',
-      timestamp: new Date()
-    },
-    {
-      content: 'Who are you?',
-      isSeen: true,
-      recipientId: 'user1',
-      senderId: 'user2',
-      timestamp: new Date()
-    },
-    {
-      content: 'My name a Jeff',
-      isSeen: true,
-      recipientId: 'user2',
-      senderId: 'user1',
-      timestamp: new Date()
-    },
-    {
-      content: 'What is this place?',
-      isSeen: true,
-      recipientId: 'user1',
-      senderId: 'user2',
-      timestamp: new Date()
-    },
-    {
-      content: 'This is intellilance, the greatest job site ever created',
-      isSeen: true,
-      recipientId: 'user2',
-      senderId: 'user1',
-      timestamp: new Date()
-    },
-    {
-      content: "My God, It's beautiful",
-      isSeen: false,
-      recipientId: 'user1',
-      senderId: 'user2',
-      timestamp: new Date()
-    },
-    {
-      content: 'You have been chosen to be a part of an elite group of frelancers who can get jobs easily at the click of a button',
-      isSeen: true,
-      recipientId: 'user2',
-      senderId: 'user1',
-      timestamp: new Date()
-    },
-    {
-      content: "Cool beans",
-      isSeen: false,
-      recipientId: 'user1',
-      senderId: 'user2',
-      timestamp: new Date()
+  sendMessage() {
+    let sendingMessage: IInstantMessage = {
+      content: this.messageForm.get("message").value,
+      senderId: this.user.id,
+      recipentId: this.selectedContact.id,
+      timestamp: Date.now(),
+      isSeen: false
     }
-  ]
+
+    let wsMessage: IMessage = {
+      action: "sendMessage",
+      content: sendingMessage.content,
+      senderUserId: this.user.id,
+      userId: this.selectedContact.id,
+    }
+
+
+    this.webSockerService.send(wsMessage)
+    this.store.dispatch(new AddMessageToState(sendingMessage))
+  }
 }

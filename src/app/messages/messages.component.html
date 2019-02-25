@@ -24,22 +24,22 @@
         <div class='topRow'>
           <h1>{{(selectedContact != null? selectedContact.fName + ' ' + selectedContact.lName:'Messages')}}</h1>
         </div>
-        <div class='noMessages' *ngIf='!(sampleConversation.length > 0)'>
+        <div class='noMessages' *ngIf='!(selectedMessages.length > 0)'>
           <div>
             <img src='../../assets/images/no_messages.png' alt='no_messages' />
             <h1>{{(selectedContact)?'No messages yet':'Select a contact to start messaging'}}</h1>
           </div>
         </div>
-        <div class='messageContent' *ngIf='sampleConversation.length > 0' #messages [scrollTop]="messages.scrollHeight">
-          <div *ngFor='let m of sampleConversation' [class.sender]='m.senderId == (user$ | async).id'
+        <div class='messageContent' *ngIf='selectedMessages.length > 0' #messages [scrollTop]="messages.scrollHeight">
+          <div *ngFor='let m of selectedMessages' [class.sender]='m.senderId == (user$ | async).id'
             [class.unseen]='!(m.isSeen)'>
             <p>{{m.content}}</p>
             <small>{{m.timestamp | date: 'HH:mm'}}</small>
           </div>
         </div>
         <form [formGroup]='messageForm'>
-          <textarea class='form-control'></textarea>
-          <button class='btn btn-primary'>
+          <textarea class='form-control' formControlName="message"></textarea>
+          <button class='btn btn-primary' (click)="this.sendMessage()">
             <mat-icon>send</mat-icon>
           </button>
         </form>
