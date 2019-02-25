@@ -3,6 +3,8 @@ import { IUser } from 'src/models/user-model';
 import { UserService } from 'src/services/user-service/user.service';
 import { MatDialog, MatMenuTrigger } from '@angular/material';
 import { UserProfileModalComponent } from 'src/app/modals/user-profile-modal/user-profile-modal.component';
+import { Store } from '@ngxs/store';
+import { RequestRefreshOrg } from 'src/redux/actions/organisation.actions';
 
 @Component({
   selector: 'dashboard-members',
@@ -18,7 +20,8 @@ export class MembersComponent implements OnInit {
 
   constructor(
     private _userService: UserService,
-    public _viewProfileDialog: MatDialog
+    public _viewProfileDialog: MatDialog,
+    private _store: Store
   ) { }
 
   ngOnInit() {
@@ -51,6 +54,8 @@ export class MembersComponent implements OnInit {
             user: user,
             orgId: this.orgId
           },
+      }).afterClosed().subscribe(() => {
+        this._store.dispatch(new RequestRefreshOrg());
       });
   }
 }

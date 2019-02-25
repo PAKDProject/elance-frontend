@@ -109,7 +109,6 @@ export class UserState {
     if (user) {
       setState(user);
     }
-
   }
 
   @Action(RequestUserFailedActions)

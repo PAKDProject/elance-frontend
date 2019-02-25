@@ -1,6 +1,6 @@
 import { IOrganisation } from "src/models/organisation-model";
 import { State, Selector, Action, Store, StateContext } from "@ngxs/store";
-import { CreateOrganisation, CreateOrganisationSuccess, CreateOrganisationFail, SetOrganisations, UpdateOrganisation, UpdateOrganisationSuccess, UpdateOrganisationFail, DeleteOrganisation, DeleteOrganisationSuccess, DeleteOrganisationFail, OrgAddPostedJob, AddActiveJobToOrg, AddContactToOrg, AddMemberToOrg } from "../actions/organisation.actions";
+import { CreateOrganisation, CreateOrganisationSuccess, CreateOrganisationFail, SetOrganisations, UpdateOrganisation, UpdateOrganisationSuccess, UpdateOrganisationFail, DeleteOrganisation, DeleteOrganisationSuccess, DeleteOrganisationFail, OrgAddPostedJob, AddActiveJobToOrg, AddContactToOrg, AddMemberToOrg, RequestRefreshOrg } from "../actions/organisation.actions";
 import { OrganisationService } from "src/services/organisation-service/organisation.service";
 import { RequestAddOrgToUser, RequestUpdateUserOrg, RequestDeleteOrgFromUser } from "../actions/user.actions";
 import { UserService } from "src/services/user-service/user.service";
@@ -39,6 +39,23 @@ export class OrgsState {
     patchState({ orgs: newState });
   }
   //#endregion
+
+  @Action(RequestRefreshOrg)
+  RequestRefreshOrg({ getState, setState }: StateContext<OrgsStateModel>) {
+    let newOrgs: OrgsStateModel = {
+      orgs: []
+    };
+    let oldOrgs = getState().orgs;
+    oldOrgs.forEach(org => {
+      this._orgService.getOrganisationByID(org.id).subscribe(res => {
+        newOrgs.orgs.push(res);
+      });
+    });
+
+    if (newOrgs.orgs.length > 0) {
+      setState(newOrgs);
+    }
+  }
 
   //#region Create Organisation
   @Action(CreateOrganisation)
