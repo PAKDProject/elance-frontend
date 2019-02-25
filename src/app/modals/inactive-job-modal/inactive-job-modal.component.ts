@@ -131,7 +131,7 @@ export class InactiveJobModalComponent implements OnInit {
       email: user.email
     }, this.data.type)).subscribe(() => {
       this._notification.showSuccess(`You chose ${user.fName} to do your job!`, "Let's hope he's competent...if not we accept no liability.")
-      this.dialogRef.close();
+      this.dialogRef.close({ accepted: true });
     })
   }
 
@@ -144,7 +144,10 @@ export class InactiveJobModalComponent implements OnInit {
   viewProfile(user: IUser) {
     this.userService.getUserByID(user.id).subscribe((res) => {
       this._viewProfileDialog.open(UserProfileModalComponent, {
-        data: res
+        data: {
+          user: res,
+          isOrg: false
+        }
       });
     })
 
