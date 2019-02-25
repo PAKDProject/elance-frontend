@@ -50,6 +50,9 @@ export class WebsocketService {
           //let im = message as IInstantMessage
           this._store.dispatch(new AddMessageToState(im))
         }
+        else if (message.action === "fuccJobs") {
+
+        }
       }
       this.ws.onerror = () => {
         throw new Error("Error with connection")
