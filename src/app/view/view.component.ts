@@ -5,6 +5,7 @@ import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 // import { Subscription } from 'rxjs/Subscription';
 import { Subscription } from 'rxjs';
 import PerfectScrollbar from 'perfect-scrollbar';
+import { WebsocketService } from 'src/services/websocket-service/websocket.service';
 
 @Component({
   selector: 'app-view',
@@ -12,5 +13,6 @@ import PerfectScrollbar from 'perfect-scrollbar';
   styleUrls: ['./view.component.scss']
 })
 export class ViewComponent {
+  constructor(private _wss: WebsocketService) { }
 }
 
