@@ -28,6 +28,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'user-dashboard', pathMatch: 'full' },
       { path: 'user-dashboard', canActivate: [StateGuard], component: UserDashboardComponent },
       { path: 'browse-jobs', canActivate: [StateGuard], component: BrowseJobsComponent },
+      { path: 'messages', canActivate: [StateGuard], component: MessagesComponent },
       { path: 'messages/:id', canActivate: [StateGuard], component: MessagesComponent },
       { path: 'organization-dashboard', canActivate: [StateGuard], component: OrganizationDashboardComponent },
       { path: 'user-profile', canActivate: [StateGuard], component: ProfileMenuComponent },

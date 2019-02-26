@@ -30,7 +30,7 @@ export class MessagesComponent implements OnInit {
 
   messageForm: FormGroup =
     new FormGroup({
-      message: new FormControl('', Validators.required)
+      message: new FormControl('message', Validators.required)
     })
 
   constructor(private store: Store,
@@ -54,6 +54,7 @@ export class MessagesComponent implements OnInit {
   toggleContacts() { this.contactsShown = !this.contactsShown; }
 
   openProfile() {
+
   }
 
   openMessenger(contact: IUser) {
@@ -67,23 +68,29 @@ export class MessagesComponent implements OnInit {
   }
 
   sendMessage() {
-    let sendingMessage: IInstantMessage = {
-      content: this.messageForm.get("message").value,
-      senderId: this.user.id,
-      recipentId: this.selectedContact.id,
-      timestamp: Date.now(),
-      isSeen: false
+    if(this.selectedContact)
+    {
+      let sendingMessage: IInstantMessage = {
+        content: this.messageForm.get("message").value,
+        senderId: this.user.id,
+        recipentId: this.selectedContact.id,
+        timestamp: Date.now(),
+        isSeen: false
+      }
+  
+      let wsMessage: IMessage = {
+        action: "sendMessage",
+        content: sendingMessage.content,
+        senderUserId: this.user.id,
+        userId: this.selectedContact.id,
+      }
+  
+  
+      this.webSockerService.send(wsMessage)
+      this.store.dispatch(new AddMessageToState(sendingMessage))
     }
-
-    let wsMessage: IMessage = {
-      action: "sendMessage",
-      content: sendingMessage.content,
-      senderUserId: this.user.id,
-      userId: this.selectedContact.id,
+    else {
+      console.error('No user selected')
     }
-
-
-    this.webSockerService.send(wsMessage)
-    this.store.dispatch(new AddMessageToState(sendingMessage))
   }
 }
