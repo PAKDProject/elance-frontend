@@ -1,20 +1,18 @@
 <mat-dialog-content>
-  <div class="modalContainer" *ngIf="!applicantsVisible">
+  <div class="modalContainer" *ngIf="!(applicantsVisible) && data.job">
     <div class="modalHeader">
       <div class="topRow">
         <h1>{{ data.job.title }}</h1>
         <mat-icon (click)="onNoClick()">close</mat-icon>
       </div>
-      <div class="infoRow">
-        <div>Employer: {{ data.job.employerName }}</div>
-        <div>Payment: {{ data.job.payment | currency: "EUR":"symbol":"1.2-2" }}</div>
-      </div>
-      <div class="infoRow">
-        <div>
-          Posted: {{ data.job.datePosted | date: "dd/MM/yyyy" }}
-          <!-- {{ data.job.dateDue ? ("Due: " + data.job.dateDue | date: "dd/MM/yyyy") : "" }} -->
-        </div>
-        <div>{{ data.job.location ? "Location:" + data.job.location : "" }}</div>
+      <div class='info'>
+        <div>Employer: {{ data.job.employerName?data.job.employerName:'Unknown' }}</div>
+        <div>Payment: {{ data.job.payment?(data.job.payment | currency: "EUR":"symbol":"1.2-2"):'Unknown' }}</div>
+
+        <div>Posted: {{data.job.datePosted? (data.job.datePosted | date):'Unknown' }}</div>
+        <div>Due: {{ data.job.dateDue? (data.job.dateDue | date) : "Unknown" }}</div>
+
+        <div>Location: {{ data.job.location ? data.job.location : "Unknown" }}</div>
       </div>
     </div>
     <div class="modalBody">
@@ -31,7 +29,6 @@
           </div>
         </div>
       </div>
-
     </div>
 
     <div class="modalBottom">

@@ -134,7 +134,7 @@ export class JobsState {
   @Action(AddJob)
   addNewJob({ dispatch, patchState }: StateContext<JobsStateModel>, { payload }: AddJob) {
     patchState({ isLoading: true });
-
+    console.log(payload)
     this._jobsService.createNewJob(payload).subscribe(
       (res: { job: IJob }) => {
         let updatedPayload = res.job;

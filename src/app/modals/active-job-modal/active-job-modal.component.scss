@@ -17,18 +17,17 @@
       mat-icon {
         cursor: pointer;
       }
+      mat-icon:hover {
+        color: $primary
+      }
     }
 
-    .infoRow {
+    .info {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: repeat(2, 1fr);
       grid-column-gap: 20px;
 
       font-size: 20px;
-
-      div {
-        width: 100%;
-      }
     }
   }
 

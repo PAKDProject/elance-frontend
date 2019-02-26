@@ -74,7 +74,7 @@ export class InactiveJobModalComponent implements OnInit {
     // Check if user posted the job
 
 
-    // console.log(this.data)
+    console.log(this.data)
   }
 
   //Close modal

@@ -4,18 +4,15 @@
       <h1>{{data.title}}</h1>
       <mat-icon (click)='onNoClick()'>close</mat-icon>
     </div>
-    <div class="infoRow">
-      <div>•Employer: {{data.employerName}}</div>
-      <div>Date Accepted: {{(data.dateAccepted)? (data.dateAccepted | date: 'dd/MM/yyyy') : 'unknown'}} •</div>
-    </div>
-    <div class="infoRow">
-      <!-- <div>Posted: {{data.datePosted | date: 'dd/MM/yyyy'}} {{(data.dateDue)? ('Due: '+data.dateDue | date: 'dd/MM/yyyy'):''}}</div> -->
-      <div>•Payment: €{{data.payment | number: '.0'}}</div>
-      <div>Date Due: {{(data.dateDue)? (data.dateDue | date: 'dd/MM/yyyy'): 'unknown'}} •</div>
-    </div>
-    <div class="infoRow">
-      <div>•Location: {{(data.location)? (data.location) : 'none'}}</div>
-      <div>Progress: {{(data.progress)? (data.progress) : '0'}}% •</div>
+    <div class="info">
+      <div>Employer: {{data.employerName}}</div>
+      <div>Payment: {{(data.payment)?(data.payment | currency:'EUR':'symbol':'1.2-2'):'Unknown'}}</div>
+
+      <div>Posted: {{data.datePosted | date}}</div>
+      <div>Date Due: {{(data.dateDue)? (data.dateDue | date): 'Unknown'}}</div>
+      
+      <div>Date Accepted: {{(data.dateAccepted)? (data.dateAccepted | date) : 'unknown'}}</div>
+      <div>Location: {{(data.location)? (data.location) : 'none'}}</div>
     </div>
   </div>
   <div class="modalBody">

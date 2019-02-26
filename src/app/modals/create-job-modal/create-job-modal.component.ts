@@ -75,6 +75,7 @@ export class CreateJobModalComponent implements OnInit {
       this.newJob.dateDue = data.dateDue;
       this.newJob.payment = data.payment;
       this.newJob.remote = data.remote;
+      this.newJob.datePosted = new Date()
     });
     //#endregion
     //#region skill tags
@@ -153,6 +154,7 @@ export class CreateJobModalComponent implements OnInit {
   }
 
   dispatch() {
+    console.log(this.newJob)
     this._store.dispatch([new AddJob(this.newJob), new RequestRefreshUser()]);
     this._dialogRef.close();
   }

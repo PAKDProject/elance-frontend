@@ -29,7 +29,7 @@ export class ActiveJobModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: IJob, private router: Router) { }
 
   ngOnInit(): void {
-    this.admin = this.isAdmin();
+    this.admin = this.isAdmin()
   }
 
   onNoClick(): void {
