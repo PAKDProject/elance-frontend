@@ -19,7 +19,8 @@ import {
   AddJobOrg,
   AddJobOrgSuccess,
   AddJobOrgFail,
-  ChangeBrowseFormat
+  ChangeBrowseFormat,
+  AddRecommendedJobs
 } from "../actions/job.actions";
 import { IJob } from "src/models/job-model";
 import { JobService } from "src/services/job-service/job.service";
@@ -33,6 +34,7 @@ export class JobsStateModel {
   isLoading: boolean;
   isList: boolean;
   showRecommended: boolean;
+  recommendedJobs: IJob[]
 }
 
 @State({
@@ -61,6 +63,11 @@ export class JobsState {
   @Selector()
   static getActiveJobs(state: JobsStateModel) {
     return state.activeJobs
+  }
+
+  @Selector()
+  static getRecommendedJobs(state: JobsStateModel) {
+    return state.recommendedJobs
   }
   //#endregion
 
@@ -366,6 +373,11 @@ export class JobsState {
 
     patchState({ isLoading: false, inactiveJobs: jobs });
 
+  }
+
+  @Action(AddRecommendedJobs)
+  AddRecommendedJobs({ patchState }: StateContext<JobsStateModel>, { jobs }: AddRecommendedJobs) {
+    patchState({ recommendedJobs: jobs })
   }
 
   //#endregion

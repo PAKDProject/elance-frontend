@@ -98,6 +98,7 @@ import { DashboardJobCardComponent } from './cards/dashboard-job-card/dashboard-
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 import { JobFeedbackModalComponent } from './modals/job-feedback-modal/job-feedback-modal.component';
 import { FuccJobsComponent } from './fucc-jobs/fucc-jobs.component';
+import { WebsocketService } from "src/services/websocket-service/websocket.service";
 
 @NgModule({
   declarations: [
@@ -188,7 +189,8 @@ import { FuccJobsComponent } from './fucc-jobs/fucc-jobs.component';
       useClass: HttpinterceptorService,
       multi: true
     },
-    OrganisationService
+    OrganisationService,
+    WebsocketService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

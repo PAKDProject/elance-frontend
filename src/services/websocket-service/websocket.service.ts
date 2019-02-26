@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { WebSocketSubject } from 'rxjs/webSocket'
 import { NotificationService } from '../notifications/notification.service';
 import { HttpClient } from '@angular/common/http';
@@ -8,12 +8,12 @@ import { Select, Store } from '@ngxs/store';
 import { UserState } from 'src/redux/states/user.state';
 import { Observable } from 'rxjs';
 import { AddMessageToState } from 'src/redux/actions/message.actions';
+import { AddRecommendedJobs } from 'src/redux/actions/job.actions';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WebsocketService {
-  private socket$: WebSocketSubject<IMessage>
+export class WebsocketService implements OnInit {
   private config: IWebConfig
   private isConnected: boolean = false
   private ws: WebSocket
@@ -22,20 +22,13 @@ export class WebsocketService {
   @Select(UserState.getUser) user$: Observable<IUser>
 
 
-  constructor(private _notifier: NotificationService, private _http: HttpClient, private _store: Store) {
-    this.user$.subscribe(user => {
-      this.user = user
-      this.connect(null)
+  constructor(private _notifier: NotificationService, private _http: HttpClient, private _store: Store) { }
 
-      if (this.ws === undefined) {
-        let timer = setInterval(async () => {
-          this.connect(timer)
-        }, 15000)
-      }
-    })
+  ngOnInit() {
+
   }
 
-  async connect(timer) {
+  async tryToConnect() {
     try {
       if (this.config === undefined) {
         let res = await this.getConfig()
@@ -45,23 +38,42 @@ export class WebsocketService {
       this.ws.onopen = () => this._notifier.showSuccess('Connected!', "Successfully connected to FUCC System.")
       this.ws.onmessage = (event) => {
         let message: IMessage = JSON.parse(event.data)
+        console.log(message)
         if (message.action === "message") {
           let im = message.content as IInstantMessage
           //let im = message as IInstantMessage
           this._store.dispatch(new AddMessageToState(im))
         }
         else if (message.action === "fuccJobs") {
-
+          this._store.dispatch(new AddRecommendedJobs(message.content))
         }
       }
       this.ws.onerror = () => {
         throw new Error("Error with connection")
       }
-
-      if (timer !== null) clearInterval(timer)
     } catch (error) {
-      this._notifier.showError("Failed connection!", "Failed to FUCC the system. Retrying in 15 seconds...")
+      throw error
     }
+  }
+  async connect() {
+    this.user$.subscribe(async user => {
+      this.user = user
+      if (this.ws === undefined) {
+        try {
+          await this.tryToConnect()
+        } catch (error) {
+          let timer = setInterval(async () => {
+            try {
+              await this.tryToConnect()
+              clearInterval(timer)
+            } catch (error) {
+              this._notifier.showError("Failed connection!", "Failed to connect to FUCC. Retrying in 15 seconds...")
+              console.log(error)
+            }
+          }, 15000)
+        }
+      }
+    })
   }
 
   async getConfig(): Promise<{ config: IWebConfig }> {
