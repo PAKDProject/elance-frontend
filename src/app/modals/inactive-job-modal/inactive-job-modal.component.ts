@@ -29,7 +29,7 @@ export class InactiveJobModalComponent implements OnInit {
 
   applicants: Partial<IUser>[];
   applicantIDs: string[];
-  
+
   applicantsVisible: boolean = false
   isEmployer: boolean = false;
   fullJob: IJob;
@@ -46,24 +46,21 @@ export class InactiveJobModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.data)
     this.jobService.getJobById(this.data.job.id).subscribe(res => {
       this.fullJob = res;
-      switch(this.data.type)
-      {
+      switch (this.data.type) {
         case 'user':
           if (this.data.type === 'user') {
             this.user$.subscribe(u => {
               this.user = u
-              
+
               //Check if user is the poster of the job
-              if (u.id === res.employerID)
-              { this.isEmployer = true }
-                
+              if (u.id === res.employerID) { this.isEmployer = true }
+
               //Check if user has applied for this job
-              if (res.applicants)
-              {
-                if (res.applicants.findIndex(a => a.id === u.id) != -1)
-                { this.applied = true }
+              if (res.applicants) {
+                if (res.applicants.findIndex(a => a.id === u.id) != -1) { this.applied = true }
               }
             })
           }
@@ -72,8 +69,7 @@ export class InactiveJobModalComponent implements OnInit {
           if (this.data.type === 'org') {
             this.orgs$.subscribe(x => {
               x.forEach(org => {
-                if (org.id === res.employerID)
-                { this.isEmployer = true }
+                if (org.id === res.employerID) { this.isEmployer = true }
               })
             })
           }

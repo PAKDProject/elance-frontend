@@ -10,7 +10,7 @@
 
       <div>Posted: {{data.datePosted | date}}</div>
       <div>Date Due: {{(data.dateDue)? (data.dateDue | date): 'Unknown'}}</div>
-      
+
       <div>Date Accepted: {{(data.dateAccepted)? (data.dateAccepted | date) : 'unknown'}}</div>
       <div>Location: {{(data.location)? (data.location) : 'none'}}</div>
     </div>
@@ -18,17 +18,21 @@
   <div class="modalBody">
     {{data.description}}
   </div>
+  <div class="progressBar">
+    <ngb-progressbar id="bar" [value]="data.progress" [striped]="true" [animated]="true"></ngb-progressbar>
+  </div>
   <div class='buttons' *ngIf="!admin">
-    <button class="btn btn-success" *ngIf="data.progress !== 100" (click)="completeJob(data)">Complete Job</button>
+    <button class="btn btn-success" *ngIf="data.progress !== 100" (click)="completeJob()">Complete Job</button>
+
     <button class="btn btn-success" *ngIf="data.progress === 100" disabled>
       <mat-icon>done</mat-icon> Job Complete
     </button>
   </div>
   <div class="admin-buttons" *ngIf="admin">
-    <button class="btn btn-block pill" *ngIf="data.progress !== 100">Job Complete! Give Feedback</button>
+    <button class="btn btn-block pill" *ngIf="data.progress === 100">Job Complete!</button>
 
-    <span class="badge badge-pill pill" *ngIf="data.progress === 100">In Progress</span>
-    <span class="badge badge-pill chat" (click)="contact()">
+    <span class="badge badge-pill pill" *ngIf="data.progress !== 100">In Progress</span>
+    <span class="badge badge-pill chat">
       <mat-icon>chat</mat-icon>
     </span>
 

@@ -192,13 +192,12 @@ export class JobsState {
         }
       }
       //Else add applicant to new array 
-      else
-      { partialJob.applicants.push(action.user) }
+      else { partialJob.applicants.push(action.user) }
 
       //Update job in database
       this._jobsService.updateJob(partialJob, job.id).subscribe(
         (res: { job: IJob }) => {
-        context.dispatch(new ApplyForJobSuccess(res.job))
+          context.dispatch(new ApplyForJobSuccess(res.job))
         },
         err => {
           context.dispatch(new ApplyForJobFail(err.message));
@@ -327,7 +326,7 @@ export class JobsState {
   @Action(RemoveJobSuccess)
   removeJobSuccess({ getState, patchState }: StateContext<JobsStateModel>, { jobID }: RemoveJobSuccess) {
     const inactiveJobs = getState().inactiveJobs;
-    patchState({ isLoading: false, activeJobs: inactiveJobs });
+    patchState({ isLoading: false, inactiveJobs: inactiveJobs });
   }
 
   @Action(RemoveJobFail)
@@ -380,7 +379,7 @@ export class JobsState {
       isLoading: action.payload
     })
   }
-  
+
   @Action(AddRecommendedJobs)
   AddRecommendedJobs(context: StateContext<JobsStateModel>, action: AddRecommendedJobs) {
     context.patchState({

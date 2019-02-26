@@ -1,3 +1,4 @@
+import { JobService } from 'src/services/job-service/job.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { IJob } from 'src/models/job-model';
@@ -22,24 +23,29 @@ export class ActiveJobModalComponent implements OnInit {
   @Select(OrgsState.getOrgs) org$;
 
   admin: boolean;
+  job_type: string;
 
   constructor(
     public dialogRef: MatDialogRef<ActiveJobModalComponent>,
     private _store: Store,
-    @Inject(MAT_DIALOG_DATA) public data: IJob, private router: Router) { }
+    @Inject(MAT_DIALOG_DATA) public data: IJob, private router: Router, private jobService: JobService) { }
 
   ngOnInit(): void {
     this.admin = this.isAdmin()
+    alert(this.admin)
+    this.jobService.getJobById(this.data.id).subscribe((res) => {
+      this.data = res;
+    });
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  completeJob(jobData: Partial<IJob>) {
-    this.user$.subscribe((user) => {
-      this._store.dispatch(new RequestRemoveActiveJob(jobData, user.id));
-    });
+  completeJob() {
+    this.data.progress = 100;
+    this.data.dateCompleted = new Date();
+    this._store.dispatch(new RequestRemoveActiveJob(this.data, this.data.chosenApplicant.id, this.job_type));
   }
 
   isAdmin() {
@@ -48,8 +54,18 @@ export class ActiveJobModalComponent implements OnInit {
       res.forEach(org => {
         if (org.id === this.data.employerID) {
           isAdmin = true
+          this.job_type = 'org';
+          return isAdmin
         }
       });
+    });
+
+    this.user$.subscribe((res) => {
+      if (res.id === this.data.employerID) {
+        isAdmin = true;
+        this.job_type = 'user';
+        return isAdmin
+      }
     })
     return isAdmin
   }

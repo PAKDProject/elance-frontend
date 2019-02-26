@@ -17,6 +17,7 @@
       mat-icon {
         cursor: pointer;
       }
+
       mat-icon:hover {
         color: $primary
       }
@@ -72,6 +73,21 @@
 
 
   }
+}
+
+.progress-bar {
+  widows: 100%;
+
+  #bar {
+    transition-duration: 5s;
+
+  }
+
+  ;
+}
+
+:host /deep/ .progress-bar {
+  background-color: $primary !important;
 }
 
 @media only screen and (max-width:450px) {

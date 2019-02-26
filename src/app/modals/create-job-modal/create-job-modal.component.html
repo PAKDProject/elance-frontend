@@ -38,12 +38,12 @@
           <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
               <label for="dateDue"> When should the job be completed </label>
-              <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="dateDue"
-                ngbDatepicker #d="ngbDatepicker" (focus)="d.toggle()">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="dateDue" ngbDatepicker #d="ngbDatepicker"
+                (focus)="d.toggle()">
 
               <!-- <input type="date" id="dateDue" min="2018-12-12" max="2020-12-30" formControlName="dateDue" class="form-control" /> -->
               <div class="feedback" *ngIf="!jobForm.valid && jobForm.errors">
-                {{(jobForm.errors.date)?(jobForm.errors.date):''}}
+                {{(!!jobForm.errors.date)?(!!jobForm.errors.date):''}}
               </div>
             </div>
           </div>
@@ -107,8 +107,8 @@
             <form class="form" [formGroup]="skillForm">
 
               <ng-select [items]="skills" [multiple]="true" [loading]="skillsLoading" [addTag]="addCustomSkill"
-                [markFirst]="false" [searchFn]="customSearchFn" groupBy="category" bindLabel="skillTitle"
-                placeholder="Choose a skill" appendTo="body" id="select" formControlName="selectedSkill">
+                [markFirst]="false" [searchFn]="customSearchFn" groupBy="category" bindLabel="skillTitle" placeholder="Choose a skill"
+                appendTo="body" id="select" formControlName="selectedSkill">
                 <ng-template ng-option-tmp let-item="item">
                   {{ item.skillTitle }} <br />
                   <small>{{ item.category }}</small>

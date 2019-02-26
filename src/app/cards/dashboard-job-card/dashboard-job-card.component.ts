@@ -15,7 +15,8 @@ export class DashboardJobCardComponent implements OnInit {
 
   constructor(private dialog: MatDialog) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   openJob() {
     switch (this.type) {
@@ -29,14 +30,12 @@ export class DashboardJobCardComponent implements OnInit {
   }
 
   openActiveJobModal() {
-    console.log('1')
     const dialogRef = this.dialog.open(ActiveJobModalComponent, {
       data: this.job
     })
   }
 
   openInactiveJobModal() {
-    console.log('2')
     const dialogRef = this.dialog.open(InactiveJobModalComponent, {
       data: { job: this.job, type: 'user' }
     })

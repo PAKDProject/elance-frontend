@@ -107,11 +107,11 @@ export class RequestAddActiveJob {
 }
 export class RequestRemoveActiveJob {
     static readonly type = "[user] Remove Active Job";
-    constructor(public job: Partial<IJob>, public userId: string) { }
+    constructor(public job: IJob, public userId: string, public type: string) { }
 }
 export class RequestRemovePostedJob {
     static readonly type = "[user] Remove Posted Job";
-    constructor(public job: Partial<IJob>, public userId: string) { }
+    constructor(public job: IJob, public userId: string, public type: string) { }
 }
 export class SendOrgInvite {
     static readonly type = '[User] Send Org Invite'

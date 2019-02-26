@@ -86,6 +86,12 @@ export class AddContactToOrg {
   constructor(public payload: Partial<IUser>, public orgId: string) { }
 }
 
+export class RemovePostedJobOrg {
+  static readonly type = '[Orgs] Remove a posted Job';
+
+  constructor(public payload: IJob) { }
+}
+
 
 
 //#endregion
