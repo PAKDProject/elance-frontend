@@ -139,3 +139,9 @@ export class ChangeBrowseFormat {
         console.log(payload)
     }
 }
+
+
+export class SetIsLoading {
+    static readonly type = '[Jobs] Setting isLoading state';
+    constructor(public payload: boolean) { }
+}

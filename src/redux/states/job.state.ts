@@ -20,7 +20,8 @@ import {
   AddJobOrgSuccess,
   AddJobOrgFail,
   ChangeBrowseFormat,
-  AddRecommendedJobs
+  AddRecommendedJobs,
+  SetIsLoading
 } from "../actions/job.actions";
 import { IJob } from "src/models/job-model";
 import { JobService } from "src/services/job-service/job.service";
@@ -375,9 +376,19 @@ export class JobsState {
 
   }
 
+  @Action(SetIsLoading)
+  SetIsLoading(context: StateContext<JobsStateModel>, action: SetIsLoading) {
+    context.patchState({
+      isLoading: action.payload
+    })
+  }
+  
   @Action(AddRecommendedJobs)
-  AddRecommendedJobs({ patchState }: StateContext<JobsStateModel>, { jobs }: AddRecommendedJobs) {
-    patchState({ recommendedJobs: jobs })
+  AddRecommendedJobs(context: StateContext<JobsStateModel>, action: AddRecommendedJobs) {
+    context.patchState({
+      isLoading: false,
+      recommendedJobs: action.jobs
+    })
   }
 
   //#endregion
