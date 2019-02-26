@@ -30,7 +30,7 @@ export class MessagesComponent implements OnInit {
 
   messageForm: FormGroup =
     new FormGroup({
-      message: new FormControl('message', Validators.required)
+      message: new FormControl('', Validators.required)
     })
 
   constructor(private store: Store,

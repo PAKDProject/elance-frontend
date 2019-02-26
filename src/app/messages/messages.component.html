@@ -31,8 +31,7 @@
           </div>
         </div>
         <div class='messageContent' *ngIf='selectedMessages.length > 0' #messages [scrollTop]="messages.scrollHeight">
-          <div *ngFor='let m of selectedMessages' [class.sender]='m.senderId == (user$ | async).id'
-            [class.unseen]='!(m.isSeen)'>
+          <div *ngFor='let m of selectedMessages' [class.sender]='m.senderId == (user$ | async).id'>
             <p>{{m.content}}</p>
             <small>{{m.timestamp | date: 'HH:mm'}}</small>
           </div>
