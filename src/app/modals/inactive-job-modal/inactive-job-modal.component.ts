@@ -52,8 +52,11 @@ export class InactiveJobModalComponent implements OnInit {
             this.isEmployer = true;
           }
         });
-        if (this.fullJob.applicants.findIndex(a => a.id === this.user.id) !== -1) {
-          this.applied = true;
+        if (this.fullJob.applicants)
+        {
+          if (this.fullJob.applicants.findIndex(a => a.id === this.user.id) !== -1) {
+            this.applied = true;
+          }
         }
       }
 
