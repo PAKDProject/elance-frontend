@@ -172,11 +172,11 @@ export class JobsState {
 
   //#region Apply for job
   @Action(ApplyForJob)
-  applyForJob({ getState, dispatch, patchState }: StateContext<JobsStateModel>, { jobID, user }: ApplyForJob) {
-    const state = getState();
-    patchState({ isLoading: true });
+  applyForJob(context: StateContext<JobsStateModel>, action: ApplyForJob) {
+    const state = context.getState();
+    state.isLoading = true
 
-    const job = state.inactiveJobs.find(j => j.id === jobID);
+    const job = state.inactiveJobs.find(j => j.id === action.jobID)
     let partialJob: Partial<IJob> = {
       applicants: []
     };
@@ -186,26 +186,24 @@ export class JobsState {
       //If there were previous applicants
       if (job.applicants !== undefined) {
         //If user hadn't previously applied
-        if (!job.applicants.includes(user)) {
+        if (!job.applicants.includes(action.user)) {
           partialJob.applicants.push(...job.applicants);
-          partialJob.applicants.push(user);
+          partialJob.applicants.push(action.user);
         }
       }
       //Else add applicant to new array 
-      else {
-        partialJob.applicants.push(user);
-      }
+      else
+      { partialJob.applicants.push(action.user) }
 
       //Update job in database
-      this._jobsService.updateJob(partialJob, job.id).subscribe((res: { job: IJob }) => {
-        const updatedJob = res.job;
-
-        dispatch(new ApplyForJobSuccess(updatedJob));
-
-      }),
+      this._jobsService.updateJob(partialJob, job.id).subscribe(
+        (res: { job: IJob }) => {
+        context.dispatch(new ApplyForJobSuccess(res.job))
+        },
         err => {
-          dispatch(new ApplyForJobFail(err.message));
-        };
+          context.dispatch(new ApplyForJobFail(err.message));
+        }
+      )
     }
   }
 

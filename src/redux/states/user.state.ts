@@ -120,17 +120,13 @@ export class UserState {
 
   //#region Update User
   @Action(RequestUpdateUser)
-  updateUserRequest({ getState, dispatch }: StateContext<UserStateModel>, { user }: RequestUpdateUser) {
-    let userState = getState();
+  updateUserRequest(context: StateContext<UserStateModel>, action: RequestUpdateUser) {
+    const state = context.getState();
 
-    this._userService.updateUser(user, userState.id).subscribe(
-      res => {
-        dispatch(new RequestUpdateUserSuccess(res));
-      },
-      err => {
-        dispatch(new RequestUpdateUserFail(err.message));
-      }
-    );
+    this._userService.updateUser(action.user, state.id).subscribe(
+      res => { context.dispatch(new RequestUpdateUserSuccess(res)) },
+      err => { context.dispatch(new RequestUpdateUserFail(err.message)) }
+    )
   }
 
   @Action(RequestUpdateUserSuccess)
@@ -287,11 +283,12 @@ export class UserState {
   }
 
   @Action(UserApplyForJob)
-  ApplyForJob({ getState, dispatch }: StateContext<UserStateModel>, { payload }: UserApplyForJob) {
-    const appliedJobs: Partial<IJob>[] = getState().appliedJobs || []
-    appliedJobs.push(payload);
+  ApplyForJob(context: StateContext<UserStateModel>, action: UserApplyForJob) {
+    const state = context.getState()
+    const appliedJobs: Partial<IJob>[] = state.appliedJobs || []
+    appliedJobs.push(action.payload);
 
-    dispatch(new RequestUpdateUser({ appliedJobs: appliedJobs }))
+    context.dispatch(new RequestUpdateUser({ appliedJobs: appliedJobs }))
   }
 
   @Action(SendOrgInvite)

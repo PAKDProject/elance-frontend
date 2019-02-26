@@ -199,9 +199,9 @@ mat-icon {
     display: inline;
   }
 
-  .infoRow {
+  .info {
     display: block !important;
-
+    grid-template-columns: 1fr;
     div {
       width: 100% !important;
     }
