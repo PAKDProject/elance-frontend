@@ -2,10 +2,8 @@
   <h2 mat-dialog-title>Create a new Job</h2>
   <form [formGroup]="jobForm">
     <mat-vertical-stepper>
-
       <mat-step [stepControl]="jobForm">
         <ng-template matStepLabel><b>Job Details</b></ng-template>
-
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
@@ -44,8 +42,8 @@
                 ngbDatepicker #d="ngbDatepicker" (focus)="d.toggle()">
 
               <!-- <input type="date" id="dateDue" min="2018-12-12" max="2020-12-30" formControlName="dateDue" class="form-control" /> -->
-              <div class="feedback" *ngIf="!dateDue.valid && dateDue.touched">
-                Woah that job was finished a bit too soon buddy
+              <div class="feedback" *ngIf="!jobForm.valid && jobForm.errors">
+                {{(jobForm.errors.date)?(jobForm.errors.date):''}}
               </div>
             </div>
           </div>

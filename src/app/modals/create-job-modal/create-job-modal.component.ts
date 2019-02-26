@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Inject } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
 import { IJob } from "src/models/job-model";
 import { NotificationService } from "src/services/notifications/notification.service";
 import { UserService } from "src/services/user-service/user.service";
@@ -24,22 +24,51 @@ import { RequestUpdateUser, RequestRefreshUser } from "src/redux/actions/user.ac
 export class CreateJobModalComponent implements OnInit {
   @Select(UserState.getUser) user$: Observable<IUser>;
 
-  jobForm: FormGroup;
-  skillForm: FormGroup;
+  jobForm: FormGroup
+  = new FormGroup({
+    jobTitle: new FormControl([""], [Validators.required, Validators.maxLength(30)]),
+    location: new FormControl([""]),
+    remote: new FormControl(false),
+    dateDue: new FormControl([""], [Validators.required]),
+    payment: new FormControl([""], [Validators.required, Validators.min(0), Validators.max(1000000)]),
+    description: new FormControl([""], [Validators.required, Validators.max(300)])
+  }, {
+    validators: [Validators.compose([this.dateValidators('dateDue',)])]
+  })
+
+  skillForm: FormGroup
+  = new FormGroup({
+    selectedSkill: new FormControl([], Validators.required)
+  })
+
   skills: ISkills[];
   skillsLoading: boolean;
-  selectedSkills: ISkills[] = [];
 
+  dateValidators(date: string) {
+    return (group: FormGroup): { [key: string]: any } => {
+      let errors = []
+      let currentDate = new Date()
+      let tempdate = group.controls[date].value
+      let dateDue = new Date(tempdate.year, (tempdate.month - 1), tempdate.day)
+      if(group.controls[date].value) {
+        if(dateDue.getTime() < currentDate.getTime())
+        { errors.push('Woah that job was finished a bit too soon buddy') }
+      }
+
+      if (errors.length == 0)
+      { return {} }
+      else
+      { return { date: errors } }
+    }
+  }
   addCustomSkill = term => ({
     skillTitle: term,
     category: "Custom"
   });
 
-  newJob: IJob;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: IOrganisation | IUser,
-    private fb: FormBuilder,
     private notificationService: NotificationService,
     private _store: Store,
     private _dialogRef: MatDialogRef<CreateJobModalComponent>,
@@ -47,52 +76,10 @@ export class CreateJobModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //#region Jobs
-    this.newJob = {
-      title: "",
-      employerName: "",
-      employerID: "",
-      description: "",
-      datePosted: new Date(),
-      payment: null,
-      remote: false
-    };
-    this.jobForm = this.fb.group({
-      jobTitle: ["", [Validators.required, Validators.maxLength(30)]],
-      location: [""],
-      remote: [this.newJob.remote],
-      dateDue: [""],
-      payment: [
-        "",
-        [Validators.required, Validators.min(0), Validators.max(1000000)]
-      ],
-      description: ["", [Validators.required]]
-    });
-    this.jobForm.valueChanges.subscribe(data => {
-      this.newJob.title = data.jobTitle;
-      this.newJob.description = data.description;
-      this.newJob.location = data.location;
-      this.newJob.dateDue = data.dateDue;
-      this.newJob.payment = data.payment;
-      this.newJob.remote = data.remote;
-      this.newJob.datePosted = new Date()
-    });
-    //#endregion
-    //#region skill tags
     this.getSkills().subscribe(res => {
       this.skillsLoading = false;
       this.skills = res;
-    });
-
-    this.skillForm = this.fb.group({
-      selectedSkill: []
-    });
-
-    this.skillForm.valueChanges.subscribe(data => {
-      this.selectedSkills = data.selectedSkill;
     })
-
-    //#endregion
   }
 
   //#region getters
@@ -114,54 +101,57 @@ export class CreateJobModalComponent implements OnInit {
   get description() {
     return this.jobForm.get("description");
   }
+  get selectedSkill() {
+    return this.skillForm.get("selectedSkill")
+  }
   //#endregion
 
   toggleLocation() {
-    if (this.newJob.remote) this.location.disable();
-    if (this.newJob.remote === false) this.location.enable();
+    if (this.remote) { this.location.disable() }
+    else { this.location.enable() }
   }
 
 
   submitForm(): void {
-    if (this.selectedSkills.length === 0) {
-      this.skillForm.setErrors({ invalid: true });
+    let newJob: Partial<IJob> = {
+      title: this.jobForm.value.jobTitle,
+      description: this.description.value,
+      location: this.location.value,
+      dateDue: new Date(this.jobForm.value.dateDue.year, (this.jobForm.value.dateDue.month - 1), this.jobForm.value.dateDue.day),
+      payment: this.payment.value,
+      remote: this.remote.value,
+      datePosted: new Date(),
+      tags: this.selectedSkill.value
     }
-    else {
-      const date = new Date(this.dateDue.value.year, this.dateDue.value.month - 1, this.dateDue.value.day);
-      this.newJob.dateDue = date
-      if (date <= new Date()) {
-        this.dateDue.setErrors({ invalid: true });
-        this.notificationService.showError("An error occured");
-      }
-      else {
-        this.newJob.tags = this.selectedSkills;
-        if ((this.data as IOrganisation).orgName) {
-          let tempOrg = this.data as IOrganisation
-          this.newJob.employerID = tempOrg.id
-          this.newJob.employerName = tempOrg.orgName
-          this.dispatchOrg();
-        }
-        else if ((this.data as IUser).fName) {
-          this.user$.subscribe(u => {
-            this.newJob.employerID = u.id
-            this.newJob.employerName = `${u.fName} ${u.lName}`
-          })
-          this.dispatch();
 
-        }
-      }
+    if ((this.data as IOrganisation).orgName) {
+      let tempOrg = this.data as IOrganisation
+      newJob.employerID = tempOrg.id
+      newJob.employerName = tempOrg.orgName
+      this.dispatch(newJob as IJob, 'org');
+    }
+    else if ((this.data as IUser).fName) {
+      this.user$.subscribe(
+        res => {
+          newJob.employerID = res.id
+          newJob.employerName = `${res.fName} ${res.lName}`
+          this.dispatch(newJob as IJob, 'user') 
+        },
+        err => { console.error(err) }
+      ).unsubscribe()
     }
   }
 
-  dispatch() {
-    console.log(this.newJob)
-    this._store.dispatch([new AddJob(this.newJob), new RequestRefreshUser()]);
-    this._dialogRef.close();
-  }
-
-  dispatchOrg() {
-    this._store.dispatch(new AddJobOrg(this.newJob, this.newJob.employerID));
-    this._dialogRef.close();
+  dispatch(job: IJob, type: string) {
+    switch(type){
+      case 'user':
+        this._store.dispatch([new AddJob(job), new RequestRefreshUser()]);
+        break;
+      case 'org':
+        this._store.dispatch(new AddJobOrg(job, job.employerID));
+        break;
+    }
+    this._dialogRef.close()
   }
 
   //#region tags region
