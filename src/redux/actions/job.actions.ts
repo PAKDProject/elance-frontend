@@ -126,6 +126,11 @@ export class AddJobOrgFail {
     constructor(public errorMessage: string) { }
 }
 
+export class AddRecommendedJobs {
+    static readonly type = '[Jobs] Add Recommended Jobs'
+    constructor(public jobs: IJob[]) { }
+}
+
 //#endregion
 
 export class ChangeBrowseFormat {

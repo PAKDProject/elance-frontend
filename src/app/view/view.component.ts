@@ -13,6 +13,8 @@ import { WebsocketService } from 'src/services/websocket-service/websocket.servi
   styleUrls: ['./view.component.scss']
 })
 export class ViewComponent {
-  constructor(private _wss: WebsocketService) { }
+  constructor(private _wss: WebsocketService) {
+    this._wss.connect().then(() => this._wss.send({ action: "ping", content: "ping" }));
+  }
 }
 

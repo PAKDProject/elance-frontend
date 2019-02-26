@@ -19,4 +19,5 @@ export interface IJob {
   applicants?: Partial<IUser>[];
   chosenApplicant?: Partial<IUser>;
   tags?: ISkills[]
+  pointsForJob?: number
 }
