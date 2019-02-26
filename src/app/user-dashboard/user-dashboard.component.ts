@@ -35,8 +35,6 @@ export class UserDashboardComponent implements OnInit {
 
   user: Partial<IUser>;
 
-  carousels: DragScrollComponent[];
-
   constructor(private dialog: MatDialog, private store: Store, private notification: NotificationService) { }
 
   ngOnInit() {
@@ -93,15 +91,6 @@ export class UserDashboardComponent implements OnInit {
       //   }
       // ]
     })
-
-    this.carousels = [
-      this.activeDrag,
-      this.postedDrag,
-      this.appliedDrag,
-      this.contactsDrag
-    ]
-
-    console.log(this.carousels)
   }
 
   openModal(): void {
