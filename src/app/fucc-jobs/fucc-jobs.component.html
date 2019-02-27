@@ -5,18 +5,18 @@
     <mat-icon (click)='dismiss()'>close</mat-icon>
   </div>
   <div class='bodyContent'>
-    <div *ngFor='let job of fuccJob' class='fuccCard'>  
-      <h2>{{job.title?job.title:'null'}}</h2>
+    <div *ngFor='let job of (fuccJobs$ | async)' class='fuccCard'>
+      <h2>{{job.job.title?job.job.title:'null'}}</h2>
       <div class='employerRow'>
         <div class='imgContainer'>
-          <img src='../../assets/images/default_user.png'/>
+          <img src='../../assets/images/default_user.png' />
         </div>
-        <div>{{job.employerName?job.employerName:'null'}}</div>
+        <div>{{job.job.employerName?job.job.employerName:'null'}}</div>
       </div>
-      <div>Location: {{job.remote?'None':job.location}}</div>
-      <div>Payment: {{job.payment?job.payment:'unknown'}}</div>
-      <div class='date'>Due: {{job.dateDue?(job.dateDue | date):'null'}}</div>
+      <div>Location: {{job.job.remote?'None':job.job.location}}</div>
+      <div>Payment: {{job.job.payment?job.job.payment:'unknown'}}</div>
+      <div class='date'>Due: {{job.job.dateDue?(job.job.dateDue | date):'null'}}</div>
       <div>80% match</div>
       <button class='btn btn-sm' (click)='openJob(job)'>See More</button>
+    </div>
   </div>
-</div>

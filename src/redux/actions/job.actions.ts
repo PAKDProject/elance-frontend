@@ -131,6 +131,16 @@ export class AddRecommendedJobs {
     constructor(public jobs: IJob[]) { }
 }
 
+export class SetFuccingJobsToTrue {
+    static readonly type = '[Jobs] Set Fuccing Jobs to True'
+    constructor() { }
+}
+
+export class SetFuccingErrorToTrue {
+    static readonly type = '[Jobs] Set Fuccing Error to True'
+    constructor() { }
+}
+
 //#endregion
 
 export class ChangeBrowseFormat {

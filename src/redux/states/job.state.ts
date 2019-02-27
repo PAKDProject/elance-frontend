@@ -20,7 +20,9 @@ import {
   AddJobOrgSuccess,
   AddJobOrgFail,
   ChangeBrowseFormat,
-  AddRecommendedJobs
+  AddRecommendedJobs,
+  SetFuccingJobsToTrue,
+  SetFuccingErrorToTrue
 } from "../actions/job.actions";
 import { IJob } from "src/models/job-model";
 import { JobService } from "src/services/job-service/job.service";
@@ -35,6 +37,8 @@ export class JobsStateModel {
   isList: boolean;
   showRecommended: boolean;
   recommendedJobs: IJob[]
+  isFucckingJobs: boolean
+  fuccingError: boolean
 }
 
 @State({
@@ -43,7 +47,9 @@ export class JobsStateModel {
     inactiveJobs: [],
     activeJobs: [],
     isLoading: false,
-    isList: false
+    isList: false,
+    isFuccingJobs: false,
+    fuccingError: false
   }
 })
 export class JobsState {
@@ -61,6 +67,11 @@ export class JobsState {
   }
 
   @Selector()
+  static getIsFuccingJobs(state: JobsStateModel) {
+    return state.isFucckingJobs;
+  }
+
+  @Selector()
   static getActiveJobs(state: JobsStateModel) {
     return state.activeJobs
   }
@@ -68,6 +79,11 @@ export class JobsState {
   @Selector()
   static getRecommendedJobs(state: JobsStateModel) {
     return state.recommendedJobs
+  }
+
+  @Selector()
+  static getFuccingError(state: JobsStateModel) {
+    return state.fuccingError
   }
   //#endregion
 
@@ -377,7 +393,17 @@ export class JobsState {
 
   @Action(AddRecommendedJobs)
   AddRecommendedJobs({ patchState }: StateContext<JobsStateModel>, { jobs }: AddRecommendedJobs) {
-    patchState({ recommendedJobs: jobs })
+    patchState({ recommendedJobs: jobs, isFucckingJobs: false, fuccingError: false })
+  }
+
+  @Action(SetFuccingJobsToTrue)
+  SetFuccingJobsToTrue({ patchState }: StateContext<JobsStateModel>) {
+    patchState({ isFucckingJobs: true, fuccingError: false })
+  }
+
+  @Action(SetFuccingErrorToTrue)
+  SetFuccingErrorToTrue({ patchState }: StateContext<JobsStateModel>) {
+    patchState({ isFucckingJobs: false, fuccingError: true })
   }
 
   //#endregion

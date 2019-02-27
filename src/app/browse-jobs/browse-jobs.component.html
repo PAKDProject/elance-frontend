@@ -12,8 +12,21 @@
     <div class="mb-2" *ngIf="(skillsCount$ | async) < 3 && this.showSkillsForm == true">
       <app-add-skill (dismissFormEmit)="dismissForm($event)" (emitSkills)="addSkill($event)"></app-add-skill>
     </div>
-    <div class='mb-2' *ngIf="(!((skillsCount$ | async) < 3) && (this.showRecommended == true))">
-      <fucc-jobs (dismissFormEmit)="dismissFucc($event)"></fucc-jobs>
+    <div class='mb-2'
+      *ngIf="(!((skillsCount$ | async) < 3) && (this.showRecommended == true)) && ((isFuccingJobs$|async) == false)">
+      <fucc-jobs (dismissFormEmit)=" dismissFucc($event)">
+      </fucc-jobs>
+    </div>
+    <div class='mb-2' *ngIf="((isFuccingJobs$|async) == true)">
+      <div class='cardContainer'>
+        <div class='bodyContent'>
+          <mat-spinner></mat-spinner>
+          <marquee>FUCCing Your Jobs</marquee>
+        </div>
+      </div>
+    </div>
+    <div class='mb-2' *ngIf="((isFuccingJobs$|async) == false) && ((fuccingError$ | async) === true)">
+      Error with request :o
     </div>
     <div style="display: grid">
       <div class="topBar">
@@ -63,10 +76,12 @@
         </div>
 
         <div class="filterButtons">
-          <button type="reset" class="btn btn-secondary" (click)='clearFilters()' [disabled]="(isLoading$ | async) === true">
+          <button type="reset" class="btn btn-secondary" (click)='clearFilters()'
+            [disabled]="(isLoading$ | async) === true">
             Clear
           </button>
-          <button type="submit" class="btn btn-primary" (click)="applyFilters(filterForm)" [disabled]="(isLoading$ | async) === true">
+          <button type="submit" class="btn btn-primary" (click)="applyFilters(filterForm)"
+            [disabled]="(isLoading$ | async) === true">
             Apply
           </button>
         </div>

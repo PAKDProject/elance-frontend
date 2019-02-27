@@ -5,10 +5,12 @@ import { JobsState } from "src/redux/states/job.state";
 import { UserState } from "src/redux/states/user.state"
 import { Observable } from "rxjs";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
-import { RequestJobs, FilterJobs, ChangeBrowseFormat } from "src/redux/actions/job.actions";
+import { RequestJobs, FilterJobs, ChangeBrowseFormat, SetFuccingJobsToTrue } from "src/redux/actions/job.actions";
 import { FormControl, NgForm } from "@angular/forms";
 import { RequestUpdateUser, RequestAddSkillToUser } from "src/redux/actions/user.actions";
 import { ISkills } from "src/models/skill-model";
+import { WebsocketService } from "src/services/websocket-service/websocket.service";
+import { IUser } from "src/models/user-model";
 @Component({
   selector: "app-browse-jobs",
   templateUrl: "./browse-jobs.component.html",
@@ -30,6 +32,8 @@ export class BrowseJobsComponent implements OnInit {
   jobs: IJob[];
   lastJobHidden: IJob;
 
+  @Select(UserState.getUser)
+  user$: Observable<IUser>
   @Select(JobsState.getIsLoading)
   isLoading$: Observable<boolean>;
   @Select(JobsState.getJobs)
@@ -40,7 +44,13 @@ export class BrowseJobsComponent implements OnInit {
   isList$: Observable<boolean>
   isList: boolean;
 
-  constructor(private store: Store) {
+  @Select(JobsState.getIsFuccingJobs)
+  isFuccingJobs$: Observable<boolean>
+
+  @Select(JobsState.getFuccingError)
+  fuccingError$: Observable<boolean>
+
+  constructor(private store: Store, private wss: WebsocketService) {
     this.filters = {
       minPayment: null,
       maxPayment: null,
@@ -95,7 +105,18 @@ export class BrowseJobsComponent implements OnInit {
       this.jobs = jobs
     })
 
-    this.isList$.subscribe(x => {this.isList = x})
+    this.isList$.subscribe(x => { this.isList = x })
+
+    this.user$.subscribe(user => {
+      this.wss.getInstance().then(instance => {
+        this.store.dispatch(new SetFuccingJobsToTrue())
+        instance.next({
+          action: "fuccJobs",
+          content: "",
+          userId: user.id
+        })
+      })
+    })
   }
 
   //Inverts list type

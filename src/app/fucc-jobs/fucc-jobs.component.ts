@@ -8,6 +8,7 @@ import { JobsState } from 'src/redux/states/job.state';
 import { WebsocketService } from 'src/services/websocket-service/websocket.service';
 import { UserState } from 'src/redux/states/user.state';
 import { IUser } from 'src/models/user-model';
+import { SetFuccingJobsToTrue } from 'src/redux/actions/job.actions';
 
 @Component({
   selector: 'fucc-jobs',
@@ -55,7 +56,11 @@ export class FuccJobsComponent implements OnInit {
   //   }
   // ]
 
-  constructor(private dialog: MatDialog, private store: Store, private wss: WebsocketService) { }
+  constructor(private dialog: MatDialog) {
+    this.user$.subscribe(res => {
+      this.user = res
+    })
+  }
 
   ngOnInit() {
     this.fuccJobs$.subscribe(res => {
@@ -68,15 +73,6 @@ export class FuccJobsComponent implements OnInit {
         });
       }
     })
-    this.user$.subscribe(user => {
-      this.user = user
-      this.wss.send({
-        action: "fuccJobs",
-        content: '',
-        userId: this.user.id
-      })
-    })
-
   }
 
   dismiss() { this.dismissFormEmit.emit(true) }

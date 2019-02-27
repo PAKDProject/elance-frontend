@@ -3,9 +3,14 @@ import { Location, LocationStrategy, PathLocationStrategy, PopStateEvent } from 
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 // import { Subscription } from 'rxjs/Subscription';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import PerfectScrollbar from 'perfect-scrollbar';
-import { WebsocketService } from 'src/services/websocket-service/websocket.service';
+import { WebsocketService, IMessage } from 'src/services/websocket-service/websocket.service';
+import { Select, Store } from '@ngxs/store';
+import { UserState } from 'src/redux/states/user.state';
+import { IUser } from 'src/models/user-model';
+import { JobsState } from 'src/redux/states/job.state';
+import { SetFuccingJobsToTrue } from 'src/redux/actions/job.actions';
 
 @Component({
   selector: 'app-view',
@@ -13,8 +18,13 @@ import { WebsocketService } from 'src/services/websocket-service/websocket.servi
   styleUrls: ['./view.component.scss']
 })
 export class ViewComponent {
-  constructor(private _wss: WebsocketService) {
-    this._wss.connect().then(() => this._wss.send({ action: "ping", content: "ping" }));
-  }
+  @Select(JobsState.getIsLoading)
+  isLoading$: Observable<boolean>
+
+  @Select(UserState.getUser)
+  user$: Observable<IUser>
+
+  user: IUser
+  constructor() { }
 }
 

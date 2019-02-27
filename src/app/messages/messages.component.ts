@@ -10,6 +10,7 @@ import { WebsocketService, IInstantMessage, IMessage } from 'src/services/websoc
 import { MessageState } from 'src/redux/states/message.state';
 import { map } from 'rxjs/operators';
 import { AddMessageToState } from 'src/redux/actions/message.actions';
+import { WebSocketSubject } from 'rxjs/webSocket';
 
 @Component({
   selector: 'app-messages',
@@ -42,7 +43,7 @@ export class MessagesComponent implements OnInit {
   ngOnInit() {
     let id = this.route.snapshot.params['id']
     console.info(id)
-    if (id) {
+    if (id && id !== ':id') {
       this.userService.getUserByID(id).subscribe(
         res => { this.selectedContact = res; })
     }
@@ -66,7 +67,7 @@ export class MessagesComponent implements OnInit {
     })
   }
 
-  sendMessage() {
+  async sendMessage() {
     let sendingMessage: IInstantMessage = {
       content: this.messageForm.get("message").value,
       senderId: this.user.id,
@@ -82,8 +83,8 @@ export class MessagesComponent implements OnInit {
       userId: this.selectedContact.id,
     }
 
-
-    this.webSockerService.send(wsMessage)
+    let sender = await this.webSockerService.getInstance()
+    sender.next(wsMessage)
     this.store.dispatch(new AddMessageToState(sendingMessage))
   }
 }

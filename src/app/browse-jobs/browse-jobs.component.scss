@@ -2,11 +2,16 @@
 
 .main-content {
   .container-fluid {
+    .cardContainer {
+      .bodyContent {
+        text-align: center;
+      }
+    }
     .headerBar {
       margin-bottom: 20px;
       display: grid;
       grid-template-columns: 1fr auto;
-
+      
       .refreshButton {
         display: grid;
         grid-template-columns: auto auto;

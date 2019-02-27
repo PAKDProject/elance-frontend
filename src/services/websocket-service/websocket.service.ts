@@ -8,80 +8,96 @@ import { Select, Store } from '@ngxs/store';
 import { UserState } from 'src/redux/states/user.state';
 import { Observable } from 'rxjs';
 import { AddMessageToState } from 'src/redux/actions/message.actions';
-import { AddRecommendedJobs } from 'src/redux/actions/job.actions';
+import { AddRecommendedJobs, SetFuccingJobsToTrue, SetFuccingErrorToTrue } from 'src/redux/actions/job.actions';
+import { IJob } from 'src/models/job-model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WebsocketService implements OnInit {
+export class WebsocketService {
   private config: IWebConfig
-  private isConnected: boolean = false
-  private ws: WebSocket
+  private wss: WebSocketSubject<IMessage>
+
   private user: IUser
 
   @Select(UserState.getUser) user$: Observable<IUser>
 
-
-  constructor(private _notifier: NotificationService, private _http: HttpClient, private _store: Store) { }
-
-  ngOnInit() {
-
+  constructor(private _notifier: NotificationService, private _http: HttpClient, private _store: Store) {
+    this.getConfig().then(res => {
+      this.config = res.config
+    })
+    this.user$.subscribe(user => this.user = user)
   }
 
-  async tryToConnect() {
-    try {
-      if (this.config === undefined) {
-        let res = await this.getConfig()
-        this.config = res.config
-      }
-      this.ws = new WebSocket(`wss://${this.config.endpoint}?userId=${this.user.id}`)
-      this.ws.onopen = () => this._notifier.showSuccess('Connected!', "Successfully connected to FUCC System.")
-      this.ws.onmessage = (event) => {
-        let message: IMessage = JSON.parse(event.data)
-        console.log(message)
-        if (message.action === "message") {
-          let im = message.content as IInstantMessage
-          //let im = message as IInstantMessage
-          this._store.dispatch(new AddMessageToState(im))
-        }
-        else if (message.action === "fuccJobs") {
-          this._store.dispatch(new AddRecommendedJobs(message.content))
-        }
-      }
-      this.ws.onerror = () => {
-        throw new Error("Error with connection")
-      }
-    } catch (error) {
-      throw error
-    }
+  async delay(ms) {
+    // return await for better async stack trace support in case of errors.
+    return await new Promise(resolve => setTimeout(resolve, ms));
   }
-  async connect() {
-    this.user$.subscribe(async user => {
-      this.user = user
-      if (this.ws === undefined) {
-        try {
-          await this.tryToConnect()
-        } catch (error) {
-          let timer = setInterval(async () => {
-            try {
-              await this.tryToConnect()
+
+  getInstance(): Promise<WebSocketSubject<IMessage>> {
+    return new Promise((resolve, reject) => {
+      if (!this.wss) {
+        if (this.config === undefined) {
+          let i = 1
+          let timer = setInterval(() => {
+            if (this.config !== undefined) {
+              this.createSocket()
               clearInterval(timer)
-            } catch (error) {
-              this._notifier.showError("Failed connection!", "Failed to connect to FUCC. Retrying in 15 seconds...")
-              console.log(error)
+              resolve(this.wss)
             }
-          }, 15000)
+            i += 1
+          }, 100)
         }
+        else {
+          this.createSocket()
+          resolve(this.wss)
+        }
+      }
+      else {
+        resolve(this.wss)
+      }
+    })
+
+  }
+
+  createSocket() {
+    this.wss = new WebSocketSubject(`wss://${this.config.endpoint}?userId=${this.user.id}`)
+
+    this.wss.subscribe(obs => {
+      console.log(obs)
+      switch (obs.action) {
+        case "message":
+          this.saveMessage(obs.content);
+          break;
+        case "fuccJobs":
+          this.saveFuccJobs(obs.content)
+          break;
+        case "error":
+          console.log(obs.content)
+          this._store.dispatch(new SetFuccingErrorToTrue())
+          break;
       }
     })
   }
 
-  async getConfig(): Promise<{ config: IWebConfig }> {
-    return this._http.get<{ config: IWebConfig }>(`${environment.backendUrl}/fucc/getconfig`).toPromise()
+  saveMessage(content: IInstantMessage) {
+    try {
+      this._store.dispatch(new AddMessageToState(content))
+    } catch (error) {
+      console.error(error)
+    }
   }
 
-  async send(message: IMessage) {
-    this.ws.send(JSON.stringify(message))
+  saveFuccJobs(content: IJob[]) {
+    try {
+      this._store.dispatch(new AddRecommendedJobs(content))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getConfig(): Promise<{ config: IWebConfig }> {
+    return this._http.get<{ config: IWebConfig }>(`${environment.backendUrl}/fucc/getconfig`).toPromise()
   }
 }
 
