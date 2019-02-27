@@ -3,7 +3,7 @@
     <mat-vertical-stepper id="stepper" #stepper>
       <!-- WELCOME -->
       <mat-step>
-        <ng-template matStepLabel>Getting Started</ng-template>
+        <ng-template matStepLabel><b>Getting Started</b></ng-template>
         <div class="row">
           <div class="col-md-12 text-center mb-2">
             <img src="../../assets/images/IL_full_transparent.png" width="500" style="width: 100%; max-width: 600px">
@@ -31,7 +31,7 @@
       </mat-step>
       <!-- ABOUT YOU -->
       <mat-step [stepControl]="aboutYouForm">
-        <ng-template matStepLabel>About You</ng-template>
+        <ng-template matStepLabel><b>About You</b></ng-template>
         <form [formGroup]="aboutYouForm">
           <div class="row justify-content-center">
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -48,7 +48,7 @@
               <div class="form-group">
                 <label for="tagline">Tagline</label>
                 <input type="text" id="tagline" name="tagline" class="form-control" placeholder="eg. Software Developer"
-                  formControlName="tagline"  maxlength="50" />
+                  formControlName="tagline" maxlength="50" />
               </div>
             </div>
           </div>
@@ -76,7 +76,7 @@
       </mat-step>
       <!-- EDUCATION -->
       <mat-step [stepControl]="educationForm">
-        <ng-template matStepLabel>Education</ng-template>
+        <ng-template matStepLabel><b>Education</b></ng-template>
 
         <div class="row" *ngIf="this.educationAdded.length > 0">
           <div class="col">
@@ -191,7 +191,7 @@
 
       <!-- SOCIAL LINKS -->
       <mat-step>
-        <ng-template matStepLabel>Social Links</ng-template>
+        <ng-template matStepLabel><b>Social Links</b></ng-template>
         <div class="socialConnectionContainer">
           <div class='centering'>
             <div *ngFor="let connection of socialLinks" class='socConnection'>
@@ -220,7 +220,7 @@
       </mat-step>
       <!-- COMPLETE -->
       <mat-step>
-        <ng-template matStepLabel>Finished!</ng-template>
+        <ng-template matStepLabel><b>Finished!</b></ng-template>
         <h4 style="text-align: center; margin: 20px;">
           Great! You're all set!
         </h4>

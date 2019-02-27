@@ -7,6 +7,7 @@
       </div>
       <div>{{job.employerName?job.employerName:'null'}}</div>
     </div>
+    {{job.dateDue}}
     <div class='date'>Due Date: {{job.dateDue?(job.dateDue | date):'null'}}</div>
     <button class='btn btn-sm' (click)='openJob()'>See More</button>
   </div>

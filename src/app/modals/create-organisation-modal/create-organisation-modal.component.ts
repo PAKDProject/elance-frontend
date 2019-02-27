@@ -103,12 +103,17 @@ export class CreateOrganisationModalComponent implements OnInit {
   //Open modal for Uploading logo image
   openUploadModal() {
     const dialogRef = this._dialog.open(UploadImageModalComponent, {
-      data: "logo"
+      maxWidth: "1000px",
+      panelClass: "modalStyle",
+      data: {
+        type: "logo"
+      }
     });
 
-    dialogRef.afterClosed().subscribe(data => {
-      if (data !== undefined) {
-        this.organisation.logoUrl = data.url;
+    dialogRef.afterClosed().subscribe(res => {
+      console.log(res)
+      if (res !== undefined) {
+        this.organisation.logoUrl = res.url;
       }
     })
 

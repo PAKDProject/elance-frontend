@@ -1,19 +1,16 @@
 import { Component, OnInit } from "@angular/core";
 import {
   IUser,
-  ISkills,
   IEducationItem,
   ISocialLink
 } from "src/models/user-model";
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import * as AWS from "aws-sdk";
 import { Store, Select } from "@ngxs/store";
 import { RequestUserSuccessAction } from "src/redux/actions/user.actions";
 import { UserService } from "../../services/user-service/user.service";
 import { UserState } from "src/redux/states/user.state";
 import { Observable } from "rxjs";
-import { secret } from "src/assets/secret";
 import { MatDialog } from "@angular/material";
 import { UploadImageModalComponent } from "src/app/modals/upload-image-modal/upload-image-modal.component";
 import { environment } from "src/environments/environment";
@@ -241,7 +238,9 @@ export class RegisterFormComponent implements OnInit {
         type: "profile"
       }
     }).afterClosed().subscribe(res => {
-      this.user.avatarUrl = res.url
+      if (res !== undefined) {
+        this.user.avatarUrl = res.url
+      }
     });
   }
 

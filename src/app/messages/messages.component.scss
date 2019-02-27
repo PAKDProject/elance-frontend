@@ -31,8 +31,7 @@
         }
     
         .contactsList {
-            display: grid;
-            grid-auto-flow: dense;
+            height: 100%;
             overflow: auto;
             .contactRow{
                 display: grid;
@@ -127,7 +126,7 @@
 
         .messageContent {
             padding: 10px;
-            display: grid;
+            // display: grid;
             grid-row-gap: 10px;
             overflow: auto;
 
@@ -137,9 +136,8 @@
                 border: 2px $cardBack solid;
                 
                 background: $cardBack;
-                
-                justify-self: left;
-                align-self: center;
+                clear:both;
+                float: left;
 
                 p {
                     margin: 0; padding: 0;
@@ -149,12 +147,13 @@
                 }
             }
             .sender {
-                border: 2px $primary;
+                border: 2px $primary solid;
 
                 color: white;
                 background: $primary;
                 
-                justify-self: right;
+                float: right;
+                // justify-self: right;
             }
             .unseen {
                 // border: 2px white solid;

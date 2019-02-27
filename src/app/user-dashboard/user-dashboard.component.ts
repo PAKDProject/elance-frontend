@@ -21,17 +21,19 @@ export class UserDashboardComponent implements OnInit {
 
   tempArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 11, 12];
 
-  @ViewChild('activeJobs', { read: DragScrollComponent }) activeDrag: DragScrollComponent;
-  @ViewChild('postedJobs', { read: DragScrollComponent }) postedDrag: DragScrollComponent;
-  @ViewChild('appliedJobs', { read: DragScrollComponent }) appliedDrag: DragScrollComponent;
-  @ViewChild('contacts', { read: DragScrollComponent }) contactsDrag: DragScrollComponent;
+  @ViewChild('activeJobs', { read: DragScrollComponent })
+  activeDrag: DragScrollComponent;
+  @ViewChild('postedJobs', { read: DragScrollComponent })
+  postedDrag: DragScrollComponent;
+  @ViewChild('appliedJobs', { read: DragScrollComponent })
+  appliedDrag: DragScrollComponent;
+  @ViewChild('contacts', { read: DragScrollComponent })
+  contactsDrag: DragScrollComponent;
 
   @Select(UserState.getUser)
   user$: Observable<IUser>;
 
   user: Partial<IUser>;
-
-  carousels: DragScrollComponent[];
 
   constructor(private dialog: MatDialog, private store: Store, private notification: NotificationService) { }
 
@@ -89,12 +91,6 @@ export class UserDashboardComponent implements OnInit {
       //   }
       // ]
     })
-
-    this.carousels = [
-      this.activeDrag,
-      this.postedDrag,
-      this.appliedDrag
-    ]
   }
 
   openModal(): void {
@@ -128,10 +124,38 @@ export class UserDashboardComponent implements OnInit {
   }
 
   moveDragLeft(index) {
-    this.carousels[index].moveLeft()
+    switch(index)
+    {
+      case 0:
+        this.activeDrag.moveLeft()
+        break;
+      case 1:
+        this.postedDrag.moveLeft()
+        break;
+      case 2:
+        this.appliedDrag.moveLeft()
+        break;
+      case 3:
+        this.contactsDrag.moveLeft()
+        break;
+    }
   }
   moveDragRight(index) {
-    this.carousels[index].moveRight()
+    switch(index)
+    {
+      case 0:
+        this.activeDrag.moveRight()
+        break;
+      case 1:
+        this.postedDrag.moveRight()
+        break;
+      case 2:
+        this.appliedDrag.moveRight()
+        break;
+      case 3:
+        this.contactsDrag.moveRight()
+        break;
+    }
   }
 
   deleteContact($event: Partial<IUser>) {

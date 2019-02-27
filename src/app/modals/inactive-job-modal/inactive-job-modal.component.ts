@@ -12,6 +12,7 @@ import { UserProfileModalComponent } from "../user-profile-modal/user-profile-mo
 import { UserApplyForJob } from "src/redux/actions/user.actions";
 import { JobService } from "src/services/job-service/job.service";
 import { OrgsState } from "src/redux/states/organisation.state";
+import { IOrganisation } from "src/models/organisation-model";
 
 @Component({
   selector: "inactive-job-modal",
@@ -19,15 +20,17 @@ import { OrgsState } from "src/redux/states/organisation.state";
   styleUrls: ["./inactive-job-modal.component.scss"]
 })
 export class InactiveJobModalComponent implements OnInit {
-  @Select(UserState.getUser) user$: Observable<IUser>;
+  @Select(UserState.getUser)
+  user$: Observable<IUser>
+  user: IUser
 
-  @Select(OrgsState.getOrgs) orgs$;
+  @Select(OrgsState.getOrgs)
+  orgs$: Observable<IOrganisation[]>
 
-  user: IUser;
   applicants: Partial<IUser>[];
   applicantIDs: string[];
-  applicantsVisible: boolean = false;
-  userID: string;
+
+  applicantsVisible: boolean = false
   isEmployer: boolean = false;
   fullJob: IJob;
   applied = false;
@@ -43,35 +46,36 @@ export class InactiveJobModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.data)
     this.jobService.getJobById(this.data.job.id).subscribe(res => {
       this.fullJob = res;
-      if (this.data.type === 'user') {
-        this.user$.subscribe(u => {
-          this.user = u;
-          if (u.id === this.fullJob.employerID) {
-            this.isEmployer = true;
+      switch (this.data.type) {
+        case 'user':
+          if (this.data.type === 'user') {
+            this.user$.subscribe(u => {
+              this.user = u
+
+              //Check if user is the poster of the job
+              if (u.id === res.employerID) { this.isEmployer = true }
+
+              //Check if user has applied for this job
+              if (res.applicants) {
+                if (res.applicants.findIndex(a => a.id === u.id) != -1) { this.applied = true }
+              }
+            })
           }
-        });
-        if (this.fullJob.applicants.findIndex(a => a.id === this.user.id) !== -1) {
-          this.applied = true;
-        }
-      }
-
-      if (this.data.type === 'org') {
-        this.orgs$.subscribe((res) => {
-          res.forEach(org => {
-            if (org.id === this.data.job.employerID) {
-              this.isEmployer = true;
-
-            }
-          });
-        })
+          break;
+        case 'org':
+          if (this.data.type === 'org') {
+            this.orgs$.subscribe(x => {
+              x.forEach(org => {
+                if (org.id === res.employerID) { this.isEmployer = true }
+              })
+            })
+          }
+          break;
       }
     })
-    // Check if user posted the job
-
-
-    // console.log(this.data)
   }
 
   //Close modal
@@ -81,21 +85,9 @@ export class InactiveJobModalComponent implements OnInit {
 
   //Apply for the current job
   apply(): void {
-    this._store.dispatch(new ApplyForJob(this.data.job.id, {
-      id: this.user.id,
-      fName: this.user.fName,
-      lName: this.user.lName,
-      avatarUrl: this.user.avatarUrl
-    })).subscribe(() => {
-      this._store.dispatch(new UserApplyForJob({
-        id: this.data.job.id,
-        title: this.data.job.title,
-        employerName: this.data.job.employerName,
-        description: this.data.job.description,
-        payment: this.data.job.payment,
-        dateDue: this.data.job.dateDue
-      }))
-      this._notification.showSuccess(`Woohoo you applied for ${this.data.job.title}`, "We wish you the best of luck with your application!")
+    this._store.dispatch(new ApplyForJob(this.fullJob.id, this.user)).subscribe(() => {
+      this._store.dispatch(new UserApplyForJob(this.fullJob))
+      this._notification.showSuccess(`Woohoo you applied for ${this.fullJob.title}`, "We wish you the best of luck with your application!")
       this.dialogRef.close()
     })
   }
@@ -122,7 +114,7 @@ export class InactiveJobModalComponent implements OnInit {
 
   selectUser(user: Partial<IUser>) {
     //Redux- Accept a freelancer
-    this._store.dispatch(new AcceptApplicant(this.data.job.id, {
+    this._store.dispatch(new AcceptApplicant(this.fullJob.id, {
       id: user.id,
       fName: user.fName,
       lName: user.lName,
@@ -137,7 +129,7 @@ export class InactiveJobModalComponent implements OnInit {
 
   //Temporarily filter out the applicants you don't want
   dismissUser(user: IUser) {
-    this.data.job.applicants = this.data.job.applicants.filter(applicant => applicant !== user);
+    this.fullJob.applicants = this.fullJob.applicants.filter(applicant => applicant !== user);
     this.applicants = this.applicants.filter(applicant => applicant !== user);
   }
 

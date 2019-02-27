@@ -14,7 +14,7 @@
             <div class='dragArrow' (click)='moveDragLeft(0)'>
               <mat-icon>keyboard_arrow_left</mat-icon>
             </div>
-            <drag-scroll #activeJobs *ngIf="user.activeJobs.length > 0">
+            <drag-scroll *ngIf="user.activeJobs.length > 0" #activeJobs>
               <dashboard-job-card *ngFor='let job of user.activeJobs' [JobInput]='job' [type]="'active'"></dashboard-job-card>
             </drag-scroll>
             <div class='dragArrow' (click)='moveDragRight(0)'>
@@ -34,7 +34,7 @@
             <div class='dragArrow' (click)='moveDragLeft(1)'>
               <mat-icon>keyboard_arrow_left</mat-icon>
             </div>
-            <drag-scroll #appliedJobs *ngIf="user.appliedJobs.length > 0">
+            <drag-scroll *ngIf="user.appliedJobs.length > 0" #appliedJobs>
               <dashboard-job-card *ngFor='let job of user.appliedJobs' [JobInput]='job' [type]="'inactive'"></dashboard-job-card>
             </drag-scroll>
             <div class='dragArrow' (click)='moveDragRight(1)'>
@@ -54,7 +54,7 @@
             <div class='dragArrow' (click)='moveDragLeft(2)'>
               <mat-icon>keyboard_arrow_left</mat-icon>
             </div>
-            <drag-scroll #postedJobs>
+            <drag-scroll *ngIf='user.postedJobs.length > 0' #postedJobs>
               <dashboard-job-card *ngFor='let job of user.postedJobs' [JobInput]='job' [type]="'inactive'"></dashboard-job-card>
             </drag-scroll>
             <div class='dragArrow' (click)='moveDragRight(2)'>
@@ -75,7 +75,7 @@
             <div class='dragArrow' (click)='moveDragLeft(2)'>
               <mat-icon>keyboard_arrow_left</mat-icon>
             </div>
-            <drag-scroll #contacts>
+            <drag-scroll *ngIf='user.contacts.length > 0' #contacts>
               <contact-card *ngFor='let contact of user.contacts' [ContactInput]="contact" [EditingInput]="1 === 1"
                 (RemoveEmit)="deleteContact($event)"></contact-card>
               <!-- <dashboard-job-card drag-scroll-item *ngFor='let j of tempArray'></dashboard-job-card> -->

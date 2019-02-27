@@ -2,13 +2,11 @@ import { Component, Inject, OnInit } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { NotificationService } from "src/services/notifications/notification.service";
 import { FileuploadService } from "src/services/fileUpload-service/fileupload.service";
-import { toBase64String } from "@angular/compiler/src/output/source_map";
 import { Select } from "@ngxs/store";
 import { UserState } from "src/redux/states/user.state";
 import { Observable } from "rxjs";
 import { IUser } from "src/models/user-model";
 import { HttpEvent, HttpEventType } from "@angular/common/http";
-import { Buffer } from "buffer";
 
 @Component({
   selector: "app-upload-image-modal",
@@ -21,6 +19,7 @@ export class UploadImageModalComponent implements OnInit {
       this.userID = data.id;
     })
   }
+
   @Select(UserState.getUser) user$: Observable<IUser>;
   uploadedPercentage = 0;
   isUploading: boolean = false
@@ -76,7 +75,7 @@ export class UploadImageModalComponent implements OnInit {
                   this.fileUrl = event.body.url
                   console.log(this.fileUrl)
 
-                  this._notify.showSuccess("Successful upload!", "Your avatar has been uploaded!")
+                  this._notify.showSuccess("Successful upload!", "Your image has been uploaded!")
                   setTimeout(() => {
                     this.uploadComplete()
                   }, 2000)
@@ -94,12 +93,7 @@ export class UploadImageModalComponent implements OnInit {
               }
             })
           };
-
-
-
-
           reader.readAsBinaryString(event[0]);
-
         }
       }
       else {

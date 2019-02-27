@@ -28,10 +28,11 @@ import { IJob } from "src/models/job-model";
 import { JobService } from "src/services/job-service/job.service";
 import { IProfileCard } from "src/models/profile-card";
 import { IOrganisation } from "src/models/organisation-model";
-import { SetOrganisations, AddMemberToOrg } from "../actions/organisation.actions";
+import { SetOrganisations, AddMemberToOrg, RemovePostedJobOrg } from "../actions/organisation.actions";
 import { OrganisationService } from "src/services/organisation-service/organisation.service";
 import { RemoveJob } from '../actions/job.actions';
 import { isNullOrUndefined } from 'util';
+import { dispatch } from "rxjs/internal/observable/pairs";
 
 export class UserStateModel {
   id: string;
@@ -120,17 +121,13 @@ export class UserState {
 
   //#region Update User
   @Action(RequestUpdateUser)
-  updateUserRequest({ getState, dispatch }: StateContext<UserStateModel>, { user }: RequestUpdateUser) {
-    let userState = getState();
+  updateUserRequest(context: StateContext<UserStateModel>, action: RequestUpdateUser) {
+    const state = context.getState();
 
-    this._userService.updateUser(user, userState.id).subscribe(
-      res => {
-        dispatch(new RequestUpdateUserSuccess(res));
-      },
-      err => {
-        dispatch(new RequestUpdateUserFail(err.message));
-      }
-    );
+    this._userService.updateUser(action.user, state.id).subscribe(
+      res => { context.dispatch(new RequestUpdateUserSuccess(res)) },
+      err => { context.dispatch(new RequestUpdateUserFail(err.message)) }
+    )
   }
 
   @Action(RequestUpdateUserSuccess)
@@ -172,11 +169,11 @@ export class UserState {
       contacts.push(payload);
       if (!isNullOrUndefined(currentUser.contacts)) {
         contactList.push(contact);
-        this._userService.updateUser({contacts: contactList}, payload.id).subscribe();
+        this._userService.updateUser({ contacts: contactList }, payload.id).subscribe();
       } else {
         contactList = currentUser.contacts;
         contactList.push(contact);
-        this._userService.updateUser({contacts: contactList}, payload.id).subscribe();
+        this._userService.updateUser({ contacts: contactList }, payload.id).subscribe();
       }
       dispatch(new RequestUpdateUser({ contacts: contacts }));
     }
@@ -250,48 +247,57 @@ export class UserState {
   }
 
   @Action(RequestRemoveActiveJob)
-  RequestRemoveActiveJob(context: StateContext<UserStateModel>, { job, userId }: RequestRemoveActiveJob) {
-    let userToUpdate: IUser;
-    this._userService.getUserByID(userId).subscribe(user => {
-      userToUpdate = user;
+  RequestRemoveActiveJob(context: StateContext<UserStateModel>, { job, userId, type }: RequestRemoveActiveJob) {
+    let user = context.getState();
+
+    this._userService.getUserByID(user.id).subscribe(user => {
+      let userToUpdate = user;
       const activeJobs = userToUpdate.activeJobs;
       let jobHistory = userToUpdate.jobHistory || [];
+
       const index = activeJobs.findIndex(i => i.id === job.id);
       activeJobs.splice(index, 1);
-      this._jobService.getJobById(job.id).subscribe((j) => {
-        jobHistory.push(j);
-      });
+      jobHistory.push(job)
 
       this._userService.updateUser({ activeJobs: activeJobs, jobHistory: jobHistory }, userId).subscribe(res => {
+        context.patchState({ jobHistory: res.jobHistory, activeJobs: res.activeJobs })
+        context.dispatch(new RequestRemovePostedJob(job, job.employerID, type));
 
       });
-      context.dispatch(new RequestRemovePostedJob(job, job.employerID));
     });
   }
 
   @Action(RequestRemovePostedJob)
-  RequestRemovePostedJob(context: StateContext<UserStateModel>, { job, userId }: RequestRemovePostedJob) {
-    let userToUpdate: IUser;
-    this._userService.getUserByID(userId).subscribe(user => {
-      userToUpdate = user;
-      const postedJobs = userToUpdate.postedJobs;
-      const index = postedJobs.findIndex(i => i.id === job.id);
-      postedJobs.splice(index, 1);
+  RequestRemovePostedJob(context: StateContext<UserStateModel>, { job, userId, type }: RequestRemovePostedJob) {
+    alert()
+    if (type === 'user') {
+      let userToUpdate: IUser;
+      this._userService.getUserByID(userId).subscribe(user => {
+        userToUpdate = user;
+        const postedJobs = userToUpdate.postedJobs;
+        const index = postedJobs.findIndex(i => i.id === job.id);
+        postedJobs.splice(index, 1);
 
-      this._userService.updateUser({ postedJobs: postedJobs }, userId).subscribe(res => {
+        this._userService.updateUser({ postedJobs: postedJobs }, userId).subscribe(res => {
 
+        });
+
+        // TODO: check if org is the employer and remove from there
       });
-      // TODO: check if org is the employer and remove from there
-      context.dispatch(new RemoveJob(job.id));
-    });
+    } else if (type === 'org') {
+      context.dispatch(new RemovePostedJobOrg(job));
+    }
+    context.dispatch(new RemoveJob(job.id));
+
   }
 
   @Action(UserApplyForJob)
-  ApplyForJob({ getState, dispatch }: StateContext<UserStateModel>, { payload }: UserApplyForJob) {
-    const appliedJobs: Partial<IJob>[] = getState().appliedJobs || []
-    appliedJobs.push(payload);
+  ApplyForJob(context: StateContext<UserStateModel>, action: UserApplyForJob) {
+    const state = context.getState()
+    const appliedJobs: Partial<IJob>[] = state.appliedJobs || []
+    appliedJobs.push(action.payload);
 
-    dispatch(new RequestUpdateUser({ appliedJobs: appliedJobs }))
+    context.dispatch(new RequestUpdateUser({ appliedJobs: appliedJobs }))
   }
 
   @Action(SendOrgInvite)

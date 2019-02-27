@@ -21,6 +21,7 @@ export class FuccJobsComponent implements OnInit {
   user: IUser
   @Select(UserState.getUser) user$: Observable<IUser>
   @Select(JobsState.getRecommendedJobs) fuccJobs$: Observable<{ job: IJob, pointsForJob: number }[]>
+  @Select(JobsState.getIsLoading) isLoading$: Observable<boolean>
   // fuccJob: IJob[] = [
   //   {
   //     title: 'Develop Ancient Technology',

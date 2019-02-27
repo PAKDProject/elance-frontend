@@ -31,15 +31,14 @@
           </div>
         </div>
         <div class='messageContent' *ngIf='selectedMessages.length > 0' #messages [scrollTop]="messages.scrollHeight">
-          <div *ngFor='let m of selectedMessages' [class.sender]='m.senderId == (user$ | async).id'
-            [class.unseen]='!(m.isSeen)'>
+          <div *ngFor='let m of selectedMessages' [class.sender]='m.senderId == (user$ | async).id'>
             <p>{{m.content}}</p>
             <small>{{m.timestamp | date: 'HH:mm'}}</small>
           </div>
         </div>
         <form [formGroup]='messageForm'>
-          <textarea class='form-control' formControlName="message"></textarea>
-          <button class='btn btn-primary' (click)="this.sendMessage()">
+          <textarea class='form-control' formControlName="message" [disabled]='(selectedContact == null)'></textarea>
+          <button class='btn btn-primary' (click)="this.sendMessage()" [disabled]='(selectedContact == null)'>
             <mat-icon>send</mat-icon>
           </button>
         </form>

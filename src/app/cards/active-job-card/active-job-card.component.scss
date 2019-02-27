@@ -1,106 +1,113 @@
 @import "../../../variables.scss";
 
 .cardContainer {
-    margin: 5px;
+  margin: 5px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+
+  background: #CBCBCB;
+  box-shadow: 3px 4px 6px rgba(0, 0, 0, 0.2);
+
+  .topRow {
+    justify-self: center;
+    width: 100%;
+    padding: 10px;
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr auto;
+    border-bottom: 2px #E3E3E3 solid;
+    min-height: 40px;
+
+    color: white;
+    background: $accent;
+
+    .jobTitle {
+      font-weight: 400;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .jobEmployer {
+      font-weight: 200;
+      text-align: right;
+      font-style: italic;
+    }
+  }
+
+  .middleRow {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    margin: 5px;
     height: 100%;
 
-    background: #CBCBCB;
-    box-shadow: 3px 4px 6px rgba(0,0,0,0.2);
-    
-    .topRow {
+    .jobDescription {
+      font-size: 14px;
+      line-height: 19px;
+      height: 76px;
+      white-space: normal;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .modalButton {
+      margin-left: 10px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px $accent solid;
+      background: $accent;
+      color: white;
+      cursor: pointer;
+      align-self: center;
+      display: grid;
+
+      mat-icon {
+        font-size: 22px;
+        text-align: center;
         justify-self: center;
-        width: 100%;
-        padding: 10px;
-        display: grid;
-        grid-template-columns: 1fr auto;
-        border-bottom: 2px #E3E3E3 solid;
-        min-height: 40px;
+        align-self: center;
+      }
 
-        color: white;
-        background: $accent;    
-        .jobTitle {
-            font-weight: 400;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .jobEmployer {
-            font-weight: 200;
-            text-align: right;
-            font-style: italic;
-        }
+      mat-icon:hover {
+        color: $accent;
+      }
     }
-    .middleRow {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        margin: 5px;
-        height: 100%;
 
-        .jobDescription {
-            font-size: 14px;
-            line-height: 19px;
-            height: 76px;
-            white-space: normal;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .modalButton {
-            margin-left: 10px;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: 2px $accent solid;
-            background: $accent;
-            color: white;
-            cursor: pointer;
-            align-self: center;
-            display: grid;
-
-            mat-icon {
-                font-size: 22px;
-                text-align: center;
-                justify-self: center;
-                align-self: center;
-            }
-            mat-icon:hover {
-                color: $accent;
-            }
-        }
-        .modalButton:hover {
-            background: white;
-            color: $accent;
-        }
+    .modalButton:hover {
+      background: white;
+      color: $accent;
     }
-    .bottomRow {
-        padding: 5px;
-        display: grid;
-        grid-template-columns: 1fr auto;
-        grid-column-gap: 5px;
-        border-top: 2px #E3E3E3 solid;
-        width: 90%;
-        justify-self: center;
-        align-items: center;
-        min-height: 40px;       
+  }
 
-        .jobDueDate {
-            text-align: right;
+  .bottomRow {
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-column-gap: 5px;
+    border-top: 2px #E3E3E3 solid;
+    width: 90%;
+    justify-self: center;
+    align-items: center;
+    min-height: 40px;
 
-            mat-icon {
-                font-size: 20px;
-                vertical-align: middle;
-            }
-        }
+    .jobDueDate {
+      text-align: right;
 
-        .progressBar {
-            width: 100%;
-        }
+      mat-icon {
+        font-size: 20px;
+        vertical-align: middle;
+      }
     }
+
+    .progressBar {
+      width: 100%;
+    }
+  }
 }
 
-:host /deep/ 
-.progress-bar{
-    background-color:  $primary !important;
+:host /deep/ .progress-bar {
+  background-color: $primary !important;
+
+
 }
