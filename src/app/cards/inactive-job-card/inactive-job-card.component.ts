@@ -14,7 +14,7 @@ export class InactiveJobCardComponent {
   @Input('JobInput') job: IJob;
   @Input() type: string;
   @Output() notify: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() accepted: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() active: EventEmitter<IJob> = new EventEmitter<IJob>();
   constructor(public dialog: MatDialog) { }
 
   openJobModal(): void {
@@ -25,8 +25,7 @@ export class InactiveJobCardComponent {
 
     dialogRef.afterClosed().subscribe((data: any) => {
       if (data) {
-        alert("emitting value")
-        this.accepted.emit(true)
+        this.active.emit(data.active);
       }
     })
   }

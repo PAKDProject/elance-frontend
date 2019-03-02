@@ -15,7 +15,8 @@ import { OrganisationService } from 'src/services/organisation-service/organisat
 export class PostedComponent implements OnInit {
   @Input('JobsIn') jobs: Partial<IJob>[];
   @Input('OrgIn') org: IOrganisation;
-  @Output() refresh: EventEmitter<bool> = new EventEmitter<bool>();
+  @Output() newJob: EventEmitter<Partial<IJob>> = new EventEmitter<Partial<IJob>>();
+  @Output() activeJob: EventEmitter<Partial<IJob>> = new EventEmitter<Partial<IJob>>();
 
   constructor(private dialog: MatDialog, private store: Store, private orgService: OrganisationService) { }
 
@@ -26,18 +27,14 @@ export class PostedComponent implements OnInit {
   createJob(): void {
     this.dialog.open(CreateJobModalComponent, {
       data: this.org
-    }).afterClosed().subscribe(() => {
-      this.refresh.emit(true);
-      this.orgService.getOrganisationByID(this.org.id).subscribe((res) => {
-        this.jobs = res.jobsPosted;
-      })
+    }).afterClosed().subscribe((res) => {
+      console.log(res)
+      this.newJob.emit(res.newJob);
     });
 
   }
 
-  refreshUser(event) {
-    this.orgService.getOrganisationByID(this.org.id).subscribe((res) => {
-      this.jobs = res.jobsPosted;
-    })
+  active(job: IJob) {
+    this.activeJob.emit(job)
   }
 }

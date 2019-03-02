@@ -382,9 +382,11 @@ export class JobsState {
       description: job.description
     };
 
-    dispatch(new OrgAddPostedJob(partialOrgJob, orgId));
+    dispatch(new OrgAddPostedJob(partialOrgJob, orgId)).subscribe(() => {
+      patchState({ isLoading: false, inactiveJobs: jobs });
 
-    patchState({ isLoading: false, inactiveJobs: jobs });
+    });
+
 
   }
   @Action(AddRecommendedJobs)

@@ -22,14 +22,10 @@ import { OrgsState } from 'src/redux/states/organisation.state';
   styleUrls: ['./organization-dashboard.component.scss']
 })
 export class OrganizationDashboardComponent implements OnInit {
-  testInc = [1, 2, 3, 4, 5];
-
+  //#region Variables
   invitesOpen: boolean = false;
   org: Partial<IOrganisation> = null;
-
-  isAdmin = true;
-  constructor(private dialog: MatDialog, private store: Store, private _orgService: OrganisationService) { }
-
+  isAdmin: boolean = true;
   menuItems = [
     {
       path: 'active',
@@ -47,104 +43,87 @@ export class OrganizationDashboardComponent implements OnInit {
       path: 'members',
       title: 'Members'
     }
-  ];;
+  ];
   selectedPage: string = 'active';
-
   jobs: IJob[];
   userActiveJobs: IJob[]
   user: IUser;
-  contacts: IUser[] = [
-    {
-      id: "sampleId",
-      email: 'testEmail',
-      fName: "John",
-      lName: "Smith",
-      tagline: "Software Developer"
-    },
-    {
-      id: "sampleId",
-      email: 'testEmail',
-      fName: "John",
-      lName: "Smith",
-      tagline: "Software Developer"
-    },
-    {
-      id: "sampleId",
-      email: 'testEmail',
-      fName: "John",
-      lName: "Smith",
-      tagline: "Software Developer"
-    },
-    {
-      id: "sampleId",
-      email: 'testEmail',
-      fName: "John",
-      lName: "Smith",
-      tagline: "Software Developer"
-    },
-    {
-      id: "sampleId",
-      email: 'testEmail',
-      fName: "John",
-      lName: "Smith",
-      tagline: "Software Developer"
-    },
-    {
-      id: "sampleId",
-      email: 'testEmail',
-      fName: "John",
-      lName: "Smith",
-      tagline: "Software Developer"
-    }
-  ]
-
-  @Select(JobsState.getJobs)
-  jobs$: Observable<IJob[]>;
-
-  @Select(UserState.getActiveJobs)
-  activeJobs$: Observable<IJob[]>
-
   @Select(UserState.getUser)
   user$: Observable<IUser>;
 
+  //#endregion
 
+  constructor(private dialog: MatDialog, private store: Store, private _orgService: OrganisationService) { }
 
+  //Get the user
   ngOnInit() {
-    this.store.dispatch(new RequestJobs());
-
-    this.jobs$.subscribe(jobs => {
-      this.jobs = jobs.splice(0, 7)
-    })
-
-    this.activeJobs$.subscribe(jobs => {
-      this.userActiveJobs = jobs
-    })
-
-    this.contacts = this.contacts.concat(this.contacts);
-
     this.user$.subscribe(user => {
       this.user = user
     })
   }
 
-  setPage(page: string) {
-    this.selectedPage = page;
+  //#region Org Actions
+  //Check if the current user is the orgs admin
+  isAdminUser(o: Partial<IOrganisation>): boolean {
+    if (o.adminUser && o.adminUser === this.user.id) return true
+    return false;
   }
 
-  openCreate() {
-    this.dialog.open(CreateOrganisationModalComponent);
-  }
-
-  toggleInvites() { this.invitesOpen = !this.invitesOpen }
-
+  //Select an organisation to view the dashboard
   openDashboard(o: Partial<IOrganisation>) {
     this._orgService.getOrganisationByID(o.id).subscribe(res => {
       this.org = res;
     });
   }
 
+  //Delete an organisation
+  deleteOrg(o: Partial<IOrganisation>) {
+    const dialogRef = this.dialog.open(ConfirmModalComponent)
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) { this.store.dispatch(new DeleteOrganisation(o.id)) }
+    })
+  }
+
+  //Open modal to create a new org
+  openCreate() {
+    this.dialog.open(CreateOrganisationModalComponent);
+  }
+
+  //Add a new job to the organisation
+  addPosted(newJob: IJob) {
+    const posted = this.org.jobsPosted || [];
+    posted.push(newJob);
+    this.org.jobsPosted = posted;
+  }
+
+  addActive(activeJob: IJob) {
+    const active = this.org.activeJobs || [];
+    const posted = this.org.jobsPosted;
+    const i = posted.findIndex(j => j.id === activeJob.id);
+    if (i !== -1) posted.splice(i, 1);
+    active.push(activeJob);
+    this.org.activeJobs = active;
+    this.org.jobsPosted = posted;
+  }
+
+  //#endregion
+
+  //#region Visual 
+
+  //Visual - Set current page on dashboard
+  setPage(page: string) {
+    this.selectedPage = page;
+  }
+  //Visual - Show invites section
+  toggleInvites() { this.invitesOpen = !this.invitesOpen }
+  //Visual - Return to org select view
   goBack() { this.org = null }
 
+
+  //#endregion
+
+  //#region editing org
   editing: boolean = false;
   editingTitle: boolean = false;
   editingSite: boolean = false;
@@ -170,6 +149,27 @@ export class OrganizationDashboardComponent implements OnInit {
     if (this.editing) { this.editingBio = true }
   }
 
+  editOrg() {
+    this.store.dispatch(new UpdateOrganisation(this.org, this.org.id));
+  }
+  editLogo() {
+    const dialogRef = this.dialog.open(UploadImageModalComponent, {
+      data: "logo"
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (data !== undefined) {
+        console.log(data)
+        this.org.logoUrl = data;
+      }
+    })
+  }
+
+  //#endregion
+
+  //#region Invites
+
+  //Accept an invitation to join an organisation
   acceptInvite(o: Partial<IOrganisation>) {
     this.user.organisations.push(o);
 
@@ -180,7 +180,7 @@ export class OrganizationDashboardComponent implements OnInit {
       }
     ))
   }
-
+  //Reject an invitation to join an organisation
   rejectInvite(o: Partial<IOrganisation>) {
     const index: number = this.user.orgInvitations.findIndex(org => {
       return org.id === o.id;
@@ -200,39 +200,7 @@ export class OrganizationDashboardComponent implements OnInit {
     ))
   }
 
-  editOrg() {
-    this.store.dispatch(new UpdateOrganisation(this.org, this.org.id));
-  }
+  //#endregion
 
-  deleteOrg(o: Partial<IOrganisation>) {
-    const dialogRef = this.dialog.open(ConfirmModalComponent)
 
-    dialogRef.afterClosed().subscribe(res => {
-      if (res) { this.store.dispatch(new DeleteOrganisation(o.id)) }
-    })
-  }
-
-  editLogo() {
-    const dialogRef = this.dialog.open(UploadImageModalComponent, {
-      data: "logo"
-    });
-
-    dialogRef.afterClosed().subscribe(data => {
-      if (data !== undefined) {
-        console.log(data)
-        this.org.logoUrl = data;
-      }
-    })
-  }
-
-  isAdminUser(o: Partial<IOrganisation>): boolean {
-    if (o.adminUser && o.adminUser === this.user.id) return true
-    return false;
-  }
-
-  update(event) {
-    if (event) {
-      this.openDashboard(this.org);
-    }
-  }
 }

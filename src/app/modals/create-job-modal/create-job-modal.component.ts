@@ -5,7 +5,7 @@ import { NotificationService } from "src/services/notifications/notification.ser
 import { UserService } from "src/services/user-service/user.service";
 import { JobService } from "src/services/job-service/job.service";
 import { Store, Select } from "@ngxs/store";
-import { AddJob, AddJobOrg } from "src/redux/actions/job.actions";
+import { AddJob, AddJobOrg, AddJobOrgSuccess, AddJobOrgFail } from "src/redux/actions/job.actions";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { UserState } from "src/redux/states/user.state";
 import { Observable } from "rxjs";
@@ -25,21 +25,21 @@ export class CreateJobModalComponent implements OnInit {
   @Select(UserState.getUser) user$: Observable<IUser>;
 
   jobForm: FormGroup
-  = new FormGroup({
-    jobTitle: new FormControl([""], [Validators.required, Validators.maxLength(30)]),
-    location: new FormControl([""]),
-    remote: new FormControl(false),
-    dateDue: new FormControl([""], [Validators.required]),
-    payment: new FormControl([""], [Validators.required, Validators.min(0), Validators.max(1000000)]),
-    description: new FormControl([""], [Validators.required, Validators.max(300)])
-  }, {
-    validators: [Validators.compose([this.dateValidators('dateDue',)])]
-  })
+    = new FormGroup({
+      jobTitle: new FormControl([""], [Validators.required, Validators.maxLength(30)]),
+      location: new FormControl([""]),
+      remote: new FormControl(false),
+      dateDue: new FormControl([""], [Validators.required]),
+      payment: new FormControl([""], [Validators.required, Validators.min(0), Validators.max(1000000)]),
+      description: new FormControl([""], [Validators.required, Validators.max(300)])
+    }, {
+        validators: [Validators.compose([this.dateValidators('dateDue')])]
+      })
 
   skillForm: FormGroup
-  = new FormGroup({
-    selectedSkill: new FormControl([], Validators.required)
-  })
+    = new FormGroup({
+      selectedSkill: new FormControl([], Validators.required)
+    })
 
   skills: ISkills[];
   skillsLoading: boolean;
@@ -50,15 +50,12 @@ export class CreateJobModalComponent implements OnInit {
       let currentDate = new Date()
       let tempdate = group.controls[date].value
       let dateDue = new Date(tempdate.year, (tempdate.month - 1), tempdate.day)
-      if(group.controls[date].value) {
-        if(dateDue.getTime() < currentDate.getTime())
-        { errors.push('Woah that job was finished a bit too soon buddy') }
+      if (group.controls[date].value) {
+        if (dateDue.getTime() < currentDate.getTime()) { errors.push('Woah that job was finished a bit too soon buddy') }
       }
 
-      if (errors.length == 0)
-      { return {} }
-      else
-      { return { date: errors } }
+      if (errors.length == 0) { return {} }
+      else { return { date: errors } }
     }
   }
   addCustomSkill = term => ({
@@ -72,7 +69,8 @@ export class CreateJobModalComponent implements OnInit {
     private notificationService: NotificationService,
     private _store: Store,
     private _dialogRef: MatDialogRef<CreateJobModalComponent>,
-    private _http: HttpClient
+    private _http: HttpClient,
+    private _jobService: JobService
   ) { }
 
   ngOnInit() {
@@ -135,7 +133,7 @@ export class CreateJobModalComponent implements OnInit {
         res => {
           newJob.employerID = res.id
           newJob.employerName = `${res.fName} ${res.lName}`
-          this.dispatch(newJob as IJob, 'user') 
+          this.dispatch(newJob as IJob, 'user')
         },
         err => { console.error(err) }
       ).unsubscribe()
@@ -143,15 +141,28 @@ export class CreateJobModalComponent implements OnInit {
   }
 
   dispatch(job: IJob, type: string) {
-    switch(type){
+    switch (type) {
       case 'user':
         this._store.dispatch([new AddJob(job), new RequestRefreshUser()]);
+        this._dialogRef.close();
         break;
       case 'org':
-        this._store.dispatch(new AddJobOrg(job, job.employerID));
+        this._jobService.createNewJob(job).subscribe(
+          (res: { job: IJob }) => {
+            let updatedPayload = res.job;
+            this._store.dispatch(new AddJobOrgSuccess(updatedPayload, job.employerID));
+            this._dialogRef.close({
+              newJob: updatedPayload
+            })
+          },
+          err => {
+            this._store.dispatch(new AddJobOrgFail(err.message));
+            this._dialogRef.close();
+          }
+        );
         break;
     }
-    this._dialogRef.close()
+
   }
 
   //#region tags region

@@ -117,7 +117,8 @@
   <div class="main-content">
     <div class="container-fluid">
       <dashboard-active-jobs *ngIf='selectedPage=="active"' [JobsIn]='org.activeJobs' [OrgIn]='org'></dashboard-active-jobs>
-      <dashboard-posted-jobs *ngIf='selectedPage=="posted"' [JobsIn]='org.jobsPosted' [OrgIn]='org' (refresh)="update($event)"></dashboard-posted-jobs>
+      <dashboard-posted-jobs *ngIf='selectedPage=="posted"' [JobsIn]='org.jobsPosted' [OrgIn]='org' (newJob)="addPosted($event)"
+        (activeJob)="addActive($event)"></dashboard-posted-jobs>
       <dashboard-contacts *ngIf='selectedPage=="contacts"' [ContactsIn]='org.contacts'></dashboard-contacts>
       <dashboard-members *ngIf='selectedPage=="members"' [MembersIn]='org.members' [EditingIn]='editing' [orgId]='org.id'></dashboard-members>
     </div>

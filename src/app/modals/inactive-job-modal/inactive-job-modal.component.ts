@@ -35,6 +35,7 @@ export class InactiveJobModalComponent implements OnInit {
   fullJob: IJob;
   applied = false;
 
+
   constructor(
     public dialogRef: MatDialogRef<InactiveJobModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -113,6 +114,8 @@ export class InactiveJobModalComponent implements OnInit {
 
 
   selectUser(user: Partial<IUser>) {
+    this.fullJob.chosenApplicant = user;
+    this.fullJob.dateAccepted = new Date();
     //Redux- Accept a freelancer
     this._store.dispatch(new AcceptApplicant(this.fullJob.id, {
       id: user.id,
@@ -123,7 +126,7 @@ export class InactiveJobModalComponent implements OnInit {
       email: user.email
     }, this.data.type)).subscribe(() => {
       this._notification.showSuccess(`You chose ${user.fName} to do your job!`, "Let's hope he's competent...if not we accept no liability.")
-      this.dialogRef.close({ accepted: true });
+      this.dialogRef.close({ active: this.fullJob });
     })
   }
 
