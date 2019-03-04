@@ -140,9 +140,11 @@
                     border-radius: 10px;
                     border: 2px $cardBack solid;
                     margin-top: 10px;
+                    margin-bottom: 10px;
                     background: $cardBack;
                     clear:both;
                     float: left;
+                    max-width: 80%;
     
                     p {
                         margin: 0; padding: 0;

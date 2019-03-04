@@ -62,7 +62,7 @@ export class MessagesComponent implements OnInit {
     this.selectedContact = contact
 
     this.store.select(MessageState.getMessagesForUser).pipe(map(res =>
-      res(contact.id)
+      res(this.user.id, contact.id)
     )).subscribe(res => {
       this.selectedMessages = res
     })
@@ -103,7 +103,8 @@ export class MessagesComponent implements OnInit {
 
   returnDate(timestamp: number) {
     let date = new Date(timestamp)
+    let days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
-    return `${date.getDate()} - ${date.getMonth() + 1} - ${date.getFullYear()}`
+    return `${days[date.getDay()]}, the ${date.getDate()}${(date.getDate() === 1) ? 'st' : (date.getDate() === 2) ? 'nd' : (date.getDate() === 3) ? 'rd' : 'th'}`
   }
 }

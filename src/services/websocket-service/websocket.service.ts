@@ -17,7 +17,7 @@ import { IJob } from 'src/models/job-model';
 export class WebsocketService {
   private config: IWebConfig
   private wss: WebSocketSubject<IMessage>
-
+  private messageAudio = new Audio('../../assets/message_arrived.mp3')
   private user: IUser
 
   @Select(UserState.getUser) user$: Observable<IUser>
@@ -41,6 +41,7 @@ export class WebsocketService {
       }, 15000)
     })
     this.user$.subscribe(user => this.user = user)
+    this.messageAudio.load()
   }
 
   getInstance(): Promise<WebSocketSubject<IMessage>> {
@@ -76,10 +77,22 @@ export class WebsocketService {
       console.log(obs)
       switch (obs.action) {
         case "message":
+          this.saveMessage(obs.content)
+          this.messageAudio.play()
+          this._notifier.showInfo("Message", "A new message has just been received!")
+          break;
+        case "message|old":
           this.saveMessage(obs.content);
           break;
         case "fuccJobs":
           this.saveFuccJobs(obs.content)
+          break;
+        case "notify|user_online":
+          this._notifier.showInfo("User Online", `${obs.content.fName} ${obs.content.lName} is now Online!`)
+          break;
+        case "notify|user_offline":
+          this._notifier.showInfo("User Offline", `${obs.content.fName} ${obs.content.lName} is now Offline!`)
+          alert(JSON.stringify(obs))
           break;
         case "error":
           console.log(obs.content)

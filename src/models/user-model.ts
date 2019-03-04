@@ -25,6 +25,7 @@ export interface IUser {
   postedJobs?: Partial<IJob>[];
   organisations?: Partial<IOrganisation>[];
   orgInvitations?: Partial<IOrganisation>[];
+  isOnline?: boolean
 }
 
 export interface ISocialLink {
