@@ -7,7 +7,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/services/user-service/user.service';
 import { WebsocketService, IInstantMessage, IMessage } from 'src/services/websocket-service/websocket.service';
-import { MessageState } from 'src/redux/states/message.state';
+import { MessageState, MessageStateModel } from 'src/redux/states/message.state';
 import { map } from 'rxjs/operators';
 import { AddMessageToState } from 'src/redux/actions/message.actions';
 import { WebSocketSubject } from 'rxjs/webSocket';
@@ -24,10 +24,12 @@ export class MessagesComponent implements OnInit {
   @Select(UserState.getUser)
   user$: Observable<IUser>;
   @Select(MessageState.getMessagesForUser) messages$: Observable<IInstantMessage[]>;
+  @Select(MessageState.userIsOnline) onlineUsers$: Observable<string[]>
 
   selectedContact: IUser;
   selectedMessages: IInstantMessage[] = []
   user: IUser
+  onlineUsers: string[]
 
   messageForm: FormGroup =
     new FormGroup({
@@ -38,7 +40,13 @@ export class MessagesComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService,
     private webSockerService: WebsocketService
-  ) { }
+  ) {
+    this.onlineUsers$.subscribe(res => {
+      console.log('Done nigaaa')
+      if (res == undefined) res = []
+      this.onlineUsers = res;
+    })
+  }
 
   ngOnInit() {
     let id = this.route.snapshot.params['id']
@@ -107,5 +115,10 @@ export class MessagesComponent implements OnInit {
     let days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
     return `${days[date.getDay()]}, the ${date.getDate()}${(date.getDate() === 1) ? 'st' : (date.getDate() === 2) ? 'nd' : (date.getDate() === 3) ? 'rd' : 'th'}`
+  }
+
+  isOnline(userId: string) {
+    if (this.onlineUsers.includes(userId)) return true
+    else return false
   }
 }

@@ -1,15 +1,17 @@
 import { IInstantMessage } from "src/services/websocket-service/websocket.service";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
-import { AddMessageToState } from "../actions/message.actions";
+import { AddMessageToState, AddOnlineMemberToState, RemoveOnlineMemberFromState } from "../actions/message.actions";
 
 export class MessageStateModel {
     messages: IInstantMessage[]
+    isOnlineList: string[]
 }
 
 @State({
     name: "messages",
     defaults: {
-        messages: []
+        messages: [],
+        isOnlineList: []
     }
 })
 export class MessageState {
@@ -27,11 +29,40 @@ export class MessageState {
         }
     }
 
+    @Selector()
+    static userIsOnline(state: MessageStateModel) {
+        return state.isOnlineList
+    }
+
     @Action(AddMessageToState)
     AddMessageToState({ getState, patchState }: StateContext<MessageStateModel>, { payload }: AddMessageToState) {
         const messages = getState().messages
         messages.push(payload)
 
         patchState({ messages: messages })
+    }
+
+    @Action(AddOnlineMemberToState)
+    AddOnlineMemberToState({ getState, patchState }: StateContext<MessageStateModel>, { payload }: AddOnlineMemberToState) {
+        let onlineMembers = getState().isOnlineList
+
+        let index = onlineMembers.findIndex(x => x === payload)
+
+        if (index === -1) {
+            onlineMembers.push(payload)
+            patchState({ isOnlineList: onlineMembers })
+        }
+    }
+
+    @Action(RemoveOnlineMemberFromState)
+    RemoveOnlineMemberFromState({ getState, patchState }: StateContext<MessageStateModel>, { payload }: RemoveOnlineMemberFromState) {
+        let onlineMembers = getState().isOnlineList
+
+        let index = onlineMembers.findIndex(x => x === payload)
+
+        if (index !== -1) {
+            onlineMembers.splice(index, 1)
+            patchState({ isOnlineList: onlineMembers })
+        }
     }
 }

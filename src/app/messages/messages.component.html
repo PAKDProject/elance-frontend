@@ -16,6 +16,10 @@
             <div class='messageIcon'>
               <mat-icon (click)='openMessenger(contact)'>message</mat-icon>
             </div>
+            <div class='isOnline'>
+              <div class="offlineCircle" *ngIf="!isOnline(contact.id)"></div>
+              <div class="onlineCircle" *ngIf="isOnline(contact.id)"></div>
+            </div>
           </div>
         </div>
         <mat-icon (click)='toggleContacts()'>{{(contactsShown)?'keyboard_arrow_left':'keyboard_arrow_right'}}</mat-icon>

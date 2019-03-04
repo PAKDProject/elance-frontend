@@ -7,7 +7,7 @@ import { IUser } from 'src/models/user-model';
 import { Select, Store } from '@ngxs/store';
 import { UserState } from 'src/redux/states/user.state';
 import { Observable } from 'rxjs';
-import { AddMessageToState } from 'src/redux/actions/message.actions';
+import { AddMessageToState, RemoveOnlineMemberFromState, AddOnlineMemberToState } from 'src/redux/actions/message.actions';
 import { AddRecommendedJobs, SetFuccingJobsToTrue, SetFuccingErrorToTrue } from 'src/redux/actions/job.actions';
 import { IJob } from 'src/models/job-model';
 
@@ -88,11 +88,14 @@ export class WebsocketService {
           this.saveFuccJobs(obs.content)
           break;
         case "notify|user_online":
-          this._notifier.showInfo("User Online", `${obs.content.fName} ${obs.content.lName} is now Online!`)
+          this._store.dispatch(new AddOnlineMemberToState(obs.content.id)).subscribe(res => {
+            this._notifier.showInfo("User Online", `${obs.content.fName} ${obs.content.lName} is now Online!`)
+          })
           break;
         case "notify|user_offline":
-          this._notifier.showInfo("User Offline", `${obs.content.fName} ${obs.content.lName} is now Offline!`)
-          alert(JSON.stringify(obs))
+          this._store.dispatch(new RemoveOnlineMemberFromState(obs.content.id)).subscribe(res => {
+            this._notifier.showInfo("User Offline", `${obs.content.fName} ${obs.content.lName} is now Offline!`)
+          })
           break;
         case "error":
           console.log(obs.content)

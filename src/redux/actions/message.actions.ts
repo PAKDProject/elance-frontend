@@ -10,4 +10,18 @@ export class AddMessageToState {
      */
     constructor(public payload: IInstantMessage) { }
 }
+
+export class AddOnlineMemberToState {
+    static readonly type = '[Online] Add Online User'
+
+    constructor(public payload: string) { }
+}
+
+
+export class RemoveOnlineMemberFromState {
+    static readonly type = '[Online] Remove Online User'
+
+    constructor(public payload: string) { }
+}
+
 //#endregion
