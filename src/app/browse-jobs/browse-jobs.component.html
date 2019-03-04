@@ -18,15 +18,15 @@
       </fucc-jobs>
     </div>
     <div class='mb-2' *ngIf="((isFuccingJobs$|async) == true)">
-      <div class='cardContainer'>
-        <div class='bodyContent'>
+      <div class='fuccSpinner'>
+        <div class='spinner'>
           <mat-spinner></mat-spinner>
-          <marquee>FUCCing Your Jobs</marquee>
         </div>
+        <h2>Getting your recommended jobs</h2>
       </div>
     </div>
     <div class='mb-2' *ngIf="((isFuccingJobs$|async) == false) && ((fuccingError$ | async) === true)">
-      Error with request :o
+      Error getting recommended jobs
     </div>
     <div style="display: grid">
       <div class="topBar">
