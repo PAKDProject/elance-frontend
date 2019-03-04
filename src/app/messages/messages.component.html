@@ -8,17 +8,14 @@
         <div class='contactsList' *ngIf='contactsShown'>
           <div *ngFor='let contact of ((user$ | async ).contacts !== undefined) ? (user$ | async).contacts : null;'
             class='contactRow'>
-            <div (click)='openProfile()' class='profilePic'>
+            <div (click)='openProfile()' class='profilePic' [class.isOnline]="isOnline(contact.id)"
+              [class.isOffline]="!isOnline(contact.id)">
               <img src='../../../assets/images/default_user.png' />
             </div>
             <div (click)='openProfile(contact)' class='name'>{{contact.fName}} {{contact.lName}}</div>
             <div class='tagline'>{{contact.tagline}}</div>
             <div class='messageIcon'>
               <mat-icon (click)='openMessenger(contact)'>message</mat-icon>
-            </div>
-            <div class='isOnline'>
-              <div class="offlineCircle" *ngIf="!isOnline(contact.id)"></div>
-              <div class="onlineCircle" *ngIf="isOnline(contact.id)"></div>
             </div>
           </div>
         </div>
@@ -44,6 +41,10 @@
               <p>{{m.content}}</p>
               <small>{{m.timestamp | date: 'HH:mm'}}</small>
             </div>
+          </div>
+          <div *ngIf="selectedContact !== undefined && !isOnline(selectedContact.id)" class="messageBox">
+            <i>{{selectedContact.fName}} {{selectedContact.lName}} is currently offline. They will see this message when
+              they come back online!</i>
           </div>
         </div>
         <form [formGroup]='messageForm'>

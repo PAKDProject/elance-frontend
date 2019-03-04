@@ -42,7 +42,6 @@ export class MessagesComponent implements OnInit {
     private webSockerService: WebsocketService
   ) {
     this.onlineUsers$.subscribe(res => {
-      console.log('Done nigaaa')
       if (res == undefined) res = []
       this.onlineUsers = res;
     })
@@ -50,7 +49,6 @@ export class MessagesComponent implements OnInit {
 
   ngOnInit() {
     let id = this.route.snapshot.params['id']
-    console.info(id)
     if (id && id !== ':id') {
       this.userService.getUserByID(id).subscribe(
         res => { this.selectedContact = res; })

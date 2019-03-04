@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { AddMessageToState, RemoveOnlineMemberFromState, AddOnlineMemberToState } from 'src/redux/actions/message.actions';
 import { AddRecommendedJobs, SetFuccingJobsToTrue, SetFuccingErrorToTrue } from 'src/redux/actions/job.actions';
 import { IJob } from 'src/models/job-model';
+import { CognitoWebTokenAuthService } from '../cognito-auth/cognito-web-token-auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class WebsocketService {
 
   @Select(UserState.getUser) user$: Observable<IUser>
 
-  constructor(private _notifier: NotificationService, private _http: HttpClient, private _store: Store) {
+  constructor(private _notifier: NotificationService, private _http: HttpClient, private _store: Store, private _authService: CognitoWebTokenAuthService) {
     this.getConfig().then(res => {
       this.config = res.config
       this.createSocket()
@@ -74,7 +75,7 @@ export class WebsocketService {
     this.wss = new WebSocketSubject(`wss://${this.config.endpoint}?userId=${this.user.id}`)
 
     this.wss.subscribe(obs => {
-      console.log(obs)
+      console.log(obs.action)
       switch (obs.action) {
         case "message":
           this.saveMessage(obs.content)
@@ -97,6 +98,15 @@ export class WebsocketService {
             this._notifier.showInfo("User Offline", `${obs.content.fName} ${obs.content.lName} is now Offline!`)
           })
           break;
+        case "notify|user_already_online":
+          this._store.dispatch(new AddOnlineMemberToState(obs.content.id))
+          break
+        case "fucc|logout":
+          this._authService.logout().subscribe(res => {
+            window.location.href = "http://login.elance.site"
+          }, err => {
+            this._notifier.showError("Failed to logout!")
+          })
         case "error":
           console.log(obs.content)
           this._store.dispatch(new SetFuccingErrorToTrue())
