@@ -21,7 +21,9 @@ export class MessageState {
     @Selector()
     static getMessagesForUser(state: MessageStateModel) {
         return (id: string) => {
-            return state.messages.filter(user => user.recipentId === id || user.senderId === id)
+            return state.messages.filter(user => user.recipentId === id || user.senderId === id).sort((a, b) => {
+                return a.timestamp - b.timestamp
+            })
         }
     }
 

@@ -31,9 +31,15 @@
           </div>
         </div>
         <div class='messageContent' *ngIf='selectedMessages.length > 0' #messages [scrollTop]="messages.scrollHeight">
-          <div *ngFor='let m of selectedMessages' [class.sender]='m.senderId == (user$ | async).id'>
-            <p>{{m.content}}</p>
-            <small>{{m.timestamp | date: 'HH:mm'}}</small>
+          <div *ngFor='let m of selectedMessages; let i = index'>
+            <div class='divider' *ngIf="isBefore(m.timestamp, selectedMessages[i - 1]) === true">
+              <hr />
+              <i>{{returnDate(m.timestamp)}}</i>
+            </div>
+            <div class="message" [class.sender]=' m.senderId==(user$ | async).id'>
+              <p>{{m.content}}</p>
+              <small>{{m.timestamp | date: 'HH:mm'}}</small>
+            </div>
           </div>
         </div>
         <form [formGroup]='messageForm'>

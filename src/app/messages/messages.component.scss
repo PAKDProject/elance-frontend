@@ -131,34 +131,42 @@
             overflow: auto;
 
             div {
-                padding: 10px;
-                border-radius: 10px;
-                border: 2px $cardBack solid;
-                
-                background: $cardBack;
-                clear:both;
-                float: left;
-
-                p {
-                    margin: 0; padding: 0;
+                > .divider {
+                    text-align: center;
+                    clear:both;
                 }
-                small {
-                    margin: 0; padding: 0;
+                .message {
+                    padding: 10px;
+                    border-radius: 10px;
+                    border: 2px $cardBack solid;
+                    margin-top: 10px;
+                    background: $cardBack;
+                    clear:both;
+                    float: left;
+    
+                    p {
+                        margin: 0; padding: 0;
+                    }
+                    small {
+                        margin: 0; padding: 0;
+                    }
+                }
+
+                .sender {
+                    border: 2px $primary solid;
+    
+                    color: white;
+                    background: $primary;
+                    
+                    float: right;
+                    // justify-self: right;
+                }
+                .unseen {
+                    // border: 2px white solid;
+                    border: 2px white dotted;
                 }
             }
-            .sender {
-                border: 2px $primary solid;
-
-                color: white;
-                background: $primary;
-                
-                float: right;
-                // justify-self: right;
-            }
-            .unseen {
-                // border: 2px white solid;
-                border: 2px white dotted;
-            }
+            
         }
 
         form {

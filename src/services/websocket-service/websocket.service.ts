@@ -25,13 +25,22 @@ export class WebsocketService {
   constructor(private _notifier: NotificationService, private _http: HttpClient, private _store: Store) {
     this.getConfig().then(res => {
       this.config = res.config
+      this.createSocket()
+      this._notifier.showSuccess("Connected!", "Successfully connected to the Freelance Ultimate Clever Cognition System!")
+    }, err => {
+      this._notifier.showError("Failed to connect", "Failed to connect to Freelance Ultimate Clever Cognition System! Retrying in 15 seconds...")
+      let timer = setInterval(() => {
+        this.getConfig().then(res => {
+          this.config = res.config
+          this.createSocket()
+          this._notifier.showSuccess("Connected!", "Successfully connected to the Freelance Ultimate Clever Cognition System!")
+          clearInterval(timer)
+        }, err => {
+          this._notifier.showError("Failed to connect", "Failed to connect to Freelance Ultimate Clever Cognition System! Retrying in 15 seconds...")
+        })
+      }, 15000)
     })
     this.user$.subscribe(user => this.user = user)
-  }
-
-  async delay(ms) {
-    // return await for better async stack trace support in case of errors.
-    return await new Promise(resolve => setTimeout(resolve, ms));
   }
 
   getInstance(): Promise<WebSocketSubject<IMessage>> {

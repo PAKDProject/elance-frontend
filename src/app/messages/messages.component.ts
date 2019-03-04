@@ -92,4 +92,18 @@ export class MessagesComponent implements OnInit {
       console.error('No user selected')
     }
   }
+
+  isBefore(timestamp1: number, timestamp2: number): boolean {
+    let date1 = new Date(timestamp1)
+    let date2 = new Date(timestamp2)
+
+    if (date1.getDate() == date2.getDate() && date1.getMonth() == date2.getMonth() && date1.getFullYear() == date2.getFullYear()) return false
+    else return true
+  }
+
+  returnDate(timestamp: number) {
+    let date = new Date(timestamp)
+
+    return `${date.getDate()} - ${date.getMonth() + 1} - ${date.getFullYear()}`
+  }
 }

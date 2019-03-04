@@ -25,6 +25,6 @@ export class ViewComponent {
   user$: Observable<IUser>
 
   user: IUser
-  constructor() { }
+  constructor(private _wss: WebsocketService) { }
 }
 
