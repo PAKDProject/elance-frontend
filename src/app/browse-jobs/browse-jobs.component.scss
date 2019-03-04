@@ -2,6 +2,11 @@
 
 .main-content {
   .container-fluid {
+    .fuccSpinner {
+      display: grid;
+      justify-content: center;
+      align-content: center;
+    }
     .cardContainer {
       .bodyContent {
         text-align: center;

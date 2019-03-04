@@ -87,6 +87,7 @@ export class MessagesComponent implements OnInit {
       let sender = await this.webSockerService.getInstance()
       sender.next(wsMessage)
       this.store.dispatch(new AddMessageToState(sendingMessage))
+      this.messageForm.reset()
     }
     else {
       console.error('No user selected')

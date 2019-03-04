@@ -1,11 +1,11 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class='pageContainer'>
-      <div class='contactsPanel' *ngIf='contactsShown'>
-        <div class="topRow">
+      <div class='contactsPanel'>
+        <div class="topRow" *ngIf='contactsShown'>
           <h1>Contacts</h1>
         </div>
-        <div class='contactsList'>
+        <div class='contactsList' *ngIf='contactsShown'>
           <div *ngFor='let contact of ((user$ | async ).contacts !== undefined) ? (user$ | async).contacts : null;'
             class='contactRow'>
             <div (click)='openProfile()' class='profilePic'>
@@ -18,8 +18,8 @@
             </div>
           </div>
         </div>
+        <mat-icon (click)='toggleContacts()'>{{(contactsShown)?'keyboard_arrow_left':'keyboard_arrow_right'}}</mat-icon>
       </div>
-      <mat-icon (click)='toggleContacts()'>{{(contactsShown)?'keyboard_arrow_left':'keyboard_arrow_right'}}</mat-icon>
       <div class='messageArea'>
         <div class='topRow'>
           <h1>{{(selectedContact != null? selectedContact.fName + ' ' + selectedContact.lName:'Messages')}}</h1>
