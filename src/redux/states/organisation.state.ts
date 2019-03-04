@@ -6,6 +6,7 @@ import { RequestAddOrgToUser, RequestUpdateUserOrg, RequestDeleteOrgFromUser } f
 import { UserService } from "src/services/user-service/user.service";
 import { IUser } from "src/models/user-model";
 import { StateChangeError } from "aws-sdk/clients/directconnect";
+import { isNullOrUndefined } from 'util';
 
 export class OrgsStateModel {
   orgs: Partial<IOrganisation>[];
@@ -257,30 +258,31 @@ export class OrgsState {
 
   @Action(AddMemberToOrg)
   AddMemberToOrg({ getState, patchState }: StateContext<OrgsStateModel>, { payload, orgId }: AddMemberToOrg) {
-
     const orgs = getState().orgs || [];
-
     const index = orgs.findIndex(o => o.id === orgId);
     if (index !== -1) {
-
       this._orgService.getOrganisationByID(orgId).subscribe((res) => {
         const org = res;
-
         const members = org.members || [];
-
         if (members.findIndex(m => m.id === payload.id) === -1) {
           members.push(payload);
-
           this._orgService.updateOrganisation({ members: members }, orgId).subscribe((res) => {
             orgs[index] = res;
-
-
             patchState({ orgs: orgs });
-          })
+          });
+          const partialOrg: Partial<IOrganisation> = {
+            id: org.id,
+            orgName: org.orgName,
+            logoUrl: org.logoUrl,
+            adminUser: org.adminUser
+          }
+          this._userService.getUserByID(payload.id).subscribe(res => {
+            let currentOrgs = res.organisations || [];
+            currentOrgs.push(partialOrg);
+            this._userService.updateUser({organisations: currentOrgs}, payload.id).subscribe();
+          });
         }
-
-
-      })
+      });
     }
   }
 

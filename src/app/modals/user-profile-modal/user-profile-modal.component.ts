@@ -6,6 +6,7 @@ import { RequestAddContact } from 'src/redux/actions/user.actions';
 import { NotificationService } from 'src/services/notifications/notification.service';
 import { AddMemberToOrg } from 'src/redux/actions/organisation.actions';
 import { isNullOrUndefined } from 'util';
+import { UserService } from 'src/services/user-service/user.service';
 
 @Component({
   selector: 'app-user-profile-modal',
@@ -19,6 +20,7 @@ export class UserProfileModalComponent implements OnInit {
     public dialogRef: MatDialogRef<UserProfileModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private store: Store,
+    private _userService: UserService,
     private notification: NotificationService) {
 
   }
@@ -58,6 +60,9 @@ export class UserProfileModalComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._userService.getUserByID(this.data.user.id).subscribe(res => {
+      this.data.user = res;
+    });
     this.profileCards = this.data.user.profileCards
     this.profileCards.forEach(c => {
       switch (c.type) {

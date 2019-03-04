@@ -13,6 +13,7 @@ import { IJob } from "src/models/job-model";
 })
 export class UserService {
   endpoint: string = `${environment.backendUrl}/users`;
+
   httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json"
@@ -94,7 +95,9 @@ export class UserService {
         }
       }
     };
-    return this.http.post(`${this.endpoint}/search`, JSON.stringify(query), this.httpOptions);
+    // Do NAAAHT leave this uncommented for deployment
+    return this.http.post(`${this.endpoint}/search`, query, this.httpOptions);
+    // return this.http.post('http://localhost:3000/users/search', query, this.httpOptions);
   }
 
   getTestUser1(): Observable<IUser> {
