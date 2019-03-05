@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  backendUrl: "https://api.elance.site"
+  backendUrl: "https://api.intellilance.com"
 };

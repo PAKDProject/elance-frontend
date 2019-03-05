@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   //backendUrl: "http://localhost:3000"
-  backendUrl: "https://9ozzajnkw5.execute-api.eu-west-1.amazonaws.com/dev"
+  backendUrl: "https://api.intellilance.com"
 };
 
 /*
