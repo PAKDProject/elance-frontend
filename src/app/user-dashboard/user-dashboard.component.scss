@@ -3,7 +3,7 @@
     height: 100%;
     display: grid;
     grid-template-rows: 60px 1fr;
-    grid-template-columns: 1fr auto;
+    // grid-template-columns: 1fr auto;
     grid-template-areas: 'header jobButton'
                         //  'body   contacts';
                          'body body';

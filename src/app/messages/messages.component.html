@@ -21,6 +21,7 @@
         </div>
         <mat-icon (click)='toggleContacts()'>{{(contactsShown)?'keyboard_arrow_left':'keyboard_arrow_right'}}</mat-icon>
       </div>
+
       <div class='messageArea'>
         <div class='topRow'>
           <h1>{{(selectedContact != null? selectedContact.fName + ' ' + selectedContact.lName:'Messages')}}</h1>
