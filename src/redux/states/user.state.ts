@@ -152,7 +152,7 @@ export class UserState {
 
   @Action(RequestAddContact)
   RequestAddContact({ getState, dispatch }: StateContext<UserStateModel>, { payload }: RequestAddContact) {
-    const currentUser = getState();
+    const currentUser = getState();//gets current user in state
     const contact: Partial<IUser> = {
       id: currentUser.id,
       fName: currentUser.fName,
@@ -160,24 +160,20 @@ export class UserState {
       avatarUrl: currentUser.avatarUrl,
       tagline: currentUser.tagline,
       email: currentUser.email
-    };
-    let contactList: Partial<IUser>[] = [];
-    const contacts = getState().contacts || [];
+    }; //makes him a user contact model for the other user
+    const contacts = getState().contacts || []; //gets current users contacts
+    const index = contacts.findIndex(c => c.id === payload.id) //getting index of contact in state users contact list
+    this._userService.getUserByID(payload.id).subscribe(res => {
+      if (index === -1) {
+        contacts.push(payload);//pushes the new contact to the state
 
-    const index = contacts.findIndex(c => c.id === payload.id)
-    if (index === -1) {
-      contacts.push(payload);
-      if (!isNullOrUndefined(currentUser.contacts)) {
-        contactList.push(contact);
-        this._userService.updateUser({ contacts: contactList }, payload.id).subscribe();
-      } else {
-        contactList = currentUser.contacts;
-        contactList.push(contact);
-        this._userService.updateUser({ contacts: contactList }, payload.id).subscribe();
+        let otherUsersContacts = res.contacts
+        otherUsersContacts.push(contact)
+
+        this._userService.updateUser({ contacts: otherUsersContacts }, payload.id).subscribe(); //updating other user
+        dispatch(new RequestUpdateUser({ contacts: contacts })); //updating moi
       }
-      dispatch(new RequestUpdateUser({ contacts: contacts }));
-    }
-
+    })
   }
 
   @Action(RequestDeleteContact)

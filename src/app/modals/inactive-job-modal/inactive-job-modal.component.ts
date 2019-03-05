@@ -86,11 +86,10 @@ export class InactiveJobModalComponent implements OnInit {
 
   //Apply for the current job
   apply(): void {
-    this._store.dispatch(new ApplyForJob(this.fullJob.id, this.user)).subscribe(() => {
-      this._store.dispatch(new UserApplyForJob(this.fullJob))
-      this._notification.showSuccess(`Woohoo you applied for ${this.fullJob.title}`, "We wish you the best of luck with your application!")
-      this.dialogRef.close()
-    })
+    this._store.dispatch(new ApplyForJob(this.fullJob.id, this.user))
+    this._store.dispatch(new UserApplyForJob(this.fullJob))
+    this._notification.showSuccess(`Woohoo you applied for ${this.fullJob.title}`, "We wish you the best of luck with your application!")
+    this.dialogRef.close()
   }
 
   //If you are employer and there are applicants show the applicants screen

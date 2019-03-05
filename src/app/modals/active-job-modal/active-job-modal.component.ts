@@ -94,7 +94,7 @@ export class ActiveJobModalComponent implements OnInit {
                   this._store.dispatch(new RequestUpdateUserSuccess({ activeJobs: active, jobHistory: history }))
                 })
               }
-
+              this.dialogRef.close()
               // this._store.dispatch(new RequestRemoveActiveJob(this.data, this.data.chosenApplicant.id, this.job_type));
 
             });
