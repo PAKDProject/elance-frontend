@@ -16,7 +16,7 @@
       <div>Location: {{job.job.remote?'None':job.job.location}}</div>
       <div>Payment: {{job.job.payment?(job.job.payment | currency: "EUR":"symbol":"1.2-2") :'unknown'}}</div>
       <div class='date'>Due: {{job.job.dateDue?(job.job.dateDue | date):'null'}}</div>
-      <div>80% match</div>
+      <div>{{job.pointsForJob}} FUCC Points</div>
       <button class='btn btn-sm' (click)='openJob(job)'>See More</button>
     </div>
   </div>

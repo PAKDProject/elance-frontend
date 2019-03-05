@@ -28,8 +28,9 @@ export class PostedComponent implements OnInit {
     this.dialog.open(CreateJobModalComponent, {
       data: this.org
     }).afterClosed().subscribe((res) => {
-      console.log(res)
-      this.newJob.emit(res.newJob);
+      if (res.newJob !== undefined) {
+        this.newJob.emit(res.newJob);
+      }
     });
 
   }

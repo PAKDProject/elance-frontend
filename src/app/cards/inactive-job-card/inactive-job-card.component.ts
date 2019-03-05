@@ -24,7 +24,7 @@ export class InactiveJobCardComponent {
     })
 
     dialogRef.afterClosed().subscribe((data: any) => {
-      if (data) {
+      if (data.active !== undefined) {
         this.active.emit(data.active);
       }
     })
