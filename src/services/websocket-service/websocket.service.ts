@@ -18,7 +18,7 @@ import { CognitoWebTokenAuthService } from '../cognito-auth/cognito-web-token-au
 export class WebsocketService {
   private config: IWebConfig
   private wss: WebSocketSubject<IMessage>
-  private messageAudio = new Audio('../../assets/message_arrived.mp3')
+  private messageAudio = new Audio('../../assets/message_arrived.mp4')
   private user: IUser
 
   @Select(UserState.getUser) user$: Observable<IUser>
@@ -102,13 +102,21 @@ export class WebsocketService {
           this._store.dispatch(new AddOnlineMemberToState(obs.content.id))
           break
         case "fucc|logout":
+          this._notifier.showWarning('Another session started you are about to be logged out...')
           this._authService.logout().subscribe(res => {
+            console.log('Changing href')
             window.location.href = "http://login.elance.site"
           }, err => {
             this._notifier.showError("Failed to logout!")
           })
+          break;
+        case "fucc|refresh":
+          this._notifier.showWarning("Another session detected, reloading...")
+          setTimeout(() => {
+            location.reload()
+          }, 1000)
         case "error":
-          console.log(obs.content)
+          console.log(obs)
           this._store.dispatch(new SetFuccingErrorToTrue())
           break;
       }
