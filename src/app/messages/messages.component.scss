@@ -4,7 +4,7 @@
 .pageContainer {
     display: grid;
     grid-template-columns: auto 1fr;
-    grid-column-gap: 20px;
+    // grid-column-gap: 20px;
     
     mat-icon {
         align-self: center;
@@ -13,8 +13,9 @@
         max-width: 20px;
     }
     .contactsPanel {
-        grid-template-areas: 'top top'
+        grid-template-areas: 'top hide'
                              'list hide';
+        max-width: 800px;
 
         .topRow { 
             grid-area: top;
@@ -22,16 +23,17 @@
 
         .contactsList {
             grid-area: list;
+            background: #eaeaea;
         }
         
         mat-icon {
             grid-area: hide;
+            margin: 5px;
         }
     }
     .contactsPanel, .messageArea {
         display: grid;
         grid-template-rows: auto 1fr;
-        background: #eaeaea;
         height: 100%;
         min-height: 80vh;
         max-height: 800px;
@@ -158,8 +160,9 @@
             overflow: auto;
 
             .messageBox {
-                width: 80%;
+                width: 100%;
                 text-align: center;
+                clear: both;
             }
             
             div {
@@ -233,10 +236,8 @@
             }
         }
     }
-    .contactsPanel {
-        max-width: 800px;
-    }
     .messageArea { 
         grid-template-rows: auto 1fr auto;
+        background: #eaeaea;
     }
 }

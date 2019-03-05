@@ -7,15 +7,15 @@
         </div>
         <div class='contactsList' *ngIf='contactsShown'>
           <div *ngFor='let contact of ((user$ | async ).contacts !== undefined) ? (user$ | async).contacts : null;'
-            class='contactRow'>
-            <div (click)='openProfile()' class='profilePic' [class.isOnline]="isOnline(contact.id)"
+            class='contactRow' (click)='openMessenger(contact)'>
+            <div class='profilePic' [class.isOnline]="isOnline(contact.id)"
               [class.isOffline]="!isOnline(contact.id)">
               <img src='../../../assets/images/default_user.png' />
             </div>
-            <div (click)='openProfile(contact)' class='name'>{{contact.fName}} {{contact.lName}}</div>
+            <div  class='name'>{{contact.fName}} {{contact.lName}}</div>
             <div class='tagline'>{{contact.tagline}}</div>
             <div class='messageIcon'>
-              <mat-icon (click)='openMessenger(contact)'>message</mat-icon>
+              <mat-icon>message</mat-icon>
             </div>
           </div>
         </div>

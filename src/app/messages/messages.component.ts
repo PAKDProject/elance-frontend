@@ -60,10 +60,6 @@ export class MessagesComponent implements OnInit {
 
   toggleContacts() { this.contactsShown = !this.contactsShown; }
 
-  openProfile() {
-
-  }
-
   openMessenger(contact: IUser) {
     this.selectedContact = contact
 
