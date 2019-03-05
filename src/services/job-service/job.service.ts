@@ -76,10 +76,15 @@ export class JobService {
    * Delete a job
    * @param jobId string
    */
-  deleteJob(jobId: string) {
-    this._http
-      .delete(`${this.endpoint}/${jobId}`)
-      .pipe(catchError(this.handleError));
+
+  deleteJob(jobId: string): Observable<IJob> {
+    return this._http.delete(`${this.endpoint}/${jobId}`).
+      pipe(map(res => {
+        let response = res as { job: IJob };
+        return response.job;
+      }),
+        catchError(this.handleError)
+      )
   }
 
   handleError(error: HttpErrorResponse) {
