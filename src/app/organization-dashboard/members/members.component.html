@@ -25,7 +25,7 @@
         </div>
 
         <!--Add members button-->
-        <button *ngIf='editing' class='btn btn-primary btn-sm addButton'>Add members</button>
+        <!-- <button *ngIf='editing' class='btn btn-primary btn-sm addButton'>Add members</button> -->
     </div>
     <div class="gridContainer">
         <contact-card *ngFor='let member of members' [ContactInput]='member' [EditingInput]='editing' (RemoveEmit)='removeMember($event)'></contact-card>
