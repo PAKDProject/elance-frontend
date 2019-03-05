@@ -87,11 +87,9 @@ export class UserService {
   searchUsers(search: string): Observable<any> {
     const query = {
       query: {
-        match_phrase_prefix: {
-          fName: {
-            query: search,
-            max_expansions: 10
-          }
+        multi_match: {
+          query: search,
+          fields: '*Name'
         }
       }
     };
