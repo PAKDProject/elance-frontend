@@ -55,7 +55,7 @@ export class LoginCallbackComponent implements OnInit, OnDestroy {
       //validate tokens
       this.validateTokens().then(
         isValid => {
-          if (!isValid) window.location.href = "https://login.elance.site";
+          if (!isValid) window.location.href = "https://login.intellilance.com";
           else {
             this.setSessionStorage("access_token", this.access_token);
             this.setSessionStorage("id_token", this.id_token);
@@ -87,14 +87,14 @@ export class LoginCallbackComponent implements OnInit, OnDestroy {
                     this.store.dispatch(new RequestUserSuccessAction(tempUser));
                     this.router.navigate(["user/create"]);
                   } else {
-                    window.location.href = "http://login.elance.site";
+                    window.location.href = "http://login.intellilance.com";
                   }
                 }
               );
           }
         },
         err => {
-          window.location.href = "https://login.elance.site";
+          window.location.href = "https://login.intellilance.com";
         }
       );
     } else {
