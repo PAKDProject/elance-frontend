@@ -41,9 +41,7 @@
   <!-- User profile options -->
   <div class="userInfoPanel">
     <div class="profilePic">
-      <!-- <img src="../../../assets/images/stock-steve.jpg" /> -->
-      <!-- <img src="../../../assets/images/default_user.png" /> -->
-      <img src="{{avatar}}" />
+      <img src='{{((user$|async).avatarUrl)?((user$|async).avatarUrl):"../../../assets/images/default_user.png"}}' />
     </div>
     <div class="topRow">
       <div>
