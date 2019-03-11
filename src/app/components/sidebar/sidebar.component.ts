@@ -65,7 +65,7 @@ export class SidebarComponent implements OnInit {
     logOut() {
         this._auth.logout().subscribe(res => {
             this._notifier.showInfo("Bye " + this.userFName);
-            window.location.href = "http://login.intellilance.com"
+            window.location.href = "http://login.intellilance.com/logout.html"
         }, err => {
             this._notifier.showError("Failed to logout!")
         })
