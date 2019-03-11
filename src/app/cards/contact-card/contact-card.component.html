@@ -13,7 +13,7 @@
       <div class='tagline'>
         {{contact.tagline}}
       </div>
-      <button class='btn btn-sm contact'><a href="mailto:{{contact.email}}">Contact</a></button>
+      <button class='btn btn-sm contact' (click)="contactUser()">Contact</button>
     </div>
     <div class='rightCol'>
       <div *ngIf='editing' class="remove">

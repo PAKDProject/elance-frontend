@@ -125,7 +125,16 @@ export class InactiveJobModalComponent implements OnInit {
       email: user.email
     }, this.data.type)).subscribe(() => {
       this._notification.showSuccess(`You chose ${user.fName} to do your job!`, "Let's hope he's competent...if not we accept no liability.")
-      this.dialogRef.close({ active: this.fullJob });
+      this.dialogRef.close({
+        active: this.fullJob, contact: {
+          id: user.id,
+          fName: user.fName,
+          lName: user.lName,
+          avatarUrl: user.avatarUrl,
+          tagline: user.tagline,
+          email: user.email
+        }
+      });
     })
   }
 

@@ -107,6 +107,14 @@ export class OrganizationDashboardComponent implements OnInit {
     this.org.jobsPosted = posted;
   }
 
+  addContact(contact: Partial<IUser>) {
+    const contacts = this.org.contacts || [];
+    if (contacts.findIndex(c => c.id === contact.id) === -1) {
+      contacts.push(contact);
+      this.org.contacts = contacts;
+    }
+  }
+
   //#endregion
 
   //#region Visual 
