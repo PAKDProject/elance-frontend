@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  backendUrl: "https://api.intellilance.com"
+  production: true,
+  backendUrl: "http://localhost:3000"
 };

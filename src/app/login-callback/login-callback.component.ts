@@ -87,7 +87,7 @@ export class LoginCallbackComponent implements OnInit, OnDestroy {
                     this.store.dispatch(new RequestUserSuccessAction(tempUser));
                     this.router.navigate(["user/create"]);
                   } else {
-                    window.location.href = "http://login.intellilance.com";
+                    window.location.href = "https://login.intellilance.com";
                   }
                 }
               );
@@ -111,6 +111,8 @@ export class LoginCallbackComponent implements OnInit, OnDestroy {
 
   getWebTokenFromUrl() {
     this.activeRoute.queryParams.subscribe(params => {
+      console.log(params['access_token'])
+      console.log(params['id_token'])
       this.access_token = params["access_token"];
       this.id_token = params["id_token"];
     });
