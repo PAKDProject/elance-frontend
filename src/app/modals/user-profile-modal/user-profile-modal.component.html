@@ -26,7 +26,7 @@
       <div class="midCol">
         <div class="profilePictureContainer">
           <!-- <img src="../../assets/images/stock-steve.jpg" /> -->
-          <img src="../../assets/images/default_user.png" />
+          <img [src]="this.data.user.avatarUrl? this.data.user.avatarUrl : '../../assets/images/default_user.png'" />
         </div>
 
         <div class="nameContainer">

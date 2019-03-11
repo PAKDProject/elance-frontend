@@ -1,4 +1,3 @@
-
 <div class="sidebar-wrapper">
   <!-- Logo -->
   <div class="logoContainer">
@@ -20,7 +19,7 @@
       <div *ngFor="let user of results; let i = index;">
         <div class="user_grid" (click)="viewProfile(user)">
           <div class="user_image">
-            <img src="../../../assets//images/default_user.png">
+            <img [src]="user.avatarUrl? user.avatarUrl:  '../../../assets/images/default_user.png'">
           </div>
           <p class="user_name">{{user.fName +' ' +user.lName | titlecase}}</p>
         </div>

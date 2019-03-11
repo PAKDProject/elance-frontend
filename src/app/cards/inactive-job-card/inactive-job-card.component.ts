@@ -2,6 +2,7 @@ import { InactiveJobModalComponent } from 'src/app/modals/inactive-job-modal/ina
 import { MatDialog } from '@angular/material';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IJob } from 'src/models/job-model';
+import { IUser } from 'src/models/user-model';
 
 @Component({
   selector: 'inactive-job-card',
@@ -15,6 +16,7 @@ export class InactiveJobCardComponent {
   @Input() type: string;
   @Output() notify: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() active: EventEmitter<IJob> = new EventEmitter<IJob>();
+  @Output() contact: EventEmitter<Partial<IUser>> = new EventEmitter<Partial<IUser>>();
   constructor(public dialog: MatDialog) { }
 
   openJobModal(): void {
@@ -24,8 +26,9 @@ export class InactiveJobCardComponent {
     })
 
     dialogRef.afterClosed().subscribe((data: any) => {
-      if (data.active !== undefined) {
+      if (data.active !== undefined && data.contact !== undefined) {
         this.active.emit(data.active);
+        this.contact.emit(data.contact);
       }
     })
   }
