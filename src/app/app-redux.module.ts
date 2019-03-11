@@ -13,9 +13,7 @@ import { MessageState } from "src/redux/states/message.state";
             JobsState,
             OrgsState,
             MessageState
-        ]),
-        NgxsReduxDevtoolsPluginModule.forRoot()
-    ],
-    exports: [NgxsModule, NgxsReduxDevtoolsPluginModule]
+        ])],
+    exports: [NgxsModule]
 })
 export class AppReduxModule { }
