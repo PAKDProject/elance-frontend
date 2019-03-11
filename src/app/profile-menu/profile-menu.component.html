@@ -41,13 +41,18 @@
           <h4>{{ (user$ | async).email }}</h4>
         </div>
 
-        <div class="socailConnectionContainer"></div>
-
-        <div class="socialConnectionContainer" *ngIf="socialLinks && socialLinks.length > 0">
+        <div class="socialConnectionContainer" *ngIf="(socialLinks && socialLinks.length > 0) && !editing">
           <a *ngFor="let connection of socialLinks" href="{{connection.url}}" target="_blank">
             <img src="{{connection.imageUrl}}" id="{{connection.url}}" alt="{{connection.url}}" />
           </a>
         </div>
+
+        <div class="socialConnectionContainer" *ngIf="editing">
+          <a *ngFor="let connection of socialLinks" href="{{connection.url}}" target="_blank">
+            <img src="{{connection.imageUrl}}" id="{{connection.url}}" alt="{{connection.url}}" />
+          </a>
+        </div>
+        <app-social-link style='justify-self: center' *ngIf='editing' (emitImageObject)='addSocialLink($event)'></app-social-link>
       </div>
 
       <div class="rightCol">

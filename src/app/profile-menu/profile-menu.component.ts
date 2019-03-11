@@ -242,4 +242,6 @@ export class ProfileMenuComponent implements OnInit {
       }
     })
   }
+
+  addSocialLink(s: ISocialLink) { this.user.socialLinks.push(s) }
 }
