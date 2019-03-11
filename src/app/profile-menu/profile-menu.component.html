@@ -9,8 +9,10 @@
 
       <div class="midCol">
         <div class="profilePictureContainer">
-          <!-- <img src="../../assets/images/stock-steve.jpg" /> -->
-          <img src="{{ ((user$ | async ).avatarUrl !== undefined) ? (user$ | async).avatarUrl : fallbackAvatar}}" />
+          <img src="{{ ((user$|async).avatarUrl) ? (user$|async).avatarUrl:fallbackAvatar}}" />
+          <div *ngIf='editing' class='overlay' (click)='editPic()'>
+            <mat-icon>create</mat-icon>
+          </div>
         </div>
 
         <div class="nameContainer">
