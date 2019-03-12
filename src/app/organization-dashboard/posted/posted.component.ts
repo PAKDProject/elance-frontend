@@ -6,6 +6,7 @@ import { IOrganisation } from 'src/models/organisation-model';
 import { Store } from '@ngxs/store';
 import { bool } from 'aws-sdk/clients/signer';
 import { OrganisationService } from 'src/services/organisation-service/organisation.service';
+import { IUser } from 'src/models/user-model';
 
 @Component({
   selector: 'dashboard-posted-jobs',
@@ -17,6 +18,7 @@ export class PostedComponent implements OnInit {
   @Input('OrgIn') org: IOrganisation;
   @Output() newJob: EventEmitter<Partial<IJob>> = new EventEmitter<Partial<IJob>>();
   @Output() activeJob: EventEmitter<Partial<IJob>> = new EventEmitter<Partial<IJob>>();
+  @Output() contact: EventEmitter<Partial<IUser>> = new EventEmitter<Partial<IUser>>();
 
   constructor(private dialog: MatDialog, private store: Store, private orgService: OrganisationService) { }
 
@@ -37,5 +39,9 @@ export class PostedComponent implements OnInit {
 
   active(job: IJob) {
     this.activeJob.emit(job)
+  }
+
+  addContact(user: Partial<IUser>) {
+    this.contact.emit(user);
   }
 }

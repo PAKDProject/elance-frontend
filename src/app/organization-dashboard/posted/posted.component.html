@@ -3,7 +3,7 @@
     <button class='btn btn-primary btn-sm' (click)='createJob()'>Post A Job</button>
   </div>
   <div class="gridContainer">
-    <inactive-job-card *ngFor='let job of jobs' [JobInput]='job' [type]="'org'" (active)="active($event)"></inactive-job-card>
+    <inactive-job-card *ngFor='let job of jobs' [JobInput]='job' [type]="'org'" (active)="active($event)" (contact)="addContact($event)"></inactive-job-card>
   </div>
 </div>
 <div *ngIf='!jobs' class="listContainer">

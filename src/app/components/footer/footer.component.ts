@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
-  versionNo: string = '1.03';
+  versionNo: string = '1.04';
 
   constructor() { }
 

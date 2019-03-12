@@ -9,6 +9,8 @@ import { RequestUpdateUser } from "src/redux/actions/user.actions";
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { IProfileCard } from "src/models/profile-card";
 import { IJob } from "src/models/job-model";
+import { MatDialog } from "@angular/material";
+import { UploadImageModalComponent } from "../modals/upload-image-modal/upload-image-modal.component";
 
 @Component({
   selector: "app-profile-menu",
@@ -30,7 +32,7 @@ export class ProfileMenuComponent implements OnInit {
   profileCards: IProfileCard[];
   jobHistory: IJob[];
 
-  constructor(private _notify: NotificationService, private store: Store) { }
+  constructor(private _notify: NotificationService, private store: Store, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.user$.subscribe(element => {
@@ -227,4 +229,19 @@ export class ProfileMenuComponent implements OnInit {
       this._notify.showError("Card limit reached", "You have reached the maximum amount of cards. Please remove or edit an existing card.")
     }
   }
+
+  editPic() {
+    const dialogRef = this.dialog.open(UploadImageModalComponent, {
+      data: "logo"
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (data !== undefined) {
+        console.log(data)
+        this.user.avatarUrl = data;
+      }
+    })
+  }
+
+  addSocialLink(s: ISocialLink) { this.user.socialLinks.push(s) }
 }

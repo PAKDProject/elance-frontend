@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IUser } from 'src/models/user-model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'contact-card',
@@ -11,13 +12,17 @@ export class ContactCardComponent implements OnInit {
   @Input('EditingInput') editing: boolean;
   @Output('RemoveEmit') removeEmit: EventEmitter<Partial<IUser>> = new EventEmitter<Partial<IUser>>();
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
   remove() {
     this.removeEmit.emit(this.contact);
+  }
+
+  contactUser() {
+    this.router.navigate(['/home/messages'])
   }
 
 

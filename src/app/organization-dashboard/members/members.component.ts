@@ -52,19 +52,21 @@ export class MembersComponent implements OnInit {
   }
 
   viewProfile(user: IUser) {
-    console.log(user)
-    this._viewProfileDialog.open(UserProfileModalComponent, {
-      data: {
-        user: user,
-        isOrg: true,
-        orgId: this.orgId
-      },
-    }).afterClosed().subscribe(() => {
-      this._store.dispatch(new RequestRefreshOrg());
+    this._userService.getUserByID(user.id).subscribe((res) => {
+      this._viewProfileDialog.open(UserProfileModalComponent, {
+        data: {
+          user: res,
+          isOrg: true,
+          orgId: this.orgId
+        },
+      }).afterClosed().subscribe(() => {
+        this._store.dispatch(new RequestRefreshOrg());
 
-      this._orgService.getOrganisationByID(this.orgId).subscribe((org) => {
-        this.members = org.members
-      })
-    });
+        this._orgService.getOrganisationByID(this.orgId).subscribe((org) => {
+          this.members = org.members
+        })
+      });
+    })
+
   }
 }
