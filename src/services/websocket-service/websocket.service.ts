@@ -105,7 +105,7 @@ export class WebsocketService {
           this._notifier.showWarning('Another session started you are about to be logged out...')
           this._authService.logout().subscribe(res => {
             console.log('Changing href')
-            window.location.href = "http://login.elance.site"
+            window.location.href = "https://login.intellilance.com/logout.html"
           }, err => {
             this._notifier.showError("Failed to logout!")
           })

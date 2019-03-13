@@ -2,7 +2,7 @@ import { IOrganisation } from "src/models/organisation-model";
 import { State, Selector, Action, Store, StateContext } from "@ngxs/store";
 import { CreateOrganisation, CreateOrganisationSuccess, CreateOrganisationFail, SetOrganisations, UpdateOrganisation, UpdateOrganisationSuccess, UpdateOrganisationFail, DeleteOrganisation, DeleteOrganisationSuccess, DeleteOrganisationFail, OrgAddPostedJob, AddActiveJobToOrg, AddContactToOrg, AddMemberToOrg, RequestRefreshOrg, RemovePostedJobOrg } from "../actions/organisation.actions";
 import { OrganisationService } from "src/services/organisation-service/organisation.service";
-import { RequestAddOrgToUser, RequestUpdateUserOrg, RequestDeleteOrgFromUser } from "../actions/user.actions";
+import { RequestAddOrgToUser, RequestUpdateUserOrg, RequestDeleteOrgFromUser, RequestAddContact } from "../actions/user.actions";
 import { UserService } from "src/services/user-service/user.service";
 import { IUser } from "src/models/user-model";
 import { StateChangeError } from "aws-sdk/clients/directconnect";
@@ -249,6 +249,8 @@ export class OrgsState {
           this._orgService.updateOrganisation({ contacts: contacts }, orgId).subscribe((res) => {
             orgs[index] = res;
 
+            this._store.dispatch(new RequestAddContact({ id: payload.id, fName: payload.fName, lName: payload.lName, avatarUrl: payload.avatarUrl }))
+
             patchState({ orgs: orgs });
           })
         }
@@ -279,7 +281,7 @@ export class OrgsState {
           this._userService.getUserByID(payload.id).subscribe(res => {
             let currentOrgs = res.organisations || [];
             currentOrgs.push(partialOrg);
-            this._userService.updateUser({organisations: currentOrgs}, payload.id).subscribe();
+            this._userService.updateUser({ organisations: currentOrgs }, payload.id).subscribe();
           });
         }
       });
