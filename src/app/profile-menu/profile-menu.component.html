@@ -1,5 +1,5 @@
 <div class="main-content">
-  <div class="container-fluid">
+  <div class="container-fluid" *ngIf='user'>
     <div class="profileHeader">
       <div class="bg-ImgContainer">
         <img src="../../assets/images/profile-background.png" />
@@ -41,18 +41,23 @@
           <h4>{{ (user$ | async).email }}</h4>
         </div>
 
-        <div class="socialConnectionContainer" *ngIf="(socialLinks && socialLinks.length > 0) && !editing">
-          <a *ngFor="let connection of socialLinks" href="{{connection.url}}" target="_blank">
+        <div class="socialConnectionContainer" *ngIf="(user.socialLinks && user.socialLinks.length > 0) && !editing">
+          <a *ngFor="let connection of user.socialLinks" href="{{connection.url}}" target="_blank">
             <img src="{{connection.imageUrl}}" id="{{connection.url}}" alt="{{connection.url}}" />
           </a>
         </div>
 
         <div class="socialConnectionContainer" *ngIf="editing">
-          <a *ngFor="let connection of socialLinks" href="{{connection.url}}" target="_blank">
-            <img src="{{connection.imageUrl}}" id="{{connection.url}}" alt="{{connection.url}}" />
-          </a>
+        <div *ngFor="let connection of user.socialLinks" class='socConnection'>
+          <div class='imgContainer'>
+            <img src="{{connection.imageUrl}}" alt="{{connection.url}}" />
+          </div>
+          <div class='delete' (click)='removeSocialLink(connection)'>
+            <mat-icon>close</mat-icon>
+          </div>
         </div>
-        <app-social-link style='justify-self: center' *ngIf='editing' (emitImageObject)='addSocialLink($event)'></app-social-link>
+        </div>
+        <app-social-link style='justify-self: center' *ngIf='editing' (emitImageObject)='saveSocialLink($event)'></app-social-link>
       </div>
 
       <div class="rightCol">
@@ -65,7 +70,7 @@
 
     <div class="profileBody">
       <div *ngIf='editing' cdkDropList (cdkDropListDropped)="drop($event)">
-        <div *ngFor='let card of profileCards; index as i' class="draggableContainer" cdkDrag>
+        <div *ngFor='let card of user.profileCards; index as i' class="draggableContainer" cdkDrag>
           <profile-row [card]='card' [arrayIndex]='i' [editing]='editing' cdkDrag (actionEmit)='rowAction($event)'>
           </profile-row>
 
@@ -90,7 +95,7 @@
       </div>
 
       <div *ngIf='!editing'>
-        <div *ngFor='let card of profileCards' class="nonDraggableContainer">
+        <div *ngFor='let card of user.profileCards' class="nonDraggableContainer">
           <profile-row [card]='card' [editing]='false'></profile-row>
         </div>
       </div>

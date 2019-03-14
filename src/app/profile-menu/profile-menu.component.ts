@@ -22,61 +22,41 @@ export class ProfileMenuComponent implements OnInit {
   @Select(UserState.getUser)
   user$: Observable<IUser>;
 
-  //@Select(UserState.getJobHistory)
-  //jobHistory$: Observable<IJob[]>;
-
-  skills: ISkills[];
-  educationItems: IEducationItem[];
-  socialLinks: ISocialLink[];
   user: Partial<IUser> = {};
-  profileCards: IProfileCard[];
-  jobHistory: IJob[];
 
   constructor(private _notify: NotificationService, private store: Store, private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.user$.subscribe(element => {
-      this.skills = element.skills;
-      this.educationItems = element.educationItems;
-      this.socialLinks = element.socialLinks;
-      this.profileCards = element.profileCards;
-      this.jobHistory = element.jobHistory;
+    this.getUser()
+  }
 
-      this.user = {
-        fName: element.fName,
-        lName: element.lName,
-        tagline: element.tagline,
-        summary: element.summary,
-        educationItems: element.educationItems,
-        skills: element.skills,
-        jobHistory: element.jobHistory
-      };
-
-      //this.jobHistory$.subscribe(j => this.jobHistory = j);
+  getUser() {
+    this.user$.subscribe(u => {
+      this.user = u
 
       //Assign content to preset cards
-      this.profileCards.forEach(c => {
+      u.profileCards.forEach(c => {
         switch (c.type) {
           case "bio":
-            c.content = element.summary
+            c.content = u.summary
             break;
           case "edu":
-            c.content = this.educationItems
+            c.content = u.educationItems
             break;
           case "skills":
-            c.content = this.skills
+            c.content = u.skills
             break;
           case "jobs":
-            c.content = this.jobHistory
+            c.content = u.jobHistory
             break;
         }
       });
-    });
+    }).unsubscribe()    
   }
 
   //Draggable components
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.profileCards, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.user.profileCards, event.previousIndex, event.currentIndex);
   }
 
   //Row actions
@@ -117,6 +97,7 @@ export class ProfileMenuComponent implements OnInit {
     if (this.editing) {
       this.store.dispatch(new RequestUpdateUser(this.user)).subscribe(res => {
         this.editing = !this.editing
+        this.getUser()
       });
     }
     else {
@@ -143,7 +124,7 @@ export class ProfileMenuComponent implements OnInit {
   }
   changeSkill(updatedSkill: ISkills) {
     console.log("Updating skill " + updatedSkill.skillTitle)
-    this.skills.forEach(skill => {
+    this.user.skills.forEach(skill => {
       if (skill.skillTitle === updatedSkill.skillTitle) {
         skill = updatedSkill;
       }
@@ -152,12 +133,12 @@ export class ProfileMenuComponent implements OnInit {
 
   removeSkill(rSkill: ISkills) {
     console.log("Removing skill " + rSkill.skillTitle)
-    const index: number = this.skills.findIndex(skill => {
+    const index: number = this.user.skills.findIndex(skill => {
       return skill === rSkill;
     });
 
     if (index != -1) {
-      this.skills.splice(index, 1);
+      this.user.skills.splice(index, 1);
     }
   }
 
@@ -189,41 +170,41 @@ export class ProfileMenuComponent implements OnInit {
 
   removeEducation(rEdu: IEducationItem) {
     console.log("removing education " + rEdu.degreeTitle)
-    const index: number = this.educationItems.findIndex(eduItem => {
+    const index: number = this.user.educationItems.findIndex(eduItem => {
       return eduItem === rEdu;
     });
 
     if (index != -1) {
-      this.educationItems.splice(index, 1);
+      this.user.educationItems.splice(index, 1);
     }
   }
 
   //Custom cards editing
   changeCustomCardTitle(e: { newTitle: string, indexInArray: number }) {
     console.log("Updating title of card at index " + e.indexInArray + " to " + e.newTitle);
-    this.profileCards[e.indexInArray].title = e.newTitle
+    this.user.profileCards[e.indexInArray].title = e.newTitle
   }
 
   changeCustomCardSummary(e: { newSummary: string, indexInArray: number }) {
     console.log("Updating text of card at index " + e.indexInArray + " to " + e.newSummary);
-    this.profileCards[e.indexInArray].content = e.newSummary
+    this.user.profileCards[e.indexInArray].content = e.newSummary
   }
 
   removeCustomCard(index) {
     console.log("removing custom card at index " + index)
-    this.profileCards.splice(index, 1);
+    this.user.profileCards.splice(index, 1);
   }
 
   addCustomCard() {
-    if (this.profileCards.length < 8) {
-      this.profileCards.push(
+    if (this.user.profileCards.length < 8) {
+      this.user.profileCards.push(
         {
           title: "Click to edit title",
           type: "custom",
           content: "Add your content here. This card supports markdown."
         }
       )
-      console.table(this.profileCards);
+      console.table(this.user.profileCards);
     }
     else {
       this._notify.showError("Card limit reached", "You have reached the maximum amount of cards. Please remove or edit an existing card.")
@@ -243,5 +224,18 @@ export class ProfileMenuComponent implements OnInit {
     })
   }
 
-  addSocialLink(s: ISocialLink) { this.user.socialLinks.push(s) }
+  //Editing social links
+  saveSocialLink($event) {
+    this.user.socialLinks.push($event)
+  }
+
+  removeSocialLink(s: ISocialLink) {
+    const index: number = this.user.socialLinks.findIndex(sLink => {
+      return sLink === s;
+    });
+
+    if (index != -1) {
+      this.user.socialLinks.splice(index, 1);
+    }
+  }
 }
