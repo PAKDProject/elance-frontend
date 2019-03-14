@@ -3,7 +3,7 @@
     height: 100%;
     display: grid;
     grid-template-rows: 60px 1fr;
-    // grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto;
     grid-template-areas: 'header jobButton'
                         //  'body   contacts';
                          'body body';
@@ -75,6 +75,7 @@
 
     .createJob {
         grid-area: jobButton;
+        align-self: center;
     }
     // contacts-card {
     //     grid-area: contacts;
@@ -82,6 +83,7 @@
 }
 @media only screen and (max-width: 1400px) {
     .pageContainer {
+        grid-template-columns: 1fr;
         grid-template-areas: 'header'
                              'jobButton'
                              'body'
