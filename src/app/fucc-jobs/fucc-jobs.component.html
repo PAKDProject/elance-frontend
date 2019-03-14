@@ -17,6 +17,6 @@
       <div>Payment: {{job.job.payment?(job.job.payment | currency: "EUR":"symbol":"1.2-2") :'unknown'}}</div>
       <div class='date'>Due: {{job.job.dateDue?(job.job.dateDue | date):'null'}}</div>
       <div>{{job.pointsForJob}} Points</div>
-      <button class='btn btn-sm' (click)='openJob(job)'>See More</button>
+      <button class='btn btn-sm' (click)='openJob(job.job)'>See More</button>
     </div>
   </div>
