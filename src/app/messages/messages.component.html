@@ -5,7 +5,7 @@
         <div class="topRow" *ngIf='contactsShown'>
           <h1>Contacts</h1>
         </div>
-        <div class='contactsList' *ngIf='contactsShown'>
+        <div class='contactsList' *ngIf='contactsShown && (user$|async).contacts.length > 0'>
           <div *ngFor='let contact of ((user$ | async ).contacts !== undefined) ? (user$ | async).contacts : null;'
             class='contactRow' (click)='openMessenger(contact)'>
             <div class='profilePic' [class.isOnline]="isOnline(contact.id)" [class.isOffline]="!isOnline(contact.id)">
@@ -17,6 +17,12 @@
             <div class='messageIcon'>
               <mat-icon>message</mat-icon>
             </div>
+          </div>
+        </div>
+        <div class='contactsList noContacts' *ngIf='contactsShown && (user$|async).contacts.length == 0'>
+          <div>
+            <mat-icon>sentiment_very_dissatisfied</mat-icon>
+            <h1>No Contacts</h1>
           </div>
         </div>
         <mat-icon (click)='toggleContacts()'>{{(contactsShown)?'keyboard_arrow_left':'keyboard_arrow_right'}}</mat-icon>

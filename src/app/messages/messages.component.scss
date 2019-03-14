@@ -24,6 +24,23 @@
             grid-area: list;
             background: #eaeaea;
         }
+
+        .noContacts {
+            display: grid;
+            justify-items: center;
+            align-items: center;
+            
+            div {
+                padding: 10px;
+                text-align: center;
+                
+                mat-icon {
+                    font-size: 60px;
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+        }
         
         mat-icon {
             grid-area: hide;
