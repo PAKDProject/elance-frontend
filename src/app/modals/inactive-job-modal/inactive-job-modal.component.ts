@@ -55,15 +55,15 @@ export class InactiveJobModalComponent implements OnInit {
           if (this.data.type === 'user') {
             this.user$.subscribe(u => {
               this.user = u
-
-              //Check if user is the poster of the job
-              if (u.id === res.employerID) { this.isEmployer = true }
+              //Check if this.user is the poster of the job
+              if (this.user.id === res.employerID) { this.isEmployer = true }
 
               //Check if user has applied for this job
               if (res.applicants) {
-                if (res.applicants.findIndex(a => a.id === u.id) != -1) { this.applied = true }
+                if (res.applicants.findIndex(a => a.id === this.user.id) !== -1) { this.applied = true }
               }
-            })
+            });
+
           }
           break;
         case 'org':

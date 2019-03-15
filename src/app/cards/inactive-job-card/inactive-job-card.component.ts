@@ -26,9 +26,11 @@ export class InactiveJobCardComponent {
     })
 
     dialogRef.afterClosed().subscribe((data: any) => {
-      if (data.active !== undefined && data.contact !== undefined) {
-        this.active.emit(data.active);
-        this.contact.emit(data.contact);
+      if (data) {
+        if (data.active && data.active !== undefined && data.contact && data.contact !== undefined) {
+          this.active.emit(data.active);
+          this.contact.emit(data.contact);
+        }
       }
     })
   }
